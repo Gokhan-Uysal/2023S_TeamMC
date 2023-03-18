@@ -1,8 +1,10 @@
 package app;
 
+import app.backend.connections.DatabaseConnection;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        DatabaseConnection postgres = new DatabaseConnection();
     }
-    
+
 }

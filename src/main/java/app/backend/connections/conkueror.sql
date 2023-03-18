@@ -1,5 +1,3 @@
-CREATE DATABASE conkueror;
-
 CREATE TABLE continent (
     id SERIAL,
     name VARCHAR(255),

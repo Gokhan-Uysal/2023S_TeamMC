@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ConKUeror" />
+        <module name="2023S_TeamMC" />
       </profile>
     </annotationProcessing>
   </component>
