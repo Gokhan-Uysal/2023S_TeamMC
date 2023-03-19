@@ -1,12 +1,11 @@
-package app.backend.connection;
+package app.data_access.connections;
 
 import app.common.EnvService;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ConnectionPool {
+public class ConnectionPool implements Runnable {
     private static final ArrayList<Connection> dbConnections = new ArrayList<>();
     private final int minInstance;
 
@@ -20,8 +19,10 @@ public class ConnectionPool {
     );
 
     public ConnectionPool(int minInstance){
-        this.minInstance = minInstance;
+        this.minInstance = Math.max(minInstance, 1);
         initMinConnections();
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     public void initMinConnections(){
@@ -62,4 +63,22 @@ public class ConnectionPool {
         return addConnectionToPool(connection);
     }
 
+    @Override
+    public void run() {
+        try{
+            while (true){
+                for (int i = minInstance; i < dbConnections.size(); i++){
+                    Connection connection = dbConnections.get(i);
+                    if (connection.isValid(1)){
+                        connection.close();
+                        dbConnections.remove(connection);
+                    }
+                }
+                Thread.sleep(10000);
+            }
+        }
+        catch (InterruptedException | SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

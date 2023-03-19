@@ -1,6 +1,5 @@
-package app.backend.connection;
+package app.data_access.connections;
 
-import app.common.EnvService;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
