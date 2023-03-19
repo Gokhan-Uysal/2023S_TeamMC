@@ -1,5 +1,6 @@
 package app.data_access.connections;
 
+import app.common.Layer;
 import app.common.Logger;
 
 import java.sql.Connection;
@@ -23,9 +24,9 @@ public class DatabaseConnection {
         loadDriver("org.postgresql.Driver");
         try {
             connection = DriverManager.getConnection(connectionUrl);
-            Logger.info("Database connected");
+            Logger.info(Layer.DataAccess,"Database connected");
         } catch (SQLException e) {
-            Logger.error(e);
+            Logger.error(Layer.DataAccess, e);
         }
     }
 }

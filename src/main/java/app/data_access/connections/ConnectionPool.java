@@ -1,6 +1,9 @@
 package app.data_access.connections;
 
 import app.common.EnvService;
+import app.common.Layer;
+import app.common.Logger;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,7 +47,7 @@ public class ConnectionPool implements Runnable {
     public static Connection findValidConnection(){
         for(Connection connection : dbConnections){
             try{
-                if (connection.isValid(5)){
+                if (connection.isValid(2)){
                     return connection;
                 }
             }
@@ -69,12 +72,13 @@ public class ConnectionPool implements Runnable {
             while (true){
                 for (int i = minInstance; i < dbConnections.size(); i++){
                     Connection connection = dbConnections.get(i);
-                    if (connection.isValid(1)){
+                    if (connection.isValid(5)){
                         connection.close();
                         dbConnections.remove(connection);
                     }
                 }
-                Thread.sleep(10000);
+                Thread.sleep(20000);
+                Logger.info(Layer.DataAccess, String.format("Active connections: %s", dbConnections.toString()));
             }
         }
         catch (InterruptedException | SQLException e){
