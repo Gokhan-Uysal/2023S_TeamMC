@@ -34,9 +34,13 @@ public class ConnectionPool implements Runnable {
         }
     }
 
-    public static Connection newConnection(){
+    public static Connection newConnection() throws  NullPointerException{
         DatabaseConnection db = new DatabaseConnection(dbConnectionUrl);
-        return  db.getConnection();
+        Connection connection = db.getConnection();
+        if (connection != null){
+            return  db.getConnection();
+        }
+        throw new NullPointerException("Connection is missing");
     }
 
     public static Connection addConnectionToPool(Connection connection){
