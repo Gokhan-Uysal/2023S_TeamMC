@@ -10,7 +10,7 @@ public class EnvService {
             return EnvService.env.get(key);
         }
         catch (NullPointerException e){
-            System.err.printf("Enviroment variable not found with %s", key);
+            System.err.printf("Environment variable not found with %s", key);
         }
         return null;
     }
