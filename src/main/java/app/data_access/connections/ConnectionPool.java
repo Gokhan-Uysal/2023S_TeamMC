@@ -49,7 +49,7 @@ public class ConnectionPool implements Runnable {
                 }
             }
             catch (SQLException e){
-                System.out.println("Connection error: " + e.getMessage());
+                e.printStackTrace();
             }
         }
         return null;
