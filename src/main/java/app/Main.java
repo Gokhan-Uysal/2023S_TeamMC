@@ -1,7 +1,6 @@
 package app;
 
 import app.data_access.connections.ConnectionPool;
-import app.data_access.repositories.BaseRepository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
