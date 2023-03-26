@@ -1,6 +1,5 @@
 package app.data_access.repositories.country;
 
-import app.common.Logger;
 import app.data_access.entities.Country;
 import app.data_access.repositories.BaseRepository;
 

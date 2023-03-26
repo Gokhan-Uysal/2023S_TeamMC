@@ -1,6 +1,5 @@
 package app.data_access.repositories.continent;
 
-import app.common.Logger;
 import app.data_access.entities.Continent;
 import app.data_access.repositories.BaseRepository;
 
@@ -47,7 +46,6 @@ public class ContinentRepository  extends BaseRepository {
         ArrayList<Continent> continents = new ArrayList<>();
         while (resultSet.next()){
             String name = resultSet.getString("name");
-            String contient = resultSet.getString("name");
             Continent.Builder continent = new Continent.Builder();
             continent.name(name);
 
