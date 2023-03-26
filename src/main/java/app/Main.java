@@ -15,7 +15,7 @@ public class Main {
         game.setVisible(true);
 
         // Add main components here
-        Map gameMap = new Map();
+        Map gameMap = new Map(100, 100);
         game.add(gameMap, BorderLayout.CENTER);
 
         Header header = new Header(50, AppConfig.color2);
