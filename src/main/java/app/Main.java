@@ -3,27 +3,27 @@ package app;
 import java.awt.BorderLayout;
 
 import app.common.AppConfig;
-import app.presentation.views.App;
+import app.presentation.views.Game;
 import app.presentation.views.Body.Map;
 import app.presentation.views.Footer.Footer;
 import app.presentation.views.Header.Header;
 
 public class Main {
     public static void main(String[] args) {
-        App app = new App(AppConfig.title, AppConfig.appSize, AppConfig.color1);
-        app.setLocation(AppConfig.screenSize);
-        app.setVisible(true);
+        Game game = new Game(AppConfig.title, AppConfig.appSize, AppConfig.color1);
+        game.setLocation(AppConfig.screenSize);
+        game.setVisible(true);
 
         // Add main components here
         Map gameMap = new Map();
-        app.add(gameMap, BorderLayout.CENTER);
+        game.add(gameMap, BorderLayout.CENTER);
 
-        Header header = new Header(50);
-        app.add(header, BorderLayout.NORTH);
+        Header header = new Header(50, AppConfig.color2);
+        game.add(header, BorderLayout.NORTH);
 
-        Footer footer = new Footer(50);
-        app.add(footer, BorderLayout.SOUTH);
+        Footer footer = new Footer(50, AppConfig.color3);
+        game.add(footer, BorderLayout.SOUTH);
 
-        app.refresh();
+        game.refresh();
     }
 }
