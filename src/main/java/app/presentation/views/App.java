@@ -1,5 +1,6 @@
 package app.presentation.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -17,11 +18,8 @@ public class App extends JFrame {
         this.setTitle(title);
         this.setDefaultCloseOperation(App.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(bgColor);
+        this.setLayout(new BorderLayout(10, 10));
         this.setResizable(false);
-    }
-
-    public void setBackgroundColor(Color color) {
-        this.getContentPane().setBackground(color);
     }
 
     public void setAppIcon(ImageIcon icon) {
