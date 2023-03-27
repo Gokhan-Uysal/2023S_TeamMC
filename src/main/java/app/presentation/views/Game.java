@@ -18,7 +18,7 @@ public class Game extends JFrame {
         this.setTitle(title);
         this.setDefaultCloseOperation(Game.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(bgColor);
-        this.setLayout(new BorderLayout(10, 10));
+        this.setLayout(new BorderLayout());
         this.setResizable(false);
     }
 
