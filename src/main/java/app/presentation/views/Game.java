@@ -19,7 +19,7 @@ public class Game extends JFrame {
         this.setDefaultCloseOperation(Game.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(bgColor);
         this.setLayout(new BorderLayout());
-        this.setResizable(false);
+        // this.setResizable(false);
     }
 
     public void setAppIcon(ImageIcon icon) {

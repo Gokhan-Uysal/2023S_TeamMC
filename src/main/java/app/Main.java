@@ -18,7 +18,7 @@ public class Main {
         Header header = new Header(50, AppConfig.color2);
         game.add(header, BorderLayout.NORTH);
 
-        Body body = new Body(new Map(50, 100));
+        Body body = new Body(new Map(100, 150));
         game.add(body);
 
         Footer footer = new Footer(50, AppConfig.color3);

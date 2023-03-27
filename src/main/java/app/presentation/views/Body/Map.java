@@ -2,7 +2,6 @@ package app.presentation.views.Body;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 
@@ -39,6 +38,9 @@ public class Map extends JPanel {
             for (int j = 0; j < longitudes; j++) {
                 JPanel ter = new JPanel();
                 ter.setBackground(Color.BLUE);
+                if (i == 20 && j == 20) {
+                    ter.setBackground(Color.BLACK);
+                }
                 this.mapGrid[i][j] = ter;
             }
         }
