@@ -1,24 +1,26 @@
 package app.presentation.views.Body;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import app.presentation.views.Body.Map.Map;
 
 public class Body extends JPanel {
     public Map gameMap;
 
     public Body(Map gameMap) {
-        buildView(gameMap);
+        buildClass(gameMap);
+        buildView();
     }
 
-    public void buildView(Map gameMap) {
-        this.gameMap = gameMap;
+    private void buildView() {
         this.setLayout(new BorderLayout());
-        JScrollPane scrollPane = new JScrollPane(gameMap,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(new JScrollPane(gameMap), BorderLayout.CENTER);
+    }
+
+    private void buildClass(Map gameMap) {
+        this.gameMap = gameMap;
         gameMap.loadMap();
         gameMap.drawMap();
     }

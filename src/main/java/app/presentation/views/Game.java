@@ -14,7 +14,7 @@ public class Game extends JFrame {
     }
 
     private void initApp(String title, Dimension size, Color bgColor) {
-        this.setSize(size);
+        this.setPreferredSize(size);
         this.setTitle(title);
         this.setDefaultCloseOperation(Game.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(bgColor);
