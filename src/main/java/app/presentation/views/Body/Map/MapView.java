@@ -11,8 +11,14 @@ import app.common.Exceptions.ItemAlreadyExists;
 
 public class MapView extends JPanel {
 
-    public MapView() {
-        buildClass();
+    private int pixelSize;
+
+    public int getPixelSize() {
+        return pixelSize;
+    }
+
+    public MapView(int pixelSize) {
+        buildClass(pixelSize);
         buildView();
     }
 
@@ -20,7 +26,8 @@ public class MapView extends JPanel {
         this.setLayout(new GridBagLayout());
     }
 
-    private void buildClass() {
+    private void buildClass(int pixelSize) {
+        this.pixelSize = pixelSize;
     }
 
     public void drawMapPixel(Component component, int i, int j) {

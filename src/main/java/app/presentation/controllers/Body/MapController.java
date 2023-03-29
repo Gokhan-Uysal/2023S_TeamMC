@@ -44,7 +44,8 @@ public class MapController {
         Component[][] mapGrid = new Component[latitudes][longitudes];
         for (int i = 0; i < latitudes; i++) {
             for (int j = 0; j < longitudes; j++) {
-                Image resizedImage = pixelMap[i][j].getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+                Image resizedImage = pixelMap[i][j].getScaledInstance(mapView.getPixelSize(), mapView.getPixelSize(),
+                        Image.SCALE_SMOOTH);
                 mapGrid[i][j] = new Territory("Canada", resizedImage);
             }
         }

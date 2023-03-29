@@ -32,7 +32,7 @@ public class Body extends JPanel {
     }
 
     private void initMap() {
-        this.mapView = new MapView();
+        this.mapView = new MapView(15);
         this.mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror.png"), 55);
         this.mapController = new MapController(mapService, mapView);
     }
