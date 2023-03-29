@@ -1,27 +1,43 @@
 package app.presentation.views.Body;
 
 import java.awt.BorderLayout;
+import java.io.File;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import app.presentation.views.Body.Map.Map;
+import app.business.services.MapService;
+import app.presentation.controllers.Body.MapController;
+import app.presentation.views.Body.Map.MapView;
 
 public class Body extends JPanel {
-    public Map gameMap;
 
-    public Body(Map gameMap) {
-        buildClass(gameMap);
+    // Map mvc init
+    public MapView mapView;
+    public MapService mapService;
+    public MapController mapController;
+
+    public Body() {
+        buildClass();
         buildView();
     }
 
     private void buildView() {
         this.setLayout(new BorderLayout());
-        this.add(new JScrollPane(gameMap), BorderLayout.CENTER);
+        this.add(new JScrollPane(mapView), BorderLayout.CENTER);
     }
 
-    private void buildClass(Map gameMap) {
-        this.gameMap = gameMap;
-        gameMap.loadMap();
-        gameMap.drawMap();
+    private void buildClass() {
+        initMap();
+    }
+
+    private void initMap() {
+        this.mapView = new MapView();
+        this.mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror.png"), 55);
+        this.mapController = new MapController(mapService, mapView);
+    }
+
+    public void drawMap() {
+        this.mapController.drawMap();
     }
 }

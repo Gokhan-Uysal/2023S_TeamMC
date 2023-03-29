@@ -7,7 +7,6 @@ import javax.swing.SwingUtilities;
 import app.common.AppConfig;
 import app.presentation.views.Game;
 import app.presentation.views.Body.Body;
-import app.presentation.views.Body.Map.Map;
 import app.presentation.views.Footer.Footer;
 import app.presentation.views.Header.Header;
 
@@ -22,7 +21,8 @@ public class Main {
             Header header = new Header(50, AppConfig.color2);
             game.add(header, BorderLayout.NORTH);
 
-            Body body = new Body(new Map(55, 25));
+            Body body = new Body();
+            body.drawMap();
             game.add(body, BorderLayout.CENTER);
 
             Footer footer = new Footer(50, AppConfig.color3);
