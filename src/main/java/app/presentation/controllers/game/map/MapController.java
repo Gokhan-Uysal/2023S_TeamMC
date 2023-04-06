@@ -1,19 +1,17 @@
-package app.presentation.controllers.main.map;
+package app.presentation.controllers.game.map;
 
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 import app.business.services.MapService;
-import app.common.Logger;
-import app.presentation.views.main.view.Map.MapView;
-import app.presentation.views.main.view.Map.Territory;
+import app.presentation.views.game.Map.MapPanel;
+import app.presentation.views.game.Map.TerritoryLabel;
 
 public class MapController {
 
     private MapService mapService;
-    private MapView mapView;
+    private MapPanel mapPanel;
 
     private int latitudes;
     private int longitudes;
@@ -26,9 +24,9 @@ public class MapController {
         return longitudes;
     }
 
-    public MapController(MapService mapService, MapView mapView) {
+    public MapController(MapService mapService, MapPanel mapView) {
         this.mapService = mapService;
-        this.mapView = mapView;
+        this.mapPanel = mapView;
     }
 
     private BufferedImage[][] loadMapPixels() {
@@ -43,16 +41,16 @@ public class MapController {
         Component[][] mapGrid = new Component[latitudes][longitudes];
         for (int i = 0; i < latitudes; i++) {
             for (int j = 0; j < longitudes; j++) {
-                Image resizedImage = pixelMap[i][j].getScaledInstance(mapView.getPixelSize(), mapView.getPixelSize(),
+                Image resizedImage = pixelMap[i][j].getScaledInstance(mapPanel.getPixelSize(), mapPanel.getPixelSize(),
                         Image.SCALE_SMOOTH);
-                mapGrid[i][j] = new Territory("Canada", resizedImage);
+                mapGrid[i][j] = new TerritoryLabel("Canada", resizedImage);
             }
         }
         return mapGrid;
     }
 
     public void drawMap() {
-        mapView.drawMap(loadMap(), latitudes, longitudes);
-        mapView.refresh();
+        mapPanel.drawMap(loadMap(), latitudes, longitudes);
+        mapPanel.refresh();
     }
 }

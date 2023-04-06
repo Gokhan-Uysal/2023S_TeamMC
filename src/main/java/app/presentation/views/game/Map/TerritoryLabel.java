@@ -1,20 +1,19 @@
-package app.presentation.views.main.view.Map;
+package app.presentation.views.game.Map;
 
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import app.common.Logger;
 
-public class Territory extends JLabel {
+public class TerritoryLabel extends JLabel {
     public String name;
 
-    public Territory(String name, Image resizedImage) {
+    public TerritoryLabel(String name, Image resizedImage) {
         super(new ImageIcon(resizedImage));
         this.buildClass(name);
         this.buildView();

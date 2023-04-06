@@ -2,6 +2,7 @@ package app.common;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 public class AppConfig {
@@ -25,4 +26,9 @@ public class AppConfig {
 
     // Screen size
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+    // Location
+    private static final int xLocation = (screenSize.width / 2) - width / 2;
+    private static final int yLocation = (screenSize.height / 2) - height / 2;
+    public static final Point appLocation = new Point(xLocation, yLocation);
 }

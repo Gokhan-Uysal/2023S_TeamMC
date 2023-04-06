@@ -1,4 +1,4 @@
-package app.presentation.views.main.view.Map;
+package app.presentation.views.game.Map;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -9,7 +9,7 @@ import app.common.Layer;
 import app.common.Logger;
 import app.common.Exceptions.ItemAlreadyExists;
 
-public class MapView extends JPanel {
+public class MapPanel extends JPanel {
 
     private int pixelSize;
 
@@ -17,7 +17,7 @@ public class MapView extends JPanel {
         return pixelSize;
     }
 
-    public MapView(int pixelSize) {
+    public MapPanel(int pixelSize) {
         buildClass(pixelSize);
         buildView();
     }
