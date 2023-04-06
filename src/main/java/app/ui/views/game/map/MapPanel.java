@@ -1,4 +1,4 @@
-package app.presentation.views.game.Map;
+package app.ui.views.game.map;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;

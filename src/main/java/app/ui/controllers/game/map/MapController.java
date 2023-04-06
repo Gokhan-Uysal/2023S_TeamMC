@@ -1,12 +1,12 @@
-package app.presentation.controllers.game.map;
+package app.ui.controllers.game.map;
 
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import app.business.services.MapService;
-import app.presentation.views.game.Map.MapPanel;
-import app.presentation.views.game.Map.TerritoryLabel;
+import app.model.MapService;
+import app.ui.views.game.map.MapPanel;
+import app.ui.views.game.map.TerritoryLabel;
 
 public class MapController {
 
@@ -51,6 +51,5 @@ public class MapController {
 
     public void drawMap() {
         mapPanel.drawMap(loadMap(), latitudes, longitudes);
-        mapPanel.refresh();
     }
 }

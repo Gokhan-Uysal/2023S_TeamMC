@@ -1,4 +1,4 @@
-package app.presentation.views.components;
+package app.ui.views.components;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
