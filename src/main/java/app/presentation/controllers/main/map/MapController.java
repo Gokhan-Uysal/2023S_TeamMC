@@ -1,15 +1,14 @@
-package app.presentation.controllers.Body;
+package app.presentation.controllers.main.map;
 
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Arrays;
 
 import app.business.services.MapService;
 import app.common.Logger;
-import app.presentation.views.Body.Map.MapView;
-import app.presentation.views.Body.Map.Territory;
+import app.presentation.views.main.view.Map.MapView;
+import app.presentation.views.main.view.Map.Territory;
 
 public class MapController {
 
@@ -49,7 +48,6 @@ public class MapController {
                 mapGrid[i][j] = new Territory("Canada", resizedImage);
             }
         }
-        Logger.log(Arrays.toString(mapGrid));
         return mapGrid;
     }
 

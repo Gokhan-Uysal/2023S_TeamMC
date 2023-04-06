@@ -1,9 +1,11 @@
-package app.presentation.views;
+package app.presentation.views.components;
+
+import app.presentation.views.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
-abstract class BaseJFrame extends JFrame {
+public abstract class BaseJFrame extends JFrame {
 
     public BaseJFrame(String title, Dimension size, Color bgColor){
         initApp(title, size, bgColor);
@@ -18,19 +20,16 @@ abstract class BaseJFrame extends JFrame {
 
     }
 
-    abstract void buildComponents();
-    void setLocation(Dimension screenSize){
+    public abstract void buildComponents();
+    public void setLocation(Dimension screenSize){
         int centerX = screenSize.width / 2;
         int centerY = screenSize.height / 2;
 
         this.setLocation(centerX - this.getWidth() / 2, centerY - this.getHeight() / 2);
 
     };
-    void refresh(){
+    public void refresh(){
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
-    };
-    void setVisibility(boolean isVisible){
-        this.setVisible(isVisible);
     };
 }

@@ -1,4 +1,4 @@
-package app.presentation.views.Body;
+package app.presentation.views.main.view;
 
 import java.awt.BorderLayout;
 import java.io.File;
@@ -7,17 +7,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import app.business.services.MapService;
-import app.presentation.controllers.Body.MapController;
-import app.presentation.views.Body.Map.MapView;
+import app.presentation.controllers.main.map.MapController;
+import app.presentation.views.main.view.Map.MapView;
 
-public class Body extends JPanel {
+public class MapPanel extends JPanel {
 
     // Map mvc init
     public MapView mapView;
     public MapService mapService;
     public MapController mapController;
 
-    public Body() {
+    public MapPanel() {
         buildClass();
         buildView();
     }

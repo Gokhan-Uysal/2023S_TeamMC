@@ -1,4 +1,4 @@
-package app.presentation.views.Body.Map;
+package app.presentation.views.main.view.Map;
 
 import java.awt.Dimension;
 import java.awt.Image;
