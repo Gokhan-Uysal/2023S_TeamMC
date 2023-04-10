@@ -1,4 +1,4 @@
-package app.model;
+package app.domain.services;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

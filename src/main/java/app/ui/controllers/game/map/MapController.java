@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import app.model.MapService;
+import app.domain.services.MapService;
 import app.ui.views.game.map.MapPanel;
 import app.ui.views.game.map.TerritoryLabel;
 

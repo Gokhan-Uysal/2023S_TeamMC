@@ -1,7 +1,6 @@
 package app.ui.views.game;
 
-import app.common.AppConfig;
-import app.model.MapService;
+import app.domain.services.MapService;
 import app.ui.controllers.game.map.MapController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.map.MapPanel;
