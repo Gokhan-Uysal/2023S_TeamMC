@@ -8,7 +8,7 @@ import app.domain.services.MapService;
 import app.ui.views.game.map.MapPanel;
 import app.ui.views.game.map.TerritoryLabel;
 
-public class MapController {
+public class MapPanelController {
 
     private MapService mapService;
     private MapPanel mapPanel;
@@ -24,7 +24,7 @@ public class MapController {
         return longitudes;
     }
 
-    public MapController(MapService mapService, MapPanel mapView) {
+    public MapPanelController(MapService mapService, MapPanel mapView) {
         this.mapService = mapService;
         this.mapPanel = mapView;
     }

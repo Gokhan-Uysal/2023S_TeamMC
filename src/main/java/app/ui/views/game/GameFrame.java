@@ -1,11 +1,12 @@
 package app.ui.views.game;
 
 import app.domain.services.MapService;
-import app.ui.controllers.game.map.MapController;
+import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.map.MapPanel;
 
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
@@ -15,7 +16,7 @@ public class GameFrame extends BaseJFrame {
     // Map mvc
     private MapPanel mapPanel;
     private MapService mapService;
-    private MapController mapController;
+    private MapPanelController mapController;
 
     public GameFrame(String title, Dimension size, Point location) {
         super(title, size, location);
@@ -28,7 +29,7 @@ public class GameFrame extends BaseJFrame {
     public void initilizeComponents() {
         mapPanel = new MapPanel(15);
         mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror.png"), 55);
-        mapController = new MapController(mapService, mapPanel);
+        mapController = new MapPanelController(mapService, mapPanel);
     }
 
     @Override

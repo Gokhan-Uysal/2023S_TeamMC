@@ -1,7 +1,5 @@
 package app;
 
-import java.awt.Point;
-
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
