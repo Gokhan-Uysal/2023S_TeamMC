@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
-import app.common.Layer;
 import app.common.Logger;
 import app.common.Exceptions.ItemAlreadyExists;
 
@@ -55,7 +54,7 @@ public class MapPanel extends JPanel {
                     this.validatePixel(mapGrid, i, j);
                     this.drawMapPixel(mapGrid[i][j], i, j);
                 } catch (IndexOutOfBoundsException | ItemAlreadyExists | NullPointerException e) {
-                    Logger.error(Layer.Presentation, e);
+                    Logger.error(e);
                 }
             }
         }

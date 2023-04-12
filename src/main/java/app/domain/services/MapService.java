@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import app.common.Layer;
 import app.common.Logger;
 
 public class MapService {
@@ -37,7 +36,7 @@ public class MapService {
             }
             return tiles;
         } catch (IOException e) {
-            Logger.error(Layer.Business, e);
+            Logger.error(e);
         }
 
         return new BufferedImage[0][0];
