@@ -1,9 +1,12 @@
 package app.domain.services;
 
-public class GameManagerService extends BasePublisher {
+public class GameManagerService extends BasePublisher<Integer> {
     private static GameManagerService _instance;
+    private static Integer _gameState;
 
     private GameManagerService() {
+        super(_gameState);
+        setState(0);
     }
 
     public static GameManagerService getInstance() {
@@ -12,4 +15,5 @@ public class GameManagerService extends BasePublisher {
         }
         return GameManagerService._instance;
     }
+
 }

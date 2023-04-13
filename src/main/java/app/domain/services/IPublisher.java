@@ -1,9 +1,13 @@
 package app.domain.services;
 
-public interface IPublisher {
-    boolean addSubscriber(ISubscriber subscriber);
+public interface IPublisher<MessageType> {
+    boolean addSubscriber(ISubscriber<MessageType> subscriber);
 
-    boolean removeSubscriber(ISubscriber subscriber);
+    boolean removeSubscriber(ISubscriber<MessageType> subscriber);
 
-    <T> void notifySubscribers(T message);
+    void notifySubscribers(MessageType message);
+
+    void setState(MessageType newState);
+
+    MessageType getState();
 }

@@ -1,5 +1,5 @@
 package app.domain.services;
 
-public interface ISubscriber {
-    <T> void update(T message);
+public interface ISubscriber<MessageType> {
+    void update(MessageType message);
 }

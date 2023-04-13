@@ -1,14 +1,21 @@
 package app.domain.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.common.Logger;
 
-public class BasePublisher implements IPublisher {
-    private ArrayList<ISubscriber> subscribers;
+public abstract class BasePublisher<MessageType> implements IPublisher<MessageType> {
+    private List<ISubscriber<MessageType>> subscribers;
+    private MessageType message;
+
+    public BasePublisher(MessageType message) {
+        subscribers = new ArrayList<>();
+        this.message = message;
+    }
 
     @Override
-    public boolean addSubscriber(ISubscriber subscriber) {
+    public boolean addSubscriber(ISubscriber<MessageType> subscriber) {
         boolean response = subscribers.add(subscriber);
         if (response) {
             Logger.info(String.format("New subscriber added: %s", subscriber.toString()));
@@ -20,7 +27,7 @@ public class BasePublisher implements IPublisher {
     }
 
     @Override
-    public boolean removeSubscriber(ISubscriber subscriber) {
+    public boolean removeSubscriber(ISubscriber<MessageType> subscriber) {
         boolean response = subscribers.remove(subscriber);
         if (response) {
             Logger.info(String.format("New subscriber removed: %s", subscriber.toString()));
@@ -32,12 +39,20 @@ public class BasePublisher implements IPublisher {
     }
 
     @Override
-    public <T> void notifySubscribers(T message) {
-        Logger.info("Game state is changed");
+    public void notifySubscribers(MessageType message) {
         for (int i = 0; i < subscribers.size(); i++) {
-            ISubscriber subscriber = subscribers.get(i);
+            ISubscriber<MessageType> subscriber = subscribers.get(i);
             subscriber.update(message);
         }
     }
 
+    @Override
+    public void setState(MessageType newState) {
+        this.message = newState;
+    }
+
+    @Override
+    public MessageType getState() {
+        return this.message;
+    }
 }
