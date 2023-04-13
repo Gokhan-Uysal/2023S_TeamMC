@@ -1,2 +1,2 @@
-mvn clean install
+mvn install
 mvn exec:java -Dexec.mainClass=app.Main

@@ -1,11 +1,14 @@
 package app;
 
-import app.common.Logger;
-import app.data_access.connections.ConnectionPool;
+import javax.swing.SwingUtilities;
+
+import app.common.AppConfig;
+import app.ui.views.menu.MainMenuFrame;
 
 public class Main {
     public static void main(String[] args) {
-        ConnectionPool cp = new ConnectionPool();
-        ConnectionPool.getValidConnection();
+        SwingUtilities.invokeLater(() -> {
+            new MainMenuFrame("Main Menu", AppConfig.appSize);
+        });
     }
 }
