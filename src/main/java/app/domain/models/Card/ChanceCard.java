@@ -1,9 +1,11 @@
 package app.domain.models.Card;
 
-public class ChanceCard implements ICard{
+import javax.swing.ImageIcon;
 
-    @Override
-    public void draw() {
-        System.out.println("This is a chance card.");
+public class ChanceCard extends BaseCard {
+
+    protected ChanceCard(String description, ImageIcon imageIcon) {
+        super(ChanceCard.class.getName(), description, imageIcon);
     }
+
 }

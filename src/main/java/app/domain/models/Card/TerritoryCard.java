@@ -1,14 +1,12 @@
 package app.domain.models.Card;
 
-public class TerritoryCard implements ICard{
+import javax.swing.ImageIcon;
 
+public class TerritoryCard extends BaseCard {
     private int territoryId;
-    @Override
-    public void draw() {
-        System.out.println("This is a territory card.");
-    }
 
-    public TerritoryCard(int territoryId) {
+    protected TerritoryCard(String description, ImageIcon imageIcon, int territoryId) {
+        super(TerritoryCard.class.getName(), description, imageIcon);
         this.territoryId = territoryId;
     }
 

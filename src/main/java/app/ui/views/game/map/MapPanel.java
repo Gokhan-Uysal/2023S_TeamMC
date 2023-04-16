@@ -6,7 +6,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import app.common.Logger;
-import app.common.Exceptions.ItemAlreadyExists;
 
 public class MapPanel extends JPanel {
 
@@ -38,7 +37,7 @@ public class MapPanel extends JPanel {
     }
 
     public void validatePixel(Component[][] mapGrid, int i, int j)
-            throws IndexOutOfBoundsException, ItemAlreadyExists, NullPointerException {
+            throws IndexOutOfBoundsException, NullPointerException {
         if (i >= mapGrid.length || j >= mapGrid[0].length) {
             throw new IndexOutOfBoundsException(String.format("Cannot add component to x: %d, y: %d", i, j));
         }
@@ -53,7 +52,7 @@ public class MapPanel extends JPanel {
                 try {
                     this.validatePixel(mapGrid, i, j);
                     this.drawMapPixel(mapGrid[i][j], i, j);
-                } catch (IndexOutOfBoundsException | ItemAlreadyExists | NullPointerException e) {
+                } catch (IndexOutOfBoundsException | NullPointerException e) {
                     Logger.error(e);
                 }
             }
