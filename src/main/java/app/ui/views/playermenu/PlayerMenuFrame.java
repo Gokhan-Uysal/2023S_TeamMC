@@ -89,16 +89,21 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) {
+            ArrayList<String> newNames = new ArrayList<String>();
+            for (PlayerPanelController playerPanelController : playerPanelControllers) {
+                newNames.addAll(playerPanelController.newNames);
+            }
+            if (newNames.size() < 2) {
+                JOptionPane.showMessageDialog(this, "Please enter name for at least 2 players", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             int a = JOptionPane.showConfirmDialog(this, "Are you sure? Do you want to start playing?");
             if (a == JOptionPane.YES_OPTION) {
                 JFrame rootFrame = getRootFrame();
                 Point location = rootFrame.getLocation();
                 rootFrame.dispose();
 
-                ArrayList<String> newNames = new ArrayList<String>();
-                for (PlayerPanelController playerPanelController : playerPanelControllers) {
-                    newNames.addAll(playerPanelController.newNames);
-                }
                 PlayerService.createPlayer(newNames);
 
                 new GameFrame(AppConfig.title, AppConfig.appSize, location);
