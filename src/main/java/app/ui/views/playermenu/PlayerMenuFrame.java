@@ -12,14 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
-    private PlayerPanel playerPanel1;
-    private PlayerPanelController playerPanelController1;
-
-    private PlayerPanel playerPanel2;
-    private PlayerPanelController playerPanelController2;
+    private ArrayList<PlayerPanel> playerPanels = new ArrayList<PlayerPanel>();
+    private ArrayList<PlayerPanelController> playerPanelControllers = new ArrayList<PlayerPanelController>();
 
     private final JLabel welcomeLabel;
     private final JLabel contextLabel;
@@ -49,12 +47,16 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
     @Override
     public void initilizeComponents() {
-        playerPanel1 = new PlayerPanel(50, 100);
-        playerPanelController1 = new PlayerPanelController(playerPanel1);
+        int[] xCoords = {50, 50, 50, 870, 870, 870};
+        int[] yCoords = {100, 250, 400, 100, 250, 400};
 
-        playerPanel2 = new PlayerPanel(50, 250);
-        playerPanelController2 = new PlayerPanelController(playerPanel2);
+        for (int i = 0; i < xCoords.length; i++) {
+            PlayerPanel playerPanel = new PlayerPanel(xCoords[i], yCoords[i]);
+            playerPanels.add(playerPanel);
 
+            PlayerPanelController playerPanelController = new PlayerPanelController(playerPanel);
+            playerPanelControllers.add(playerPanelController);
+        }
     }
 
     @Override
@@ -69,15 +71,19 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
     @Override
     public void addComponents() {
-        this.add(playerPanel1);
-        this.add(playerPanel2);
+        for (PlayerPanel playerPanel : playerPanels) {
+            this.add(playerPanel);
+        }
+
         this.add(playButton);
+
         this.add(welcomeLabel);
         this.add(contextLabel);
     }
 
     private JFrame getRootFrame() {
-        return (JFrame) SwingUtilities.getWindowAncestor(playerPanel1);
+        return (JFrame) SwingUtilities.getWindowAncestor(playerPanels.get(0));
+
     }
 
     @Override
@@ -88,8 +94,13 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
                 JFrame rootFrame = getRootFrame();
                 Point location = rootFrame.getLocation();
                 rootFrame.dispose();
-                PlayerService.createPlayer(playerPanelController1.newNames);
-                PlayerService.createPlayer(playerPanelController2.newNames);
+
+                ArrayList<String> newNames = new ArrayList<String>();
+                for (PlayerPanelController playerPanelController : playerPanelControllers) {
+                    newNames.addAll(playerPanelController.newNames);
+                }
+                PlayerService.createPlayer(newNames);
+
                 new GameFrame(AppConfig.title, AppConfig.appSize, location);
                 this.setVisible(false);
             }
