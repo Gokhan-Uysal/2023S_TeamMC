@@ -8,11 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
-import app.domain.models.Player.Player;
-import app.ui.views.game.GameFrame;
 import app.ui.views.menu.ButtonsPanel;
-import app.ui.views.menu.MainMenuFrame;
-import app.ui.views.playermenu.PlayerMenuFrame;
+import app.ui.views.menu.playermenu.PlayerMenuFrame;
 import app.util.ActionListenerUtil;
 
 public class ButtonsPanelController implements ActionListener {

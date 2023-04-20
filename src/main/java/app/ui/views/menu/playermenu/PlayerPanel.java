@@ -1,4 +1,4 @@
-package app.ui.views.playermenu;
+package app.ui.views.menu.playermenu;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,6 @@
 package app.domain.services;
 
 import app.domain.models.Player.Player;
-import app.ui.controllers.playermenu.PlayerPanelController;
 
 import java.util.ArrayList;
 

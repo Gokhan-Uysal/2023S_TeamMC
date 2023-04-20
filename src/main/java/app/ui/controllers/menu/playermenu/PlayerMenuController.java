@@ -1,6 +1,6 @@
-package app.ui.controllers.playermenu;
+package app.ui.controllers.menu.playermenu;
 
-import app.ui.views.playermenu.PlayerMenuFrame;
+import app.ui.views.menu.playermenu.PlayerMenuFrame;
 
 public class PlayerMenuController {
 

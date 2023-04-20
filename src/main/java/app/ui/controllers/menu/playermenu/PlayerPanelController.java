@@ -1,15 +1,9 @@
-package app.ui.controllers.playermenu;
+package app.ui.controllers.menu.playermenu;
 
-import app.common.AppConfig;
-import app.domain.models.Player.Player;
 import app.domain.services.PlayerService;
-import app.ui.views.game.GameFrame;
-import app.ui.views.menu.ButtonsPanel;
-import app.ui.views.playermenu.PlayerPanel;
+import app.ui.views.menu.playermenu.PlayerPanel;
 import app.util.ActionListenerUtil;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

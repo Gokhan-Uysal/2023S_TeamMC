@@ -1,12 +1,10 @@
-package app.ui.views.playermenu;
+package app.ui.views.menu.playermenu;
 
 import app.common.AppConfig;
 import app.domain.services.PlayerService;
-import app.ui.controllers.menu.ButtonsPanelController;
-import app.ui.controllers.playermenu.PlayerPanelController;
+import app.ui.controllers.menu.playermenu.PlayerPanelController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.GameFrame;
-import app.ui.views.menu.ButtonsPanel;
 
 import javax.swing.*;
 import java.awt.*;
