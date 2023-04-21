@@ -1,9 +1,10 @@
 package app.domain.models.ArmyUnit;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
 public class Artillery extends ArmyUnit{
-    protected Artillery(String description, ImageIcon imageIcon) {
-        super(Artillery.class.getName(), description, imageIcon);
+    protected Artillery(String description) {
+        super(Artillery.class.getName(), description);
+        this.value = 10;
     }
 }

@@ -6,11 +6,11 @@ abstract class ArmyUnit {
     protected String name;
     protected String description;
     protected ImageIcon imageIcon;
+    protected int value;
 
-    protected ArmyUnit(String name, String description, ImageIcon imageIcon){
+    protected ArmyUnit(String name, String description){
         this.name = name;
         this.description = description;
-        this.imageIcon = imageIcon;
     }
 
     protected String getName() {
