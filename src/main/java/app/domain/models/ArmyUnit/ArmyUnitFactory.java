@@ -2,17 +2,15 @@ package app.domain.models.ArmyUnit;
 
 public class ArmyUnitFactory {
 
-    protected String type;
-
-    protected ArmyUnit create(String type){
+    protected ArmyUnit create(ArmyUnitType type){
 
         ArmyUnit aUnit;
 
-        if (type.equals("Infantry")){
+        if (type.equals(ArmyUnitType.Infantry)){
             aUnit = new Infantry("An infantry unit.");
-        } else if (type.equals("Chivalry")){
+        } else if (type.equals(ArmyUnitType.Chivalry)){
             aUnit = new Chivalry("A chivalry unit.");
-        } else if (type.equals("Artillery")){
+        } else if (type.equals(ArmyUnitType.Artillery)){
             aUnit = new Artillery("An artillery unit.");
         } else{
             aUnit = null;

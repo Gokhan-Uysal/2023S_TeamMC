@@ -6,7 +6,7 @@ public class Army {
     protected ArrayList<ArmyUnit> armyContainer = new ArrayList<>();
     protected ArmyUnitFactory armyUnitFactory = new ArmyUnitFactory();
 
-    public void addArmyUnits(String type, int amount){
+    public void addArmyUnits(ArmyUnitType type, int amount){
         for (int i = 0; i < amount; i++){
             this.armyContainer.add(armyUnitFactory.create(type));
         }
@@ -19,4 +19,8 @@ public class Army {
         }
         return aUnits;
     }
+
+    public void transferArmyUnits(){}
+
+    public void tradeArmyUnits(){}
 }
