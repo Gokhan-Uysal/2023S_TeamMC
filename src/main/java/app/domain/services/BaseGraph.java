@@ -17,21 +17,21 @@ public class BaseGraph<Key> {
     // Graph validations
     public void validateEdges(Key source, Key destination) {
         if (source.equals(destination)) {
-            throw new GraphError("Source and destination territories could not be the same!");
+            throw new GraphError("Source and destination edges could not be the same!");
         }
 
         if (!graph.containsKey(source)) {
-            throw new GraphError("Source Key not found!");
+            throw new GraphError("Source edge not found!");
         }
 
         if (!graph.containsKey(destination)) {
-            throw new GraphError("Destionation Key not found!");
+            throw new GraphError("Destionation edge not found!");
         }
     }
 
     public void validateVertex(Key Key) {
         if (!graph.containsKey(Key)) {
-            throw new GraphError("Vertex Key not found!");
+            throw new GraphError("Vertex not found!");
         }
     }
 
