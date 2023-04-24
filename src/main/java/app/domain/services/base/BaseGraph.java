@@ -1,4 +1,4 @@
-package app.domain.services;
+package app.domain.services.base;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,17 +7,17 @@ import java.util.Map;
 
 import app.common.GraphError;
 
-public class BaseGraph<Key> {
-    private Map<Key, List<Key>> graph;
+public class BaseGraph<Vertex> {
+    private Map<Vertex, List<Vertex>> graph;
 
     protected BaseGraph(int capacity) {
-        this.graph = new HashMap<Key, List<Key>>(capacity);
+        this.graph = new HashMap<Vertex, List<Vertex>>(capacity);
     }
 
     // Graph validations
-    public void validateEdges(Key source, Key destination) {
+    private void validateEdges(Vertex source, Vertex destination) {
         if (source.equals(destination)) {
-            throw new GraphError("Source and destination edges could not be the same!");
+            throw new GraphError("Source and destination edges are the same!");
         }
 
         if (!graph.containsKey(source)) {
@@ -29,61 +29,83 @@ public class BaseGraph<Key> {
         }
     }
 
-    public void validateVertex(Key Key) {
-        if (!graph.containsKey(Key)) {
+    private void validateVertex(Vertex vertex) {
+        if (!graph.containsKey(vertex)) {
             throw new GraphError("Vertex not found!");
         }
     }
 
+    private void validateAdjMatrix(Integer[][] adjMatrix) {
+        if (adjMatrix[0].length != adjMatrix.length) {
+            throw new GraphError("Graph adjacency matrix is not a square matrix!");
+        }
+    }
+
     // Edge operations
-    public void addEdge(Key source, Key destination) throws GraphError {
+    public void addEdge(Vertex source, Vertex destination) throws GraphError {
         validateEdges(source, destination);
 
-        List<Key> srcAdjecentList = graph.get(source);
+        List<Vertex> srcAdjecentList = graph.get(source);
         srcAdjecentList.add(destination);
 
-        List<Key> distAdjecentList = graph.get(destination);
+        List<Vertex> distAdjecentList = graph.get(destination);
         distAdjecentList.add(source);
 
     }
 
-    public void removeEdge(Key source, Key destination) throws GraphError {
+    public void removeEdge(Vertex source, Vertex destination) throws GraphError {
         validateEdges(source, destination);
 
-        List<Key> srcAdjecentList = graph.get(source);
+        List<Vertex> srcAdjecentList = graph.get(source);
         srcAdjecentList.remove(destination);
 
-        List<Key> distAdjecentList = graph.get(destination);
+        List<Vertex> distAdjecentList = graph.get(destination);
         distAdjecentList.remove(source);
     }
 
     // Vertex operations
-    public void addVertex(Key Key) {
-        this.graph.put(Key, new ArrayList<Key>());
+    public void addVertex(Vertex vertex) {
+        this.graph.put(vertex, new ArrayList<Vertex>());
     }
 
-    public void addVertex(Key Key, List<Key> adjacencyList) {
-        this.graph.put(Key, adjacencyList);
+    public void addVerticies(List<Vertex> verticies) {
+        verticies.forEach((vertex) -> addVertex(vertex));
     }
 
-    public void removeVertex(Key Key) throws GraphError {
-        validateVertex(Key);
+    public void removeVertex(Vertex vertex) throws GraphError {
+        validateVertex(vertex);
 
-        for (List<Key> list : this.graph.values()) {
-            list.remove(Key);
+        for (List<Vertex> list : this.graph.values()) {
+            list.remove(vertex);
         }
 
-        this.graph.remove(Key);
+        this.graph.remove(vertex);
     }
 
     // Graph operations
-    public void loadGraphFromMatrix(List<Key> keys, Integer[][] adjMatrix) {
+    public void loadGraphFromMatrix(List<Vertex> verticies, Integer[][] adjMatrix) throws GraphError {
+        validateAdjMatrix(adjMatrix);
 
+        addVerticies(verticies);
+
+        for (int i = 0; i < adjMatrix.length; i++) {
+            for (int j = 0; j < adjMatrix[i].length; j++) {
+                Boolean isAdjecent = getBoolean(adjMatrix[i][j]);
+                if (!isAdjecent) {
+                    continue;
+                }
+
+                Vertex src = verticies.get(i);
+                Vertex dist = verticies.get(j);
+
+                addEdge(src, dist);
+            }
+        }
     }
 
     public int getEdgeCount() {
         int count = 0;
-        for (List<Key> list : this.graph.values()) {
+        for (List<Vertex> list : this.graph.values()) {
             count += list.size();
         }
         return count / 2;
@@ -91,5 +113,13 @@ public class BaseGraph<Key> {
 
     public int getVertexCount() {
         return this.graph.size();
+    }
+
+    public boolean getBoolean(int value) {
+        return (value != 0);
+    }
+
+    public void clear() {
+        this.graph.clear();
     }
 }
