@@ -6,7 +6,7 @@ import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.map.MapPanel;
 
 import java.awt.BorderLayout;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
@@ -28,7 +28,8 @@ public class GameFrame extends BaseJFrame {
     @Override
     public void initilizeComponents() {
         mapPanel = new MapPanel(15);
-        mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror.png"), 55);
+        mapPanel.setBackground(Color.lightGray);
+        mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror2.png"), 55);
         mapController = new MapPanelController(mapService, mapPanel);
     }
 

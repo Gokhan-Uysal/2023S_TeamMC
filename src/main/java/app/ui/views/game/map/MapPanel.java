@@ -3,6 +3,8 @@ package app.ui.views.game.map;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JPanel;
 
 import app.common.Logger;
@@ -32,6 +34,7 @@ public class MapPanel extends JPanel {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = i;
         gridBagConstraints.gridy = j;
+        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
 
         this.add(component, gridBagConstraints);
     }
