@@ -1,0 +1,152 @@
+{
+    "Eastern Australia": ["Western Australia", "New Guinea"],
+    "Indonesia": ["New Guinea", "Siam (Southeast Asia)", "Western Australia"],
+    "New Guinea": ["Eastern Australia", "Indonesia", "Western Australia"],
+    "Western Australia": ["Eastern Australia", "Indonesia", "New Guinea"],
+
+    "Afghanistan": ["China", "India", "Middle East", "Ural"],
+    "China": [
+        "Afghanistan",
+        "India",
+        "Mongolia",
+        "Siam (Southeast Asia)",
+        "Siberia",
+        "Ural"
+    ],
+    "India": ["Afghanistan", "China", "Middle East", "Siam (Southeast Asia)"],
+    "Irkutsk": ["Kamchatka", "Mongolia", "Siberia", "Yakutsk"],
+    "Japan": ["Kamchatka", "Mongolia"],
+    "Kamchatka": ["Alaska", "Irkutsk", "Japan", "Mongolia", "Yakutsk"],
+    "Middle East": [
+        "Afghanistan",
+        "East Africa",
+        "Egypt",
+        "India",
+        "Southern Europe",
+        "Ukraine (Eastern Europe, Russia)"
+    ],
+    "Mongolia": ["China", "Irkutsk", "Japan", "Kamchatka", "Siberia"],
+    "Siam (Southeast Asia)": ["China", "India", "Indonesia"],
+    "Siberia": ["China", "Irkutsk", "Mongolia", "Ural", "Yakutsk"],
+    "Ural": [
+        "Afghanistan",
+        "China",
+        "Siberia",
+        "Ukraine (Eastern Europe, Russia)"
+    ],
+    "Yakutsk": ["Irkutsk", "Kamchatka", "Siberia"],
+
+    "Congo (Central Africa)": ["East Africa", "North Africa", "South Africa"],
+    "East Africa": [
+        "Congo (Central Africa)",
+        "Egypt",
+        "Madagascar",
+        "North Africa",
+        "Middle East",
+        "South Africa"
+    ],
+    "Egypt": ["East Africa", "Middle East", "North Africa", "Southern Europe"],
+    "Madagascar": ["East Africa", "South Africa"],
+    "North Africa": [
+        "Congo (Central Africa)",
+        "East Africa",
+        "Egypt",
+        "Southern Europe",
+        "Western Europe"
+    ],
+    "South Africa": ["Congo (Central Africa)", "East Africa", "Madagascar"],
+
+    "Great Britain (Great Britain & Ireland)": [
+        "Iceland",
+        "Northern Europe",
+        "Scandinavia",
+        "Western Europe"
+    ],
+    "Iceland": [
+        "Great Britain (Great Britain & Ireland)",
+        "Scandinavia",
+        "Greenland"
+    ],
+    "Northern Europe": [
+        "Great Britain (Great Britain & Ireland)",
+        "Scandinavia",
+        "Southern Europe",
+        "Ukraine (Eastern Europe, Russia)",
+        "Western Europe"
+    ],
+    "Scandinavia": [
+        "Great Britain (Great Britain & Ireland)",
+        "Iceland",
+        "Northern Europe",
+        "Ukraine (Eastern Europe, Russia)"
+    ],
+    "Southern Europe": [
+        "Egypt",
+        "Middle East",
+        "Northern Europe",
+        "Ukraine (Eastern Europe, Russia)",
+        "Western Europe"
+    ],
+    "Ukraine (Eastern Europe, Russia)": [
+        "Middle East",
+        "Northern Europe",
+        "Scandinavia",
+        "Southern Europe",
+        "Ural"
+    ],
+    "Western Europe": [
+        "Great Britain (Great Britain & Ireland)",
+        "North Africa",
+        "Northern Europe",
+        "Southern Europe"
+    ],
+
+    "Alaska": ["Alberta (Western Canada)", "Kamchatka", "Northwest Territory"],
+    "Alberta (Western Canada)": [
+        "Alaska",
+        "Northwest Territory",
+        "Ontario (Central Canada)",
+        "Western United States"
+    ],
+    "Central America": [
+        "Eastern United States",
+        "Venezuela",
+        "Western United States"
+    ],
+    "Eastern United States": [
+        "Central America",
+        "Ontario (Central Canada)",
+        "Quebec (Eastern Canada)",
+        "Western United States"
+    ],
+    "Greenland": ["Iceland", "Northwest Territory", "Quebec (Eastern Canada)"],
+    "Northwest Territory": [
+        "Alaska",
+        "Alberta (Western Canada)",
+        "Greenland",
+        "Ontario (Central Canada)"
+    ],
+    "Ontario (Central Canada)": [
+        "Alberta (Western Canada)",
+        "Eastern United States",
+        "Northwest Territory",
+        "Quebec (Eastern Canada)",
+        "Western United States"
+    ],
+    "Quebec (Eastern Canada)": [
+        "Eastern United States",
+        "Greenland",
+        "Ontario (Central Canada)"
+    ],
+    "Western United States": [
+        "Alberta (Western Canada)",
+        "Central America",
+        "Eastern United States",
+        "Ontario (Central Canada)"
+    ],
+
+    "Argentina": ["Brazil", "Peru"],
+    "Brazil": ["Argentina", "Peru", "Venezuela", "North Africa"],
+    "Peru": ["Argentina", "Brazil", "Venezuela"],
+    "Venezuela": ["Brazil", "Peru", "Central America"]
+}
