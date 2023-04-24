@@ -103,6 +103,10 @@ public class BaseGraph<Vertex> {
         }
     }
 
+    public void findShortestPath() {
+
+    }
+
     public int getEdgeCount() {
         int count = 0;
         for (List<Vertex> list : this.graph.values()) {

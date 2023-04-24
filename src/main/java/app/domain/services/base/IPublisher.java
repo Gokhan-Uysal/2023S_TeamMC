@@ -1,4 +1,4 @@
-package app.domain.services;
+package app.domain.services.base;
 
 public interface IPublisher<MessageType> {
     boolean addSubscriber(ISubscriber<MessageType> subscriber);
