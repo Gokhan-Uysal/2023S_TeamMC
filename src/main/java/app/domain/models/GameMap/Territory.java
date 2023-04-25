@@ -15,4 +15,9 @@ public class Territory {
         this.name = name;
         shape = null;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

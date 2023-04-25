@@ -10,8 +10,8 @@ import app.ui.views.game.map.TerritoryLabel;
 
 public class MapPanelController {
 
-    private MapService mapService;
-    private MapPanel mapPanel;
+    private MapService _mapService;
+    private MapPanel _mapPanel;
 
     private int latitudes;
     private int longitudes;
@@ -25,15 +25,21 @@ public class MapPanelController {
     }
 
     public MapPanelController(MapService mapService, MapPanel mapView) {
-        this.mapService = mapService;
-        this.mapPanel = mapView;
+        this._mapService = mapService;
+        this._mapPanel = mapView;
     }
 
     private BufferedImage[][] loadMapPixels() {
-        BufferedImage[][] pixelMap = mapService.splitImage();
+        BufferedImage[][] pixelMap = _mapService.splitImage();
         this.latitudes = pixelMap.length;
         this.longitudes = pixelMap[0].length;
         return pixelMap;
+    }
+
+    private void buildMap() {
+        this._mapService.buildTerritoryVerticies();
+        this._mapService.initializeTerritories();
+
     }
 
     private Component[][] loadMap() {
@@ -41,7 +47,8 @@ public class MapPanelController {
         Component[][] mapGrid = new Component[latitudes][longitudes];
         for (int i = 0; i < latitudes; i++) {
             for (int j = 0; j < longitudes; j++) {
-                Image resizedImage = pixelMap[i][j].getScaledInstance(mapPanel.getPixelSize(), mapPanel.getPixelSize(),
+                Image resizedImage = pixelMap[i][j].getScaledInstance(_mapPanel.getPixelSize(),
+                        _mapPanel.getPixelSize(),
                         Image.SCALE_SMOOTH);
                 mapGrid[i][j] = new TerritoryLabel("Canada", resizedImage);
             }
@@ -50,6 +57,7 @@ public class MapPanelController {
     }
 
     public void drawMap() {
-        mapPanel.drawMap(loadMap(), latitudes, longitudes);
+        this.buildMap();
+        _mapPanel.drawMap(loadMap(), latitudes, longitudes);
     }
 }

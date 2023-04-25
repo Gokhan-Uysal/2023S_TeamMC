@@ -22,8 +22,18 @@ public class MapGraphService extends BaseGraph<Territory> {
         throw new GraphError("Territory vertex not found");
     }
 
-    public void addEdge(Territory source, String territoryName) {
-        Territory destination = getVertex(territoryName);
+    public void addEdge(String sourceName, String destinationName) {
+        Territory source = getVertex(sourceName);
+        Territory destination = getVertex(destinationName);
         super.addEdge(source, destination);
+    }
+
+    @Override
+    public String toString() {
+        String graph = "";
+        for (Territory key : this.graph.keySet()) {
+            graph += key.toString();
+        }
+        return graph;
     }
 }
