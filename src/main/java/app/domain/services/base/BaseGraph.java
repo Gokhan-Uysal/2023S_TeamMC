@@ -1,31 +1,26 @@
 package app.domain.services.base;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import app.common.GraphError;
 
 public class BaseGraph<Vertex> {
-    private Map<Vertex, List<Vertex>> graph;
+    protected Map<Vertex, HashSet<Vertex>> graph;
 
     protected BaseGraph(int capacity) {
-        this.graph = new HashMap<Vertex, List<Vertex>>(capacity);
+        this.graph = new HashMap<Vertex, HashSet<Vertex>>(capacity);
     }
 
     // Graph validations
-    private void validateEdges(Vertex source, Vertex destination) {
+    private void validateEdge(Vertex source, Vertex destination) {
+        validateVertex(source);
+        validateVertex(destination);
+
         if (source.equals(destination)) {
             throw new GraphError("Source and destination edges are the same!");
-        }
-
-        if (!graph.containsKey(source)) {
-            throw new GraphError("Source edge not found!");
-        }
-
-        if (!graph.containsKey(destination)) {
-            throw new GraphError("Destionation edge not found!");
         }
     }
 
@@ -43,29 +38,31 @@ public class BaseGraph<Vertex> {
 
     // Edge operations
     public void addEdge(Vertex source, Vertex destination) throws GraphError {
-        validateEdges(source, destination);
+        validateEdge(source, destination);
 
-        List<Vertex> srcAdjecentList = graph.get(source);
+        HashSet<Vertex> srcAdjecentList = graph.get(source);
         srcAdjecentList.add(destination);
 
-        List<Vertex> distAdjecentList = graph.get(destination);
+        HashSet<Vertex> distAdjecentList = graph.get(destination);
         distAdjecentList.add(source);
 
     }
 
     public void removeEdge(Vertex source, Vertex destination) throws GraphError {
-        validateEdges(source, destination);
+        if (source.equals(destination)) {
+            throw new GraphError("Source and destination edges are the same!");
+        }
 
-        List<Vertex> srcAdjecentList = graph.get(source);
+        HashSet<Vertex> srcAdjecentList = graph.get(source);
         srcAdjecentList.remove(destination);
 
-        List<Vertex> distAdjecentList = graph.get(destination);
+        HashSet<Vertex> distAdjecentList = graph.get(destination);
         distAdjecentList.remove(source);
     }
 
     // Vertex operations
     public void addVertex(Vertex vertex) {
-        this.graph.put(vertex, new ArrayList<Vertex>());
+        this.graph.put(vertex, new HashSet<Vertex>());
     }
 
     public void addVerticies(List<Vertex> verticies) {
@@ -75,7 +72,7 @@ public class BaseGraph<Vertex> {
     public void removeVertex(Vertex vertex) throws GraphError {
         validateVertex(vertex);
 
-        for (List<Vertex> list : this.graph.values()) {
+        for (HashSet<Vertex> list : this.graph.values()) {
             list.remove(vertex);
         }
 
@@ -103,18 +100,9 @@ public class BaseGraph<Vertex> {
         }
     }
 
-    // public void findShortestPath(Vertex source, Vertex destination) {
-    // validateEdges(source, destination);
-
-    // List<Integer> path = new ArrayList<>();
-
-    // List<Vertex> sourceEdges = this.graph.get(source);
-
-    // }
-
     public int getEdgeCount() {
         int count = 0;
-        for (List<Vertex> list : this.graph.values()) {
+        for (HashSet<Vertex> list : this.graph.values()) {
             count += list.size();
         }
         return count / 2;

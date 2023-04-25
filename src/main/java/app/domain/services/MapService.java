@@ -4,17 +4,32 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 
 import app.common.Logger;
+import app.domain.models.GameMap.Territory;
 
 public class MapService {
     private File mapFile;
     private int tileSize;
+    private MapFactory _mapFactory;
+    private MapGraphService _mapGraphService;
 
-    public MapService(File mapFile, int tileSize) {
+    public MapService(File mapFile, int tileSize, MapFactory mapFactory, MapGraphService mapGraphService) {
         this.tileSize = tileSize;
         this.mapFile = mapFile;
+        this._mapFactory = mapFactory;
+        this._mapGraphService = mapGraphService;
+    }
+
+    public void buildTerritoryVerticies() {
+        _mapFactory.getTerritoryList().forEach((territory) -> _mapGraphService.addVertex(territory));
+    }
+
+    public void buildTerritoryAdj(Territory source, List<String> adjList) {
+        adjList.forEach((territoryName) -> _mapGraphService.addEdge(source, territoryName));
     }
 
     public BufferedImage[][] splitImage() {

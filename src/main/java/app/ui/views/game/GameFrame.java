@@ -1,5 +1,7 @@
 package app.ui.views.game;
 
+import app.domain.services.MapFactory;
+import app.domain.services.MapGraphService;
 import app.domain.services.MapService;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
@@ -29,7 +31,8 @@ public class GameFrame extends BaseJFrame {
     public void initilizeComponents() {
         mapPanel = new MapPanel(15);
         mapPanel.setBackground(Color.lightGray);
-        mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror2.png"), 55);
+        mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror2.png"), 55, new MapFactory(),
+                new MapGraphService());
         mapController = new MapPanelController(mapService, mapPanel);
     }
 
