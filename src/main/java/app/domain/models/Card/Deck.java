@@ -1,14 +1,10 @@
 package app.domain.models.Card;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+public interface Deck {
 
-public class Deck {
+    void addCards(CardType type);
 
-    public HashMap<CardType, ArrayList<BaseCard>> deckContainer;
+    BaseCard drawCard(CardType type);
 
-    public Deck() {}
-    //public BaseCard drawCard(){}
-    public void addCard(){}
-    public void shuffle(){}
+    void shuffle();
 }
