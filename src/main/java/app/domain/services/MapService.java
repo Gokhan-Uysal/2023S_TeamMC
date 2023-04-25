@@ -53,6 +53,39 @@ public class MapService {
                 new String[] { "Congo (Central Africa)", "East Africa", "Egypt", "Southern Europe", "Western Europe" });
         buildTerritoryAdj("South Africa", new String[] { "Congo (Central Africa)", "East Africa", "Madagascar" });
 
+        buildTerritoryAdj("Northern Europe", new String[] { "Great Britain (Great Britain & Ireland)", "Scandinavia",
+                "Southern Europe", "Ukraine (Eastern Europe, Russia)", "Western Europe" });
+        buildTerritoryAdj("Scandinavia", new String[] { "Great Britain (Great Britain & Ireland)", "Iceland",
+                "Northern Europe", "Ukraine (Eastern Europe, Russia)" });
+        buildTerritoryAdj("Southern Europe", new String[] { "Egypt", "Middle East", "Northern Europe",
+                "Ukraine (Eastern Europe, Russia)", "Western Europe" });
+        buildTerritoryAdj("Ukraine (Eastern Europe, Russia)",
+                new String[] { "Middle East", "Northern Europe", "Scandinavia", "Southern Europe", "Ural" });
+        buildTerritoryAdj("Western Europe", new String[] { "Great Britain (Great Britain & Ireland)", "North Africa",
+                "Northern Europe", "Southern Europe" });
+
+        buildTerritoryAdj("Alaska", new String[] { "Alberta (Western Canada)", "Kamchatka", "Northwest Territory" });
+        buildTerritoryAdj("Alberta (Western Canada)",
+                new String[] { "Alaska", "Northwest Territory", "Ontario (Central Canada)", "Western United States" });
+        buildTerritoryAdj("Central America",
+                new String[] { "Eastern United States", "Venezuela", "Western United States" });
+        buildTerritoryAdj("Eastern United States", new String[] { "Central America", "Ontario (Central Canada)",
+                "Quebec (Eastern Canada)", "Western United States" });
+        buildTerritoryAdj("Greenland", new String[] { "Iceland", "Northwest Territory", "Quebec (Eastern Canada)" });
+        buildTerritoryAdj("Northwest Territory",
+                new String[] { "Alaska", "Alberta (Western Canada)", "Greenland", "Ontario (Central Canada)" });
+        buildTerritoryAdj("Ontario (Central Canada)",
+                new String[] { "Alberta (Western Canada)", "Eastern United States",
+                        "Northwest Territory", "Quebec (Eastern Canada)", "Western United States" });
+        buildTerritoryAdj("Quebec (Eastern Canada)",
+                new String[] { "Eastern United States", "Greenland", "Ontario (Central Canada)" });
+        buildTerritoryAdj("Western United States", new String[] { "Alberta (Western Canada)", "Central America",
+                "Eastern United States", "Ontario (Central Canada)" });
+
+        buildTerritoryAdj("Argentina", new String[] { "Brazil", "Peru" });
+        buildTerritoryAdj("Brazil", new String[] { "Argentina", "Peru", "Venezuela", "North Africa" });
+        buildTerritoryAdj("Peru", new String[] { "Argentina", "Brazil", "Venezuela" });
+        buildTerritoryAdj("Venezuela", new String[] { "Brazil", "Peru", "Central America" });
         System.out.println(_mapGraphService.toString());
     }
 
