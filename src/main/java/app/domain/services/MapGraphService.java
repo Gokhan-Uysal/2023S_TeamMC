@@ -1,5 +1,6 @@
 package app.domain.services;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import app.common.GraphError;
@@ -33,6 +34,9 @@ public class MapGraphService extends BaseGraph<Territory> {
         String graph = "";
         for (Territory key : this.graph.keySet()) {
             graph += key.toString();
+            graph += "\t";
+            graph += this.graph.get(key);
+            graph += "\n";
         }
         return graph;
     }
