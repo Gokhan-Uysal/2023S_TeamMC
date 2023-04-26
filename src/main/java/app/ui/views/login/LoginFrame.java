@@ -1,94 +1,80 @@
 package app.ui.views.login;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import app.ui.controllers.login.LoginFrameController;
+import app.ui.views.components.BaseJFrame;
 
-public class LoginFrame extends JFrame implements ActionListener {
+import javax.swing.*;
+import java.awt.*;
 
-    JPasswordField password;
-    JTextField username;
-    JLabel label_password, label_username, message, title;
-    JButton btn, register;
-    JCheckBox showPassword;
 
-    LoginFrame() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800,600);
-        this.setTitle("Login");
-        this.setLocationRelativeTo(null);
+
+public class LoginFrame extends BaseJFrame {
+
+    JPasswordField passwordField;
+    JTextField usernameField;
+    JLabel passwordLabel, usernameLabel;
+    JButton loginButton, registerButton;
+    JCheckBox showPasswordBox;
+
+    private LoginFrameController loginFrameController;
+
+
+    public LoginFrame(String title, Dimension size) {
+        super(title, size);
         this.setLayout(null);
+        initilizeComponents();
 
-        label_username = new JLabel("Username");
-        label_username.setBounds(200,150,100,40);
+        usernameLabel = new JLabel("Username");
+        usernameLabel.setBounds(460,150,100,40);
 
-        label_password = new JLabel("Password");
-        label_password.setBounds(200,200,100,40);
+        usernameField = new JTextField();
+        usernameField.setBounds(540, 150, 200, 40);
 
-        //message = new JLabel("Message here");
-        //message.setBounds(350,360,300,40);
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(460,200,100,40);
 
-        username = new JTextField();
-        username.setBounds(300,150,300,40);
+        passwordField = new JPasswordField();
+        passwordField.setBounds(540, 200, 200, 40);
 
-        password = new JPasswordField();
-        password.setBounds(300,200,300,40);
+        showPasswordBox = new JCheckBox("Show Password");
+        showPasswordBox.setBounds(540,250,200,40);
 
-        showPassword = new JCheckBox("Show Password");
-        showPassword.setBounds(300,250,200,40);
-        showPassword.addActionListener(this);
+        loginButton = new JButton("Login");
+        loginButton.setBounds(540,300,100,40);
 
-        btn = new JButton("Sign In");
-        btn.setBounds(300,300,100,40);
-        btn.addActionListener(this);
-        btn.setForeground(Color.black);
+        registerButton = new JButton("Register");
+        registerButton.setBounds(640, 300, 100, 40);
 
-        register = new JButton("Register");
-        register.setBounds(400,300,100,40);
-        register.addActionListener(this);
-        register.setForeground(Color.black);
-
-
-        this.add(label_username);
-        this.add(label_password);
-        this.add(username);
-        this.add(password);
-        this.add(showPassword);
-        this.add(btn);
-        this.add(register);
-        //this.add(message);
-
-        this.setVisible(true);
-
+        buildComponents();
+    }
+    @Override
+    public void initilizeComponents() {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+    public void buildComponents() {
+        this.pack();
+        this.setVisible(true);
 
-        if(e.getSource()==btn) {
-            JOptionPane.showMessageDialog(this, "You successfully logged in ");
-        }
-        else if(e.getSource()==showPassword) {
-            if(showPassword.isSelected()) {
-                password.setEchoChar((char) 0);
-            }
-            else {
-                password.setEchoChar('●');
-            }
-        }
-        else if(e.getSource()==register) {
-            //RegisterScreen registerScreen = new RegisterScreen();
-        }
+        addComponents();
+
+        this.refresh();
+    }
+
+    @Override
+    public void addComponents() {
+        this.add(usernameField);
+        this.add(usernameLabel);
+
+        this.add(passwordField);
+        this.add(passwordLabel);
+
+        this.add(showPasswordBox);
+
+        this.add(loginButton);
+        this.add(registerButton);
+
 
     }
 
 }
-
