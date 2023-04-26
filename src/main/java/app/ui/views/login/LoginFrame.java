@@ -1,6 +1,5 @@
 package app.ui.views.login;
 
-import app.ui.controllers.login.LoginFrameController;
 import app.ui.views.components.BaseJFrame;
 
 import javax.swing.*;

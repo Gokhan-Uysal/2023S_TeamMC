@@ -8,11 +8,11 @@ import java.awt.*;
 public class RegisterFrame extends BaseJFrame {
 
 
-    JPasswordField passwordField, passwordAgainField;
-    JTextField usernameField;
+    public JPasswordField passwordField, passwordAgainField;
+    public JTextField usernameField;
     JLabel passwordLabel, passwordAgainLabel, usernameLabel;
-    JButton registerButton;
-    JCheckBox showPasswordBox;
+    public JButton registerButton, backButton;
+    public JCheckBox showPasswordBox;
 
     public RegisterFrame(String title, Dimension size) {
 
@@ -32,11 +32,20 @@ public class RegisterFrame extends BaseJFrame {
         passwordField = new JPasswordField();
         passwordField.setBounds(540, 200, 200, 40);
 
+        passwordAgainField = new JPasswordField();
+        passwordAgainField.setBounds(540, 250, 200, 40);
+
+        passwordAgainLabel = new JLabel("Password Again");
+        passwordAgainLabel.setBounds(420,250,100,40);
+
         showPasswordBox = new JCheckBox("Show Password");
-        showPasswordBox.setBounds(540,250,200,40);
+        showPasswordBox.setBounds(540,300,200,40);
+
+        backButton = new JButton("Back");
+        backButton.setBounds(540, 350, 100, 40);
 
         registerButton = new JButton("Register");
-        registerButton.setBounds(640, 300, 100, 40);
+        registerButton.setBounds(640, 350, 100, 40);
 
         buildComponents();
     }
@@ -64,9 +73,12 @@ public class RegisterFrame extends BaseJFrame {
         this.add(passwordField);
         this.add(passwordLabel);
 
+        this.add(passwordAgainField);
+        this.add(passwordAgainLabel);
+
         this.add(showPasswordBox);
 
-        this.add(registerButton);
+        this.add(backButton);
         this.add(registerButton);
 
 
