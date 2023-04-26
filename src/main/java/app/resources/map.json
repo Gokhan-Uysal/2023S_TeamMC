@@ -1,0 +1,69 @@
+[
+    {
+        "continent": "Australia",
+        "countries": [
+            "Eastern Australia",
+            "Indonesia",
+            "New Guinea",
+            "Western Australia"
+        ]
+    },
+    {
+        "continent": "Asia",
+        "countries": [
+            "Afghanistan",
+            "China",
+            "India",
+            "Irkutsk",
+            "Japan",
+            "Kamchatka",
+            "Middle East",
+            "Mongolia",
+            "Siam (Southeast Asia)",
+            "Siberia",
+            "Ural",
+            "Yakutsk"
+        ]
+    },
+    {
+        "continent": "Africa",
+        "countries": [
+            "Congo (Central Africa)",
+            "East Africa",
+            "Egypt",
+            "Madagascar",
+            "North Africa",
+            "South Africa"
+        ]
+    },
+    {
+        "continent": "Europe",
+        "countries": [
+            "Great Britain (Great Britain & Ireland)",
+            "Iceland",
+            "Northern Europe",
+            "Scandinavia",
+            "Southern Europe",
+            "Ukraine (Eastern Europe, Russia)",
+            "Western Europe"
+        ]
+    },
+    {
+        "continent": "North America",
+        "countries": [
+            "Alaska",
+            "Alberta (Western Canada)",
+            "Central America",
+            "Eastern United States",
+            "Greenland",
+            "Northwest Territory",
+            "Ontario (Central Canada)",
+            "Quebec (Eastern Canada)",
+            "Western United States"
+        ]
+    },
+    {
+        "continent": "South America",
+        "countries": ["Argentina", "Brazil", "Peru", "Venezuela"]
+    }
+]

@@ -1,19 +1,19 @@
 package app.domain.models.GameMap;
 
-import java.awt.Shape;
+import java.awt.image.BufferedImage;
 
 public class Territory {
     public String name;
-    public Shape shape;
+    public BufferedImage image;
 
-    public Territory(String name, Shape shape) {
+    public Territory(String name, BufferedImage shape) {
         this.name = name;
-        this.shape = shape;
+        this.image = shape;
     }
 
     public Territory(String name) {
         this.name = name;
-        shape = null;
+        image = null;
     }
 
     @Override

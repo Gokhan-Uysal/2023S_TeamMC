@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
+import app.domain.services.Map.*;
 import app.ui.views.game.GameFrame;
 import app.ui.views.menu.ButtonsPanel;
 import app.util.ActionListenerUtil;
@@ -31,7 +32,13 @@ public class ButtonsPanelController implements ActionListener {
         Point location = rootFrame.getLocation();
         rootFrame.dispose();
 
-        new GameFrame(AppConfig.title, AppConfig.appSize, location);
-    }
+        // Initialize dependencies
+        MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
+        MapFactory mapFactory = new MapFactory(mapReadService);
+        MapGraphService mapGraphService = new MapGraphService();
+        MapService mapService = new MapService(mapFactory, mapGraphService);
 
+        // Create the GameFrame object with the initialized dependencies
+        new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
+    }
 }

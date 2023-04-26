@@ -17,7 +17,7 @@ public class MapPanel extends JPanel {
         return pixelSize;
     }
 
-    public MapPanel(int pixelSize) {
+    public MapPanel() {
         buildClass(pixelSize);
         buildView();
     }
