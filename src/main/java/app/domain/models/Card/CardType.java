@@ -3,7 +3,7 @@ package app.domain.models.Card;
 public enum CardType {
     Army,
     Infantry,
-    Chivalry,
+    Cavalry,
     Artillery,
     Territory,
     Chance

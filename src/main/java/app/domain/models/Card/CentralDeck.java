@@ -19,7 +19,7 @@ public class CentralDeck implements Deck{
     @Override
     public void addCards(CardType type, Object... args) {
         BaseCard addedCard = cardFactory.create(type,args);
-        if (type.equals(CardType.Artillery) || type.equals(CardType.Infantry) || type.equals(CardType.Chivalry) || type.equals(CardType.Territory)){
+        if (type.equals(CardType.Artillery) || type.equals(CardType.Infantry) || type.equals(CardType.Cavalry) || type.equals(CardType.Territory)){
             this.cardContainer.get(CardType.Army).add(addedCard);
         }
         else if (type.equals(CardType.Chance)){

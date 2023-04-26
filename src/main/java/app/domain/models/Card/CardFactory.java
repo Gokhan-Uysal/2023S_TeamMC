@@ -8,7 +8,7 @@ public class CardFactory {
         if (type.equals(CardType.Artillery)){
             return new ArtilleryCard((String) args[0], (ImageIcon) args[1]);
         }
-        else if (type.equals(CardType.Chivalry)){
+        else if (type.equals(CardType.Cavalry)){
             return new CavalryCard((String) args[0], (ImageIcon) args[1]);
         }
         else if (type.equals(CardType.Infantry)){

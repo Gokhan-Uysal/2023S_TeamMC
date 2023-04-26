@@ -9,7 +9,7 @@ public class PlayerDeck implements Deck {
 
     public PlayerDeck(){
         this.cardContainer.put(CardType.Infantry, new ArrayList<>());
-        this.cardContainer.put(CardType.Chivalry, new ArrayList<>());
+        this.cardContainer.put(CardType.Cavalry, new ArrayList<>());
         this.cardContainer.put(CardType.Artillery, new ArrayList<>());
         this.cardContainer.put(CardType.Territory, new ArrayList<>());
         this.cardContainer.put(CardType.Chance, new ArrayList<>());
