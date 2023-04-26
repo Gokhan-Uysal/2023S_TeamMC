@@ -34,8 +34,17 @@ public class RegisterFrameController extends Component implements ActionListener
             char[] inputPasswordAgain = registerFrame.passwordField.getPassword();
             if (!inputName.isEmpty() && inputPassword.length > 0 && inputPasswordAgain.length > 0){
                 if (Arrays.equals(inputPassword, inputPasswordAgain)){
-                    FileService.writeData(inputName, inputPassword);
-                    JOptionPane.showMessageDialog(registerFrame, "You successfully registered!");
+                    boolean response = FileService.checkData(inputName, inputPassword);
+                    if (!response){
+                        FileService.writeData(inputName, inputPassword);
+                        JOptionPane.showMessageDialog(registerFrame, "You successfully registered!");
+                        registerFrame.setVisible(false);
+                        LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
+                        LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(registerFrame, "User already exists!");
+                    }
                 }
                 else{
                     JOptionPane.showMessageDialog(registerFrame, "Passwords do not match.");
@@ -47,7 +56,7 @@ public class RegisterFrameController extends Component implements ActionListener
 
         }
         else if (e.getSource() == registerFrame.backButton){
-            LoginFrame loginFrame = new LoginFrame("Register", AppConfig.appSize);
+            LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
             LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
 
         }

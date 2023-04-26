@@ -24,7 +24,6 @@ public class FileService {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
                 String[] fields = line.split(";");
 
                 if (fields[0].equals(username) && fields[1].equals(passwordString)) {
