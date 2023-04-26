@@ -56,7 +56,13 @@ public class MapReadService extends JsonService {
     private List<Territory> parseTerritoriesObject(JSONObject jsonObject) {
         List<String> territories = (List<String>) jsonObject.get("countries");
         List<Territory> territoryList = new ArrayList<>();
-        territories.forEach((territory) -> territoryList.add(new Territory(territory)));
+        territories.forEach((territory) -> {
+            try {
+                territoryList.add(new Territory(territory));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         return territoryList;
     }

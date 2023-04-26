@@ -34,8 +34,8 @@ public class ButtonsPanelController implements ActionListener {
 
         // Initialize dependencies
         MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
-        MapFactory mapFactory = new MapFactory(mapReadService);
         MapGraphService mapGraphService = new MapGraphService();
+        MapFactory mapFactory = new MapFactory(mapReadService, mapGraphService);
         MapService mapService = new MapService(mapFactory, mapGraphService);
 
         // Create the GameFrame object with the initialized dependencies

@@ -1,31 +1,26 @@
 package app.domain.services.Map;
 
-import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import app.domain.models.GameMap.Continent;
-import app.domain.models.GameMap.Territory;
+import org.json.simple.parser.ParseException;
 
 public class MapFactory {
     private MapReadService _mapReadService;
+    private MapGraphService _mapGraphService;
 
-    public MapFactory(MapReadService mapReadService) {
+    public MapFactory(MapReadService mapReadService, MapGraphService mapGraphService) {
         this._mapReadService = mapReadService;
+        this._mapGraphService = mapGraphService;
+        readMap();
+    }
+
+    private void readMap() {
         try {
-            mapReadService.buildGameMapData();
-        } catch (Exception e) {
-            System.out.println(e);
+            _mapReadService.buildGameMapData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-    }
-
-    public Continent initilizeContinet(String continentName) {
-        return new Continent(continentName);
-    }
-
-    public Territory initilizeTerritory(String territoryName) {
-        return new Territory(territoryName);
-    }
-
-    public Territory initilizeTerritory(String name, BufferedImage bufferedImage) {
-        return new Territory(name, bufferedImage);
     }
 }
