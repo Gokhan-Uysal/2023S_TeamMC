@@ -10,7 +10,7 @@ import app.ui.views.menu.MainMenuFrame;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            //new MainMenuFrame("Main Menu", AppConfig.appSize);
+            //
             LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
             LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
         });

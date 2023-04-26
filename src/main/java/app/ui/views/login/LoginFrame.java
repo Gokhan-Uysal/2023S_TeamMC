@@ -10,13 +10,13 @@ import java.awt.*;
 
 public class LoginFrame extends BaseJFrame {
 
-    JPasswordField passwordField;
-    JTextField usernameField;
+    public JPasswordField passwordField;
+    public JTextField usernameField;
     JLabel passwordLabel, usernameLabel;
-    JButton loginButton, registerButton;
-    JCheckBox showPasswordBox;
+    public JButton loginButton;
+    public JButton registerButton;
+    public JCheckBox showPasswordBox;
 
-    private LoginFrameController loginFrameController;
 
 
     public LoginFrame(String title, Dimension size) {
