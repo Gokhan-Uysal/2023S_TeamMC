@@ -30,20 +30,19 @@ public class RegisterFrameController extends Component implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registerFrame.registerButton){
             String inputName = registerFrame.usernameField.getText();
-            String inputPassword = Arrays.toString(registerFrame.passwordField.getPassword());
-            String inputPasswordAgain = Arrays.toString(registerFrame.passwordAgainField.getPassword());
-
-            if (!inputName.isEmpty() && !inputPassword.isEmpty() && !inputPasswordAgain.isEmpty()){
-                if (inputPassword.equals(inputPasswordAgain)){
+            char[] inputPassword = registerFrame.passwordField.getPassword();
+            char[] inputPasswordAgain = registerFrame.passwordField.getPassword();
+            if (!inputName.isEmpty() && inputPassword.length > 0 && inputPasswordAgain.length > 0){
+                if (Arrays.equals(inputPassword, inputPasswordAgain)){
                     FileService.writeData(inputName, inputPassword);
-                    JOptionPane.showMessageDialog(this, "You successfully registered!");
+                    JOptionPane.showMessageDialog(registerFrame, "You successfully registered!");
                 }
                 else{
-                    JOptionPane.showMessageDialog(this, "Passwords do not match.");
+                    JOptionPane.showMessageDialog(registerFrame, "Passwords do not match.");
                 }
             }
             else{
-                JOptionPane.showMessageDialog(this, "Please fill all fields.");
+                JOptionPane.showMessageDialog(registerFrame, "Please fill all fields.");
             }
 
         }

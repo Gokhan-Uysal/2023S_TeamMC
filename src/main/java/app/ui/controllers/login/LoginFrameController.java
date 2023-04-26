@@ -30,14 +30,14 @@ public class LoginFrameController extends Component implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginFrame.loginButton){
             String inputName = loginFrame.usernameField.getText();
-            String inputPassword = Arrays.toString(loginFrame.passwordField.getPassword());
+            char[] inputPassword = loginFrame.passwordField.getPassword();
             boolean response = FileService.checkData(inputName, inputPassword);
             if (response){
-                JOptionPane.showMessageDialog(this, "You successfully logged in");
+                JOptionPane.showMessageDialog(loginFrame, "You successfully logged in");
                 new MainMenuFrame("Main Menu", AppConfig.appSize);
             }
             else{
-                JOptionPane.showMessageDialog(this, "Try again");
+                JOptionPane.showMessageDialog(loginFrame, "Try again");
             }
 
         }
