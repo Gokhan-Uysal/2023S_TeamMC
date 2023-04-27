@@ -1,8 +1,8 @@
 package app.domain.services.Map;
 
-import java.io.IOException;
+import java.util.List;
 
-import org.json.simple.parser.ParseException;
+import app.domain.models.GameMap.Territory;
 
 public class MapFactory {
     private MapReadService _mapReadService;
@@ -11,16 +11,23 @@ public class MapFactory {
     public MapFactory(MapReadService mapReadService, MapGraphService mapGraphService) {
         this._mapReadService = mapReadService;
         this._mapGraphService = mapGraphService;
-        readMap();
     }
 
-    private void readMap() {
-        try {
-            _mapReadService.buildGameMapData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public void loadGameDataToGraph() {
+        loadMapData();
+        loadGraphVerticies();
+    }
+
+    private void loadMapData() {
+        _mapReadService.buildGameMapData();
+    }
+
+    private void addTerriotoryVerticies(List<Territory> territoryList) {
+        _mapGraphService.addVerticies(territoryList);
+    }
+
+    private void loadGraphVerticies() {
+        List<Territory> territoryList = _mapReadService.getGameMapTerritories();
+        addTerriotoryVerticies(territoryList);
     }
 }

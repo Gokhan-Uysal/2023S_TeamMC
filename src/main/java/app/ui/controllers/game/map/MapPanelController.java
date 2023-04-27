@@ -25,7 +25,7 @@ public class MapPanelController {
     }
 
     private void buildMap() {
-        this._mapService.buildTerritoryVerticies();
+        _mapService.run();
     }
 
     public void drawMap() {

@@ -23,13 +23,20 @@ public class MapReadService extends JsonService {
         this._gameMapData = new HashMap<>(7);
     }
 
-    public void buildGameMapData() throws IOException, ParseException {
-        JSONArray modelList = super.readJSON();
-        for (Object model : modelList) {
-            Continent continent = parseContinentObject((JSONObject) model);
-            List<Territory> terriotiList = parseTerritoriesObject((JSONObject) model);
+    public void buildGameMapData() {
+        try {
+            JSONArray modelList = super.readJSON();
+            for (Object model : modelList) {
+                Continent continent = parseContinentObject((JSONObject) model);
 
-            _gameMapData.put(continent, terriotiList);
+                List<Territory> terriotiList = parseTerritoriesObject((JSONObject) model);
+
+                _gameMapData.put(continent, terriotiList);
+            }
+        } catch (IOException e) {
+            System.err.println("Cannot load from json file");
+        } catch (ParseException e) {
+            System.err.println("Cannot parse json to custom object");
         }
     }
 
@@ -60,7 +67,7 @@ public class MapReadService extends JsonService {
             try {
                 territoryList.add(new Territory(territory));
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.printf("Unable to find %s image!\n", territory);
             }
         });
 
