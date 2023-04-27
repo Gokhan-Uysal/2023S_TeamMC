@@ -19,21 +19,22 @@ public class TerritoryComponent extends JComponent {
     }
 
     private void buildView() {
-        this.setPreferredSize(new Dimension(100, 100));
+        this.setPreferredSize(new Dimension(300, 300));
     }
 
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
+        System.out.printf("Painting %s\n", _territory.name);
 
         Graphics2D graphics2d = (Graphics2D) graphics;
         try {
-            graphics2d.drawImage(_territory.getImage(), null, _territory.territoryPosition.x,
-                    _territory.territoryPosition.y);
+            graphics2d.drawImage(_territory.getImage(), null, 0, 0);
         } catch (IOException e) {
-            System.err.println("Unable to find territory image");
+            System.err.printf("Unable to find %s image\n", _territory.name);
         }
-        graphics.drawString(_territory.name, 100, 100);
+
+        graphics.drawString(_territory.name, 20, 20);
     }
 
     public Territory getTerritory() {

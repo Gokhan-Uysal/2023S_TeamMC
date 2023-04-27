@@ -21,6 +21,10 @@ public class MapPanel extends JPanel {
     }
 
     public void drawTerriotry(TerritoryComponent trComponent) {
+        trComponent.setBounds(trComponent.getTerritory().territoryPosition.x,
+                trComponent.getTerritory().territoryPosition.y,
+                trComponent.getPreferredSize().width,
+                trComponent.getPreferredSize().height);
         this.add(trComponent);
         Logger.log("Territory added: " + trComponent.getTerritory().toString());
         this.refresh();
