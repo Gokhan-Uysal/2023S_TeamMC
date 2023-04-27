@@ -17,7 +17,7 @@ public abstract class JsonService {
     }
 
     protected FileReader readJsonData(String filepath) throws IOException {
-        return new FileReader(_filePath);
+        return new FileReader(filepath);
     }
 
     protected JSONArray convertFileToJson(FileReader file) throws IOException, ParseException {

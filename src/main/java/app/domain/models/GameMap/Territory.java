@@ -8,11 +8,13 @@ import javax.imageio.ImageIO;
 
 public class Territory {
     public String name;
+    public TerritoryPosition territoryPosition;
     public BufferedImage image;
 
-    public Territory(String name) throws IOException {
+    public Territory(String name, TerritoryPosition territoryPosition) throws IOException {
         this.name = name;
-        this.image = getImage(name + ".png");
+        this.territoryPosition = territoryPosition;
+        // this.image = getImage(name + ".png");
     }
 
     public BufferedImage getImage(String imageName) throws IOException {
@@ -22,6 +24,9 @@ public class Territory {
 
     @Override
     public String toString() {
-        return this.name;
+        String info = "";
+        info += name + "\s\s" + territoryPosition.toString();
+        info += "\n";
+        return info;
     }
 }

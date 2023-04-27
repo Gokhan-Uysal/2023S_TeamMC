@@ -13,6 +13,7 @@ import org.json.simple.parser.ParseException;
 
 import app.domain.models.GameMap.Continent;
 import app.domain.models.GameMap.Territory;
+import app.domain.models.GameMap.TerritoryPosition;
 import app.domain.services.base.JsonService;
 
 public class MapReadService extends JsonService {
@@ -60,17 +61,28 @@ public class MapReadService extends JsonService {
         return new Continent(continentName);
     }
 
-    private List<Territory> parseTerritoriesObject(JSONObject jsonObject) {
-        List<String> territories = (List<String>) jsonObject.get("countries");
+    private List<Territory> parseTerritoriesObject(JSONObject jsonObject) throws IOException {
+        JSONArray territoryModels = (JSONArray) jsonObject.get("countries");
         List<Territory> territoryList = new ArrayList<>();
-        territories.forEach((territory) -> {
-            try {
-                territoryList.add(new Territory(territory));
-            } catch (IOException e) {
-                System.err.printf("Unable to find %s image!\n", territory);
-            }
-        });
 
+        for (Object model : territoryModels) {
+            Territory territory = parseTerritoryObject((JSONObject) model);
+            territoryList.add(territory);
+        }
         return territoryList;
+    }
+
+    private Territory parseTerritoryObject(JSONObject jsonObject) throws IOException {
+        String territoryName = (String) jsonObject.get("name");
+        TerritoryPosition territoryPosition = parseTerritoryPositionObject(jsonObject);
+
+        return new Territory(territoryName, territoryPosition);
+    }
+
+    private TerritoryPosition parseTerritoryPositionObject(JSONObject jsonObject) {
+        JSONObject positionObject = (JSONObject) jsonObject.get("position");
+        Number xPos = (Number) positionObject.get("x");
+        Number yPos = (Number) positionObject.get("y");
+        return new TerritoryPosition(xPos.intValue(), yPos.intValue());
     }
 }

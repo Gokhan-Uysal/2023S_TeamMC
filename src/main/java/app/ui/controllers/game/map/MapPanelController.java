@@ -30,6 +30,5 @@ public class MapPanelController {
 
     public void drawMap() {
         this.buildMap();
-        // _mapPanel.drawMap(loadMap(), latitudes, longitudes);
     }
 }
