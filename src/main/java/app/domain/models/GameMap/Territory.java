@@ -6,26 +6,34 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import app.common.AppConfig;
+
 public class Territory {
     public String name;
+    public String imageName;
     public TerritoryPosition territoryPosition;
     public BufferedImage image;
 
-    public Territory(String name, TerritoryPosition territoryPosition) throws IOException {
+    public Territory(String name, String imageName, TerritoryPosition territoryPosition) {
         this.name = name;
+        this.imageName = imageName;
         this.territoryPosition = territoryPosition;
-        // this.image = getImage(name + ".png");
     }
 
-    public BufferedImage getImage(String imageName) throws IOException {
-        File imageFile = new File("src/main/java/app/" + imageName);
+    public BufferedImage getImage() throws IOException {
+        File imageFile = new File(AppConfig.basePath + "/resources/terriotories/" + imageName);
         return ImageIO.read(imageFile);
     }
 
     @Override
     public String toString() {
         String info = "";
-        info += name + "\s\s" + territoryPosition.toString();
+        info += name;
+        info += "\s\s";
+        info += imageName;
+        info += "\s\s";
+        info += territoryPosition.toString();
+        info += "\s\s";
         info += "\n";
         return info;
     }

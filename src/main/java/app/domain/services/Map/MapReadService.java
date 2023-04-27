@@ -39,6 +39,7 @@ public class MapReadService extends JsonService {
         } catch (ParseException e) {
             System.err.println("Cannot parse json to custom object");
         }
+        System.out.println(_gameMapData);
     }
 
     public Map<Continent, List<Territory>> getGameMapData() {
@@ -74,9 +75,10 @@ public class MapReadService extends JsonService {
 
     private Territory parseTerritoryObject(JSONObject jsonObject) throws IOException {
         String territoryName = (String) jsonObject.get("name");
+        String imageName = (String) jsonObject.get("imageName");
         TerritoryPosition territoryPosition = parseTerritoryPositionObject(jsonObject);
 
-        return new Territory(territoryName, territoryPosition);
+        return new Territory(territoryName, imageName, territoryPosition);
     }
 
     private TerritoryPosition parseTerritoryPositionObject(JSONObject jsonObject) {
