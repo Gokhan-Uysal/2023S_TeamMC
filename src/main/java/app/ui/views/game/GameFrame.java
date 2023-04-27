@@ -29,7 +29,7 @@ public class GameFrame extends BaseJFrame {
     public void initilizeComponents() {
         _mapPanel = new MapPanel();
         _mapPanel.setBackground(Color.lightGray);
-        _mapController = new MapPanelController(_mapService, _mapPanel);
+        _mapController = new MapPanelController(_mapPanel, _mapService);
     }
 
     @Override

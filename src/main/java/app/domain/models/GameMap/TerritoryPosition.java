@@ -1,7 +1,5 @@
 package app.domain.models.GameMap;
 
-import javax.xml.xpath.XPath;
-
 public class TerritoryPosition {
     public int x;
     public int y;

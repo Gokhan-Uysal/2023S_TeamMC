@@ -11,9 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import app.domain.models.GameMap.Continent;
-import app.domain.models.GameMap.Territory;
-import app.domain.models.GameMap.TerritoryPosition;
+import app.domain.models.GameMap.*;
 import app.domain.services.base.JsonService;
 
 public class MapReadService extends JsonService {
@@ -39,7 +37,8 @@ public class MapReadService extends JsonService {
         } catch (ParseException e) {
             System.err.println("Cannot parse json to custom object");
         }
-        System.out.println(_gameMapData);
+
+        // System.out.println(_gameMapData);
     }
 
     public Map<Continent, List<Territory>> getGameMapData() {

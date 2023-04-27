@@ -1,6 +1,8 @@
 package app.domain.services.Map;
 
-import java.awt.*;
+import java.util.List;
+
+import app.domain.models.GameMap.Territory;
 
 public class MapService implements Runnable {
         private MapFactory _mapFactory;
@@ -9,12 +11,16 @@ public class MapService implements Runnable {
                 this._mapFactory = mapFactory;
         }
 
-        public Image resizeImage(Image image, int newWidth, int newHeight) {
-                return image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        public void loadGameMapData() {
+                _mapFactory.loadGameDataToGraph();
+        }
+
+        public List<Territory> getTerritoryList() {
+                return _mapFactory.getTerritoryList();
         }
 
         @Override
         public void run() {
-                _mapFactory.loadGameDataToGraph();
+
         }
 }

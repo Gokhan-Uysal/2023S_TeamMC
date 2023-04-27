@@ -18,6 +18,10 @@ public class MapFactory {
         loadGraphVerticies();
     }
 
+    public List<Territory> getTerritoryList() {
+        return _mapReadService.getGameMapTerritories();
+    }
+
     private void loadMapData() {
         _mapReadService.buildGameMapData();
     }

@@ -1,5 +1,8 @@
 package app.ui.controllers.game.map;
 
+import java.util.List;
+
+import app.domain.models.GameMap.Territory;
 import app.domain.services.Map.MapService;
 import app.ui.views.game.map.MapPanel;
 
@@ -8,27 +11,25 @@ public class MapPanelController {
     private MapService _mapService;
     private MapPanel _mapPanel;
 
-    private int latitudes;
-    private int longitudes;
-
-    public int getLatitudes() {
-        return latitudes;
-    }
-
-    public int getLongitudes() {
-        return longitudes;
-    }
-
-    public MapPanelController(MapService mapService, MapPanel mapView) {
+    public MapPanelController(MapPanel mapPanel, MapService mapService) {
+        this._mapPanel = mapPanel;
         this._mapService = mapService;
-        this._mapPanel = mapView;
     }
 
-    private void buildMap() {
-        _mapService.run();
+    public void displayMap() {
+        List<Territory> territoryList = _mapService.getTerritoryList();
+        territoryList.forEach((territory) -> {
+            TerritoryComponentController trController = new TerritoryComponentController(territory);
+            _mapPanel.drawTerriotry(trController.getTerritoryComponent());
+        });
+    }
+
+    private void loadMap() {
+        _mapService.loadGameMapData();
     }
 
     public void drawMap() {
-        this.buildMap();
+        this.loadMap();
+        this.displayMap();
     }
 }

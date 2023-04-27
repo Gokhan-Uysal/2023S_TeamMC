@@ -12,7 +12,6 @@ public class Territory {
     public String name;
     public String imageName;
     public TerritoryPosition territoryPosition;
-    public BufferedImage image;
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition) {
         this.name = name;
@@ -21,7 +20,7 @@ public class Territory {
     }
 
     public BufferedImage getImage() throws IOException {
-        File imageFile = new File(AppConfig.basePath + "/resources/terriotories/" + imageName);
+        File imageFile = new File(AppConfig.basePath + "/resources/assets/territories/" + imageName);
         return ImageIO.read(imageFile);
     }
 
