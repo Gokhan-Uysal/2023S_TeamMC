@@ -3,12 +3,11 @@ package app.ui.views.game;
 import app.domain.services.MapService;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
+import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.map.MapPanel;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
-import java.awt.Dimension;
-import java.awt.Point;
 import java.io.File;
 
 public class GameFrame extends BaseJFrame {
@@ -17,6 +16,7 @@ public class GameFrame extends BaseJFrame {
     private MapPanel mapPanel;
     private MapService mapService;
     private MapPanelController mapController;
+    private HelpPanel helpPanel;
 
     public GameFrame(String title, Dimension size, Point location) {
         super(title, size, location);
@@ -30,6 +30,7 @@ public class GameFrame extends BaseJFrame {
         mapPanel = new MapPanel(15);
         mapService = new MapService(new File("src/main/java/app/resource/assets/ConKUeror.png"), 55);
         mapController = new MapPanelController(mapService, mapPanel);
+        helpPanel = new HelpPanel();
     }
 
     @Override
@@ -46,6 +47,7 @@ public class GameFrame extends BaseJFrame {
     @Override
     public void addComponents() {
         this.add(mapPanel, BorderLayout.CENTER);
+        this.add(helpPanel, BorderLayout.NORTH);
     }
 
     private void showMap() {
