@@ -34,7 +34,7 @@ public class TerritoryComponent extends JComponent {
             System.err.printf("Unable to find %s image\n", _territory.name);
         }
 
-        graphics.drawString(_territory.name, 20, 20);
+        // graphics.drawString(_territory.name, 20, 20);
     }
 
     public Territory getTerritory() {

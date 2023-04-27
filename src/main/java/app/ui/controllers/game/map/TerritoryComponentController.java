@@ -21,6 +21,11 @@ public class TerritoryComponentController {
             public void mouseClicked(MouseEvent e) {
                 handleTerritoryClicked();
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                handleTerritoryEnter();
+            }
         });
     }
 
@@ -30,5 +35,9 @@ public class TerritoryComponentController {
 
     private void handleTerritoryClicked() {
         System.out.println("Territory clicked: " + territory.name);
+    }
+
+    private void handleTerritoryEnter() {
+        System.out.println("Territory hover: " + territory.name);
     }
 }
