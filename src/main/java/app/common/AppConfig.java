@@ -33,4 +33,7 @@ public class AppConfig {
     private static final int xLocation = (screenSize.width / 2) - width / 2;
     private static final int yLocation = (screenSize.height / 2) - height / 2;
     public static final Point appLocation = new Point(xLocation, yLocation);
+
+    // Paths
+    public static final String basePath = "src/main/java/app";
 }

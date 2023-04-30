@@ -32,7 +32,5 @@ public class ButtonsPanelController implements ActionListener {
         rootFrame.dispose();
 
         new PlayerMenuFrame(AppConfig.title, AppConfig.appSize, location);
-        //new GameFrame(AppConfig.title, AppConfig.appSize, location);
     }
-
 }

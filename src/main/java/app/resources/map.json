@@ -1,0 +1,242 @@
+[
+    {
+        "continent": "Australia",
+        "countries": [
+            {
+                "name": "Eastern Australia",
+                "position": { "x": 100, "y": 200 },
+                "imageName": "eastern_australia.png"
+            },
+            {
+                "name": "Indonesia",
+                "position": { "x": 200, "y": 300 },
+                "imageName": "indonesia.png"
+            },
+            {
+                "name": "New Guinea",
+                "position": { "x": 300, "y": 400 },
+                "imageName": "new_guinea.png"
+            },
+            {
+                "name": "Western Australia",
+                "position": { "x": 400, "y": 500 },
+                "imageName": "western_australia.png"
+            }
+        ]
+    },
+    {
+        "continent": "Asia",
+        "countries": [
+            {
+                "name": "Afghanistan",
+                "position": { "x": 500, "y": 600 },
+                "imageName": "afghanistan.png"
+            },
+            {
+                "name": "China",
+                "position": { "x": 600, "y": 700 },
+                "imageName": "china.png"
+            },
+            {
+                "name": "India",
+                "position": { "x": 700, "y": 800 },
+                "imageName": "india.png"
+            },
+            {
+                "name": "Irkutsk",
+                "position": { "x": 800, "y": 900 },
+                "imageName": "irkutsk.png"
+            },
+            {
+                "name": "Japan",
+                "position": { "x": 900, "y": 1000 },
+                "imageName": "japan.png"
+            },
+            {
+                "name": "Kamchatka",
+                "position": { "x": 1000, "y": 1100 },
+                "imageName": "kamchatka.png"
+            },
+            {
+                "name": "Middle East",
+                "position": { "x": 1100, "y": 1200 },
+                "imageName": "middle_east.png"
+            },
+            {
+                "name": "Mongolia",
+                "position": { "x": 1200, "y": 1300 },
+                "imageName": "mongolia.png"
+            },
+            {
+                "name": "Siam (Southeast Asia)",
+                "position": { "x": 1300, "y": 1400 },
+                "imageName": "siam.png"
+            },
+            {
+                "name": "Siberia",
+                "position": { "x": 1400, "y": 1500 },
+                "imageName": "siberia.png"
+            },
+            {
+                "name": "Ural",
+                "position": { "x": 1500, "y": 1600 },
+                "imageName": "ural.png"
+            },
+            {
+                "name": "Yakutsk",
+                "position": { "x": 720, "y": 1700 },
+                "imageName": "yakutsk.png"
+            }
+        ]
+    },
+    {
+        "continent": "Africa",
+        "countries": [
+            {
+                "name": "Congo (Central Africa)",
+                "position": { "x": 1800, "y": 1900 },
+                "imageName": "congo.png"
+            },
+            {
+                "name": "East Africa",
+                "position": { "x": 1900, "y": 2000 },
+                "imageName": "east_africa.png"
+            },
+            {
+                "name": "Egypt",
+                "position": { "x": 2000, "y": 2100 },
+                "imageName": "egypt.png"
+            },
+            {
+                "name": "Madagascar",
+                "position": { "x": 2100, "y": 2200 },
+                "imageName": "madagascar.png"
+            },
+            {
+                "name": "North Africa",
+                "position": { "x": 2200, "y": 2300 },
+                "imageName": "north_africa.png"
+            },
+            {
+                "name": "South Africa",
+                "position": { "x": 2300, "y": 2400 },
+                "imageName": "south_africa.png"
+            }
+        ]
+    },
+    {
+        "continent": "Europe",
+        "countries": [
+            {
+                "name": "Great Britain (Great Britain & Ireland)",
+                "position": { "x": 2400, "y": 2500 },
+                "imageName": "great_britain.png"
+            },
+            {
+                "name": "Iceland",
+                "position": { "x": 2500, "y": 2600 },
+                "imageName": "iceland.png"
+            },
+            {
+                "name": "Northern Europe",
+                "position": { "x": 2600, "y": 2700 },
+                "imageName": "northern_europe.png"
+            },
+            {
+                "name": "Scandinavia",
+                "position": { "x": 2700, "y": 2800 },
+                "imageName": "scandinavia.png"
+            },
+            {
+                "name": "Southern Europe",
+                "position": { "x": 2800, "y": 2900 },
+                "imageName": "southern_europe.png"
+            },
+            {
+                "name": "Ukraine (Eastern Europe, Russia)",
+                "position": { "x": 2900, "y": 3000 },
+                "imageName": "ukraine.png"
+            },
+            {
+                "name": "Western Europe",
+                "position": { "x": 3000, "y": 3100 },
+                "imageName": "western_europe.png"
+            }
+        ]
+    },
+    {
+        "continent": "North America",
+        "countries": [
+            {
+                "name": "Alaska",
+                "position": { "x": 30, "y": 30 },
+                "imageName": "alaska.png"
+            },
+            {
+                "name": "Alberta (Western Canada)",
+                "position": { "x": 3200, "y": 3300 },
+                "imageName": "alberta.png"
+            },
+            {
+                "name": "Central America",
+                "position": { "x": 3300, "y": 3400 },
+                "imageName": "central_america.png"
+            },
+            {
+                "name": "Eastern United States",
+                "position": { "x": 3400, "y": 3500 },
+                "imageName": "eastern_united_states.png"
+            },
+            {
+                "name": "Greenland",
+                "position": { "x": 3500, "y": 3600 },
+                "imageName": "greenland.png"
+            },
+            {
+                "name": "Northwest Territory",
+                "position": { "x": 160, "y": 5 },
+                "imageName": "northwest_territory.png"
+            },
+            {
+                "name": "Ontario (Central Canada)",
+                "position": { "x": 3700, "y": 3800 },
+                "imageName": "ontario.png"
+            },
+            {
+                "name": "Quebec (Eastern Canada)",
+                "position": { "x": 3800, "y": 3900 },
+                "imageName": "quebec.png"
+            },
+            {
+                "name": "Western United States",
+                "position": { "x": 3900, "y": 4000 },
+                "imageName": "western_united_states.png"
+            }
+        ]
+    },
+    {
+        "continent": "South America",
+        "countries": [
+            {
+                "name": "Argentina",
+                "position": { "x": 4000, "y": 4100 },
+                "imageName": "argentina.png"
+            },
+            {
+                "name": "Brazil",
+                "position": { "x": 4100, "y": 4200 },
+                "imageName": "brazil.png"
+            },
+            {
+                "name": "Peru",
+                "position": { "x": 4200, "y": 4300 },
+                "imageName": "peru.png"
+            },
+            {
+                "name": "Venezuela",
+                "position": { "x": 4300, "y": 4400 },
+                "imageName": "venezuela.png"
+            }
+        ]
+    }
+]

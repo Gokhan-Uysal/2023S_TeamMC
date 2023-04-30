@@ -2,6 +2,10 @@ package app.ui.views.menu.playermenu;
 
 import app.common.AppConfig;
 import app.domain.services.PlayerService;
+import app.domain.services.Map.MapFactory;
+import app.domain.services.Map.MapGraphService;
+import app.domain.services.Map.MapReadService;
+import app.domain.services.Map.MapService;
 import app.ui.controllers.menu.playermenu.PlayerPanelController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.GameFrame;
@@ -21,7 +25,6 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
     private final JLabel contextLabel;
     private final JButton playButton;
     JOptionPane optionPane;
-
 
     public PlayerMenuFrame(String title, Dimension size, Point location) {
         super(title, size, location);
@@ -45,8 +48,8 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
     @Override
     public void initilizeComponents() {
-        int[] xCoords = {50, 50, 50, 870, 870, 870};
-        int[] yCoords = {100, 250, 400, 100, 250, 400};
+        int[] xCoords = { 50, 50, 50, 870, 870, 870 };
+        int[] yCoords = { 100, 250, 400, 100, 250, 400 };
 
         for (int i = 0; i < xCoords.length; i++) {
             PlayerPanel playerPanel = new PlayerPanel(xCoords[i], yCoords[i]);
@@ -92,7 +95,8 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
                 newNames.addAll(playerPanelController.newNames);
             }
             if (newNames.size() < 2) {
-                JOptionPane.showMessageDialog(this, "Please enter name for at least 2 players", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter name for at least 2 players", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -104,7 +108,13 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
                 PlayerService.createPlayer(newNames);
 
-                new GameFrame(AppConfig.title, AppConfig.appSize, location);
+                // Initialize dependencies
+                MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
+                MapGraphService mapGraphService = new MapGraphService();
+                MapFactory mapFactory = new MapFactory(mapReadService, mapGraphService);
+                MapService mapService = new MapService(mapFactory);
+                // Create the GameFrame object with the initialized dependencies
+                new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
                 this.setVisible(false);
             }
         }
