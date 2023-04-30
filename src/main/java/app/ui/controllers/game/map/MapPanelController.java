@@ -1,7 +1,9 @@
 package app.ui.controllers.game.map;
 
+import java.io.IOException;
 import java.util.List;
 
+import app.common.Logger;
 import app.domain.models.GameMap.Territory;
 import app.domain.services.Map.MapService;
 import app.ui.views.game.map.MapPanel;
@@ -19,8 +21,14 @@ public class MapPanelController {
     public void displayMap() {
         List<Territory> territoryList = _mapService.getTerritoryList();
         territoryList.forEach((territory) -> {
-            TerritoryComponentController trController = new TerritoryComponentController(territory);
-            _mapPanel.drawTerriotry(trController.getTerritoryComponent());
+            TerritoryComponentController trController;
+            try {
+                trController = new TerritoryComponentController(territory);
+                trController.updateComponentBounds();
+                _mapPanel.drawTerriotry(trController.getTerritoryComponent());
+            } catch (IOException e) {
+                Logger.error(e);
+            }
         });
     }
 

@@ -1,21 +1,21 @@
 package app.ui.views.game.map;
 
 import java.awt.*;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
-import app.domain.models.GameMap.Territory;
-
 public class TerritoryComponent extends JComponent {
-    private Territory _territory;
+    private BufferedImage _territoryImage;
+    private String _territoryName;
 
-    public TerritoryComponent(Territory territory) {
-        this.buildClass(territory);
+    public TerritoryComponent(String territoryName, BufferedImage territoryImage) {
+        this.buildClass(territoryName, territoryImage);
         this.buildView();
     }
 
-    private void buildClass(Territory territory) {
-        this._territory = territory;
+    private void buildClass(String territoryName, BufferedImage territoryImage) {
+        this._territoryName = territoryName;
+        this._territoryImage = territoryImage;
     }
 
     private void buildView() {
@@ -25,19 +25,11 @@ public class TerritoryComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        System.out.printf("Painting %s\n", _territory.name);
+        System.out.printf("Painting %s\n", _territoryName);
 
         Graphics2D graphics2d = (Graphics2D) graphics;
-        try {
-            graphics2d.drawImage(_territory.getImage(), null, 0, 0);
-        } catch (IOException e) {
-            System.err.printf("Unable to find %s image\n", _territory.name);
-        }
+        graphics2d.drawImage(_territoryImage, null, 0, 0);
 
-        // graphics.drawString(_territory.name, 20, 20);
-    }
-
-    public Territory getTerritory() {
-        return this._territory;
+        graphics.drawString(_territoryName, 20, 20);
     }
 }
