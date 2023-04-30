@@ -16,14 +16,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
+public class PlayerMenuFrame extends BaseJFrame {
 
     private ArrayList<PlayerPanel> playerPanels = new ArrayList<PlayerPanel>();
-    private ArrayList<PlayerPanelController> playerPanelControllers = new ArrayList<PlayerPanelController>();
+    public ArrayList<PlayerPanelController> playerPanelControllers = new ArrayList<PlayerPanelController>();
 
     private final JLabel welcomeLabel;
     private final JLabel contextLabel;
-    private final JButton playButton;
+    public final JButton playButton;
     JOptionPane optionPane;
 
     public PlayerMenuFrame(String title, Dimension size, Point location) {
@@ -39,7 +39,7 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
         playButton = new JButton("Play");
         playButton.setBounds(1150, 620, 80, 30);
         playButton.setVisible(true);
-        playButton.addActionListener(this);
+
 
         optionPane = new JOptionPane();
 
@@ -87,36 +87,4 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == playButton) {
-            ArrayList<String> newNames = new ArrayList<String>();
-            for (PlayerPanelController playerPanelController : playerPanelControllers) {
-                newNames.addAll(playerPanelController.newNames);
-            }
-            if (newNames.size() < 2) {
-                JOptionPane.showMessageDialog(this, "Please enter name for at least 2 players", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            int a = JOptionPane.showConfirmDialog(this, "Are you sure? Do you want to start playing?");
-            if (a == JOptionPane.YES_OPTION) {
-                JFrame rootFrame = getRootFrame();
-                Point location = rootFrame.getLocation();
-                rootFrame.dispose();
-
-                PlayerService.createPlayer(newNames);
-
-                // Initialize dependencies
-                MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
-                MapGraphService mapGraphService = new MapGraphService();
-                MapFactory mapFactory = new MapFactory(mapReadService, mapGraphService);
-                MapService mapService = new MapService(mapFactory);
-                // Create the GameFrame object with the initialized dependencies
-                new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
-                this.setVisible(false);
-            }
-        }
-    }
 }
