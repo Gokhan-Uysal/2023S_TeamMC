@@ -18,7 +18,7 @@ public class RegisterFrame extends BaseJFrame {
 
         super(title, size);
         this.setLayout(null);
-        initilizeComponents();
+        initializeComponents();
 
         usernameLabel = new JLabel("Username");
         usernameLabel.setBounds(460,150,100,40);
@@ -51,7 +51,7 @@ public class RegisterFrame extends BaseJFrame {
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
 
     }
 

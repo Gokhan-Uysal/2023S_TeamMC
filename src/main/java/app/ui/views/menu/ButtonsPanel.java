@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 public class ButtonsPanel extends JPanel {
     public JButton startButton;
-    private JButton settingsButton;
-    private JButton exitButton;
+    public JButton settingsButton;
+    public JButton exitButton;
 
     public ButtonsPanel(int row, int col) {
         buildView(row, col);

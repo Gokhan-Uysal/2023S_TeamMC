@@ -27,7 +27,7 @@ public abstract class BaseJFrame extends JFrame {
         this.setDefaultCloseOperation(GameFrame.EXIT_ON_CLOSE);
     }
 
-    public abstract void initilizeComponents();
+    public abstract void initializeComponents();
 
     public abstract void buildComponents();
 
@@ -36,5 +36,5 @@ public abstract class BaseJFrame extends JFrame {
     public void refresh() {
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
-    };
+    }
 }

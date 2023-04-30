@@ -21,12 +21,12 @@ public class GameFrame extends BaseJFrame {
         super(title, size, location);
         this._mapService = mapService;
         this.setLayout(new BorderLayout());
-        initilizeComponents();
+        initializeComponents();
         buildComponents();
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         _mapPanel = new MapPanel();
         _mapPanel.setBackground(Color.lightGray);
         _mapController = new MapPanelController(_mapPanel, _mapService);

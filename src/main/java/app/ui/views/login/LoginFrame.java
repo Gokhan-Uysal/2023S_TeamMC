@@ -21,7 +21,7 @@ public class LoginFrame extends BaseJFrame {
     public LoginFrame(String title, Dimension size) {
         super(title, size);
         this.setLayout(null);
-        initilizeComponents();
+        initializeComponents();
 
         usernameLabel = new JLabel("Username");
         usernameLabel.setBounds(460,150,100,40);
@@ -47,7 +47,7 @@ public class LoginFrame extends BaseJFrame {
         buildComponents();
     }
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
     }
 
     @Override

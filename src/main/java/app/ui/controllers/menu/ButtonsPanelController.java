@@ -20,6 +20,8 @@ public class ButtonsPanelController implements ActionListener {
     public ButtonsPanelController(ButtonsPanel buttonsPanel) {
         this.buttonsPanel = buttonsPanel;
         ActionListenerUtil.addActionListener(buttonsPanel.startButton, this);
+        ActionListenerUtil.addActionListener(buttonsPanel.settingsButton, this);
+        ActionListenerUtil.addActionListener(buttonsPanel.exitButton, this);
     }
 
     private JFrame getRootFrame() {
@@ -29,11 +31,20 @@ public class ButtonsPanelController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JFrame rootFrame = getRootFrame();
-        Point location = rootFrame.getLocation();
-        rootFrame.dispose();
+        if (e.getSource()==buttonsPanel.startButton) {
+            JFrame rootFrame = getRootFrame();
+            Point location = rootFrame.getLocation();
+            rootFrame.dispose();
 
-        PlayerMenuFrame playerMenuFrame = new PlayerMenuFrame(AppConfig.title, AppConfig.appSize, location);
-        PlayerMenuController playerMenuController = new PlayerMenuController(playerMenuFrame);
+            PlayerMenuFrame playerMenuFrame = new PlayerMenuFrame(AppConfig.title, AppConfig.appSize, location);
+            PlayerMenuController playerMenuController = new PlayerMenuController(playerMenuFrame);
+        }
+        else if (e.getSource()==buttonsPanel.exitButton) {
+            System.exit(0);
+        }
+        else if (e.getSource()==buttonsPanel.settingsButton) {
+            //Settings Button Action Listener
+        }
+
     }
 }

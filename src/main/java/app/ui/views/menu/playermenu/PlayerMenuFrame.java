@@ -29,7 +29,7 @@ public class PlayerMenuFrame extends BaseJFrame {
     public PlayerMenuFrame(String title, Dimension size, Point location) {
         super(title, size, location);
         this.setLayout(null);
-        initilizeComponents();
+        initializeComponents();
 
         welcomeLabel = new JLabel("Welcome to ConKUeror");
         contextLabel = new JLabel("Please select players and enter names");
@@ -47,7 +47,7 @@ public class PlayerMenuFrame extends BaseJFrame {
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         int[] xCoords = { 50, 50, 50, 870, 870, 870 };
         int[] yCoords = { 100, 250, 400, 100, 250, 400 };
 
