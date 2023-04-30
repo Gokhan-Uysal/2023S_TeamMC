@@ -4,8 +4,8 @@ import javax.swing.ImageIcon;
 
 public class ArtilleryCard extends ArmyCard {
 
-    protected ArtilaryCard(ImageIcon imageIcon) {
-        super(ArtilaryCard.class.getName(), imageIcon, 60);
+    protected ArtilleryCard(String discription, ImageIcon imageIcon) {
+        super(ArtilleryCard.class.getName(), imageIcon, 60);
         this.imageIcon = imageIcon;
     }
 

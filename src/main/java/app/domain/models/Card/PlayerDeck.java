@@ -7,7 +7,7 @@ public class PlayerDeck implements Deck {
     private HashMap<CardType, ArrayList<BaseCard>> cardContainer = new HashMap<>();
     private CardFactory cardFactory = new CardFactory();
 
-    public PlayerDeck(){
+    public PlayerDeck() {
         this.cardContainer.put(CardType.Infantry, new ArrayList<>());
         this.cardContainer.put(CardType.Cavalry, new ArrayList<>());
         this.cardContainer.put(CardType.Artillery, new ArrayList<>());
@@ -16,8 +16,8 @@ public class PlayerDeck implements Deck {
     }
 
     @Override
-    public void addCards(CardType type, Object...args) {
-        BaseCard addedCard = cardFactory.create(type, args);
+    public void addCards(CardType type, BaseCard baseCard) {
+        BaseCard addedCard = cardFactory.create(type, baseCard);
         this.cardContainer.get(type).add(addedCard);
     }
 
@@ -28,7 +28,7 @@ public class PlayerDeck implements Deck {
 
     @Override
     public void shuffle() {
-        for (Map.Entry<CardType, ArrayList<BaseCard>> entry: this.cardContainer.entrySet()){
+        for (Map.Entry<CardType, ArrayList<BaseCard>> entry : this.cardContainer.entrySet()) {
             Collections.shuffle(entry.getValue());
         }
     }
