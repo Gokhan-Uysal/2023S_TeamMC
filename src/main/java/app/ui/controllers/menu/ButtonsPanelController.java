@@ -8,9 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
-import app.domain.services.Map.*;
-import app.ui.views.game.GameFrame;
 import app.ui.views.menu.ButtonsPanel;
+import app.ui.views.menu.playermenu.PlayerMenuFrame;
 import app.util.ActionListenerUtil;
 
 public class ButtonsPanelController implements ActionListener {
@@ -32,13 +31,6 @@ public class ButtonsPanelController implements ActionListener {
         Point location = rootFrame.getLocation();
         rootFrame.dispose();
 
-        // Initialize dependencies
-        MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
-        MapGraphService mapGraphService = new MapGraphService();
-        MapFactory mapFactory = new MapFactory(mapReadService, mapGraphService);
-        MapService mapService = new MapService(mapFactory);
-
-        // Create the GameFrame object with the initialized dependencies
-        new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
+        new PlayerMenuFrame(AppConfig.title, AppConfig.appSize, location);
     }
 }
