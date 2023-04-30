@@ -34,6 +34,7 @@ public class LoginFrameController extends Component implements ActionListener {
             boolean response = FileService.checkData(inputName, inputPassword);
             if (response){
                 JOptionPane.showMessageDialog(loginFrame, "You successfully logged in");
+                loginFrame.dispose();
                 new MainMenuFrame("Main Menu", AppConfig.appSize);
             }
             else{
@@ -42,7 +43,7 @@ public class LoginFrameController extends Component implements ActionListener {
 
         }
         else if (e.getSource() == loginFrame.registerButton){
-            loginFrame.setVisible(false);
+            loginFrame.dispose();
             RegisterFrame registerFrame = new RegisterFrame("Register", AppConfig.appSize);
             RegisterFrameController registerFrameController = new RegisterFrameController(registerFrame);
 
