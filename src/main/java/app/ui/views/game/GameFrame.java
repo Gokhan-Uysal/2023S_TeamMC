@@ -3,12 +3,12 @@ package app.ui.views.game;
 import app.domain.services.Map.MapService;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
+import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.map.MapPanel;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
+
+import java.io.File;
 
 public class GameFrame extends BaseJFrame {
 

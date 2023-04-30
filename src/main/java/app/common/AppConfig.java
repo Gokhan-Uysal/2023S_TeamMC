@@ -24,6 +24,8 @@ public class AppConfig {
     private static final int height = 720;
     public static final Dimension appSize = new Dimension(width, height);
 
+    public static final Dimension helpScreenSize = new Dimension(width/2,height/2);
+
     // Screen size
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
