@@ -24,7 +24,6 @@ public class MapPanelController {
             TerritoryComponentController trController;
             try {
                 trController = new TerritoryComponentController(territory);
-                trController.updateComponentBounds();
                 _mapPanel.drawTerriotry(trController.getTerritoryComponent());
             } catch (IOException e) {
                 Logger.error(e);

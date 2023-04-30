@@ -13,6 +13,7 @@ public class TerritoryComponentController {
     public TerritoryComponentController(Territory territory) throws IOException {
         this.territory = territory;
         this.territoryComponent = new TerritoryComponent(territory.name, territory.getImage());
+        updateComponentBounds();
         setupListeners();
     }
 
