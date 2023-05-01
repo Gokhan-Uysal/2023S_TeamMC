@@ -2,7 +2,6 @@ package app.ui.views.menu.playermenu;
 
 import app.common.AppConfig;
 import app.domain.services.PlayerService;
-import app.domain.services.Map.MapFactory;
 import app.domain.services.Map.MapGraphService;
 import app.domain.services.Map.MapReadService;
 import app.domain.services.Map.MapService;
@@ -109,10 +108,7 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
                 PlayerService.createPlayer(newNames);
 
                 // Initialize dependencies
-                MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
-                MapGraphService mapGraphService = new MapGraphService();
-                MapFactory mapFactory = new MapFactory(mapReadService, mapGraphService);
-                MapService mapService = new MapService(mapFactory);
+                MapService mapService = new MapService();
                 // Create the GameFrame object with the initialized dependencies
                 new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
                 this.setVisible(false);
