@@ -20,7 +20,7 @@ public class Territory {
     }
 
     public BufferedImage getImage() throws IOException {
-        File imageFile = new File(AppConfig.basePath + "/resources/assets/territories/" + imageName);
+        File imageFile = new File(AppConfig.basePath + "/resource/assets/territories/" + imageName);
         return ImageIO.read(imageFile);
     }
 

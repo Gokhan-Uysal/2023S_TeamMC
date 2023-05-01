@@ -6,7 +6,7 @@ import app.common.AppConfig;
 import app.domain.models.GameMap.Territory;
 
 public class MapService {
-	private MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resources/map.json");
+	private MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
 	private MapGraphService _mapGraphService = new MapGraphService();
 
 	public MapService() {
