@@ -2,7 +2,6 @@ package app.ui.views.menu.playermenu;
 
 import app.common.AppConfig;
 import app.domain.services.PlayerService;
-import app.domain.services.Map.MapFactory;
 import app.domain.services.Map.MapGraphService;
 import app.domain.services.Map.MapReadService;
 import app.domain.services.Map.MapService;
@@ -39,7 +38,6 @@ public class PlayerMenuFrame extends BaseJFrame {
         playButton = new JButton("Play");
         playButton.setBounds(1150, 620, 80, 30);
         playButton.setVisible(true);
-
 
         optionPane = new JOptionPane();
 
@@ -81,10 +79,4 @@ public class PlayerMenuFrame extends BaseJFrame {
         this.add(welcomeLabel);
         this.add(contextLabel);
     }
-
-    private JFrame getRootFrame() {
-        return (JFrame) SwingUtilities.getWindowAncestor(playerPanels.get(0));
-
-    }
-
 }

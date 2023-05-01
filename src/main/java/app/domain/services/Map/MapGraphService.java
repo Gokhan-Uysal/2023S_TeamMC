@@ -1,8 +1,8 @@
 package app.domain.services.Map;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import app.common.GraphError;
 import app.domain.models.GameMap.Territory;
 import app.domain.services.base.BaseGraph;
 
@@ -11,21 +11,13 @@ public class MapGraphService extends BaseGraph<Territory> {
         super(7);
     }
 
-    public Territory getVertex(String territoryName) {
-        Set<Territory> keySet = this.graph.keySet();
-        for (Territory territory : keySet) {
-            if (territory.name.equals(territoryName)) {
-                return territory;
-            }
-        }
+    public List<Territory> getVerticies() {
+        List<Territory> territoryVerticies = new ArrayList<>();
+        super.graph.keySet().forEach((Territory territory) -> {
+            territoryVerticies.add(territory);
+        });
 
-        throw new GraphError("Territory vertex not found");
-    }
-
-    public void addEdge(String sourceName, String destinationName) {
-        Territory source = getVertex(sourceName);
-        Territory destination = getVertex(destinationName);
-        super.addEdge(source, destination);
+        return territoryVerticies;
     }
 
     @Override

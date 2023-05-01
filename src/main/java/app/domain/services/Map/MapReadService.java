@@ -37,8 +37,6 @@ public class MapReadService extends JsonService {
         } catch (ParseException e) {
             System.err.println("Cannot parse json to custom object");
         }
-
-        // System.out.println(_gameMapData);
     }
 
     public Map<Continent, List<Territory>> getGameMapData() {
