@@ -1,9 +1,6 @@
 package app.ui.controllers.menu.playermenu;
 
 import app.common.AppConfig;
-import app.domain.services.Map.MapFactory;
-import app.domain.services.Map.MapGraphService;
-import app.domain.services.Map.MapReadService;
 import app.domain.services.Map.MapService;
 import app.domain.services.PlayerService;
 import app.ui.views.game.GameFrame;
