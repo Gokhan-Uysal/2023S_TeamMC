@@ -29,7 +29,6 @@ public class MapGraphService extends BaseGraph<Territory> {
                 addEdge(territory, adj);
             });
         });
-        System.out.println(graph.entrySet());
     }
 
     public Territory getVertex(String territoryName) {
