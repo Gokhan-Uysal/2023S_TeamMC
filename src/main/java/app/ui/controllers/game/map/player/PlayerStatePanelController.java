@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 public class PlayerStatePanelController implements ActionListener {
 
     PlayerStatePanel playerStatePanel = new PlayerStatePanel();
-    GameManagerService gameManagerService = new GameManagerService();
 
     public PlayerStatePanelController(PlayerStatePanel playerStatePanel){
         this.playerStatePanel = playerStatePanel;
@@ -19,7 +18,9 @@ public class PlayerStatePanelController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playerStatePanel.nextButton){
-            gameManagerService.handleNextButtonClick();
+            GameManagerService.getInstance().handleNextButtonClick();
         }
+
+
     }
 }

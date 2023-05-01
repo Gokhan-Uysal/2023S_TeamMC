@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class PlayerStatePanel extends JPanel {
 
-    private int cornerRadius = 30;
+    private int cornerRadius = 50;
     public JButton nextButton;
     public JLabel nameField;
     public JButton indicator1, indicator2, indicator3;
@@ -14,47 +14,34 @@ public class PlayerStatePanel extends JPanel {
     public PlayerStatePanel(){
         super();
         setOpaque(false);
-        setLayout(null);
-        setBounds(580, 600, 360, 100);
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.setPreferredSize(new Dimension(400, 250));
         setBackground(Color.CYAN);
         setForeground(Color.black);
+
+        buildPanel();
 
     }
 
 
-    public void BuildPanel(String playerName){
+    public void buildPanel(){
         nextButton = new JButton("Next");
-        nameField = new JLabel(playerName);
+        nameField = new JLabel("AMK");
 
-        indicator1 = new JButton();
-        indicator2 = new JButton();
-        indicator3 = new JButton();
+        indicator1 = new JButton("Sa");
+        indicator2 = new JButton("As");
+        indicator3 = new JButton("SaAS");
 
         indicator1.setBackground(Color.GREEN);
         indicator2.setBackground(Color.GRAY);
         indicator3.setBackground(Color.GRAY);
 
-        indicator1.setBounds(5, 35, 80, 30);
-        indicator1.setVisible(true);
-
-        indicator2.setBounds(5, 35, 80, 30);
-        indicator2.setVisible(true);
-
-        indicator3.setBounds(5, 35, 80, 30);
-        indicator3.setVisible(true);
-
-        nextButton.setBounds(5, 35, 80, 30);
-        nextButton.setVisible(true);
-
-        nameField.setBounds(100, 30, 200, 40);
-
-
-
         this.add(nextButton);
         this.add(nameField);
-        this.add(indicator1);
-        this.add(indicator2);
-        this.add(indicator3);
+        //this.add(indicator1);
+        //this.add(indicator2);
+        //this.add(indicator3);
+
 
     }
 

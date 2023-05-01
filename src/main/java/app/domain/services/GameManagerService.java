@@ -3,11 +3,13 @@ package app.domain.services;
 import app.domain.models.game.GameState;
 import app.domain.services.base.BasePublisher;
 
-public class GameManagerService extends BasePublisher<GameState> {
-    private static GameManagerService _instance;
-    private GameState gameState;
+import java.util.stream.StreamSupport;
 
-    public GameManagerService() {
+public class GameManagerService extends BasePublisher<GameState> {
+
+    private static GameManagerService _instance;
+
+    private GameManagerService() {
         super(GameState.INITIALIZATION);
         setState(GameState.INITIALIZATION);
         initializeGame();
@@ -36,7 +38,8 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     // Add methods for handling game logic here.
     public void handleNextButtonClick() {
-        switch (gameState) {
+
+        switch (super.getState()) {
             case REPLACEMENT_PHASE:
                 startAttackPhase();
                 break;
