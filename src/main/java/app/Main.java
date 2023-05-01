@@ -3,15 +3,21 @@ package app;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
+import app.domain.services.Map.MapService;
 import app.ui.controllers.login.LoginFrameController;
+import app.ui.views.game.GameFrame;
 import app.ui.views.login.LoginFrame;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            //
-            LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
-            LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
+            // LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
+            // LoginFrameController loginFrameController = new
+            // LoginFrameController(loginFrame);
+
+            // Initialize dependencies
+            MapService mapService = new MapService();
+            new GameFrame(AppConfig.title, AppConfig.appSize, AppConfig.appLocation, mapService);
         });
     }
 }

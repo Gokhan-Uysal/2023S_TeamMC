@@ -16,6 +16,7 @@ public class MapService {
 	public void loadGameMapDataToGraph() {
 		_mapReadService.buildGameMapData();
 		_mapGraphService.addVerticies(getTerritoryListFromReadService());
+		_mapGraphService.addEdges(getTerritoryListFromReadService());
 	}
 
 	public List<Territory> getTerritoryListFromGraph() {

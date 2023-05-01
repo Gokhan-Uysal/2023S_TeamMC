@@ -2,7 +2,9 @@ package app.domain.services.Map;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import app.common.GraphError;
 import app.domain.models.GameMap.Territory;
 import app.domain.services.base.BaseGraph;
 
@@ -18,6 +20,32 @@ public class MapGraphService extends BaseGraph<Territory> {
         });
 
         return territoryVerticies;
+    }
+
+    public void addEdges(List<Territory> territoryListFromReadService) {
+        territoryListFromReadService.forEach((Territory territory) -> {
+            Set<String> adjList = territory.adjList;
+            adjList.forEach((String adj) -> {
+                addEdge(territory, adj);
+            });
+        });
+        System.out.println(graph.entrySet());
+    }
+
+    public Territory getVertex(String territoryName) {
+        Set<Territory> keySet = this.graph.keySet();
+        for (Territory territory : keySet) {
+            if (territory.name.equals(territoryName)) {
+                return territory;
+            }
+        }
+
+        throw new GraphError("Territory vertex not found");
+    }
+
+    public void addEdge(Territory sourceTerritory, String destinationName) {
+        Territory destination = getVertex(destinationName);
+        super.addEdge(sourceTerritory, destination);
     }
 
     @Override
