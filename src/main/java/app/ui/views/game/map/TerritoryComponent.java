@@ -7,6 +7,7 @@ import javax.swing.*;
 public class TerritoryComponent extends JComponent {
     private BufferedImage _territoryImage;
     private String _territoryName;
+    private boolean _isVisible;
 
     public TerritoryComponent(String territoryName, BufferedImage territoryImage) {
         this.buildClass(territoryName, territoryImage);
@@ -19,7 +20,12 @@ public class TerritoryComponent extends JComponent {
     }
 
     private void buildView() {
+        this._isVisible = true;
         this.setPreferredSize(new Dimension(300, 300));
+    }
+
+    public void toggleVisiblity() {
+        this._isVisible = !_isVisible;
     }
 
     @Override

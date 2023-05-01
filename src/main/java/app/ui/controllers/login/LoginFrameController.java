@@ -11,52 +11,45 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class LoginFrameController extends Component implements ActionListener {
 
     private LoginFrame loginFrame;
 
-    public LoginFrameController(LoginFrame loginFrame){
+    public LoginFrameController(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
         ActionListenerUtil.addActionListener(loginFrame.loginButton, this);
         ActionListenerUtil.addActionListener(loginFrame.registerButton, this);
         ActionListenerUtil.addActionListener(loginFrame.showPasswordBox, this);
 
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginFrame.loginButton){
+        if (e.getSource() == loginFrame.loginButton) {
             String inputName = loginFrame.usernameField.getText();
             char[] inputPassword = loginFrame.passwordField.getPassword();
             boolean response = FileService.checkData(inputName, inputPassword);
-            if (response){
+            if (response) {
                 JOptionPane.showMessageDialog(loginFrame, "You successfully logged in");
                 loginFrame.dispose();
                 new MainMenuFrame("Main Menu", AppConfig.appSize);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(loginFrame, "Try again");
             }
 
-        }
-        else if (e.getSource() == loginFrame.registerButton){
+        } else if (e.getSource() == loginFrame.registerButton) {
             loginFrame.dispose();
             RegisterFrame registerFrame = new RegisterFrame("Register", AppConfig.appSize);
             RegisterFrameController registerFrameController = new RegisterFrameController(registerFrame);
 
-        }
-        else if (e.getSource() == loginFrame.showPasswordBox){
-            if(loginFrame.showPasswordBox.isSelected()) {
+        } else if (e.getSource() == loginFrame.showPasswordBox) {
+            if (loginFrame.showPasswordBox.isSelected()) {
                 loginFrame.passwordField.setEchoChar((char) 0);
-            }
-            else {
+            } else {
                 loginFrame.passwordField.setEchoChar('●');
             }
         }
-
 
     }
 }

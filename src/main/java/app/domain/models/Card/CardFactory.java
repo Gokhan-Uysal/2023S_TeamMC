@@ -1,7 +1,5 @@
 package app.domain.models.Card;
 
-import javax.swing.*;
-
 public class CardFactory {
 
     public BaseCard create(CardType type, BaseCard baseCard) {

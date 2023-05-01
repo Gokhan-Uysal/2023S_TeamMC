@@ -25,7 +25,6 @@ public class PlayerMenuController implements ActionListener {
         playerMenuFrame.playButton.addActionListener(this);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playerMenuFrame.playButton) {
@@ -45,17 +44,10 @@ public class PlayerMenuController implements ActionListener {
 
                 PlayerService.createPlayer(newNames);
 
-                // Initialize dependencies
-                MapReadService mapReadService = new MapReadService("src/main/java/app/resources/map.json");
-                MapGraphService mapGraphService = new MapGraphService();
-                MapFactory mapFactory = new MapFactory(mapReadService, mapGraphService);
-                MapService mapService = new MapService(mapFactory);
-                // Create the GameFrame object with the initialized dependencies
+                MapService mapService = new MapService();
                 new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
                 playerMenuFrame.dispose();
             }
         }
     }
 }
-
-

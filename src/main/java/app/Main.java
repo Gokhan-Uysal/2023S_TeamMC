@@ -9,9 +9,8 @@ import app.ui.views.login.LoginFrame;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            //
             LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
-            LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
+            new LoginFrameController(loginFrame);
         });
     }
 }

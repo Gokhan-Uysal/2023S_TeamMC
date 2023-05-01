@@ -2,25 +2,28 @@ package app.domain.services.Map;
 
 import java.util.List;
 
+import app.common.AppConfig;
 import app.domain.models.GameMap.Territory;
 
-public class MapService implements Runnable {
-        private MapFactory _mapFactory;
+public class MapService {
+	private MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
+	private MapGraphService _mapGraphService = new MapGraphService();
 
-        public MapService(MapFactory mapFactory) {
-                this._mapFactory = mapFactory;
-        }
+	public MapService() {
 
-        public void loadGameMapData() {
-                _mapFactory.loadGameDataToGraph();
-        }
+	}
 
-        public List<Territory> getTerritoryList() {
-                return _mapFactory.getTerritoryList();
-        }
+	public void loadGameMapDataToGraph() {
+		_mapReadService.buildGameMapData();
+		_mapGraphService.addVerticies(getTerritoryListFromReadService());
+		_mapGraphService.addEdges(getTerritoryListFromReadService());
+	}
 
-        @Override
-        public void run() {
+	public List<Territory> getTerritoryListFromGraph() {
+		return _mapGraphService.getVerticies();
+	}
 
-        }
+	private List<Territory> getTerritoryListFromReadService() {
+		return _mapReadService.getGameMapTerritories();
+	}
 }
