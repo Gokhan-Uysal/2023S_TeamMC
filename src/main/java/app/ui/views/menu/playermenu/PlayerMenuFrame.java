@@ -1,26 +1,20 @@
 package app.ui.views.menu.playermenu;
 
-import app.common.AppConfig;
-import app.domain.services.PlayerService;
-import app.domain.services.Map.MapService;
 import app.ui.controllers.menu.playermenu.PlayerPanelController;
 import app.ui.views.components.BaseJFrame;
-import app.ui.views.game.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
+public class PlayerMenuFrame extends BaseJFrame {
 
     private ArrayList<PlayerPanel> playerPanels = new ArrayList<PlayerPanel>();
-    private ArrayList<PlayerPanelController> playerPanelControllers = new ArrayList<PlayerPanelController>();
+    public ArrayList<PlayerPanelController> playerPanelControllers = new ArrayList<PlayerPanelController>();
 
     private final JLabel welcomeLabel;
     private final JLabel contextLabel;
-    private final JButton playButton;
+    public final JButton playButton;
     JOptionPane optionPane;
 
     public PlayerMenuFrame(String title, Dimension size, Point location) {
@@ -36,7 +30,6 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
         playButton = new JButton("Play");
         playButton.setBounds(1150, 620, 80, 30);
         playButton.setVisible(true);
-        playButton.addActionListener(this);
 
         optionPane = new JOptionPane();
 
@@ -77,39 +70,5 @@ public class PlayerMenuFrame extends BaseJFrame implements ActionListener {
 
         this.add(welcomeLabel);
         this.add(contextLabel);
-    }
-
-    private JFrame getRootFrame() {
-        return (JFrame) SwingUtilities.getWindowAncestor(playerPanels.get(0));
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == playButton) {
-            ArrayList<String> newNames = new ArrayList<String>();
-            for (PlayerPanelController playerPanelController : playerPanelControllers) {
-                newNames.addAll(playerPanelController.newNames);
-            }
-            if (newNames.size() < 2) {
-                JOptionPane.showMessageDialog(this, "Please enter name for at least 2 players", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            int a = JOptionPane.showConfirmDialog(this, "Are you sure? Do you want to start playing?");
-            if (a == JOptionPane.YES_OPTION) {
-                JFrame rootFrame = getRootFrame();
-                Point location = rootFrame.getLocation();
-                rootFrame.dispose();
-
-                PlayerService.createPlayer(newNames);
-
-                // Initialize dependencies
-                MapService mapService = new MapService();
-                new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
-                this.setVisible(false);
-            }
-        }
     }
 }

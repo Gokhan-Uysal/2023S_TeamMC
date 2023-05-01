@@ -38,7 +38,7 @@ public class RegisterFrameController extends Component implements ActionListener
                     if (!response){
                         FileService.writeData(inputName, inputPassword);
                         JOptionPane.showMessageDialog(registerFrame, "You successfully registered!");
-                        registerFrame.setVisible(false);
+                        registerFrame.dispose();
                         LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
                         LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
                     }
@@ -56,6 +56,7 @@ public class RegisterFrameController extends Component implements ActionListener
 
         }
         else if (e.getSource() == registerFrame.backButton){
+            registerFrame.dispose();
             LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
             LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
 

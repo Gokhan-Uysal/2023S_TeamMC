@@ -26,3 +26,5 @@ target/
 *.vscode/
 
 eclipse-formatter.xml
+
+*.csv
