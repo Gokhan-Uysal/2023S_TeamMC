@@ -7,7 +7,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     private static GameManagerService _instance;
     private GameState gameState;
 
-    private GameManagerService() {
+    public GameManagerService() {
         super(GameState.INITIALIZATION);
         setState(GameState.INITIALIZATION);
         initializeGame();
@@ -35,9 +35,6 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     // Add methods for handling game logic here.
-
-    // ...
-
     public void handleNextButtonClick() {
         switch (gameState) {
             case REPLACEMENT_PHASE:

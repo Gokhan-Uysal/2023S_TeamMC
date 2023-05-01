@@ -3,12 +3,10 @@ package app.ui.views.game;
 import app.domain.services.Map.MapService;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
-import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.map.MapPanel;
+import app.ui.views.game.player.PlayerStatePanel;
 
 import java.awt.*;
-
-import java.io.File;
 
 public class GameFrame extends BaseJFrame {
 
@@ -45,6 +43,7 @@ public class GameFrame extends BaseJFrame {
 
     @Override
     public void addComponents() {
+
         this.add(_mapPanel, BorderLayout.CENTER);
     }
 
