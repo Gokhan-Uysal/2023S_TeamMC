@@ -4,9 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
-
 import app.common.AppConfig;
 
 public class Territory {
@@ -15,6 +13,10 @@ public class Territory {
     private TerritoryPosition territoryPosition;
     private Set<String> adjList;
     private int ownerId;
+    private int infantryAmount = 0;
+    private int cavalryAmount = 0;
+    private int artilleryAmount = 0;
+
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
         this.name = name;
@@ -67,6 +69,42 @@ public class Territory {
 
     public void setTerritoryPosition(TerritoryPosition territoryPosition) {
         this.territoryPosition = territoryPosition;
+    }
+
+    public int getInfantryAmount() {
+        return infantryAmount;
+    }
+
+    public int getCavalryAmount() {
+        return cavalryAmount;
+    }
+
+    public int getArtilleryAmount() {
+        return artilleryAmount;
+    }
+
+    public void increaseInfantry(int amount){
+        this.infantryAmount += amount;
+    }
+
+    public void decreaseInfantry(int amount){
+        this.infantryAmount -= amount;
+    }
+
+    public void increaseCavalry(int amount){
+        this.cavalryAmount += amount;
+    }
+
+    public void decreaseCavalry(int amount){
+        this.cavalryAmount -= amount;
+    }
+
+    public void increaseArtillery(int amount){
+        this.artilleryAmount += amount;
+    }
+
+    public void decreaseArtillery(int amount){
+        this.artilleryAmount -= amount;
     }
 
 }
