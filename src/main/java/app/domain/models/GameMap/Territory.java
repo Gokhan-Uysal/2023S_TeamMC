@@ -107,4 +107,12 @@ public class Territory {
         this.artilleryAmount -= amount;
     }
 
+    public int getArmyValue(){
+        return 10*this.artilleryAmount + 5*this.cavalryAmount + this.infantryAmount;
+    }
+
+    public int getArmyAmount(){
+        return this.infantryAmount + this.cavalryAmount + this.artilleryAmount;
+    }
+
 }
