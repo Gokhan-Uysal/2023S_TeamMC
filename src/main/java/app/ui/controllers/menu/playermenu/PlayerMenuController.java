@@ -40,7 +40,6 @@ public class PlayerMenuController implements ActionListener {
                 Point location = playerMenuFrame.getLocation();
 
                 PlayerService.createPlayer(newNames);
-
                 MapService mapService = new MapService();
                 new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
                 playerMenuFrame.dispose();
