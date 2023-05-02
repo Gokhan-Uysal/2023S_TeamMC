@@ -1,55 +1,42 @@
 package app.ui.controllers.game.map;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.List;
 
-import app.domain.services.MapService;
+import app.common.Logger;
+import app.domain.models.GameMap.Territory;
+import app.domain.services.Map.MapService;
 import app.ui.views.game.map.MapPanel;
-import app.ui.views.game.map.TerritoryLabel;
 
 public class MapPanelController {
 
-    private MapService mapService;
-    private MapPanel mapPanel;
+    private MapService _mapService;
+    private MapPanel _mapPanel;
 
-    private int latitudes;
-    private int longitudes;
-
-    public int getLatitudes() {
-        return latitudes;
+    public MapPanelController(MapPanel mapPanel, MapService mapService) {
+        this._mapPanel = mapPanel;
+        this._mapService = mapService;
     }
 
-    public int getLongitudes() {
-        return longitudes;
-    }
-
-    public MapPanelController(MapService mapService, MapPanel mapView) {
-        this.mapService = mapService;
-        this.mapPanel = mapView;
-    }
-
-    private BufferedImage[][] loadMapPixels() {
-        BufferedImage[][] pixelMap = mapService.splitImage();
-        this.latitudes = pixelMap.length;
-        this.longitudes = pixelMap[0].length;
-        return pixelMap;
-    }
-
-    private Component[][] loadMap() {
-        BufferedImage[][] pixelMap = loadMapPixels();
-        Component[][] mapGrid = new Component[latitudes][longitudes];
-        for (int i = 0; i < latitudes; i++) {
-            for (int j = 0; j < longitudes; j++) {
-                Image resizedImage = pixelMap[i][j].getScaledInstance(mapPanel.getPixelSize(), mapPanel.getPixelSize(),
-                        Image.SCALE_SMOOTH);
-                mapGrid[i][j] = new TerritoryLabel("Canada", resizedImage);
+    public void displayMap() {
+        List<Territory> territoryList = _mapService.getTerritoryListFromGraph();
+        territoryList.forEach((territory) -> {
+            TerritoryComponentController trController;
+            try {
+                trController = new TerritoryComponentController(territory);
+                _mapPanel.drawTerriotry(trController.getTerritoryComponent());
+            } catch (IOException e) {
+                Logger.error(e);
             }
-        }
-        return mapGrid;
+        });
+    }
+
+    private void loadMap() {
+        _mapService.loadGameMapDataToGraph();
     }
 
     public void drawMap() {
-        mapPanel.drawMap(loadMap(), latitudes, longitudes);
+        this.loadMap();
+        this.displayMap();
     }
 }
