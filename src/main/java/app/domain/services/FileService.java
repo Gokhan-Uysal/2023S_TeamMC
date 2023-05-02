@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class FileService {
-    private static final String FILENAME = "src/main/java/app/resource/assets/data.csv";
+    private static final String FILENAME = "src/main/java/app/resources/assets/data.csv";
 
     public static void writeData(String username, char[] password) {
         try {
