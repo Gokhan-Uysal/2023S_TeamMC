@@ -1,8 +1,8 @@
 package app.domain.models.GameMap;
 
 public class TerritoryPosition {
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
     public TerritoryPosition(int xPos, int yPos) {
         this.x = xPos;

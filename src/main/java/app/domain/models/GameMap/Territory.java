@@ -10,10 +10,11 @@ import javax.imageio.ImageIO;
 import app.common.AppConfig;
 
 public class Territory {
-    public String name;
-    public String imageName;
-    public TerritoryPosition territoryPosition;
-    public Set<String> adjList;
+    private String name;
+    private String imageName;
+    private TerritoryPosition territoryPosition;
+    private Set<String> adjList;
+    private int ownerId;
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
         this.name = name;
@@ -39,4 +40,33 @@ public class Territory {
         info += "\n";
         return info;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public TerritoryPosition getTerritoryPosition() {
+        return territoryPosition;
+    }
+
+    public Set<String> getAdjList() {
+        return adjList;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setTerritoryPosition(TerritoryPosition territoryPosition) {
+        this.territoryPosition = territoryPosition;
+    }
+
 }
