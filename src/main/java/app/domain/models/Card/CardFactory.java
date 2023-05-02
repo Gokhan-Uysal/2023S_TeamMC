@@ -1,5 +1,7 @@
 package app.domain.models.Card;
 
+import javax.swing.*;
+
 public class CardFactory {
 
     public ArmyCard createArmyCard(CardType type, String description, ImageIcon imageIcon) {
