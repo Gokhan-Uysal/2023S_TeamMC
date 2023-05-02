@@ -1,21 +1,31 @@
 package app.domain.models.Card;
 
+import javax.swing.*;
+
 public class CardFactory {
 
-    public BaseCard create(CardType type, BaseCard baseCard) {
+    public ArmyCard createArmyCard(CardType type, String description, ImageIcon imageIcon) {
         if (type.equals(CardType.Artillery)) {
-            return new ArtilleryCard(baseCard.name, baseCard.imageIcon);
-        } else if (type.equals(CardType.Cavalry)) {
-            return new CavalryCard(baseCard.name, baseCard.imageIcon);
-        } else if (type.equals(CardType.Infantry)) {
-            return new InfantryCard(baseCard.name, baseCard.imageIcon);
-        } else if (type.equals(CardType.Territory)) {
-            return new TerritoryCard(baseCard.name, baseCard.imageIcon, 10);
-        } else if (type.equals(CardType.Chance)) {
-            return new ChanceCard(baseCard.name, baseCard.imageIcon);
-        } else {
+            return new ArtilleryCard(description, imageIcon);
+        }
+        else if (type.equals(CardType.Infantry)){
+            return new InfantryCard(description, imageIcon);
+        }
+        else if (type.equals(CardType.Cavalry)){
+            return new CavalryCard(description, imageIcon);
+        }
+        else{
             return null;
         }
+
+    }
+
+    public BaseCard createTerritoryCard(String description, ImageIcon imageIcon, int territoryId){
+        return new TerritoryCard(description, imageIcon, territoryId);
+    }
+
+    public BaseCard createChanceCard(String description, ImageIcon imageIcon){
+        return new ChanceCard(description, imageIcon);
     }
 
 }
