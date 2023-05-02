@@ -21,7 +21,7 @@ public class TerritoryComponent extends JComponent {
 
     private void buildView() {
         this._isVisible = true;
-        this.setPreferredSize(new Dimension(300, 300));
+        this.setPreferredSize(new Dimension(_territoryImage.getWidth(), _territoryImage.getHeight()));
     }
 
     public void toggleVisiblity() {
@@ -36,6 +36,6 @@ public class TerritoryComponent extends JComponent {
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.drawImage(_territoryImage, null, 0, 0);
 
-        graphics.drawString(_territoryName, 20, 20);
+        graphics.drawString(_territoryName, 20, _territoryImage.getHeight() / 2);
     }
 }
