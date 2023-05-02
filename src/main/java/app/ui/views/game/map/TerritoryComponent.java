@@ -36,6 +36,6 @@ public class TerritoryComponent extends JComponent {
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.drawImage(_territoryImage, null, 0, 0);
 
-        graphics.drawString(_territoryName, 20, 50);
+        graphics.drawString(_territoryName, 20, _territoryImage.getHeight() / 2);
     }
 }
