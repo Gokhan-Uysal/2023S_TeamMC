@@ -2,8 +2,6 @@ package app.ui.views.game.map;
 
 import javax.swing.JPanel;
 
-import app.common.Logger;
-
 public class MapPanel extends JPanel {
 
     public MapPanel() {
@@ -22,7 +20,6 @@ public class MapPanel extends JPanel {
 
     public void drawTerriotry(TerritoryComponent trComponent) {
         this.add(trComponent);
-        Logger.log("Territory added: " + trComponent);
         this.refresh();
     }
 

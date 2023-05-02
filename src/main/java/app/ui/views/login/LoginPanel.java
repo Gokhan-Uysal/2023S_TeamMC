@@ -1,7 +1,5 @@
 package app.ui.views.login;
 
-import app.ui.views.menu.ButtonsPanel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +11,7 @@ public class LoginPanel extends JPanel {
     JButton loginButton, registerButton;
     JCheckBox showPasswordBox;
 
-    public LoginPanel(){
+    public LoginPanel() {
         super();
         setOpaque(false);
         setLayout(null);
@@ -23,7 +21,7 @@ public class LoginPanel extends JPanel {
         BuildPanel();
     }
 
-    public void BuildPanel(){
+    public void BuildPanel() {
 
     }
 }

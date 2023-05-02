@@ -19,7 +19,7 @@ public class MapPanelController {
     }
 
     public void displayMap() {
-        List<Territory> territoryList = _mapService.getTerritoryList();
+        List<Territory> territoryList = _mapService.getTerritoryListFromGraph();
         territoryList.forEach((territory) -> {
             TerritoryComponentController trController;
             try {
@@ -32,7 +32,7 @@ public class MapPanelController {
     }
 
     private void loadMap() {
-        _mapService.loadGameMapData();
+        _mapService.loadGameMapDataToGraph();
     }
 
     public void drawMap() {

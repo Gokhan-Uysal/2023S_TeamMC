@@ -1,0 +1,419 @@
+[
+    {
+        "continent": "Australia",
+        "countries": [
+            {
+                "name": "Eastern Australia",
+                "position": { "x": 100, "y": 200 },
+                "imageName": "eastern_australia.png",
+                "neighbors": ["Western Australia", "New Guinea"]
+            },
+            {
+                "name": "Indonesia",
+                "position": { "x": 200, "y": 300 },
+                "imageName": "indonesia.png",
+                "neighbors": [
+                    "New Guinea",
+                    "Siam (Southeast Asia)",
+                    "Western Australia"
+                ]
+            },
+            {
+                "name": "New Guinea",
+                "position": { "x": 300, "y": 400 },
+                "imageName": "new_guinea.png",
+                "neighbors": [
+                    "Eastern Australia",
+                    "Indonesia",
+                    "Western Australia"
+                ]
+            },
+            {
+                "name": "Western Australia",
+                "position": { "x": 400, "y": 500 },
+                "imageName": "western_australia.png",
+                "neighbors": ["Eastern Australia", "Indonesia", "New Guinea"]
+            }
+        ]
+    },
+    {
+        "continent": "Asia",
+        "countries": [
+            {
+                "name": "Afghanistan",
+                "position": { "x": 500, "y": 600 },
+                "imageName": "afghanistan.png",
+                "neighbors": ["China", "India", "Middle East", "Ural"]
+            },
+            {
+                "name": "China",
+                "position": { "x": 600, "y": 700 },
+                "imageName": "china.png",
+                "neighbors": [
+                    "Afghanistan",
+                    "India",
+                    "Mongolia",
+                    "Siam (Southeast Asia)",
+                    "Siberia",
+                    "Ural"
+                ]
+            },
+            {
+                "name": "India",
+                "position": { "x": 700, "y": 800 },
+                "imageName": "india.png",
+                "neighbors": [
+                    "Afghanistan",
+                    "China",
+                    "Middle East",
+                    "Siam (Southeast Asia)"
+                ]
+            },
+            {
+                "name": "Irkutsk",
+                "position": { "x": 800, "y": 900 },
+                "imageName": "irkutsk.png",
+                "neighbors": ["Kamchatka", "Mongolia", "Siberia", "Yakutsk"]
+            },
+            {
+                "name": "Japan",
+                "position": { "x": 900, "y": 1000 },
+                "imageName": "japan.png",
+                "neighbors": ["Kamchatka", "Mongolia"]
+            },
+            {
+                "name": "Kamchatka",
+                "position": { "x": 1000, "y": 1100 },
+                "imageName": "kamchatka.png",
+                "neighbors": [
+                    "Alaska",
+                    "Irkutsk",
+                    "Japan",
+                    "Mongolia",
+                    "Yakutsk"
+                ]
+            },
+            {
+                "name": "Middle East",
+                "position": { "x": 1100, "y": 1200 },
+                "imageName": "middle_east.png",
+                "neighbors": [
+                    "Afghanistan",
+                    "East Africa",
+                    "Egypt",
+                    "India",
+                    "Southern Europe",
+                    "Ukraine (Eastern Europe, Russia)"
+                ]
+            },
+            {
+                "name": "Mongolia",
+                "position": { "x": 1200, "y": 1300 },
+                "imageName": "mongolia.png",
+                "neighbors": [
+                    "China",
+                    "Irkutsk",
+                    "Japan",
+                    "Kamchatka",
+                    "Siberia"
+                ]
+            },
+            {
+                "name": "Siam (Southeast Asia)",
+                "position": { "x": 1300, "y": 1400 },
+                "imageName": "siam.png",
+                "neighbors": ["China", "India", "Indonesia"]
+            },
+            {
+                "name": "Siberia",
+                "position": { "x": 1400, "y": 1500 },
+                "imageName": "siberia.png",
+                "neighbors": ["China", "Irkutsk", "Mongolia", "Ural", "Yakutsk"]
+            },
+            {
+                "name": "Ural",
+                "position": { "x": 1500, "y": 1600 },
+                "imageName": "ural.png",
+                "neighbors": [
+                    "Afghanistan",
+                    "China",
+                    "Siberia",
+                    "Ukraine (Eastern Europe, Russia)"
+                ]
+            },
+            {
+                "name": "Yakutsk",
+                "position": { "x": 1600, "y": 1700 },
+                "imageName": "yakutsk.png",
+                "neighbors": ["Irkutsk", "Kamchatka", "Siberia"]
+            }
+        ]
+    },
+    {
+        "continent": "North America",
+        "countries": [
+            {
+                "name": "Alaska",
+                "position": { "x": 100, "y": 200 },
+                "imageName": "alaska.png",
+                "neighbors": ["Alberta", "Kamchatka", "Northwest Territory"]
+            },
+            {
+                "name": "Alberta",
+                "position": { "x": 200, "y": 300 },
+                "imageName": "alberta.png",
+                "neighbors": [
+                    "Alaska",
+                    "Northwest Territory",
+                    "Ontario",
+                    "Western United States"
+                ]
+            },
+            {
+                "name": "Central America",
+                "position": { "x": 300, "y": 400 },
+                "imageName": "central_america.png",
+                "neighbors": [
+                    "Eastern United States",
+                    "Peru",
+                    "Venezuela",
+                    "Western United States"
+                ]
+            },
+            {
+                "name": "Eastern United States",
+                "position": { "x": 400, "y": 500 },
+                "imageName": "eastern_united_states.png",
+                "neighbors": [
+                    "Central America",
+                    "Ontario",
+                    "Quebec",
+                    "Western United States"
+                ]
+            },
+            {
+                "name": "Greenland",
+                "position": { "x": 500, "y": 600 },
+                "imageName": "greenland.png",
+                "neighbors": [
+                    "Iceland",
+                    "Northwest Territory",
+                    "Ontario",
+                    "Quebec"
+                ]
+            },
+            {
+                "name": "Northwest Territory",
+                "position": { "x": 600, "y": 700 },
+                "imageName": "northwest_territory.png",
+                "neighbors": ["Alaska", "Alberta", "Greenland", "Ontario"]
+            },
+            {
+                "name": "Ontario",
+                "position": { "x": 700, "y": 800 },
+                "imageName": "ontario.png",
+                "neighbors": [
+                    "Alberta",
+                    "Eastern United States",
+                    "Greenland",
+                    "Northwest Territory",
+                    "Quebec",
+                    "Western United States"
+                ]
+            },
+            {
+                "name": "Quebec",
+                "position": { "x": 800, "y": 900 },
+                "imageName": "quebec.png",
+                "neighbors": ["Eastern United States", "Greenland", "Ontario"]
+            },
+            {
+                "name": "Western United States",
+                "position": { "x": 900, "y": 1000 },
+                "imageName": "western_united_states.png",
+                "neighbors": [
+                    "Alberta",
+                    "Central America",
+                    "Eastern United States",
+                    "Ontario"
+                ]
+            }
+        ]
+    },
+    {
+        "continent": "South America",
+        "countries": [
+            {
+                "name": "Argentina",
+                "position": { "x": 1100, "y": 1200 },
+                "imageName": "argentina.png",
+                "neighbors": ["Brazil", "Peru"]
+            },
+            {
+                "name": "Brazil",
+                "position": { "x": 1200, "y": 1300 },
+                "imageName": "brazil.png",
+                "neighbors": ["Argentina", "North Africa", "Peru", "Venezuela"]
+            },
+            {
+                "name": "Peru",
+                "position": { "x": 1300, "y": 1400 },
+                "imageName": "peru.png",
+                "neighbors": [
+                    "Argentina",
+                    "Brazil",
+                    "Central America",
+                    "Venezuela"
+                ]
+            },
+            {
+                "name": "Venezuela",
+                "position": { "x": 1400, "y": 1500 },
+                "imageName": "venezuela.png",
+                "neighbors": ["Brazil", "Central America", "Peru"]
+            }
+        ]
+    },
+    {
+        "continent": "Europe",
+        "countries": [
+            {
+                "name": "Great Britain",
+                "position": { "x": 1500, "y": 1600 },
+                "imageName": "great_britain.png",
+                "neighbors": [
+                    "Iceland",
+                    "Northern Europe",
+                    "Scandinavia",
+                    "Western Europe"
+                ]
+            },
+            {
+                "name": "Iceland",
+                "position": { "x": 1600, "y": 1700 },
+                "imageName": "iceland.png",
+                "neighbors": ["Great Britain", "Greenland", "Scandinavia"]
+            },
+            {
+                "name": "Northern Europe",
+                "position": { "x": 1700, "y": 1800 },
+                "imageName": "northern_europe.png",
+                "neighbors": [
+                    "Great Britain",
+                    "Scandinavia",
+                    "Southern Europe",
+                    "Ukraine (Eastern Europe, Russia)",
+                    "Western Europe"
+                ]
+            },
+            {
+                "name": "Scandinavia",
+                "position": { "x": 1800, "y": 1900 },
+                "imageName": "scandinavia.png",
+                "neighbors": [
+                    "Great Britain",
+                    "Iceland",
+                    "Northern Europe",
+                    "Ukraine (Eastern Europe, Russia)"
+                ]
+            },
+            {
+                "name": "Southern Europe",
+                "position": { "x": 1900, "y": 2000 },
+                "imageName": "southern_europe.png",
+                "neighbors": [
+                    "Egypt",
+                    "Middle East",
+                    "North Africa",
+                    "Northern Europe",
+                    "Ukraine (Eastern Europe, Russia)",
+                    "Western Europe"
+                ]
+            },
+            {
+                "name": "Ukraine (Eastern Europe, Russia)",
+                "position": { "x": 2000, "y": 2100 },
+                "imageName": "ukraine.png",
+                "neighbors": [
+                    "Afghanistan",
+                    "Middle East",
+                    "Northern Europe",
+                    "Scandinavia",
+                    "Southern Europe",
+                    "Ural"
+                ]
+            },
+            {
+                "name": "Western Europe",
+                "position": { "x": 2100, "y": 2200 },
+                "imageName": "western_europe.png",
+                "neighbors": [
+                    "Great Britain",
+                    "North Africa",
+                    "Northern Europe",
+                    "Southern Europe"
+                ]
+            }
+        ]
+    },
+    {
+        "continent": "Africa",
+        "countries": [
+            {
+                "name": "Congo",
+                "position": { "x": 2200, "y": 2300 },
+                "imageName": "congo.png",
+                "neighbors": ["East Africa", "North Africa", "South Africa"]
+            },
+            {
+                "name": "East Africa",
+                "position": { "x": 2300, "y": 2400 },
+                "imageName": "east_africa.png",
+                "neighbors": [
+                    "Congo",
+                    "Egypt",
+                    "Madagascar",
+                    "Middle East",
+                    "North Africa",
+                    "South Africa"
+                ]
+            },
+            {
+                "name": "Egypt",
+                "position": { "x": 2400, "y": 2500 },
+                "imageName": "egypt.png",
+                "neighbors": [
+                    "East Africa",
+                    "Middle East",
+                    "North Africa",
+                    "Southern Europe"
+                ]
+            },
+            {
+                "name": "Madagascar",
+                "position": { "x": 2500, "y": 2600 },
+                "imageName": "madagascar.png",
+                "neighbors": ["East Africa", "South Africa"]
+            },
+            {
+                "name": "North Africa",
+                "position": { "x": 2600, "y": 2700 },
+                "imageName": "north_africa.png",
+                "neighbors": [
+                    "Brazil",
+                    "Congo",
+                    "East Africa",
+                    "Egypt",
+                    "Southern Europe",
+                    "Western Europe"
+                ]
+            },
+            {
+                "name": "South Africa",
+                "position": { "x": 2700, "y": 2800 },
+                "imageName": "south_africa.png",
+                "neighbors": ["Congo", "East Africa", "Madagascar"]
+            }
+        ]
+    }
+]
