@@ -1,5 +1,7 @@
 package app.domain.services;
 
+import app.domain.services.base.BasePublisher;
+
 public class GameManagerService extends BasePublisher<Integer> {
     private static GameManagerService _instance;
     private static Integer _gameState;

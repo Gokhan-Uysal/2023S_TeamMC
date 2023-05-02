@@ -8,8 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
-import app.ui.views.game.GameFrame;
+import app.ui.controllers.menu.playermenu.PlayerMenuController;
+import app.ui.controllers.menu.playermenu.PlayerPanelController;
 import app.ui.views.menu.ButtonsPanel;
+import app.ui.views.menu.playermenu.PlayerMenuFrame;
 import app.util.ActionListenerUtil;
 
 public class ButtonsPanelController implements ActionListener {
@@ -31,7 +33,7 @@ public class ButtonsPanelController implements ActionListener {
         Point location = rootFrame.getLocation();
         rootFrame.dispose();
 
-        new GameFrame(AppConfig.title, AppConfig.appSize, location);
+        PlayerMenuFrame playerMenuFrame = new PlayerMenuFrame(AppConfig.title, AppConfig.appSize, location);
+        PlayerMenuController playerMenuController = new PlayerMenuController(playerMenuFrame);
     }
-
 }

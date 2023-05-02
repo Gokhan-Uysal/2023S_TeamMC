@@ -21,8 +21,10 @@ public class AppConfig {
 
     // App size
     private static final int width = 1280;
-    private static final int height = 720;
+    private static final int height = 800;
     public static final Dimension appSize = new Dimension(width, height);
+
+    public static final Dimension helpScreenSize = new Dimension(width / 2, height / 2);
 
     // Screen size
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -31,4 +33,7 @@ public class AppConfig {
     private static final int xLocation = (screenSize.width / 2) - width / 2;
     private static final int yLocation = (screenSize.height / 2) - height / 2;
     public static final Point appLocation = new Point(xLocation, yLocation);
+
+    // Paths
+    public static final String basePath = "src/main/java/app";
 }
