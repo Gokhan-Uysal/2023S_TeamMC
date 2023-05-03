@@ -24,10 +24,10 @@ public class TerritoryComponentController {
                 handleTerritoryClicked();
             }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                handleTerritoryEnter();
-            }
+            // @Override
+            // public void mouseEntered(MouseEvent e) {
+            // handleTerritoryEnter();
+            // }
         });
     }
 

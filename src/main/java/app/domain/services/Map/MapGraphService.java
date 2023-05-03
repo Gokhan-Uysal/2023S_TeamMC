@@ -38,7 +38,7 @@ public class MapGraphService extends BaseGraph<Territory> {
                 return territory;
             }
         }
-
+        System.out.println(territoryName);
         throw new GraphError("Territory vertex not found");
     }
 
