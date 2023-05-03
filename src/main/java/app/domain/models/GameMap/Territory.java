@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Set;
 import javax.imageio.ImageIO;
 import app.common.AppConfig;
+import app.domain.models.ArmyUnit.Army;
 
 public class Territory {
     private String name;
@@ -13,9 +14,9 @@ public class Territory {
     private TerritoryPosition territoryPosition;
     private Set<String> adjList;
     private int ownerId;
-    private int infantryAmount = 0;
-    private int cavalryAmount = 0;
-    private int artilleryAmount = 0;
+    private int territoryId;
+    private static int classTerritoryId = 0;
+    private Army territoryArmy;
 
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
@@ -23,6 +24,9 @@ public class Territory {
         this.imageName = imageName;
         this.territoryPosition = territoryPosition;
         this.adjList = adjList;
+
+        this.territoryArmy = new Army();
+        this.territoryId = ++classTerritoryId;
     }
 
     public BufferedImage getImage() throws IOException {
@@ -71,59 +75,11 @@ public class Territory {
         this.territoryPosition = territoryPosition;
     }
 
-    public int getInfantryAmount() {
-        return infantryAmount;
+    public Army getTerritoryArmy(){
+        return this.territoryArmy;
     }
 
-    public int getCavalryAmount() {
-        return cavalryAmount;
-    }
-
-    public int getArtilleryAmount() {
-        return artilleryAmount;
-    }
-
-    public void increaseInfantry(int amount){
-        this.infantryAmount += amount;
-    }
-
-    public void decreaseInfantry(int amount){
-        this.infantryAmount -= amount;
-    }
-
-    public void increaseCavalry(int amount){
-        this.cavalryAmount += amount;
-    }
-
-    public void decreaseCavalry(int amount){
-        this.cavalryAmount -= amount;
-    }
-
-    public void increaseArtillery(int amount){
-        this.artilleryAmount += amount;
-    }
-
-    public void decreaseArtillery(int amount){
-        this.artilleryAmount -= amount;
-    }
-
-    public int getArmyValue(){
-        return 10*this.artilleryAmount + 5*this.cavalryAmount + this.infantryAmount;
-    }
-
-    public int getArmyAmount(){
-        return this.infantryAmount + this.cavalryAmount + this.artilleryAmount;
-    }
-
-    public void setInfantryAmount(int infantryAmount) {
-        this.infantryAmount = infantryAmount;
-    }
-
-    public void setCavalryAmount(int cavalryAmount) {
-        this.cavalryAmount = cavalryAmount;
-    }
-
-    public void setArtilleryAmount(int artilleryAmount) {
-        this.artilleryAmount = artilleryAmount;
+    public int getTerritoryId(){
+        return this.territoryId;
     }
 }

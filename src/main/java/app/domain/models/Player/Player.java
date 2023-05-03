@@ -1,6 +1,5 @@
 package app.domain.models.Player;
 
-import app.domain.models.ArmyUnit.Army;
 import app.domain.models.Card.Deck;
 import app.domain.models.Card.PlayerDeck;
 import app.domain.models.GameMap.Territory;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 public class Player {
     private String username;
     private Integer id;
-    private Army playerArmy;
     private Deck playerDeck;
     private ArrayList<Territory> territoryList = new ArrayList<>();
 
@@ -18,7 +16,6 @@ public class Player {
         this.username = username;
         this.id = idx;
 
-        this.playerArmy = new Army();
         this.playerDeck = new PlayerDeck();
     }
 
@@ -28,10 +25,6 @@ public class Player {
 
     public Integer getId() {
         return id;
-    }
-
-    public Army getPlayerArmy() {
-        return playerArmy;
     }
 
     public Deck getPlayerDeck() {
@@ -51,13 +44,25 @@ public class Player {
         return false;
     }
 
-    public Territory getTerritory(String territoryName){
+    public Territory getTerritory(int territoryId){
         for (Territory t: this.territoryList){
-            if (territoryName.equals(t.getName())){
+            if (territoryId == t.getTerritoryId()){
                 return t;
             }
         }
         return null;
+    }
+
+    public Territory removeTerritory(int territoryId){
+
+        Territory removedTerritory = this.getTerritory(territoryId);
+        this.territoryList.remove(removedTerritory);
+
+        return removedTerritory;
+    }
+
+    public void addTerritory(Territory t){
+        this.territoryList.add(t);
     }
 
 }

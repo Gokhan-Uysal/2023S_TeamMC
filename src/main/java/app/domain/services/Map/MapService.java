@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.common.AppConfig;
+import app.domain.models.ArmyUnit.ArmyUnitType;
 import app.domain.models.GameMap.Territory;
 
 public class MapService {
@@ -26,22 +27,29 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
+	private Territory findTerritory(int territoryId){
+
+		for (Territory t: this.getTerritoryListFromReadService()){
+			if (t.getTerritoryId() == territoryId){
+				return t;
+			}
+		}
+		return null;
+	}
+
 	private Territory findTerritory(String territoryName){
-		Territory foundTerritory = null;
 
 		for (Territory t: this.getTerritoryListFromReadService()){
 			if (t.getName().equals(territoryName)){
-				foundTerritory = t;
-				break;
+				return t;
 			}
 		}
-
-		return foundTerritory;
+		return null;
 	}
 
-	private List<Territory> getAttackableTerritories(String selectedTerritoryName){
+	private List<Territory> getAttackableTerritories(int selectedTerritoryId){
 		ArrayList<Territory> attackableTerritoryList = new ArrayList<>();
-		Territory selectedTerritory = this.findTerritory(selectedTerritoryName);
+		Territory selectedTerritory = this.findTerritory(selectedTerritoryId);
 
 		for (String s: selectedTerritory.getAdjList()){
 
@@ -60,7 +68,7 @@ public class MapService {
 		ArrayList<Territory> attackableFrom = new ArrayList<>();
 
 		for (Territory t: this.getTerritoryListFromReadService()){
-			if (t.getOwnerId() == playerId && t.getArmyAmount() >= 2){
+			if (t.getOwnerId() == playerId && t.getTerritoryArmy().getTotalArmyAmount() >= 2){
 				attackableFrom.add(t);
 			}
 		}
@@ -69,14 +77,17 @@ public class MapService {
 	}
 
 	private boolean territoryArmyCondition(Territory attackingTerritory, Territory attackedTerritory){
-		if (attackedTerritory.getArtilleryAmount() > 0){
-			return attackingTerritory.getArtilleryAmount() > 0 && attackingTerritory.getArmyValue() > attackedTerritory.getArmyValue();
+		if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Artillery) > 0){
+			return attackingTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Artillery) > 0 &&
+					attackingTerritory.getTerritoryArmy().getTotalArmyValue() > attackedTerritory.getTerritoryArmy().getTotalArmyValue();
 		}
-		else if (attackedTerritory.getCavalryAmount() > 0){
-			return attackingTerritory.getCavalryAmount() > 0 && attackingTerritory.getArmyValue() > attackedTerritory.getArmyValue();
+		else if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Chivalry) > 0){
+			return attackingTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Chivalry) > 0 &&
+					attackingTerritory.getTerritoryArmy().getTotalArmyValue() > attackedTerritory.getTerritoryArmy().getTotalArmyValue();
 		}
-		else if (attackedTerritory.getInfantryAmount() > 0){
-			return attackingTerritory.getInfantryAmount() > 0 && attackingTerritory.getArmyValue() > attackedTerritory.getArmyValue();
+		else if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry) > 0){
+			return attackingTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry) > 0 &&
+					attackingTerritory.getTerritoryArmy().getTotalArmyValue() > attackedTerritory.getTerritoryArmy().getTotalArmyValue();
 		}
 		return false;
 	}

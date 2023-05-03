@@ -4,12 +4,15 @@ import app.domain.models.ArmyUnit.ArmyUnitType;
 import app.domain.models.GameMap.Territory;
 import app.domain.models.Player.Player;
 import app.domain.models.ArmyUnit.Army;
+import app.domain.services.Map.MapService;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerService {
 
-    static ArrayList<Player> players = new ArrayList<>();
+    private static ArrayList<Player> players = new ArrayList<>();
+    private static MapService mapService;
     private static final int UPPER_BOUND = 8;
 
     public static void createPlayer(ArrayList<String> names) {
@@ -31,43 +34,34 @@ public class PlayerService {
         return null;
     }
 
-    public void attack(int attackingPlayerId, int attackedPlayerId, String attackerTerritoryName, String attackedTerritoryName){
+    public void attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId, int attackedTerritoryId){
 
-        Player attackingPlayer = getPlayer(attackingPlayerId);
-        Player attackedPlayer = getPlayer(attackedPlayerId);
-        Territory attackerTerritory = attackingPlayer.getTerritory(attackerTerritoryName);
-        Territory attackedTerritory = attackedPlayer.getTerritory(attackedTerritoryName);
+        Territory attackerTerritory = getPlayer(attackingPlayerId).getTerritory(attackerTerritoryId);
+        Territory attackedTerritory = getPlayer(attackedPlayerId).getTerritory(attackedTerritoryId);
 
         int attackerDiceRoll = rollDice();
         int attackedDiceRoll = rollDice();
 
         if (attackerDiceRoll > attackedDiceRoll){
-            dealArmyAttackerWin(attackedPlayer.getPlayerArmy(), attackedTerritory);
+            dealArmyAttackerWin(attackedTerritory);
         }
         else{
-            dealArmyDefenderWin(attackingPlayer.getPlayerArmy(), attackerTerritory);
+            dealArmyDefenderWin(attackerTerritory);
         }
 
-        if (attackedTerritory.getArmyAmount() <= 0){
+        if (attackedTerritory.getTerritoryArmy().getTotalArmyAmount() <= 0){
 
-            attackedTerritory.setArtilleryAmount(0);
-            attackedTerritory.setCavalryAmount(0);
-            attackedTerritory.setInfantryAmount(0);
-
-            if (attackerTerritory.getInfantryAmount() > 0){
-                attackerTerritory.decreaseInfantry(1);
-                attackedTerritory.increaseInfantry(1);
+            if (attackerTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry) > 0){
+                attackerTerritory.getTerritoryArmy().transferArmyUnits(attackedTerritory.getTerritoryArmy(), ArmyUnitType.Infantry, 1);
             }
-            else if (attackerTerritory.getCavalryAmount() > 0){
-                attackerTerritory.decreaseCavalry(1);
-                attackedTerritory.increaseCavalry(1);
+            else if (attackerTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Chivalry) > 0){
+                attackerTerritory.getTerritoryArmy().transferArmyUnits(attackedTerritory.getTerritoryArmy(), ArmyUnitType.Chivalry, 1);
             }
-            else if (attackedTerritory.getArtilleryAmount() > 0){
-                attackerTerritory.decreaseArtillery(1);
-                attackedTerritory.increaseArtillery(1);
+            else if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Artillery) > 0){
+                attackerTerritory.getTerritoryArmy().transferArmyUnits(attackedTerritory.getTerritoryArmy(), ArmyUnitType.Artillery, 1);
             }
 
-            attackedTerritory.setOwnerId(attackingPlayerId);
+            getPlayer(attackingPlayerId).addTerritory(getPlayer(attackedPlayerId).removeTerritory(attackerTerritoryId));
         }
     }
 
@@ -76,45 +70,44 @@ public class PlayerService {
         return rand.nextInt(UPPER_BOUND);
     }
 
-    public void dealArmyAttackerWin(Army loserArmy, Territory loserTerritory){
-        if (loserTerritory.getArtilleryAmount() > 0){
-            loserTerritory.decreaseArtillery(1);
+    public void dealArmyAttackerWin(Territory loserTerritory){
+
+        Army loserArmy = loserTerritory.getTerritoryArmy();
+
+        if (loserArmy.getArmyAmount(ArmyUnitType.Artillery) > 0){
             loserArmy.getArmyUnits(ArmyUnitType.Artillery, 1);
         }
-        else if (loserTerritory.getCavalryAmount() > 0){
-            loserTerritory.decreaseCavalry(1);
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Chivalry) > 0){
             loserArmy.getArmyUnits(ArmyUnitType.Chivalry, 1);
         }
-        else{
-            loserTerritory.decreaseInfantry(1);
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Infantry) > 0){
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
     }
 
-    public void dealArmyDefenderWin(Army loserArmy, Territory loserTerritory){
-        if (loserTerritory.getArtilleryAmount() > 1){
-            loserTerritory.decreaseArtillery(2);
+    public void dealArmyDefenderWin(Territory loserTerritory){
+
+        Army loserArmy = loserTerritory.getTerritoryArmy();
+
+        if (loserArmy.getArmyAmount(ArmyUnitType.Artillery) > 1){
             loserArmy.getArmyUnits(ArmyUnitType.Artillery, 2);
         }
-        else if (loserTerritory.getArtilleryAmount() > 0){
-            loserTerritory.decreaseArtillery(1);
-            loserTerritory.decreaseCavalry(1);
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Artillery) > 0){
             loserArmy.getArmyUnits(ArmyUnitType.Artillery, 1);
             loserArmy.getArmyUnits(ArmyUnitType.Chivalry, 1);
         }
-        else if (loserTerritory.getCavalryAmount() > 1){
-            loserTerritory.decreaseCavalry(2);
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Chivalry) > 1){
             loserArmy.getArmyUnits(ArmyUnitType.Chivalry, 2);
         }
-        else if (loserTerritory.getCavalryAmount() > 0){
-            loserTerritory.decreaseCavalry(1);
-            loserTerritory.decreaseInfantry(1);
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Chivalry) > 0){
             loserArmy.getArmyUnits(ArmyUnitType.Chivalry, 1);
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
-        else if (loserTerritory.getInfantryAmount() > 0){
-            loserTerritory.decreaseInfantry(2);
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Infantry) > 1){
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 2);
+        }
+        else if (loserArmy.getArmyAmount(ArmyUnitType.Infantry) > 0){
+            loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
     }
 }
