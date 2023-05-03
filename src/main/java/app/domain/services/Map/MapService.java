@@ -29,7 +29,7 @@ public class MapService {
 
 	private Territory findTerritory(int territoryId){
 
-		for (Territory t: this.getTerritoryListFromReadService()){
+		for (Territory t: this.getTerritoryListFromGraph()){
 			if (t.getTerritoryId() == territoryId){
 				return t;
 			}
@@ -39,7 +39,7 @@ public class MapService {
 
 	private Territory findTerritory(String territoryName){
 
-		for (Territory t: this.getTerritoryListFromReadService()){
+		for (Territory t: this.getTerritoryListFromGraph()){
 			if (t.getName().equals(territoryName)){
 				return t;
 			}
@@ -67,7 +67,7 @@ public class MapService {
 	private List<Territory> playerCanAttackFrom(int playerId){
 		ArrayList<Territory> attackableFrom = new ArrayList<>();
 
-		for (Territory t: this.getTerritoryListFromReadService()){
+		for (Territory t: this.getTerritoryListFromGraph()){
 			if (t.getOwnerId() == playerId && t.getTerritoryArmy().getTotalArmyAmount() >= 2){
 				attackableFrom.add(t);
 			}
