@@ -1,7 +1,10 @@
 package app.domain.services.Map;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import app.common.GraphError;
@@ -45,6 +48,41 @@ public class MapGraphService extends BaseGraph<Territory> {
     public void addEdge(Territory sourceTerritory, String destinationName) {
         Territory destination = getVertex(destinationName);
         super.addEdge(sourceTerritory, destination);
+    }
+
+    public boolean validateMap() {
+        Set<Territory> visited = new HashSet<>();
+        Queue<Territory> queue = new LinkedList<>();
+        int edgeCount = 0;
+        int removedEdgeCount = 0;
+
+        Territory startVertex = graph.keySet().iterator().next();
+        queue.add(startVertex);
+
+        while (!queue.isEmpty()) {
+            Territory current = queue.poll();
+
+            if (!visited.contains(current)) {
+                visited.add(current);
+
+                for (Territory neighbor : graph.get(current)) {
+                    if (!visited.contains(neighbor)) {
+                        if (!neighbor.getIsOpen()) {
+                            removedEdgeCount += getEdgeCount(neighbor);
+                            continue;
+                        }
+                        queue.add(neighbor);
+                    }
+                    edgeCount++;
+                }
+            }
+        }
+
+        if ((edgeCount / 2 + removedEdgeCount / 4) != getEdgeCount()) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

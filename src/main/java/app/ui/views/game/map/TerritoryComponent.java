@@ -8,6 +8,10 @@ public class TerritoryComponent extends JComponent {
     private BufferedImage _territoryImage;
     private boolean _isVisible;
 
+    public boolean getVisibilty() {
+        return this._isVisible;
+    }
+
     public TerritoryComponent(BufferedImage territoryImage) {
         this.buildClass(territoryImage);
         this.buildView();

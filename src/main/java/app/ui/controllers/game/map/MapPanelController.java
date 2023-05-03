@@ -5,8 +5,6 @@ import java.util.List;
 
 import app.common.Logger;
 import app.domain.models.GameMap.Territory;
-import app.domain.models.game.GameState;
-import app.domain.services.GameManagerService;
 import app.domain.services.Map.MapService;
 import app.domain.services.base.ISubscriber;
 import app.ui.views.game.map.MapPanel;
@@ -33,7 +31,6 @@ public class MapPanelController implements ISubscriber<Territory> {
                 Logger.error(e);
             }
         });
-        System.out.println(_mapService.getShortestPath(territoryList.get(1), territoryList.get(40)));
     }
 
     private void loadMap() {

@@ -170,6 +170,10 @@ public class BaseGraph<Vertex> {
         return count / 2;
     }
 
+    public int getEdgeCount(Vertex vertex) {
+        return graph.get(vertex).size();
+    }
+
     public int getVertexCount() {
         return this.graph.size();
     }

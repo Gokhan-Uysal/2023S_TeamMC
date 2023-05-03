@@ -2,6 +2,8 @@ package app.ui.views.menu.playermenu;
 
 import java.awt.*;
 
+import javax.swing.JButton;
+
 import app.common.AppConfig;
 import app.domain.services.Map.MapService;
 import app.ui.controllers.game.map.MapPanelController;
@@ -12,6 +14,8 @@ public class MapBuildFrame extends BaseJFrame {
     private MapPanel _mapPanel;
     private MapPanelController _mapPanelController;
     private MapService _mapService;
+
+    public JButton buildGameButton;
 
     public MapBuildFrame() {
         super("Map Building", AppConfig.appSize);
@@ -25,6 +29,7 @@ public class MapBuildFrame extends BaseJFrame {
         _mapPanel = new MapPanel();
         _mapService = new MapService();
         _mapPanelController = new MapPanelController(_mapPanel, _mapService);
+        buildGameButton = new JButton("Build Game");
     }
 
     @Override
@@ -40,8 +45,8 @@ public class MapBuildFrame extends BaseJFrame {
 
     @Override
     public void addComponents() {
-
         this.add(_mapPanel, BorderLayout.CENTER);
+        this.add(buildGameButton, BorderLayout.SOUTH);
     }
 
     private void showMap() {

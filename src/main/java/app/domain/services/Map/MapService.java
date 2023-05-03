@@ -25,6 +25,11 @@ public class MapService {
 		return _mapGraphService.shortestPath(source, destination);
 	}
 
+	public boolean isValidBuildSelection() {
+		System.out.println(_mapGraphService.validateMap());
+		return true;
+	}
+
 	private List<Territory> getTerritoryListFromReadService() {
 		return _mapReadService.getGameMapTerritories();
 	}

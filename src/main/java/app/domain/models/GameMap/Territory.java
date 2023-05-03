@@ -19,6 +19,15 @@ public class Territory {
     private int territoryId;
     private static int classTerritoryId = 0;
     private Army territoryArmy;
+    private boolean isOpen;
+
+    public boolean getIsOpen() {
+        return this.isOpen;
+    }
+
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
+    }
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
         this.name = name;
@@ -28,6 +37,7 @@ public class Territory {
 
         this.territoryArmy = new Army();
         this.territoryId = ++classTerritoryId;
+        isOpen = true;
     }
 
     public BufferedImage getImage() throws IOException {

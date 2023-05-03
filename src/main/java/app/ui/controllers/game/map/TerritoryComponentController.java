@@ -51,7 +51,9 @@ public class TerritoryComponentController extends BasePublisher<Territory> imple
 
     private void handleTerritoryClicked() {
         if (_currentState == GameState.BUILDING_STATE) {
-            System.out.printf("Closing terriotry: %s\n", territory.getName());
+            territoryComponent.toggleVisiblity();
+            territoryComponent.repaint();
+            territory.setIsOpen(territoryComponent.getVisibilty());
         } else {
 
         }
