@@ -3,15 +3,12 @@ package app.domain.services;
 import app.domain.models.game.GameState;
 import app.domain.services.base.BasePublisher;
 
-import java.util.stream.StreamSupport;
-
 public class GameManagerService extends BasePublisher<GameState> {
-
     private static GameManagerService _instance;
+    private boolean _isGameFinished;
 
     private GameManagerService() {
-        super(GameState.INITIALIZATION);
-        setState(GameState.INITIALIZATION);
+        super(GameState.BUILDING_STATE);
         initializeGame();
     }
 
@@ -23,68 +20,42 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     private void initializeGame() {
-        // Initialize your game here.
-        // ...
-        // After initialization, set the game state to REPLACEMENT_PHASE.
-        setState(GameState.REPLACEMENT_PHASE);
-        notifySubscribers(GameState.REPLACEMENT_PHASE);
+        updateGameState(getState());
+        _isGameFinished = false;
     }
 
     public void updateGameState(GameState newState) {
-        // Update the game state and perform the corresponding actions.
         setState(newState);
-        notifySubscribers(newState);
+        notifySubscribers(getState());
     }
 
-    // Add methods for handling game logic here.
-    public void handleNextButtonClick() {
-
-        switch (super.getState()) {
-            case REPLACEMENT_PHASE:
-                startAttackPhase();
+    public void handleNextState() {
+        GameState currentState = super.getState();
+        switch (currentState) {
+            case BUILDING_STATE:
+                updateGameState(GameState.DISTRIBUTING_STATE);
                 break;
-            case ATTACK_PHASE:
-                startFortifyPhase();
+            case DISTRIBUTING_STATE:
+                updateGameState(GameState.RECEIVING_STATE);
                 break;
-            case FORTIFY_PHASE:
-                endTurn();
-                startReplacementPhase();
+            case RECEIVING_STATE:
+                updateGameState(GameState.ATTACK_STATE);
+                break;
+            case ATTACK_STATE:
+                updateGameState(GameState.FORTIFY_STATE);
+                break;
+            case FORTIFY_STATE:
+                updateGameState(GameState.END_TURN_STATE);
+                break;
+            case END_TURN_STATE:
+                if (_isGameFinished) {
+                    updateGameState(GameState.GAME_OVER_STATE);
+                    break;
+                }
+                updateGameState(GameState.RECEIVING_STATE);
                 break;
             default:
                 break;
         }
     }
-
-    // ...
-
-    public void startReplacementPhase() {
-        // Perform actions related to the replacement phase here.
-        // ...
-        // After completing the actions, update the game state.
-        updateGameState(GameState.REPLACEMENT_PHASE);
-    }
-
-    public void startAttackPhase() {
-        // Perform actions related to the attack phase here.
-        // ...
-        // After completing the actions, update the game state.
-        updateGameState(GameState.ATTACK_PHASE);
-    }
-
-    public void startFortifyPhase() {
-        // Perform actions related to the fortify phase here.
-        // ...
-        // After completing the actions, update the game state.
-        updateGameState(GameState.FORTIFY_PHASE);
-    }
-
-    public void endTurn() {
-        // Perform actions related to the end of the turn here.
-        // ...
-        // After completing the actions, update the game state.
-        updateGameState(GameState.END_TURN);
-    }
-
-    // ...
-
 }

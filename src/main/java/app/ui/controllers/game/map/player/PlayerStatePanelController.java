@@ -10,17 +10,16 @@ public class PlayerStatePanelController implements ActionListener {
 
     PlayerStatePanel playerStatePanel = new PlayerStatePanel();
 
-    public PlayerStatePanelController(PlayerStatePanel playerStatePanel){
+    public PlayerStatePanelController(PlayerStatePanel playerStatePanel) {
         this.playerStatePanel = playerStatePanel;
         playerStatePanel.nextButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == playerStatePanel.nextButton){
-            GameManagerService.getInstance().handleNextButtonClick();
+        if (e.getSource() == playerStatePanel.nextButton) {
+            GameManagerService.getInstance().handleNextState();
         }
-
 
     }
 }

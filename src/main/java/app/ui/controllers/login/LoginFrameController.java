@@ -41,7 +41,7 @@ public class LoginFrameController extends Component implements ActionListener {
         } else if (e.getSource() == loginFrame.registerButton) {
             loginFrame.dispose();
             RegisterFrame registerFrame = new RegisterFrame("Register", AppConfig.appSize);
-            RegisterFrameController registerFrameController = new RegisterFrameController(registerFrame);
+            new RegisterFrameController(registerFrame);
 
         } else if (e.getSource() == loginFrame.showPasswordBox) {
             if (loginFrame.showPasswordBox.isSelected()) {
