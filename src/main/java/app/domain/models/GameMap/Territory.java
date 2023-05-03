@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import app.common.AppConfig;
 import app.domain.models.ArmyUnit.Army;
+import app.domain.models.ArmyUnit.ArmyUnitType;
 
 public class Territory {
     private String name;
@@ -18,7 +19,6 @@ public class Territory {
     private int territoryId;
     private static int classTerritoryId = 0;
     private Army territoryArmy;
-
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
         this.name = name;
@@ -43,6 +43,18 @@ public class Territory {
         g.dispose();
 
         return scaledImage;
+    }
+
+    public int getInfantryCount() {
+        return this.territoryArmy.getArmyAmount(ArmyUnitType.Infantry);
+    }
+
+    public int getChivalryCount() {
+        return this.territoryArmy.getArmyAmount(ArmyUnitType.Chivalry);
+    }
+
+    public int getArtilleryCount() {
+        return this.territoryArmy.getArmyAmount(ArmyUnitType.Artillery);
     }
 
     @Override
@@ -86,11 +98,11 @@ public class Territory {
         this.territoryPosition = territoryPosition;
     }
 
-    public Army getTerritoryArmy(){
+    public Army getTerritoryArmy() {
         return this.territoryArmy;
     }
 
-    public int getTerritoryId(){
+    public int getTerritoryId() {
         return this.territoryId;
     }
 }

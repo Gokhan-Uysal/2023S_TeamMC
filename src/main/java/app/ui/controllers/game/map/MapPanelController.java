@@ -44,6 +44,7 @@ public class MapPanelController implements ISubscriber<Territory> {
 
     @Override
     public void update(Territory message) {
-        _mapPanel.updateMapInfo(message.name, 0, 0, 0);
+        _mapPanel.updateMapInfo(message.getName(), message.getInfantryCount(), message.getChivalryCount(),
+                message.getArtilleryCount());
     }
 }
