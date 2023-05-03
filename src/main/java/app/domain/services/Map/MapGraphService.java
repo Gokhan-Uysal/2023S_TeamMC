@@ -24,7 +24,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
     public void addEdges(List<Territory> territoryListFromReadService) {
         territoryListFromReadService.forEach((Territory territory) -> {
-            Set<String> adjList = territory.adjList;
+            Set<String> adjList = territory.getAdjList();
             adjList.forEach((String adj) -> {
                 addEdge(territory, adj);
             });
@@ -34,7 +34,7 @@ public class MapGraphService extends BaseGraph<Territory> {
     public Territory getVertex(String territoryName) {
         Set<Territory> keySet = this.graph.keySet();
         for (Territory territory : keySet) {
-            if (territory.name.equals(territoryName)) {
+            if (territory.getName().equals(territoryName)) {
                 return territory;
             }
         }

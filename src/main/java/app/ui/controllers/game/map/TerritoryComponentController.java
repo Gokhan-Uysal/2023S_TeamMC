@@ -12,7 +12,7 @@ public class TerritoryComponentController {
 
     public TerritoryComponentController(Territory territory) throws IOException {
         this.territory = territory;
-        this.territoryComponent = new TerritoryComponent(territory.name, territory.getImage());
+        this.territoryComponent = new TerritoryComponent(territory.getName(), territory.getImage());
         updateComponentBounds();
         setupListeners();
     }
@@ -36,17 +36,17 @@ public class TerritoryComponentController {
     }
 
     public void updateComponentBounds() {
-        territoryComponent.setBounds(territory.territoryPosition.x,
-                territory.territoryPosition.y,
+        territoryComponent.setBounds(territory.getTerritoryPosition().getX(),
+                territory.getTerritoryPosition().getY(),
                 territoryComponent.getPreferredSize().width,
                 territoryComponent.getPreferredSize().height);
     }
 
     private void handleTerritoryClicked() {
-        System.out.println("Territory clicked: " + territory.name);
+        System.out.println("Territory clicked: " + territory.getName());
     }
 
-    // private void handleTerritoryEnter() {
-    // System.out.println("Territory hover: " + territory.name);
-    // }
+    private void handleTerritoryEnter() {
+        System.out.println("Territory hover: " + territory.getName());
+    }
 }
