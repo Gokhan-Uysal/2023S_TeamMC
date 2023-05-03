@@ -5,6 +5,7 @@ import java.util.List;
 
 import app.common.AppConfig;
 import app.domain.models.ArmyUnit.ArmyUnitType;
+import app.domain.models.GameMap.Continent;
 import app.domain.models.GameMap.Territory;
 
 public class MapService {
@@ -27,7 +28,7 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
-	private Territory findTerritory(int territoryId){
+	public Territory findTerritory(int territoryId){
 
 		for (Territory t: this.getTerritoryListFromReadService()){
 			if (t.getTerritoryId() == territoryId){
@@ -37,7 +38,7 @@ public class MapService {
 		return null;
 	}
 
-	private Territory findTerritory(String territoryName){
+	public Territory findTerritory(String territoryName){
 
 		for (Territory t: this.getTerritoryListFromReadService()){
 			if (t.getName().equals(territoryName)){
@@ -47,7 +48,21 @@ public class MapService {
 		return null;
 	}
 
-	private List<Territory> getAttackableTerritories(int selectedTerritoryId){
+	public Continent findContinent(String continentName){
+		for (Continent c: _mapReadService.getGameMapData().keySet()){
+			if (c.getName().equals(continentName)){
+				return c;
+			}
+		}
+		return null;
+	}
+
+	public List<Territory> getTerritoriesOfContinent(String continentName){
+		Continent foundContinent = this.findContinent(continentName);
+		return this._mapReadService.getGameMapData().get(foundContinent);
+	}
+
+	public List<Territory> getAttackableTerritories(int selectedTerritoryId){
 		ArrayList<Territory> attackableTerritoryList = new ArrayList<>();
 		Territory selectedTerritory = this.findTerritory(selectedTerritoryId);
 
@@ -64,7 +79,7 @@ public class MapService {
 		return attackableTerritoryList;
 	}
 
-	private List<Territory> playerCanAttackFrom(int playerId){
+	public List<Territory> playerCanAttackFrom(int playerId){
 		ArrayList<Territory> attackableFrom = new ArrayList<>();
 
 		for (Territory t: this.getTerritoryListFromReadService()){

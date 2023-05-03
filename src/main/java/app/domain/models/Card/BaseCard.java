@@ -2,7 +2,7 @@ package app.domain.models.Card;
 
 import javax.swing.ImageIcon;
 
-abstract class BaseCard {
+public abstract class BaseCard {
 
     protected String name;
     protected String description;
