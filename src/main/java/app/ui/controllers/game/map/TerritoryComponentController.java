@@ -14,7 +14,7 @@ public class TerritoryComponentController extends BasePublisher<Territory> {
     public TerritoryComponentController(Territory territory) throws IOException {
         super(territory);
         this.territory = territory;
-        this.territoryComponent = new TerritoryComponent(territory.name, territory.getImage());
+        this.territoryComponent = new TerritoryComponent(territory.getImage());
         updateComponentBounds();
         setupListeners();
     }

@@ -9,7 +9,6 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     private GameManagerService() {
         super(GameState.BUILDING_STATE);
-        initializeGame();
     }
 
     public static GameManagerService getInstance() {
@@ -19,7 +18,7 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _instance;
     }
 
-    private void initializeGame() {
+    public void initializeGame() {
         updateGameState(getState());
         _isGameFinished = false;
     }

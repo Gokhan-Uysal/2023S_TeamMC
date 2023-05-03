@@ -33,7 +33,7 @@ public class LoginFrameController extends Component implements ActionListener {
             if (response) {
                 JOptionPane.showMessageDialog(loginFrame, "You successfully logged in");
                 loginFrame.dispose();
-                new MainMenuFrame("Main Menu", AppConfig.appSize);
+                new MainMenuFrame();
             } else {
                 JOptionPane.showMessageDialog(loginFrame, "Try again");
             }
