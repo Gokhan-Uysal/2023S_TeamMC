@@ -47,4 +47,33 @@ public class Army {
         this.getArmyUnits(tradedUnit2, tradedAmount2);
         this.addArmyUnits(addedUnit, addedAmount);
     }
+
+    public int getArmyAmount(ArmyUnitType type){
+        return this.armyContainer.get(type).size();
+    }
+
+    public int getArmyValue(ArmyUnitType type){
+        if (type.equals(ArmyUnitType.Infantry)){
+            return this.getArmyAmount(ArmyUnitType.Infantry);
+        }
+        else if (type.equals(ArmyUnitType.Chivalry)){
+            return this.getArmyAmount(ArmyUnitType.Chivalry)*5;
+        }
+        else if (type.equals(ArmyUnitType.Artillery)){
+            return this.getArmyAmount(ArmyUnitType.Artillery)+10;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public int getTotalArmyAmount(){
+        return this.getArmyAmount(ArmyUnitType.Infantry) + this.getArmyAmount(ArmyUnitType.Chivalry) +
+                this.getArmyAmount(ArmyUnitType.Artillery);
+    }
+
+    public int getTotalArmyValue(){
+        return this.getArmyValue(ArmyUnitType.Infantry) + this.getArmyValue(ArmyUnitType.Chivalry) +
+                this.getArmyValue(ArmyUnitType.Artillery);
+    }
 }

@@ -38,14 +38,14 @@ public class TerritoryComponentController extends BasePublisher<Territory> {
     }
 
     public void updateComponentBounds() {
-        territoryComponent.setBounds(territory.territoryPosition.x,
-                territory.territoryPosition.y,
+        territoryComponent.setBounds(territory.getTerritoryPosition().getX(),
+                territory.getTerritoryPosition().getY(),
                 territoryComponent.getPreferredSize().width,
                 territoryComponent.getPreferredSize().height);
     }
 
     private void handleTerritoryClicked() {
-        System.out.println("Territory clicked: " + territory.name);
+        System.out.println("Territory clicked: " + territory.getName());
     }
 
     private void handleTerritoryEnter() {
