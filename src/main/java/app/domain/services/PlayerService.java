@@ -47,6 +47,28 @@ public class PlayerService {
         else{
             dealArmyDefenderWin(attackingPlayer.getPlayerArmy(), attackerTerritory);
         }
+
+        if (attackedTerritory.getArmyAmount() <= 0){
+
+            attackedTerritory.setArtilleryAmount(0);
+            attackedTerritory.setCavalryAmount(0);
+            attackedTerritory.setInfantryAmount(0);
+
+            if (attackerTerritory.getInfantryAmount() > 0){
+                attackerTerritory.decreaseInfantry(1);
+                attackedTerritory.increaseInfantry(1);
+            }
+            else if (attackerTerritory.getCavalryAmount() > 0){
+                attackerTerritory.decreaseCavalry(1);
+                attackedTerritory.increaseCavalry(1);
+            }
+            else if (attackedTerritory.getArtilleryAmount() > 0){
+                attackerTerritory.decreaseArtillery(1);
+                attackedTerritory.increaseArtillery(1);
+            }
+
+            attackedTerritory.setOwnerId(attackingPlayerId);
+        }
     }
 
     public static int rollDice(){

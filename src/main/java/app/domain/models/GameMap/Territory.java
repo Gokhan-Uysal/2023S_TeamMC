@@ -115,4 +115,15 @@ public class Territory {
         return this.infantryAmount + this.cavalryAmount + this.artilleryAmount;
     }
 
+    public void setInfantryAmount(int infantryAmount) {
+        this.infantryAmount = infantryAmount;
+    }
+
+    public void setCavalryAmount(int cavalryAmount) {
+        this.cavalryAmount = cavalryAmount;
+    }
+
+    public void setArtilleryAmount(int artilleryAmount) {
+        this.artilleryAmount = artilleryAmount;
+    }
 }
