@@ -4,7 +4,7 @@ public class Player {
     public String username;
     public Integer id;
 
-    public Player(String username, Integer idx){
+    public Player(String username, Integer idx) {
         this.username = username;
         this.id = idx;
     }

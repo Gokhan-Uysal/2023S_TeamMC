@@ -2,7 +2,7 @@ package app.ui.controllers.menu.playermenu;
 
 import app.common.AppConfig;
 import app.domain.services.Map.MapService;
-import app.domain.services.PlayerService;
+import app.domain.services.PlayerFactory;
 import app.ui.views.game.GameFrame;
 import app.ui.views.menu.playermenu.PlayerMenuFrame;
 
@@ -39,7 +39,7 @@ public class PlayerMenuController implements ActionListener {
             if (a == JOptionPane.YES_OPTION) {
                 Point location = playerMenuFrame.getLocation();
 
-                PlayerService.createPlayer(newNames);
+                PlayerFactory.createPlayer(newNames);
                 MapService mapService = new MapService();
                 new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
                 playerMenuFrame.dispose();

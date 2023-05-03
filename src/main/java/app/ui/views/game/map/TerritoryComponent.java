@@ -31,8 +31,6 @@ public class TerritoryComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        System.out.printf("Painting %s\n", _territoryName);
-
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.drawImage(_territoryImage, null, 0, 0);
     }
