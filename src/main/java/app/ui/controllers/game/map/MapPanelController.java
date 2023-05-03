@@ -33,6 +33,7 @@ public class MapPanelController implements ISubscriber<Territory> {
                 Logger.error(e);
             }
         });
+        System.out.println(_mapService.getShortestPath(territoryList.get(1), territoryList.get(40)));
     }
 
     private void loadMap() {

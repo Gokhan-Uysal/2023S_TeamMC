@@ -21,6 +21,10 @@ public class MapService {
 		return _mapGraphService.getVerticies();
 	}
 
+	public List<Territory> getShortestPath(Territory source, Territory destination) {
+		return _mapGraphService.shortestPath(source, destination);
+	}
+
 	private List<Territory> getTerritoryListFromReadService() {
 		return _mapReadService.getGameMapTerritories();
 	}
