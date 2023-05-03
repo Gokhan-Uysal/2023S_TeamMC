@@ -8,8 +8,8 @@ import app.domain.models.ArmyUnit.ArmyUnitType;
 import app.domain.models.GameMap.Territory;
 
 public class MapService {
-	private MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
-	private MapGraphService _mapGraphService = new MapGraphService();
+	private static MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
+	private static MapGraphService _mapGraphService = new MapGraphService();
 
 	public void loadGameMapDataToGraph() {
 		_mapReadService.buildGameMapData();

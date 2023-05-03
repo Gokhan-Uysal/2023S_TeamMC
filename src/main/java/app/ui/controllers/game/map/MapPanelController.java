@@ -5,6 +5,8 @@ import java.util.List;
 
 import app.common.Logger;
 import app.domain.models.GameMap.Territory;
+import app.domain.models.game.GameState;
+import app.domain.services.GameManagerService;
 import app.domain.services.Map.MapService;
 import app.domain.services.base.ISubscriber;
 import app.ui.views.game.map.MapPanel;

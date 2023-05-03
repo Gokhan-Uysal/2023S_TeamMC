@@ -14,7 +14,7 @@ public class GameFrame extends BaseJFrame {
     // Map mvc
     private MapPanel _mapPanel;
     private MapService _mapService;
-    private MapPanelController _mapController;
+    private MapPanelController _mapPanelController;
     private PlayerStatePanel _playerStatePanel;
     private PlayerStatePanelController _playerStatePanelController;
 
@@ -29,7 +29,7 @@ public class GameFrame extends BaseJFrame {
     @Override
     public void initilizeComponents() {
         _mapPanel = new MapPanel();
-        _mapController = new MapPanelController(_mapPanel, _mapService);
+        _mapPanelController = new MapPanelController(_mapPanel, _mapService);
         _playerStatePanel = new PlayerStatePanel();
         _playerStatePanelController = new PlayerStatePanelController(_playerStatePanel);
     }
@@ -53,7 +53,7 @@ public class GameFrame extends BaseJFrame {
     }
 
     private void showMap() {
-        _mapController.drawMap();
+        _mapPanelController.drawMap();
     }
 
 }
