@@ -25,7 +25,7 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     public void updateGameState(GameState newState) {
         setState(newState);
-        notifySubscribers(getState());
+        notifySubscribers();
     }
 
     public void handleNextState() {

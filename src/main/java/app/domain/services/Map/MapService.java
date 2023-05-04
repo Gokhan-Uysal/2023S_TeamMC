@@ -26,8 +26,7 @@ public class MapService {
 	}
 
 	public boolean isValidBuildSelection() {
-		System.out.println(_mapGraphService.validateMap());
-		return true;
+		return _mapGraphService.validateMap();
 	}
 
 	private List<Territory> getTerritoryListFromReadService() {

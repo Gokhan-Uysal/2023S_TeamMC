@@ -60,7 +60,7 @@ public class TerritoryComponentController extends BasePublisher<Territory> imple
     }
 
     private void handleTerritoryEnter() {
-        super.notifySubscribers(territory);
+        super.notifySubscribers();
     }
 
     @Override

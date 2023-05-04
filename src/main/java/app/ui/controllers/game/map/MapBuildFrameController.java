@@ -3,7 +3,9 @@ package app.ui.controllers.game.map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import app.domain.services.GameManagerService;
 import app.domain.services.Map.MapService;
+import app.ui.views.game.GameFrame;
 import app.ui.views.menu.playermenu.MapBuildFrame;
 
 public class MapBuildFrameController implements ActionListener {
@@ -18,6 +20,13 @@ public class MapBuildFrameController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        _mapService.isValidBuildSelection();
+        if (_mapService.isValidBuildSelection()) {
+            MapService mapService = new MapService();
+            new GameFrame(_mapBuildFrame.getLocation(), mapService);
+            GameManagerService.getInstance().handleNextState();
+            _mapBuildFrame.dispose();
+        } else {
+            System.out.println("Boom");
+        }
     }
 }

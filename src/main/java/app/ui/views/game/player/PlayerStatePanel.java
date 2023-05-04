@@ -8,8 +8,7 @@ public class PlayerStatePanel extends JPanel {
 
     private int cornerRadius = 50;
     public JButton nextButton;
-    public JLabel nameField;
-    public JButton indicator1, indicator2, indicator3;
+    public JLabel gameStateLabel;
 
     public PlayerStatePanel() {
         super();
@@ -24,10 +23,18 @@ public class PlayerStatePanel extends JPanel {
 
     public void buildPanel() {
         nextButton = new JButton("Next");
-        nameField = new JLabel("Current State Here...");
+        gameStateLabel = new JLabel("Current State Here...");
 
         this.add(nextButton);
-        this.add(nameField);
+        this.add(gameStateLabel);
+    }
+
+    public void updateGameStateLabel(String info) {
+        gameStateLabel.setText(info);
+    }
+
+    public void updateNextButtonText(String info) {
+        nextButton.setText(info);
     }
 
     @Override

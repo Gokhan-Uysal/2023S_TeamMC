@@ -17,8 +17,8 @@ public class MapBuildFrame extends BaseJFrame {
 
     public JButton buildGameButton;
 
-    public MapBuildFrame() {
-        super("Map Building", AppConfig.appSize);
+    public MapBuildFrame(Point location) {
+        super("Map Building", AppConfig.appSize, location);
         initilizeComponents();
         buildComponents();
         addComponents();

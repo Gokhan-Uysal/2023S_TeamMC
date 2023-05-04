@@ -1,13 +1,12 @@
 package app.ui.controllers.menu.playermenu;
 
-import app.common.AppConfig;
-import app.domain.services.Map.MapService;
+import app.domain.services.GameManagerService;
 import app.domain.services.PlayerFactory;
-import app.ui.views.game.GameFrame;
+import app.ui.controllers.game.map.MapBuildFrameController;
+import app.ui.views.menu.playermenu.MapBuildFrame;
 import app.ui.views.menu.playermenu.PlayerMenuFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -37,11 +36,10 @@ public class PlayerMenuController implements ActionListener {
 
             int a = JOptionPane.showConfirmDialog(playerMenuFrame, "Are you sure? Do you want to start playing?");
             if (a == JOptionPane.YES_OPTION) {
-                Point location = playerMenuFrame.getLocation();
-
                 PlayerFactory.createPlayer(newNames);
-                MapService mapService = new MapService();
-                new GameFrame(AppConfig.title, AppConfig.appSize, location, mapService);
+                MapBuildFrame mapBuildFrame = new MapBuildFrame(playerMenuFrame.getLocation());
+                new MapBuildFrameController(mapBuildFrame);
+                GameManagerService.getInstance().initializeGame();
                 playerMenuFrame.dispose();
             }
         }
