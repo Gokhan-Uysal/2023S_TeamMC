@@ -110,4 +110,8 @@ public class PlayerService {
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
     }
+
+    public void placeArmyUnit(int playerId, int TerritoryId, ArmyUnitType type){
+
+    }
 }
