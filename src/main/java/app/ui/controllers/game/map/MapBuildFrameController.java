@@ -27,7 +27,7 @@ public class MapBuildFrameController implements ActionListener {
             GameManagerService.getInstance().handleNextState();
             _mapBuildFrame.dispose();
         } else {
-            System.out.println("Boom");
+            System.out.println("Wrong territory adjustemnt");
         }
     }
 }
