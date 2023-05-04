@@ -5,7 +5,7 @@ public interface IPublisher<MessageType> {
 
     boolean removeSubscriber(ISubscriber<MessageType> subscriber);
 
-    void notifySubscribers(MessageType message);
+    void notifySubscribers();
 
     void setState(MessageType newState);
 

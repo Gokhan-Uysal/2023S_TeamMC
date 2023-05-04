@@ -6,16 +6,18 @@ import javax.swing.*;
 
 public class TerritoryComponent extends JComponent {
     private BufferedImage _territoryImage;
-    private String _territoryName;
     private boolean _isVisible;
 
-    public TerritoryComponent(String territoryName, BufferedImage territoryImage) {
-        this.buildClass(territoryName, territoryImage);
+    public boolean getVisibilty() {
+        return this._isVisible;
+    }
+
+    public TerritoryComponent(BufferedImage territoryImage) {
+        this.buildClass(territoryImage);
         this.buildView();
     }
 
-    private void buildClass(String territoryName, BufferedImage territoryImage) {
-        this._territoryName = territoryName;
+    private void buildClass(BufferedImage territoryImage) {
         this._territoryImage = territoryImage;
     }
 
@@ -30,12 +32,11 @@ public class TerritoryComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics graphics) {
+        if (!_isVisible) {
+            return;
+        }
         super.paintComponent(graphics);
-        System.out.printf("Painting %s\n", _territoryName);
-
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.drawImage(_territoryImage, null, 0, 0);
-
-        graphics.drawString(_territoryName, 20, _territoryImage.getHeight() / 2);
     }
 }

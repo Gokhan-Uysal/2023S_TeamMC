@@ -19,8 +19,6 @@ public class PlayerPanelController implements ActionListener {
         ActionListenerUtil.addActionListener(playerPanel.submitButton, this);
     }
 
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playerPanel.submitButton) {
