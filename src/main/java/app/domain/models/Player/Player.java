@@ -11,7 +11,7 @@ public class Player {
     private PlayerDeck playerDeck;
     private ArrayList<Territory> territoryList = new ArrayList<>();
 
-    public Player(String username, Integer idx){
+    public Player(String username, Integer idx) {
         this.username = username;
         this.id = idx;
 
