@@ -1,7 +1,9 @@
 package app.domain.services;
 
 import app.domain.models.ArmyUnit.ArmyUnitType;
+import app.domain.models.Card.BaseCard;
 import app.domain.models.Card.CardType;
+import app.domain.models.Card.TerritoryCard;
 import app.domain.models.GameMap.Territory;
 import app.domain.models.Player.Player;
 import app.domain.models.ArmyUnit.Army;
