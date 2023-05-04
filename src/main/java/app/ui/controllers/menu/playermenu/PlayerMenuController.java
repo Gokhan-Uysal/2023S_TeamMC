@@ -1,7 +1,7 @@
 package app.ui.controllers.menu.playermenu;
 
 import app.domain.services.GameManagerService;
-import app.domain.services.PlayerFactory;
+import app.domain.services.PlayerService;
 import app.ui.controllers.game.map.MapBuildFrameController;
 import app.ui.views.menu.playermenu.MapBuildFrame;
 import app.ui.views.menu.playermenu.PlayerMenuFrame;
@@ -36,7 +36,7 @@ public class PlayerMenuController implements ActionListener {
 
             int a = JOptionPane.showConfirmDialog(playerMenuFrame, "Are you sure? Do you want to start playing?");
             if (a == JOptionPane.YES_OPTION) {
-                PlayerFactory.createPlayer(newNames);
+                PlayerService.createPlayer(newNames);
                 MapBuildFrame mapBuildFrame = new MapBuildFrame(playerMenuFrame.getLocation());
                 new MapBuildFrameController(mapBuildFrame);
                 GameManagerService.getInstance().initializeGame();
