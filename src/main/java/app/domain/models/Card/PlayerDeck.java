@@ -16,8 +16,10 @@ public class PlayerDeck implements Deck {
         this.cardContainer.put(CardType.Chance, new ArrayList<>());
     }
 
-    public void addArmyCards(CardType type, String description, ImageIcon imageIcon) {
-        this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type, description, imageIcon));
+    public void addArmyCards(CardType type, String description, ImageIcon imageIcon, int amount) {
+        for (int i = 0; i < amount; i++){
+            this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type, description, imageIcon));
+        }
     }
 
     public void addTerritoryCards(String description, ImageIcon imageIcon, int territoryId) {
@@ -29,8 +31,10 @@ public class PlayerDeck implements Deck {
     }
 
     @Override
-    public BaseCard drawCard(CardType type) {
-        return this.cardContainer.get(type).remove(0);
+    public void drawCard(CardType type, int amount) {
+        if (amount > 0) {
+            this.cardContainer.get(type).subList(0, amount).clear();
+        }
     }
 
     @Override
@@ -38,5 +42,9 @@ public class PlayerDeck implements Deck {
         for (Map.Entry<CardType, ArrayList<BaseCard>> entry : this.cardContainer.entrySet()) {
             Collections.shuffle(entry.getValue());
         }
+    }
+
+    public int findCardAmount(CardType type){
+        return this.cardContainer.get(type).size();
     }
 }
