@@ -33,13 +33,8 @@ public class MapPanelController implements ISubscriber<Territory> {
         });
     }
 
-    private void loadMap() {
+    public void loadMap() {
         _mapService.loadGameMapDataToGraph();
-    }
-
-    public void drawMap() {
-        this.loadMap();
-        this.displayMap();
     }
 
     @Override

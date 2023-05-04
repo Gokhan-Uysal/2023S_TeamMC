@@ -50,6 +50,7 @@ public class MapBuildFrame extends BaseJFrame {
     }
 
     private void showMap() {
-        _mapPanelController.drawMap();
+        _mapPanelController.loadMap();
+        _mapPanelController.displayMap();
     }
 }

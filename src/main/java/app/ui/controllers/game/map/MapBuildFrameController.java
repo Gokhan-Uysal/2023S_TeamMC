@@ -21,6 +21,7 @@ public class MapBuildFrameController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (_mapService.isValidBuildSelection()) {
+            _mapService.removeClosedTerritories();
             MapService mapService = new MapService();
             new GameFrame(_mapBuildFrame.getLocation(), mapService);
             GameManagerService.getInstance().handleNextState();

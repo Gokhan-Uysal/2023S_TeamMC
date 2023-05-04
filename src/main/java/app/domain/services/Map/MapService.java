@@ -9,7 +9,7 @@ import app.domain.models.GameMap.Territory;
 
 public class MapService {
 	private static MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
-	private static MapGraphService _mapGraphService = new MapGraphService();
+	private MapGraphService _mapGraphService = MapGraphService.getInstance();
 
 	public void loadGameMapDataToGraph() {
 		_mapReadService.buildGameMapData();
@@ -18,6 +18,7 @@ public class MapService {
 	}
 
 	public List<Territory> getTerritoryListFromGraph() {
+		System.out.println(_mapGraphService.getVertexCount());
 		return _mapGraphService.getVerticies();
 	}
 
@@ -80,6 +81,14 @@ public class MapService {
 		}
 
 		return attackableFrom;
+	}
+
+	public void openAllTerritories() {
+		_mapGraphService.openAllTerritories();
+	}
+
+	public void removeClosedTerritories() {
+		_mapGraphService.removeClosedTerritories();
 	}
 
 	private boolean territoryArmyCondition(Territory attackingTerritory, Territory attackedTerritory) {

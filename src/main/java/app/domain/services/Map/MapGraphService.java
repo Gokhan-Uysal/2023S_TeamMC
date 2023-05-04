@@ -12,8 +12,18 @@ import app.domain.models.GameMap.Territory;
 import app.domain.services.base.BaseGraph;
 
 public class MapGraphService extends BaseGraph<Territory> {
-    public MapGraphService() {
+    private static MapGraphService _mapGraphService;
+
+    private MapGraphService() {
         super(7);
+    }
+
+    public static MapGraphService getInstance() {
+        if (_mapGraphService == null) {
+            _mapGraphService = new MapGraphService();
+        }
+
+        return _mapGraphService;
     }
 
     public List<Territory> getVerticies() {
@@ -21,7 +31,6 @@ public class MapGraphService extends BaseGraph<Territory> {
         super.graph.keySet().forEach((Territory territory) -> {
             territoryVerticies.add(territory);
         });
-
         return territoryVerticies;
     }
 
@@ -83,6 +92,20 @@ public class MapGraphService extends BaseGraph<Territory> {
         }
 
         return true;
+    }
+
+    public void removeClosedTerritories() {
+        getVerticies().forEach((Territory territory) -> {
+            if (!territory.getIsOpen()) {
+                removeVertex(territory);
+            }
+        });
+    }
+
+    public void openAllTerritories() {
+        getVerticies().forEach((Territory territory) -> {
+            territory.setIsOpen(true);
+        });
     }
 
     @Override

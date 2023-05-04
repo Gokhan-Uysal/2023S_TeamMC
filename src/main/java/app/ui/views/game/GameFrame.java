@@ -51,7 +51,7 @@ public class GameFrame extends BaseJFrame {
         this.setVisible(true);
 
         addComponents();
-        showMap();
+        displayMap();
 
         this.refresh();
     }
@@ -63,8 +63,8 @@ public class GameFrame extends BaseJFrame {
         this.add(_helpPanel, BorderLayout.NORTH);
     }
 
-    private void showMap() {
-        _mapPanelController.drawMap();
+    private void displayMap() {
+        _mapPanelController.displayMap();
     }
 
 }
