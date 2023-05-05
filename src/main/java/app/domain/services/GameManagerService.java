@@ -83,15 +83,9 @@ public class GameManagerService extends BasePublisher<GameState> {
         }
     }
     public static void initializeCards(int playerNumber){
-        for (int i = 0; i < playerNumber*3; i++){
-            _centralDeck.addArmyCards(CardType.Infantry, "This is an infantry card", new ImageIcon("infantrycard.png"));
-        }
-        for (int i = 0; i < playerNumber*2; i++){
-            _centralDeck.addArmyCards(CardType.Cavalry, "This is a cavalry card", new ImageIcon("cavalrycard.png"));
-        }
-        for (int i = 0; i < playerNumber; i++){
-            _centralDeck.addArmyCards(CardType.Artillery, "This is an artillery card.", new ImageIcon("artillerycard.png"));
-        }
+        _centralDeck.addArmyCards(CardType.Infantry, "This is an infantry card", new ImageIcon("infantrycard.png"), playerNumber*3);
+        _centralDeck.addArmyCards(CardType.Cavalry, "This is a cavalry card", new ImageIcon("cavalrycard.png"), playerNumber*2);
+        _centralDeck.addArmyCards(CardType.Artillery, "This is an artillery card.", new ImageIcon("artillerycard.png"), playerNumber);
 
         ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService.getTerritoryListFromGraph();
 

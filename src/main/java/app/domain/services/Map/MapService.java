@@ -9,7 +9,7 @@ import app.domain.models.GameMap.Territory;
 
 public class MapService {
 	private static MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
-	private MapGraphService _mapGraphService = MapGraphService.getInstance();
+	private MapGrapService _mapGraphService = MapGrapService.getInstance();
 
 	public void loadGameMapDataToGraph() {
 		_mapReadService.buildGameMapData();

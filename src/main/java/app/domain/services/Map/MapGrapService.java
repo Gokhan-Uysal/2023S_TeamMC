@@ -11,16 +11,16 @@ import app.common.GraphError;
 import app.domain.models.GameMap.Territory;
 import app.domain.services.base.BaseGraph;
 
-public class MapGraphService extends BaseGraph<Territory> {
-    private static MapGraphService _mapGraphService;
+public class MapGrapService extends BaseGraph<Territory> {
+    private static MapGrapService _mapGraphService;
 
-    private MapGraphService() {
+    private MapGrapService() {
         super(7);
     }
 
-    public static MapGraphService getInstance() {
+    public static MapGrapService getInstance() {
         if (_mapGraphService == null) {
-            _mapGraphService = new MapGraphService();
+            _mapGraphService = new MapGrapService();
         }
 
         return _mapGraphService;
