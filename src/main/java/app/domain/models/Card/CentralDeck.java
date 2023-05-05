@@ -35,10 +35,8 @@ public class CentralDeck implements Deck {
     }
 
     @Override
-    public void drawCard(CardType type, int amount) {
-        if (amount > 0) {
-            this.cardContainer.get(type).subList(0, amount).clear();
-        }
+    public BaseCard drawCard(CardType type) {
+        return this.cardContainer.get(type).remove(0);
     }
 
     @Override

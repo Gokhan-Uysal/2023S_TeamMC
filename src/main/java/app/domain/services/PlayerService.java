@@ -43,7 +43,7 @@ public class PlayerService {
         return null;
     }
 
-    public void attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
+    public boolean attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         Territory attackerTerritory = getPlayer(attackingPlayerId).getTerritory(attackerTerritoryId);
         Territory attackedTerritory = getPlayer(attackedPlayerId).getTerritory(attackedTerritoryId);
@@ -71,7 +71,10 @@ public class PlayerService {
             }
 
             getPlayer(attackingPlayerId).addTerritory(getPlayer(attackedPlayerId).removeTerritory(attackerTerritoryId));
+            return true;
         }
+
+        return false;
     }
 
     public static int rollDice() {
@@ -180,9 +183,15 @@ public class PlayerService {
                         3);
             }
 
-            tradingPlayer.getPlayerDeck().drawCard(CardType.Infantry, infantryCardAmount);
-            tradingPlayer.getPlayerDeck().drawCard(CardType.Cavalry, cavalryCardAmount);
-            tradingPlayer.getPlayerDeck().drawCard(CardType.Artillery, artilleryCardAmount);
+            for (int i = 0; i < infantryCardAmount; i++){
+                tradingPlayer.getPlayerDeck().drawCard(CardType.Infantry);
+            }
+            for (int i = 0; i < cavalryCardAmount; i++){
+                tradingPlayer.getPlayerDeck().drawCard(CardType.Cavalry);
+            }
+            for (int i = 0; i < artilleryCardAmount; i++){
+                tradingPlayer.getPlayerDeck().drawCard(CardType.Artillery);
+            }
 
             return true;
         } else {
