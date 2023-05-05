@@ -16,6 +16,10 @@ public class CentralDeck implements Deck {
         this.cardContainer.put(CardType.Chance, new ArrayList<>());
     }
 
+    public HashMap<CardType, ArrayList<BaseCard>> getCardContainer() {
+        return cardContainer;
+    }
+
     public void addArmyCards(CardType type, String description, ImageIcon imageIcon, int amount) {
         for (int i = 0; i < amount; i++){
             this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type, description, imageIcon));

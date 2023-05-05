@@ -96,4 +96,15 @@ public class GameManagerService extends BasePublisher<GameState> {
 
 
 
+    public static void tradeTerritoryCards(String continentName, int playerId){
+        if (_playerService.tradeTerritoryCards(continentName, playerId)){
+
+            ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService.getTerritoriesOfContinent(continentName);
+
+            for (Territory t: territoryList){
+                _centralDeck.addTerritoryCards("This is a territory card.", new ImageIcon("territorycard.png"), t.getTerritoryId());
+            }
+        }
+    }
+
 }
