@@ -27,7 +27,7 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
-	private Territory findTerritory(int territoryId){
+	public Territory findTerritory(int territoryId){
 
 		for (Territory t: this.getTerritoryListFromGraph()){
 			if (t.getTerritoryId() == territoryId){
@@ -37,7 +37,7 @@ public class MapService {
 		return null;
 	}
 
-	private Territory findTerritory(String territoryName){
+	public Territory findTerritory(String territoryName){
 
 		for (Territory t: this.getTerritoryListFromGraph()){
 			if (t.getName().equals(territoryName)){
@@ -92,5 +92,9 @@ public class MapService {
 		return false;
 	}
 
+	public void placeArmyUnit(int territoryId, ArmyUnitType type, int amount){
+		Territory t = this.findTerritory(territoryId);
+		t.getTerritoryArmy().addArmyUnits(type, amount);
+	}
 
 }

@@ -13,7 +13,8 @@ public class PlayerService {
 
     private static ArrayList<Player> players = new ArrayList<>();
     private static MapService mapService;
-    private static final int UPPER_BOUND = 8;
+    private static int playerCount;
+    private static final int UPPER_BOUND = 6;
 
     public static void createPlayer(ArrayList<String> names) {
         for (int i = 0; i < names.size(); i++) {
@@ -23,6 +24,8 @@ public class PlayerService {
                     "New Player is created successfully with id: " + newPlayer.getId() + " and name: " + newPlayer.getUsername());
 
         }
+
+        playerCount = names.size();
     }
 
     public static Player getPlayer(int playerId){
@@ -109,9 +112,5 @@ public class PlayerService {
         else if (loserArmy.getArmyAmount(ArmyUnitType.Infantry) > 0){
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
-    }
-
-    public void placeArmyUnit(int playerId, int TerritoryId, ArmyUnitType type){
-
     }
 }
