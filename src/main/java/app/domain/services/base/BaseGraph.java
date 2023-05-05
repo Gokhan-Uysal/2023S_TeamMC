@@ -1,9 +1,13 @@
 package app.domain.services.base;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 import app.common.GraphError;
 
@@ -100,12 +104,74 @@ public class BaseGraph<Vertex> {
         }
     }
 
+    public List<Vertex> shortestPath(Vertex source, Vertex destionation) {
+        List<Vertex> path = new ArrayList<>();
+        try {
+            validateVertex(source);
+            validateVertex(destionation);
+        } catch (Error e) {
+            return path;
+        }
+
+        Map<Vertex, Vertex> previousVertices = new HashMap<>();
+        Map<Vertex, Integer> distances = new HashMap<>();
+        PriorityQueue<Vertex> queue = new PriorityQueue<>((v1, v2) -> distances.get(v1) - distances.get(v2));
+        Set<Vertex> visited = new HashSet<>();
+
+        for (Vertex vertex : graph.keySet()) {
+            distances.put(vertex, Integer.MAX_VALUE);
+        }
+        distances.put(source, 0);
+
+        queue.add(source);
+
+        while (!queue.isEmpty()) {
+            Vertex current = queue.poll();
+            visited.add(current);
+
+            if (current.equals(destionation)) {
+                break;
+            }
+
+            for (Vertex neighbor : graph.get(current)) {
+                if (visited.contains(neighbor)) {
+                    continue;
+                }
+
+                int tentativeDistance = distances.get(current) + 1;
+                if (tentativeDistance < distances.get(neighbor)) {
+                    distances.put(neighbor, tentativeDistance);
+                    previousVertices.put(neighbor, current);
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        return buildPath(previousVertices, source, destionation);
+    }
+
+    private List<Vertex> buildPath(Map<Vertex, Vertex> previousVertices, Vertex source, Vertex target) {
+        LinkedList<Vertex> path = new LinkedList<>();
+
+        Vertex current = target;
+        while (current != null) {
+            path.addFirst(current);
+            current = previousVertices.get(current);
+        }
+
+        return source.equals(path.getFirst()) ? path : null;
+    }
+
     public int getEdgeCount() {
         int count = 0;
         for (HashSet<Vertex> list : this.graph.values()) {
             count += list.size();
         }
         return count / 2;
+    }
+
+    public int getEdgeCount(Vertex vertex) {
+        return graph.get(vertex).size();
     }
 
     public int getVertexCount() {

@@ -1,8 +1,8 @@
 package app.ui.views.menu;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
+import app.common.AppConfig;
 import app.ui.controllers.menu.ButtonsPanelController;
 import app.ui.views.components.BaseJFrame;
 
@@ -10,8 +10,8 @@ public class MainMenuFrame extends BaseJFrame {
     private ButtonsPanel buttonsPanel;
     private ButtonsPanelController buttonsPanelController;
 
-    public MainMenuFrame(String title, Dimension size) {
-        super(title, size);
+    public MainMenuFrame() {
+        super("Main Menu", AppConfig.appSize);
         this.setLayout(new BorderLayout());
         initilizeComponents();
         buildComponents();

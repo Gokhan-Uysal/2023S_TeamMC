@@ -1,6 +1,5 @@
 package app.domain.models.Player;
 
-import app.domain.models.Card.Deck;
 import app.domain.models.Card.PlayerDeck;
 import app.domain.models.GameMap.Territory;
 
@@ -9,10 +8,10 @@ import java.util.ArrayList;
 public class Player {
     private String username;
     private Integer id;
-    private Deck playerDeck;
+    private PlayerDeck playerDeck;
     private ArrayList<Territory> territoryList = new ArrayList<>();
 
-    public Player(String username, Integer idx){
+    public Player(String username, Integer idx) {
         this.username = username;
         this.id = idx;
 
@@ -27,7 +26,7 @@ public class Player {
         return id;
     }
 
-    public Deck getPlayerDeck() {
+    public PlayerDeck getPlayerDeck() {
         return playerDeck;
     }
 

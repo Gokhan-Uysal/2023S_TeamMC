@@ -1,7 +1,10 @@
 package app.domain.services.Map;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import app.common.GraphError;
@@ -9,8 +12,18 @@ import app.domain.models.GameMap.Territory;
 import app.domain.services.base.BaseGraph;
 
 public class MapGraphService extends BaseGraph<Territory> {
-    public MapGraphService() {
+    private static MapGraphService _mapGraphService;
+
+    private MapGraphService() {
         super(7);
+    }
+
+    public static MapGraphService getInstance() {
+        if (_mapGraphService == null) {
+            _mapGraphService = new MapGraphService();
+        }
+
+        return _mapGraphService;
     }
 
     public List<Territory> getVerticies() {
@@ -18,7 +31,6 @@ public class MapGraphService extends BaseGraph<Territory> {
         super.graph.keySet().forEach((Territory territory) -> {
             territoryVerticies.add(territory);
         });
-
         return territoryVerticies;
     }
 
@@ -45,6 +57,55 @@ public class MapGraphService extends BaseGraph<Territory> {
     public void addEdge(Territory sourceTerritory, String destinationName) {
         Territory destination = getVertex(destinationName);
         super.addEdge(sourceTerritory, destination);
+    }
+
+    public boolean validateMap() {
+        Set<Territory> visited = new HashSet<>();
+        Queue<Territory> queue = new LinkedList<>();
+        int edgeCount = 0;
+        int removedEdgeCount = 0;
+
+        Territory startVertex = graph.keySet().iterator().next();
+        queue.add(startVertex);
+
+        while (!queue.isEmpty()) {
+            Territory current = queue.poll();
+
+            if (!visited.contains(current)) {
+                visited.add(current);
+
+                for (Territory neighbor : graph.get(current)) {
+                    if (!visited.contains(neighbor)) {
+                        if (!neighbor.getIsOpen()) {
+                            removedEdgeCount += getEdgeCount(neighbor);
+                            continue;
+                        }
+                        queue.add(neighbor);
+                    }
+                    edgeCount++;
+                }
+            }
+        }
+
+        if ((edgeCount / 2 + removedEdgeCount / 4) != getEdgeCount()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void removeClosedTerritories() {
+        getVerticies().forEach((Territory territory) -> {
+            if (!territory.getIsOpen()) {
+                removeVertex(territory);
+            }
+        });
+    }
+
+    public void openAllTerritories() {
+        getVerticies().forEach((Territory territory) -> {
+            territory.setIsOpen(true);
+        });
     }
 
     @Override

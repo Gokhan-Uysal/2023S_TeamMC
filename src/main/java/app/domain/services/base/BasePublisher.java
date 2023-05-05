@@ -39,7 +39,7 @@ public abstract class BasePublisher<MessageType> implements IPublisher<MessageTy
     }
 
     @Override
-    public void notifySubscribers(MessageType message) {
+    public void notifySubscribers() {
         for (int i = 0; i < subscribers.size(); i++) {
             ISubscriber<MessageType> subscriber = subscribers.get(i);
             subscriber.update(message);
