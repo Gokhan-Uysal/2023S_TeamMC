@@ -37,6 +37,7 @@ public class Territory {
 
         this.territoryArmy = new Army();
         this.territoryId = ++classTerritoryId;
+        this.ownerId = -1;
         isOpen = true;
     }
 
