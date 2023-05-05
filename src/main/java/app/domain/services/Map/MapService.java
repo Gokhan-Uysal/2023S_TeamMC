@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.common.AppConfig;
+import app.domain.models.ArmyUnit.Army;
 import app.domain.models.ArmyUnit.ArmyUnitType;
 import app.domain.models.GameMap.Continent;
 import app.domain.models.GameMap.Territory;
@@ -121,6 +122,15 @@ public class MapService {
 							.getTotalArmyValue();
 		}
 		return false;
+	}
+
+	public boolean territoryFortifyCondition(int infantryAmount, int cavalryAmount, int artilleryAmount,
+											 int territoryId){
+		Army foundTerritoryArmy = this.findTerritory(territoryId).getTerritoryArmy();
+		return ((infantryAmount+cavalryAmount+artilleryAmount) < foundTerritoryArmy.getTotalArmyAmount() &&
+				(infantryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) &&
+				 cavalryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) &&
+				 artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
 	}
 
 	public void placeArmyUnit(int territoryId, ArmyUnitType type, int amount){
