@@ -9,7 +9,7 @@ import app.domain.models.GameMap.Territory;
 
 public class MapService {
 	private static MapReadService _mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
-	private MapGraphService _mapGraphService = MapGraphService.getInstance();
+	private MapGrapService _mapGraphService = MapGrapService.getInstance();
 
 	public void loadGameMapDataToGraph() {
 		_mapReadService.buildGameMapData();
@@ -34,7 +34,7 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
-	private Territory findTerritory(int territoryId) {
+	public Territory findTerritory(int territoryId){
 
 		for (Territory t : this.getTerritoryListFromGraph()) {
 			if (t.getTerritoryId() == territoryId) {
@@ -44,7 +44,7 @@ public class MapService {
 		return null;
 	}
 
-	private Territory findTerritory(String territoryName) {
+	public Territory findTerritory(String territoryName){
 
 		for (Territory t : this.getTerritoryListFromGraph()) {
 			if (t.getName().equals(territoryName)) {
@@ -106,6 +106,11 @@ public class MapService {
 							.getTotalArmyValue();
 		}
 		return false;
+	}
+
+	public void placeArmyUnit(int territoryId, ArmyUnitType type, int amount){
+		Territory t = this.findTerritory(territoryId);
+		t.getTerritoryArmy().addArmyUnits(type, amount);
 	}
 
 }

@@ -17,6 +17,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     private static Integer _gameState;
     private static CentralDeck _centralDeck;
     private boolean _isGameFinished;
+    private static int playerNumber;
 
     private GameManagerService() {
         super(GameState.BUILDING_STATE);
@@ -81,4 +82,18 @@ public class GameManagerService extends BasePublisher<GameState> {
                     new ImageIcon("artillerycard.png"), artilleryAmount);
         }
     }
+    public static void initializeCards(int playerNumber){
+        _centralDeck.addArmyCards(CardType.Infantry, "This is an infantry card", new ImageIcon("infantrycard.png"), playerNumber*3);
+        _centralDeck.addArmyCards(CardType.Cavalry, "This is a cavalry card", new ImageIcon("cavalrycard.png"), playerNumber*2);
+        _centralDeck.addArmyCards(CardType.Artillery, "This is an artillery card.", new ImageIcon("artillerycard.png"), playerNumber);
+
+        ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService.getTerritoryListFromGraph();
+
+        for (Territory t: territoryList){
+            _centralDeck.addTerritoryCards("This is a territory card.", new ImageIcon("territorycard.png"), t.getTerritoryId());
+        }
+    }
+
+
+
 }

@@ -1,7 +1,9 @@
 package app.domain.services;
 
 import app.domain.models.ArmyUnit.ArmyUnitType;
+import app.domain.models.Card.BaseCard;
 import app.domain.models.Card.CardType;
+import app.domain.models.Card.TerritoryCard;
 import app.domain.models.GameMap.Territory;
 import app.domain.models.Player.Player;
 import app.domain.models.ArmyUnit.Army;
@@ -14,7 +16,8 @@ public class PlayerService {
 
     private static ArrayList<Player> players = new ArrayList<>();
     private static MapService mapService;
-    private static final int UPPER_BOUND = 8;
+    private static int playerCount;
+    private static final int UPPER_BOUND = 6;
 
     public static void createPlayer(ArrayList<String> names) {
         for (int i = 0; i < names.size(); i++) {
@@ -25,6 +28,8 @@ public class PlayerService {
                             + newPlayer.getUsername());
 
         }
+
+        playerCount = names.size();
     }
 
     public static Player getPlayer(int playerId) {
