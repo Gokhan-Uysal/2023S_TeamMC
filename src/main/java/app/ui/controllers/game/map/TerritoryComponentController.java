@@ -5,6 +5,7 @@ import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.BasePublisher;
 import app.domain.services.base.ISubscriber;
+import app.ui.controllers.game.state.BaseStatePanelController;
 import app.ui.views.game.map.TerritoryComponent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -55,12 +56,12 @@ public class TerritoryComponentController extends BasePublisher<Territory> imple
             territoryComponent.repaint();
             territory.setIsOpen(territoryComponent.getVisibilty());
         } else {
-
+            super.notifySubscriber(BaseStatePanelController.getInstance());
         }
     }
 
     private void handleTerritoryEnter() {
-        super.notifySubscribers();
+        super.notifyCustomSubscribers(MapPanelController.class);
     }
 
     @Override

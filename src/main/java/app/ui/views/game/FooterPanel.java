@@ -1,6 +1,7 @@
 package app.ui.views.game;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -9,12 +10,12 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
-import app.ui.views.game.state.BaseStatePanel;
+import app.ui.views.components.IBaseStatePanel;
 import app.ui.views.game.state.DistributePanel;
 
 public class FooterPanel extends JPanel {
     private int cornerRadius = 50;
-    private BaseStatePanel _statePanel;
+    private IBaseStatePanel _statePanel;
 
     public FooterPanel() {
         setOpaque(false);
@@ -31,10 +32,10 @@ public class FooterPanel extends JPanel {
     }
 
     public void addComponents() {
-        this.add(_statePanel);
+        this.add((Component) _statePanel);
     }
 
-    public void updateStatePanel(BaseStatePanel baseStatePanel) {
+    public void updateStatePanel(IBaseStatePanel baseStatePanel) {
         _statePanel = baseStatePanel;
     }
 

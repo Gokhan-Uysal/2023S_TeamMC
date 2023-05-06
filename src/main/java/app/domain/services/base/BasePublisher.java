@@ -3,6 +3,8 @@ package app.domain.services.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.Is;
+
 import app.common.Logger;
 
 public abstract class BasePublisher<MessageType> implements IPublisher<MessageType> {
@@ -38,6 +40,19 @@ public abstract class BasePublisher<MessageType> implements IPublisher<MessageTy
             ISubscriber<MessageType> subscriber = subscribers.get(i);
             subscriber.update(message);
         }
+    }
+
+    public <T extends ISubscriber<MessageType>> void notifyCustomSubscribers(Class<T> customSubscriberClass) {
+        for (int i = 0; i < subscribers.size(); i++) {
+            ISubscriber<MessageType> subscriber = subscribers.get(i);
+            if (customSubscriberClass.isInstance(subscriber)) {
+                subscriber.update(message);
+            }
+        }
+    }
+
+    public void notifySubscriber(ISubscriber<MessageType> subscriber) {
+        subscriber.update(message);
     }
 
     @Override
