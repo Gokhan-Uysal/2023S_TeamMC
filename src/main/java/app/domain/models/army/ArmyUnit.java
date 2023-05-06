@@ -2,7 +2,7 @@ package app.domain.models.army;
 
 import javax.swing.ImageIcon;
 
-abstract class ArmyUnit {
+public abstract class ArmyUnit {
     protected String name;
     protected String description;
     protected ImageIcon imageIcon;

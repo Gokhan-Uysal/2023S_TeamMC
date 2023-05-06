@@ -35,6 +35,10 @@ public class MainDecks {
         _armyDeck.addCard(armyCard);
     }
 
+    public void addArmyCard(ArmyCard armyCard) {
+        _armyDeck.addCard(armyCard);
+    }
+
     public void addTerritoryCards(String description, BufferedImage image, int territoryId) {
         TerritoryCard territoryCard = _cardFactory.createTerritoryCard(description, image, territoryId);
         _territoryDeck.addCard(territoryCard);

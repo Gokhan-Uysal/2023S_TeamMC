@@ -20,30 +20,47 @@ public class AttackState {
 
     private MapService _mapService = new MapService();
 
-    public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId){
+    public void attack(Army attacker, Army defender) {
+        validateAttack(attacker, defender);
+
+    }
+
+    public void validateAttack(Army attacker, Army defender) throws AttackError {
+        if (attacker.getTotalArmyAmount() < 2) {
+            throw new AttackError("Insufficent army count");
+        }
+        if (attacker.getTotalArmyValue() <= defender.getTotalArmyValue()) {
+            throw new AttackError("Weak army force");
+        }
+        if (!isValidAttack(attacker, defender)) {
+            throw new AttackError("Not valid matchup");
+        }
+    }
+
+    public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         validateAttack(attackerTerritoryId, attackedTerritoryId);
 
         boolean playerCanDrawCard = this.attackOneTerritory(attackingPlayerId,
                 attackerTerritoryId, attackedTerritoryId);
 
-        if (playerCanDrawCard){
+        if (playerCanDrawCard) {
             Player winningPlayer = PlayerService.getInstance().getCurrentPlayer();
             BaseCard drawnCard = GameManagerService.getInstance().getCentralDeck().drawCard(DeckType.Army);
 
             switch (drawnCard.getName()) {
                 case "InfantryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Infantry);
+                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Infantry);
                 }
                 case "CavalryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Cavalry);
+                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Cavalry);
                 }
                 case "ArtilleryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
+                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Artillery);
                 }
                 case "TerritoryCard" -> {
                     TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
-                    winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
+                    winningPlayer.get_playerDecks().addTerritoryCards(tDrawnCard.getDescription(),
                             tDrawnCard.getImage(), tDrawnCard.getTerritoryId());
                 }
             }
@@ -133,7 +150,7 @@ public class AttackState {
         if (!isValidAttack(attacker, defender)) {
             throw new AttackError("Not valid matchup");
         }
-        if (!checkIfAdjacentAndAttackable(attackerTerritoryId, defenderTerritoryId)){
+        if (!checkIfAdjacentAndAttackable(attackerTerritoryId, defenderTerritoryId)) {
             throw new AttackError("Territory not adjacent or not enemy territory.");
         }
     }
@@ -155,7 +172,7 @@ public class AttackState {
         return false;
     }
 
-    private boolean checkIfAdjacentAndAttackable(int attackerTerritoryId, int defenderTerritoryId){
+    private boolean checkIfAdjacentAndAttackable(int attackerTerritoryId, int defenderTerritoryId) {
 
         Territory attackerTerritory = _mapService.findTerritory(attackerTerritoryId);
         Territory defenderTerritory = _mapService.findTerritory(defenderTerritoryId);

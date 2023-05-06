@@ -17,13 +17,13 @@ public class MapBuildFrame extends BaseJFrame {
 
     public MapBuildFrame(Point location) {
         super("Map Building", AppConfig.appSize, location);
-        initilizeComponents();
+        initializeComponents();
         buildComponents();
         addComponents();
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         _mapPanel = new MapPanel();
         _mapPanelController = new MapPanelController(_mapPanel);
         buildGameButton = new JButton("Build Game");

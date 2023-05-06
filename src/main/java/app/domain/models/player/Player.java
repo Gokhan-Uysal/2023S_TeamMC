@@ -1,45 +1,33 @@
 package app.domain.models.player;
 
 import app.domain.models.card.MainDecks;
-import app.domain.models.game.map.Territory;
-
-import java.util.ArrayList;
+import app.domain.models.card.army.ArmyCard;
 
 public class Player {
-    private int id;
-    private String username;
-    private MainDecks playerDecks;
-    // private ArrayList<Territory> territoryList = new ArrayList<>();
+    private int _id;
+    private String _username;
+    private MainDecks _playerDecks;
 
     public Player(int id, String username) {
-        this.username = username;
-        this.id = id;
+        this._username = username;
+        this._id = id;
 
-        this.playerDecks = new MainDecks();
+        this._playerDecks = new MainDecks();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer get_id() {
+        return _id;
     }
 
-    public String getUsername() {
-        return username;
+    public String get_username() {
+        return _username;
     }
 
-    public MainDecks getPlayerDecks(){
-        return this.playerDecks;
+    public MainDecks get_playerDecks() {
+        return this._playerDecks;
     }
 
-    // public boolean isOwnerOf(String territoryName) {
-    // for (Territory t : this.territoryList) {
-    // if (territoryName.equals(t.getName())) {
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
-    // public void addTerritory(Territory t) {
-    // this.territoryList.add(t);
-    // }
+    public void addArmyCard(ArmyCard armyCard) {
+        _playerDecks.addArmyCard(armyCard);
+    }
 }

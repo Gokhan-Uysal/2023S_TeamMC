@@ -1,7 +1,6 @@
 package app.domain.services;
 
 import app.common.Logger;
-import app.domain.models.army.ArmyUnitType;
 import app.domain.models.card.*;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.game.GameState;
@@ -77,13 +76,22 @@ public class GameManagerService extends BasePublisher<GameState> {
     public void handleNextState() {
         GameState currentState = super.getState();
         switch (currentState) {
+            case LOADING_STATE:
+                updateGameState(GameState.BUILDING_STATE);
+                break;
             case BUILDING_STATE:
                 initilizeArmyDeck(_playerService.getPlayerCount());
                 initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
                 updateGameState(GameState.DISTRIBUTING_STATE);
+                initilizeArmyUnits(PlayerService.getInstance().getPlayerCount());
                 break;
             case DISTRIBUTING_STATE:
-                updateGameState(GameState.RECEIVING_STATE);
+                if (_distributeState.isInitialUnitFinished()) {
+                    updateGameState(GameState.RECEIVING_STATE);
+                    break;
+                }
+                _playerService.turnChange();
+                System.out.println(_playerService.getCurrentPlayer().get_username());
                 break;
             case RECEIVING_STATE:
                 updateGameState(GameState.ATTACK_STATE);
@@ -97,7 +105,6 @@ public class GameManagerService extends BasePublisher<GameState> {
                     break;
                 }
                 _playerService.turnChange();
-                System.out.println(_playerService.getCurrentPlayer().getUsername());
                 updateGameState(GameState.RECEIVING_STATE);
                 break;
             default:
@@ -119,7 +126,7 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _mapService.getTerritoryListFromGraph();
     }
 
-    public MainDecks getCentralDeck(){
+    public MainDecks getCentralDeck() {
         return this._centralDeck;
     }
 
@@ -138,7 +145,8 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public void initilizeTerritoyDeck(List<Territory> territoryList) {
-        for (Territory territory : territoryList) {
+        for (int i = 0; i < territoryList.size(); i++) {
+            Territory territory = territoryList.get(i);
             try {
                 _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.getTerritoryId());
             } catch (IOException e) {
@@ -147,4 +155,16 @@ public class GameManagerService extends BasePublisher<GameState> {
         }
     }
 
+    public void initilizeArmyUnits(int playerCount) {
+        int unitAmount = 45 - (playerCount - 1) * 5;
+        _distributeState.fillArmy(unitAmount);
+    }
+
+    public void placeInfantryToTerritory(int territoryId, int playerId) {
+        boolean result = _distributeState.placeInfantryToTerritory(territoryId, playerId);
+        if (result) {
+            updateGameState(GameState.DISTRIBUTING_STATE);
+            return;
+        }
+    }
 }
