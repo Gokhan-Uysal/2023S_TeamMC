@@ -1,8 +1,8 @@
-package app.domain.models.Card.chance;
+package app.domain.models.card.chance;
 
 import java.awt.image.BufferedImage;
 
-import app.domain.models.Card.BaseCard;
+import app.domain.models.card.BaseCard;
 
 public class ChanceCard extends BaseCard {
     public ChanceCard(String description, BufferedImage image) {

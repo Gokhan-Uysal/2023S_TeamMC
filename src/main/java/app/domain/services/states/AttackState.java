@@ -1,21 +1,16 @@
 package app.domain.services.states;
 
 import app.common.errors.AttackError;
-import app.domain.models.Card.BaseCard;
-import app.domain.models.Card.DeckType;
-import app.domain.models.Card.MainDecks;
-import app.domain.models.Card.army.ArmyCardType;
-import app.domain.models.Card.army.ArtilleryCard;
-import app.domain.models.Card.army.CavalryCard;
-import app.domain.models.Card.army.InfantryCard;
-import app.domain.models.Card.territory.TerritoryCard;
-import app.domain.models.Player.Player;
+import app.domain.models.card.BaseCard;
+import app.domain.models.card.DeckType;
+import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.card.territory.TerritoryCard;
+import app.domain.models.player.Player;
 import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
-import app.domain.models.game.map.Territory;
 
 import app.domain.services.GameManagerService;
-import app.domain.services.Map.MapService;
+import app.domain.services.map.MapService;
 import app.domain.services.PlayerService;
 
 import java.util.Random;

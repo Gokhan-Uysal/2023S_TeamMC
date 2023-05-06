@@ -1,4 +1,4 @@
-package app.domain.models.Card;
+package app.domain.models.card;
 
 public enum DeckType {
     Army,

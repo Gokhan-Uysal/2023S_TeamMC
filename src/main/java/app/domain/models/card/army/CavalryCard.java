@@ -1,4 +1,4 @@
-package app.domain.models.Card.army;
+package app.domain.models.card.army;
 
 public class CavalryCard extends ArmyCard {
 

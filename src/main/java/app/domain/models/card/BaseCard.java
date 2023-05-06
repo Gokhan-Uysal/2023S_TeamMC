@@ -1,4 +1,4 @@
-package app.domain.models.Card;
+package app.domain.models.card;
 
 import java.awt.image.BufferedImage;
 

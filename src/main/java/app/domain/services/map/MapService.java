@@ -1,15 +1,12 @@
 package app.domain.services.map;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import app.common.AppConfig;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
-import app.domain.services.Map.MapGraphService;
-import app.domain.services.Map.MapReadService;
 
 public class MapService {
 	private MapReadService _mapReadService;

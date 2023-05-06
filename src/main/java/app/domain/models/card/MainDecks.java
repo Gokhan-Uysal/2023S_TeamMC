@@ -1,10 +1,9 @@
-package app.domain.models.Card;
+package app.domain.models.card;
 
-import app.domain.models.Card.BaseCard;
-import app.domain.models.Card.army.ArmyCard;
-import app.domain.models.Card.army.ArmyCardType;
-import app.domain.models.Card.chance.ChanceCard;
-import app.domain.models.Card.territory.TerritoryCard;
+import app.domain.models.card.army.ArmyCard;
+import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.card.chance.ChanceCard;
+import app.domain.models.card.territory.TerritoryCard;
 
 import java.awt.image.BufferedImage;
 

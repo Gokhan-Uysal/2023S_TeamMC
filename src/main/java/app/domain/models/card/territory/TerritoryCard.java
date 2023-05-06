@@ -1,8 +1,8 @@
-package app.domain.models.Card.territory;
+package app.domain.models.card.territory;
 
 import java.awt.image.BufferedImage;
 
-import app.domain.models.Card.BaseCard;
+import app.domain.models.card.BaseCard;
 
 public class TerritoryCard extends BaseCard {
 

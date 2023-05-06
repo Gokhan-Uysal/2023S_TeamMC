@@ -1,4 +1,4 @@
-package app.domain.services.Map;
+package app.domain.services.map;
 
 import java.io.IOException;
 import java.util.ArrayList;

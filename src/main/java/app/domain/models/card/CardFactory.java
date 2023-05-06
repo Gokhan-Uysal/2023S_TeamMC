@@ -1,14 +1,14 @@
-package app.domain.models.Card;
+package app.domain.models.card;
 
 import java.awt.image.BufferedImage;
 
-import app.domain.models.Card.army.ArmyCard;
-import app.domain.models.Card.army.ArmyCardType;
-import app.domain.models.Card.army.ArtilleryCard;
-import app.domain.models.Card.army.CavalryCard;
-import app.domain.models.Card.army.InfantryCard;
-import app.domain.models.Card.chance.ChanceCard;
-import app.domain.models.Card.territory.TerritoryCard;
+import app.domain.models.card.army.ArmyCard;
+import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.card.army.ArtilleryCard;
+import app.domain.models.card.army.CavalryCard;
+import app.domain.models.card.army.InfantryCard;
+import app.domain.models.card.chance.ChanceCard;
+import app.domain.models.card.territory.TerritoryCard;
 
 public class CardFactory {
 

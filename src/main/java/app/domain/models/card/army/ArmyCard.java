@@ -1,8 +1,8 @@
-package app.domain.models.Card.army;
+package app.domain.models.card.army;
 
 import java.awt.image.BufferedImage;
 
-import app.domain.models.Card.BaseCard;
+import app.domain.models.card.BaseCard;
 
 public abstract class ArmyCard extends BaseCard {
     protected int value;
