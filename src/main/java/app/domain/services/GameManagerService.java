@@ -77,6 +77,9 @@ public class GameManagerService extends BasePublisher<GameState> {
     public void handleNextState() {
         GameState currentState = super.getState();
         switch (currentState) {
+            case LOADING_STATE:
+                updateGameState(GameState.BUILDING_STATE);
+                break;
             case BUILDING_STATE:
                 initilizeArmyDeck(_playerService.getPlayerCount());
                 initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());

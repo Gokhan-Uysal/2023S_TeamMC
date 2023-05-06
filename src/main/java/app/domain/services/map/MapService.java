@@ -41,7 +41,6 @@ public class MapService {
 	}
 
 	public Territory findTerritory(String territoryName) {
-
 		for (Territory t : this.getTerritoryListFromGraph()) {
 			if (t.getName().equals(territoryName)) {
 				return t;
