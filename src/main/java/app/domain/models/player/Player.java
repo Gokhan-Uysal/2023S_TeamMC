@@ -15,15 +15,15 @@ public class Player {
         this._playerDecks = new MainDecks();
     }
 
-    public Integer get_id() {
+    public Integer getId() {
         return _id;
     }
 
-    public String get_username() {
+    public String getUsername() {
         return _username;
     }
 
-    public MainDecks get_playerDecks() {
+    public MainDecks getPlayerDecks() {
         return this._playerDecks;
     }
 
