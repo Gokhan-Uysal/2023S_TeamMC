@@ -50,17 +50,17 @@ public class AttackState {
 
             switch (drawnCard.getName()) {
                 case "InfantryCard" -> {
-                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Infantry);
+                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Infantry);
                 }
                 case "CavalryCard" -> {
-                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Cavalry);
+                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Cavalry);
                 }
                 case "ArtilleryCard" -> {
-                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Artillery);
+                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
                 }
                 case "TerritoryCard" -> {
                     TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
-                    winningPlayer.get_playerDecks().addTerritoryCards(tDrawnCard.getDescription(),
+                    winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
                             tDrawnCard.getImage(), tDrawnCard.getTerritoryId());
                 }
             }
