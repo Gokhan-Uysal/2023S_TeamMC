@@ -1,4 +1,4 @@
-package app.domain.models.GameMap;
+package app.domain.models.game.map;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.Set;
 import javax.imageio.ImageIO;
 import app.common.AppConfig;
-import app.domain.models.ArmyUnit.Army;
-import app.domain.models.ArmyUnit.ArmyUnitType;
+import app.domain.models.army.Army;
+import app.domain.models.army.ArmyUnitType;
 
 public class Territory {
     private String name;

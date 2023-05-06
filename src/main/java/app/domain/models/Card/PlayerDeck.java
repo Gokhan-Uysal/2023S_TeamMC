@@ -1,4 +1,4 @@
-package app.domain.models.Card;
+package app.domain.models.card;
 
 import javax.swing.*;
 import java.util.*;
@@ -21,13 +21,14 @@ public class PlayerDeck implements Deck {
     }
 
     public void addArmyCards(CardType type, String description, ImageIcon imageIcon, int amount) {
-        for (int i = 0; i < amount; i++){
+        for (int i = 0; i < amount; i++) {
             this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type, description, imageIcon));
         }
     }
 
     public void addTerritoryCards(String description, ImageIcon imageIcon, int territoryId) {
-        this.cardContainer.get(CardType.Territory).add(this.cardFactory.createTerritoryCard(description, imageIcon, territoryId));
+        this.cardContainer.get(CardType.Territory)
+                .add(this.cardFactory.createTerritoryCard(description, imageIcon, territoryId));
     }
 
     public void addChanceCards(String description, ImageIcon imageIcon) {
@@ -39,13 +40,13 @@ public class PlayerDeck implements Deck {
         return this.cardContainer.get(type).remove(0);
     }
 
-    public void drawTerritoryCard(int territoryId){
+    public void drawTerritoryCard(int territoryId) {
 
         TerritoryCard tc;
 
-        for (BaseCard c: this.cardContainer.get(CardType.Territory)){
+        for (BaseCard c : this.cardContainer.get(CardType.Territory)) {
             tc = (TerritoryCard) c;
-            if (tc.getTerritoryId() == territoryId){
+            if (tc.getTerritoryId() == territoryId) {
                 this.cardContainer.get(CardType.Territory).remove(tc);
             }
         }
@@ -58,7 +59,7 @@ public class PlayerDeck implements Deck {
         }
     }
 
-    public int findCardAmount(CardType type){
+    public int findCardAmount(CardType type) {
         return this.cardContainer.get(type).size();
     }
 }

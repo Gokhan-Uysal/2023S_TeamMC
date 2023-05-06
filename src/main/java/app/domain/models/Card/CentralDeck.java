@@ -1,4 +1,4 @@
-package app.domain.models.Card;
+package app.domain.models.card;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -21,16 +21,17 @@ public class CentralDeck implements Deck {
     }
 
     public void addArmyCards(CardType type, String description, ImageIcon imageIcon, int amount) {
-        for (int i = 0; i < amount; i++){
+        for (int i = 0; i < amount; i++) {
             this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type, description, imageIcon));
         }
     }
 
-    public void addTerritoryCards(String description, ImageIcon imageIcon, int territoryId){
-        this.cardContainer.get(CardType.Army).add(this.cardFactory.createTerritoryCard(description, imageIcon, territoryId));
+    public void addTerritoryCards(String description, ImageIcon imageIcon, int territoryId) {
+        this.cardContainer.get(CardType.Army)
+                .add(this.cardFactory.createTerritoryCard(description, imageIcon, territoryId));
     }
 
-    public void addChanceCards(String description, ImageIcon imageIcon){
+    public void addChanceCards(String description, ImageIcon imageIcon) {
         this.cardContainer.get(CardType.Chance).add(this.cardFactory.createChanceCard(description, imageIcon));
     }
 

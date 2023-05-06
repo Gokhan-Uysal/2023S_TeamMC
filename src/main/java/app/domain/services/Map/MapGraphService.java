@@ -1,4 +1,4 @@
-package app.domain.services.Map;
+package app.domain.services.map;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,23 +7,13 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import app.common.GraphError;
-import app.domain.models.GameMap.Territory;
+import app.common.errors.GraphError;
+import app.domain.models.game.map.Territory;
 import app.domain.services.base.BaseGraph;
 
 public class MapGraphService extends BaseGraph<Territory> {
-    private static MapGraphService _mapGraphService;
-
-    private MapGraphService() {
+    public MapGraphService() {
         super(7);
-    }
-
-    public static MapGraphService getInstance() {
-        if (_mapGraphService == null) {
-            _mapGraphService = new MapGraphService();
-        }
-
-        return _mapGraphService;
     }
 
     public List<Territory> getVerticies() {

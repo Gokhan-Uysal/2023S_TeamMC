@@ -8,7 +8,7 @@ abstract class ArmyUnit {
     protected ImageIcon imageIcon;
     protected int value;
 
-    protected ArmyUnit(String name, String description){
+    protected ArmyUnit(String name, String description) {
         this.name = name;
         this.description = description;
     }

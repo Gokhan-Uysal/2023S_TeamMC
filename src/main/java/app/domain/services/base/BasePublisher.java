@@ -29,12 +29,9 @@ public abstract class BasePublisher<MessageType> implements IPublisher<MessageTy
     @Override
     public boolean removeSubscriber(ISubscriber<MessageType> subscriber) {
         boolean response = subscribers.remove(subscriber);
-        if (response) {
-            Logger.info(String.format("New subscriber removed: %s", subscriber.toString()));
-        } else {
+        if (!response) {
             Logger.error(String.format("Failed to remove subscriber: %s", subscriber.toString()));
         }
-
         return response;
     }
 

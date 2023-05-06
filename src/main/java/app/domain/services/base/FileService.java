@@ -3,8 +3,10 @@ package app.domain.services;
 import java.io.*;
 import java.util.*;
 
+import app.common.AppConfig;
+
 public class FileService {
-    private static final String FILENAME = "src/main/java/app/resource/assets/data.csv";
+    private static final String FILENAME = AppConfig.basePath + "/resource/assets/data.csv";
 
     public static void writeData(String username, char[] password) {
         try {

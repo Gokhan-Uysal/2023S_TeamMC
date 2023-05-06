@@ -36,10 +36,10 @@ public class PlayerMenuController implements ActionListener {
 
             int a = JOptionPane.showConfirmDialog(playerMenuFrame, "Are you sure? Do you want to start playing?");
             if (a == JOptionPane.YES_OPTION) {
-                PlayerService.createPlayer(newNames);
+                GameManagerService.getInstance().createPlayers(newNames);
                 MapBuildFrame mapBuildFrame = new MapBuildFrame(playerMenuFrame.getLocation());
                 new MapBuildFrameController(mapBuildFrame);
-                GameManagerService.getInstance().initializeGame();
+                GameManagerService.getInstance().notifySubscribers();
                 playerMenuFrame.dispose();
             }
         }

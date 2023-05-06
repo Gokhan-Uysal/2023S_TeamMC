@@ -1,26 +1,38 @@
 package app.domain.services;
 
-import app.domain.models.Card.*;
-import app.domain.models.GameMap.Territory;
-import app.domain.models.Player.Player;
+import app.domain.models.card.*;
 import app.domain.models.game.GameState;
-import app.domain.services.Map.MapService;
+import app.domain.models.game.map.Territory;
+import app.domain.models.player.Player;
 import app.domain.services.base.BasePublisher;
+import app.domain.services.map.MapService;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class GameManagerService extends BasePublisher<GameState> {
     private static GameManagerService _instance;
-    private static MapService _mapService;
-    private static PlayerService _playerService;
-    private static Integer _gameState;
-    private static CentralDeck _centralDeck;
+
+    private MapService _mapService;
+    private PlayerService _playerService;
+    private CentralDeck _centralDeck;
     private boolean _isGameFinished;
-    private static int playerNumber;
 
     private GameManagerService() {
         super(GameState.BUILDING_STATE);
+        initDependicies();
+        initializeGame();
+    }
+
+    private void initDependicies() {
+        _mapService = new MapService();
+        _playerService = new PlayerService();
+        _centralDeck = new CentralDeck();
+    }
+
+    private void initializeGame() {
+        updateGameState(getState());
+        _isGameFinished = false;
     }
 
     public static GameManagerService getInstance() {
@@ -28,11 +40,6 @@ public class GameManagerService extends BasePublisher<GameState> {
             _instance = new GameManagerService();
         }
         return _instance;
-    }
-
-    public void initializeGame() {
-        updateGameState(getState());
-        _isGameFinished = false;
     }
 
     public void updateGameState(GameState newState) {
@@ -70,7 +77,11 @@ public class GameManagerService extends BasePublisher<GameState> {
         }
     }
 
-    public static void tradeArmyCards(int infantryAmount, int cavalryAmount, int artilleryAmount, int playerId,
+    public void createPlayers(ArrayList<String> names) {
+        _playerService.createPlayer(names);
+    }
+
+    public void tradeArmyCards(int infantryAmount, int cavalryAmount, int artilleryAmount, int playerId,
             int territoryId) {
         if (_playerService.tradeArmyCards(infantryAmount, cavalryAmount, artilleryAmount, playerId, territoryId)) {
 
@@ -82,39 +93,43 @@ public class GameManagerService extends BasePublisher<GameState> {
                     new ImageIcon("artillerycard.png"), artilleryAmount);
         }
     }
-    public static void initializeCards(int playerNumber){
-        _centralDeck.addArmyCards(CardType.Infantry, "Infantry card", new ImageIcon("infantrycard.png"), playerNumber*3);
-        _centralDeck.addArmyCards(CardType.Cavalry, "Cavalry card", new ImageIcon("cavalrycard.png"), playerNumber*2);
-        _centralDeck.addArmyCards(CardType.Artillery, "Artillery card.", new ImageIcon("artillerycard.png"), playerNumber);
+
+    public void initializeCards(int playerNumber) {
+        _centralDeck.addArmyCards(CardType.Infantry, "Infantry card", new ImageIcon("infantrycard.png"),
+                playerNumber * 3);
+        _centralDeck.addArmyCards(CardType.Cavalry, "Cavalry card", new ImageIcon("cavalrycard.png"), playerNumber * 2);
+        _centralDeck.addArmyCards(CardType.Artillery, "Artillery card.", new ImageIcon("artillerycard.png"),
+                playerNumber);
 
         ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService.getTerritoryListFromGraph();
 
-        for (Territory t: territoryList){
+        for (Territory t : territoryList) {
             _centralDeck.addTerritoryCards("Territory card.", new ImageIcon("territorycard.png"), t.getTerritoryId());
         }
 
         _centralDeck.shuffle();
     }
 
+    public void tradeTerritoryCards(String continentName, int playerId) {
+        if (_playerService.tradeTerritoryCards(continentName, playerId)) {
 
+            ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService
+                    .getTerritoriesOfContinent(continentName);
 
-    public static void tradeTerritoryCards(String continentName, int playerId){
-        if (_playerService.tradeTerritoryCards(continentName, playerId)){
-
-            ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService.getTerritoriesOfContinent(continentName);
-
-            for (Territory t: territoryList){
-                _centralDeck.addTerritoryCards("Territory card.", new ImageIcon("territorycard.png"), t.getTerritoryId());
+            for (Territory t : territoryList) {
+                _centralDeck.addTerritoryCards("Territory card.", new ImageIcon("territorycard.png"),
+                        t.getTerritoryId());
             }
         }
     }
 
-    public static void attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId, int attackedTerritoryId){
+    public void attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId,
+            int attackedTerritoryId) {
         boolean playerCanDrawCard = _playerService.attack(attackingPlayerId, attackedPlayerId,
                 attackerTerritoryId, attackedTerritoryId);
 
-        if (playerCanDrawCard){
-            Player winningPlayer = PlayerService.getPlayer(attackingPlayerId);
+        if (playerCanDrawCard) {
+            Player winningPlayer = _playerService.getPlayer(attackingPlayerId);
             BaseCard drawnCard = _centralDeck.drawCard(CardType.Army);
             switch (drawnCard.getDescription()) {
                 case "Infantry card." -> {

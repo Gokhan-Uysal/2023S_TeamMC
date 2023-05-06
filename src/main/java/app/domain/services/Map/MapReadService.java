@@ -1,4 +1,4 @@
-package app.domain.services.Map;
+package app.domain.services.map;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import app.domain.models.GameMap.*;
+import app.domain.models.game.map.*;
 import app.domain.services.base.JsonService;
 
 public class MapReadService {
