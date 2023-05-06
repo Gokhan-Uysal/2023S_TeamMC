@@ -19,6 +19,7 @@ public class PlayerService {
     private static MapService mapService;
     private static MapReadService mapReadService;
     private static int playerCount;
+    private static int playerInitialArmyAmount;
     private static final int UPPER_BOUND = 6;
 
     public static void createPlayer(ArrayList<String> names) {
@@ -228,5 +229,45 @@ public class PlayerService {
         else{
             System.out.println("There has been a fortify error, please check the territories and army unit number.");
         }
+    }
+
+    private void setPlayerInitialArmyAmount(){
+        playerInitialArmyAmount = 40 - (playerCount-2)*5;
+    }
+
+    public void placeInitialArmy(int playerId, int territoryId){
+        Player placingPlayer = getPlayer(playerId);
+        Territory chosenTerritory = mapService.findTerritory(territoryId);
+
+        if (mapService.unclaimedTerritorySubPhase(territoryId)){
+            placingPlayer.addTerritory(chosenTerritory);
+            chosenTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry, 1);
+        }
+        else{
+            System.out.println("Please choose an unclaimed territory.");
+        }
+
+        if (allTerritoriesClaimedSubPhase(playerId, territoryId)){
+            chosenTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry, 1);
+        }
+        else{
+            System.out.println("Please choose a territory you own.");
+        }
+    }
+
+    private boolean allTerritoriesClaimedSubPhase(int playerId, int territoryId){
+        return doesPlayerOwnTerritory(playerId, territoryId) &&
+                (getPlayerTotalArmyAmount(playerId) < playerInitialArmyAmount) &&
+                !mapService.unclaimedTerritorySubPhase(territoryId);
+    }
+
+    public Integer getPlayerTotalArmyAmount(int playerId){
+        Player p = getPlayer(playerId);
+        int totalArmyAmount = 0;
+
+        for (Territory t : p.getTerritoryList()){
+            totalArmyAmount += t.getTerritoryArmy().getTotalArmyAmount();
+        }
+        return totalArmyAmount;
     }
 }

@@ -138,4 +138,17 @@ public class MapService {
 		t.getTerritoryArmy().addArmyUnits(type, amount);
 	}
 
+	public boolean unclaimedTerritoryExist(){
+		for (Territory t: this.getTerritoryListFromGraph()){
+			if (t.getOwnerId() == -1){
+				return true;
+			}
+		}
+		return false;
+	}
+	 public boolean unclaimedTerritorySubPhase(int territoryId){
+		Territory t = this.findTerritory(territoryId);
+		return this.unclaimedTerritoryExist() && t.getOwnerId() == -1;
+	 }
+
 }
