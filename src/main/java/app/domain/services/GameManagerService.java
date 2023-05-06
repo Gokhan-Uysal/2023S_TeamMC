@@ -119,6 +119,10 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _mapService.getTerritoryListFromGraph();
     }
 
+    public MainDecks getCentralDeck(){
+        return this._centralDeck;
+    }
+
     public boolean validateNewBuildMap() {
         if (!_mapService.isValidBuildSelection()) {
             return false;
@@ -136,7 +140,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     public void initilizeTerritoyDeck(List<Territory> territoryList) {
         for (Territory territory : territoryList) {
             try {
-                _centralDeck.addTerritoryCards(territory.getName(), territory.getImage());
+                _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.getTerritoryId());
             } catch (IOException e) {
                 Logger.error(e);
             }
