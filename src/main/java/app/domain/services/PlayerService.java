@@ -2,7 +2,9 @@ package app.domain.services;
 
 import java.util.*;
 
+import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
+import app.domain.services.map.MapService;
 
 public class PlayerService {
     private static PlayerService _playerService;
@@ -12,6 +14,7 @@ public class PlayerService {
 
     private List<Player> _players;
     private int _currentPlayerId;
+    private MapService _mapService;
 
     public Player getCurrentPlayer() throws IndexOutOfBoundsException {
         return _players.get(_currentPlayerId);
@@ -20,6 +23,7 @@ public class PlayerService {
     private PlayerService() {
         _players = new ArrayList<>();
         _currentPlayerCount = 0;
+        _mapService = new MapService();
     }
 
     public static PlayerService getInstance() {
@@ -58,5 +62,21 @@ public class PlayerService {
             return;
         }
         _currentPlayerId += 1;
+    }
+
+    public Player getPlayer(int playerId){
+        for (Player player: this._players){
+            if (player.getId() == playerId){
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Territory> getTerritoriesFromTerritoryCards(int playerId){
+
+        Player player = getPlayer(playerId);
+        ArrayList<Integer> territoryIds = player.getPlayerDecks().territoryIds();
+        return _mapService.findTerritories(territoryIds);
     }
 }

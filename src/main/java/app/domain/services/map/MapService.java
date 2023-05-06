@@ -117,6 +117,16 @@ public class MapService {
 		return null;
 	}
 
+	public ArrayList<Territory> findTerritories(ArrayList<Integer> territoryIds){
+
+		ArrayList<Territory> territories = new ArrayList<>();
+		for (Integer id: territoryIds){
+			territories.add(findTerritory(id));
+		}
+
+		return territories;
+	}
+
 	public void changeOwnerOfTerritory(int playerId, int territoryId){
 		Territory t = findTerritory(territoryId);
 		t.setOwnerId(playerId);
