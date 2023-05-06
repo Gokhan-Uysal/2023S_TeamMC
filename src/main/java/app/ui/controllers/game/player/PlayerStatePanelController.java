@@ -22,7 +22,6 @@ public class PlayerStatePanelController implements ActionListener, ISubscriber<G
         if (e.getSource() == playerStatePanel.nextButton) {
             GameManagerService.getInstance().handleNextState();
         }
-
     }
 
     @Override

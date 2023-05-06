@@ -12,12 +12,12 @@ public class HelpScreenFrame extends BaseJFrame {
     public HelpScreenFrame(String title, Dimension size) {
         super(title, size);
         this.setLayout(new BorderLayout());
-        initilizeComponents();
+        initializeComponents();
         buildComponents();
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         scrollPane = new JScrollPane(instructions);
         instructions = new JTextArea(
                 """

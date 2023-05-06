@@ -1,13 +1,9 @@
 package app.ui.views.game;
 
 import app.common.AppConfig;
-import app.ui.controllers.game.helpscreen.HelpPanelController;
 import app.ui.controllers.game.map.MapPanelController;
-import app.ui.controllers.game.player.PlayerStatePanelController;
 import app.ui.views.components.BaseJFrame;
-import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.map.MapPanel;
-import app.ui.views.game.player.PlayerStatePanel;
 
 import java.awt.*;
 
@@ -17,29 +13,25 @@ public class GameFrame extends BaseJFrame {
     private MapPanel _mapPanel;
     private MapPanelController _mapPanelController;
 
-    private PlayerStatePanel _playerStatePanel;
-    private PlayerStatePanelController _playerStatePanelController;
+    private Header _header;
 
-    private HelpPanel _helpPanel;
-    private HelpPanelController _helpPanelController;
+    private Footer _footer;
 
     public GameFrame(Point location) {
         super("Risk Game", AppConfig.appSize, location);
         this.setLayout(new BorderLayout());
-        initilizeComponents();
+        initializeComponents();
         buildComponents();
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         _mapPanel = new MapPanel();
         _mapPanelController = new MapPanelController(_mapPanel);
 
-        _playerStatePanel = new PlayerStatePanel();
-        _playerStatePanelController = new PlayerStatePanelController(_playerStatePanel);
+        _footer = new Footer();
 
-        _helpPanel = new HelpPanel();
-        _helpPanelController = new HelpPanelController(_helpPanel);
+        _header = new Header();
     }
 
     @Override
@@ -56,8 +48,8 @@ public class GameFrame extends BaseJFrame {
     @Override
     public void addComponents() {
         this.add(_mapPanel, BorderLayout.CENTER);
-        this.add(_playerStatePanel, BorderLayout.SOUTH);
-        this.add(_helpPanel, BorderLayout.NORTH);
+        this.add(_header, BorderLayout.NORTH);
+        this.add(_footer, BorderLayout.SOUTH);
     }
 
     private void displayMap() {
