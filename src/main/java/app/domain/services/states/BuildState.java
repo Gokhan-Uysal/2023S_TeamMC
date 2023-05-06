@@ -6,14 +6,9 @@ public class BuildState {
     private MapService _mapService;
 
     public BuildState() {
-
     }
 
     public void loadGameMap() {
         _mapService.loadGameMapDataToGraph();
-    }
-
-    public void getMap() {
-        _mapService.getTerritoryListFromGraph();
     }
 }

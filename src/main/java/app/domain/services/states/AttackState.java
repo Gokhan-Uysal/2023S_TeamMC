@@ -37,44 +37,6 @@ public class AttackState {
         }
     }
 
-    // private Set<Territory> playerCanAttackTo(Territory attacker) {
-    // Set<Territory> adjSet = _mapGraphService.getEdges(attacker);
-    // Set<Territory> validAdjSet = adjSet.stream()
-    // .filter(defender -> isValidAttack(attacker, defender))
-    // .collect(Collectors.toSet());
-
-    // return validAdjSet;
-    // }
-
-    private boolean isValidAttack(Army attacker, Army defender) {
-        if (defender.getArmyAmount(ArmyUnitType.Artillery) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Artillery) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
-        } else if (defender.getArmyAmount(ArmyUnitType.Chivalry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Chivalry) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
-        } else if (defender.getArmyAmount(ArmyUnitType.Infantry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Infantry) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
-        }
-        return false;
-    }
-
-    // public List<Territory> playerCanAttackFrom(Player player) {
-    // ArrayList<Territory> attackableFrom = new ArrayList<>();
-
-    // for (Territory t : this.getTerritoryListFromGraph()) {
-    // if (t.getOwnerId() == playerId && t.getTerritoryArmy().getTotalArmyAmount()
-    // >= 2) {
-    // attackableFrom.add(t);
-    // }
-    // }
-    // return attackableFrom;
-    // }
-
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         validateAttack(attackerTerritoryId, attackedTerritoryId);
@@ -88,17 +50,17 @@ public class AttackState {
 
             switch (drawnCard.getName()) {
                 case "InfantryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Infantry);
+                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Infantry);
                 }
                 case "CavalryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Cavalry);
+                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Cavalry);
                 }
                 case "ArtilleryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
+                    winningPlayer.get_playerDecks().addArmyCard(ArmyCardType.Artillery);
                 }
                 case "TerritoryCard" -> {
                     TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
-                    winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
+                    winningPlayer.get_playerDecks().addTerritoryCards(tDrawnCard.getDescription(),
                             tDrawnCard.getImage(), tDrawnCard.getTerritoryId());
                 }
             }

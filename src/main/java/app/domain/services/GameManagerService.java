@@ -1,7 +1,6 @@
 package app.domain.services;
 
 import app.common.Logger;
-import app.domain.models.army.ArmyUnitType;
 import app.domain.models.card.*;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.game.GameState;
@@ -100,7 +99,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                     break;
                 }
                 _playerService.turnChange();
-                System.out.println(_playerService.getCurrentPlayer().getUsername());
+                System.out.println(_playerService.getCurrentPlayer().get_username());
                 updateGameState(GameState.RECEIVING_STATE);
                 break;
             default:
@@ -122,7 +121,7 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _mapService.getTerritoryListFromGraph();
     }
 
-    public MainDecks getCentralDeck(){
+    public MainDecks getCentralDeck() {
         return this._centralDeck;
     }
 
@@ -141,7 +140,8 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public void initilizeTerritoyDeck(List<Territory> territoryList) {
-        for (Territory territory : territoryList) {
+        for (int i = 0; i < territoryList.size(); i++) {
+            Territory territory = territoryList.get(i);
             try {
                 _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.getTerritoryId());
             } catch (IOException e) {
@@ -149,5 +149,4 @@ public class GameManagerService extends BasePublisher<GameState> {
             }
         }
     }
-
 }
