@@ -1,4 +1,4 @@
-package app.domain.models.card;
+package app.domain.models.Card;
 
 import java.awt.image.BufferedImage;
 
@@ -14,7 +14,7 @@ public abstract class BaseCard {
         this.image = image;
     }
 
-    protected String getName() {
+    public String getName() {
         return this.name;
     }
 

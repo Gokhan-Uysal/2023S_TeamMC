@@ -1,9 +1,10 @@
-package app.domain.models.card;
+package app.domain.models.Card;
 
-import app.domain.models.card.army.ArmyCard;
-import app.domain.models.card.army.ArmyCardType;
-import app.domain.models.card.chance.ChanceCard;
-import app.domain.models.card.territory.TerritoryCard;
+import app.domain.models.Card.BaseCard;
+import app.domain.models.Card.army.ArmyCard;
+import app.domain.models.Card.army.ArmyCardType;
+import app.domain.models.Card.chance.ChanceCard;
+import app.domain.models.Card.territory.TerritoryCard;
 
 import java.awt.image.BufferedImage;
 
@@ -31,8 +32,8 @@ public class MainDecks {
         _armyDeck.addCard(armyCard);
     }
 
-    public void addTerritoryCards(String description, BufferedImage image) {
-        TerritoryCard territoryCard = _cardFactory.createTerritoryCard(description, image);
+    public void addTerritoryCards(String description, BufferedImage image, int territoryId) {
+        TerritoryCard territoryCard = _cardFactory.createTerritoryCard(description, image, territoryId);
         _territoryDeck.addCard(territoryCard);
     }
 

@@ -16,6 +16,7 @@ public class Territory {
     private TerritoryPosition _territoryPosition;
     private Set<String> _adjList;
     private Army _territoryArmy;
+    private int territoryId;
     private int _ownerId;
     private boolean _isOpen;
 
@@ -94,6 +95,10 @@ public class Territory {
 
     public Army getTerritoryArmy() {
         return this._territoryArmy;
+    }
+
+    public int getTerritoryId(){
+        return this.territoryId;
     }
 
     @Override

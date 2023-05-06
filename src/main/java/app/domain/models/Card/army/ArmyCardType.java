@@ -1,4 +1,4 @@
-package app.domain.models.card.army;
+package app.domain.models.Card.army;
 
 public enum ArmyCardType {
     Infantry,

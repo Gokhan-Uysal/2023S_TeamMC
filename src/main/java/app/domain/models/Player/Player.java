@@ -1,6 +1,6 @@
-package app.domain.models.player;
+package app.domain.models.Player;
 
-import app.domain.models.card.MainDecks;
+import app.domain.models.Card.MainDecks;
 import app.domain.models.game.map.Territory;
 
 import java.util.ArrayList;
@@ -24,6 +24,10 @@ public class Player {
 
     public String getUsername() {
         return username;
+    }
+
+    public MainDecks getPlayerDecks(){
+        return this.playerDecks;
     }
 
     // public boolean isOwnerOf(String territoryName) {

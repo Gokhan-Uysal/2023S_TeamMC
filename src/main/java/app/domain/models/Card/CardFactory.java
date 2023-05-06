@@ -1,14 +1,14 @@
-package app.domain.models.card;
+package app.domain.models.Card;
 
 import java.awt.image.BufferedImage;
 
-import app.domain.models.card.army.ArmyCard;
-import app.domain.models.card.army.ArmyCardType;
-import app.domain.models.card.army.ArtilleryCard;
-import app.domain.models.card.army.CavalryCard;
-import app.domain.models.card.army.InfantryCard;
-import app.domain.models.card.chance.ChanceCard;
-import app.domain.models.card.territory.TerritoryCard;
+import app.domain.models.Card.army.ArmyCard;
+import app.domain.models.Card.army.ArmyCardType;
+import app.domain.models.Card.army.ArtilleryCard;
+import app.domain.models.Card.army.CavalryCard;
+import app.domain.models.Card.army.InfantryCard;
+import app.domain.models.Card.chance.ChanceCard;
+import app.domain.models.Card.territory.TerritoryCard;
 
 public class CardFactory {
 
@@ -24,8 +24,8 @@ public class CardFactory {
         }
     }
 
-    public TerritoryCard createTerritoryCard(String description, BufferedImage image) {
-        return new TerritoryCard(description, image);
+    public TerritoryCard createTerritoryCard(String description, BufferedImage image, int territoryId) {
+        return new TerritoryCard(description, image, territoryId);
     }
 
     public ChanceCard createChanceCard(String description, BufferedImage image) {

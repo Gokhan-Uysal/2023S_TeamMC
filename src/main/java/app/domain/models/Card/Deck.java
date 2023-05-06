@@ -1,4 +1,4 @@
-package app.domain.models.card;
+package app.domain.models.Card;
 
 import java.util.*;
 

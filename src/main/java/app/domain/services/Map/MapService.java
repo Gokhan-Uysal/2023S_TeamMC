@@ -1,4 +1,4 @@
-package app.domain.services.map;
+package app.domain.services.Map;
 
 import java.util.*;
 import java.util.stream.Collector;
@@ -8,6 +8,8 @@ import app.common.AppConfig;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
+import app.domain.services.Map.MapGraphService;
+import app.domain.services.Map.MapReadService;
 
 public class MapService {
 	private MapReadService _mapReadService;
@@ -107,5 +109,19 @@ public class MapService {
 
 	public boolean unclaimedTerritorySubPhase(Territory territory) {
 		return this.unclaimedTerritoryExist() && territory.getOwnerId() == -1;
+	}
+
+	public Territory findTerritory(int territoryId){
+		for (Territory territory: this.getTerritoryListFromGraph()){
+			if (territory.getTerritoryId() == territoryId){
+				return territory;
+			}
+		}
+		return null;
+	}
+
+	public void changeOwnerOfTerritory(int playerId, int territoryId){
+		Territory t = findTerritory(territoryId);
+		t.setOwnerId(playerId);
 	}
 }

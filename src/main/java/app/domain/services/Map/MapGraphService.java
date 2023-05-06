@@ -1,4 +1,4 @@
-package app.domain.services.map;
+package app.domain.services.Map;
 
 import java.util.ArrayList;
 import java.util.HashSet;
