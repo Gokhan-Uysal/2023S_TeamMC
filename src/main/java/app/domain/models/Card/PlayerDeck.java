@@ -61,4 +61,10 @@ public class PlayerDeck implements Deck {
     public int findCardAmount(CardType type){
         return this.cardContainer.get(type).size();
     }
+
+    public void emptyDeck(){
+        for (CardType c: this.cardContainer.keySet()){
+            this.cardContainer.get(c).clear();
+        }
+    }
 }

@@ -45,4 +45,8 @@ public class CentralDeck implements Deck {
             Collections.shuffle(entry.getValue());
         }
     }
+
+    public boolean isCentralDeckEmpty(){
+        return this.cardContainer.get(CardType.Army).isEmpty();
+    }
 }

@@ -44,6 +44,10 @@ public class PlayerService {
         return null;
     }
 
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
     public boolean attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         Territory attackerTerritory = getPlayer(attackingPlayerId).getTerritory(attackerTerritoryId);

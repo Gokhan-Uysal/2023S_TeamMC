@@ -141,4 +141,21 @@ public class GameManagerService extends BasePublisher<GameState> {
         }
     }
 
+    public boolean isCentralDeckEmpty(){
+        return _centralDeck.isCentralDeckEmpty();
+    }
+
+    public void refillCentralDeck(){
+        if (isCentralDeckEmpty()){
+
+            ArrayList<Player> players = _playerService.getPlayers();
+
+            for (Player p: players){
+                p.getPlayerDeck().emptyDeck();
+            }
+
+            initializeCards(players.size());
+        }
+    }
+
 }
