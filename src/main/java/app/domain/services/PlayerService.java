@@ -2,7 +2,7 @@ package app.domain.services;
 
 import java.util.*;
 
-import app.domain.models.Player.Player;
+import app.domain.models.player.Player;
 
 public class PlayerService {
     private static PlayerService _playerService;

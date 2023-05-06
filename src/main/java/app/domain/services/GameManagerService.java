@@ -2,13 +2,13 @@ package app.domain.services;
 
 import app.common.Logger;
 import app.domain.models.army.ArmyUnitType;
-import app.domain.models.Card.*;
-import app.domain.models.Card.army.ArmyCardType;
+import app.domain.models.card.*;
+import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.game.GameState;
 import app.domain.models.game.map.Territory;
-import app.domain.models.Player.Player;
+import app.domain.models.player.Player;
 import app.domain.services.base.BasePublisher;
-import app.domain.services.Map.MapService;
+import app.domain.services.map.MapService;
 import app.domain.services.states.AttackState;
 import app.domain.services.states.BuildState;
 import app.domain.services.states.CardTradeState;
@@ -141,10 +141,6 @@ public class GameManagerService extends BasePublisher<GameState> {
                 Logger.error(e);
             }
         }
-    }
-
-    public MainDecks getCentralDeck(){
-        return _centralDeck;
     }
 
 }

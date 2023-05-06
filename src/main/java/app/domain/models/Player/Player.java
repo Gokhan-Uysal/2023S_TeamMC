@@ -1,6 +1,6 @@
-package app.domain.models.Player;
+package app.domain.models.player;
 
-import app.domain.models.Card.MainDecks;
+import app.domain.models.card.MainDecks;
 import app.domain.models.game.map.Territory;
 
 import java.util.ArrayList;

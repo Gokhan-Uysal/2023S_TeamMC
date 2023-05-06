@@ -1,6 +1,5 @@
 package app.ui.controllers.menu.player;
 
-import app.domain.services.PlayerService;
 import app.ui.views.menu.playermenu.PlayerPanel;
 import app.util.ActionListenerUtil;
 
@@ -12,7 +11,6 @@ public class PlayerPanelController implements ActionListener {
 
     private PlayerPanel playerPanel;
     public ArrayList<String> newNames = new ArrayList<String>();
-    PlayerService playerService = new PlayerService();
 
     public PlayerPanelController(PlayerPanel playerPanel) {
         this.playerPanel = playerPanel;
