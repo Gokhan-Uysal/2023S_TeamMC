@@ -7,19 +7,19 @@ public class Logger {
     }
 
     public static void info(String info) {
-        System.out.printf("[INFO] %s%n", info);
+        System.out.printf("[INFO]: %s%n", info);
     }
 
     public static void warning(String message) {
-        System.out.printf("[WARNING] %s%n", message);
+        System.out.printf("[WARNING]: %s%n", message);
     }
 
     public static void error(Exception e) {
-        System.out.printf("[ERROR] %s%n", e.getMessage());
+        System.out.printf("[ERROR]: %s%n", e.getMessage());
         e.printStackTrace();
     }
 
     public static void error(String message) {
-        System.out.printf("[ERROR] %s%n", message);
+        System.out.printf("[ERROR]: %s%n", message);
     }
 }

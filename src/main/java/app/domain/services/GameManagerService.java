@@ -8,7 +8,7 @@ import app.domain.services.base.BasePublisher;
 import app.domain.services.map.MapService;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class GameManagerService extends BasePublisher<GameState> {
     private static GameManagerService _instance;
@@ -79,6 +79,24 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     public void createPlayers(ArrayList<String> names) {
         _playerService.createPlayer(names);
+    }
+
+    public void loadMap() {
+        _mapService.loadGameMapDataToGraph();
+        setState(GameState.BUILDING_STATE);
+        notifySubscribers();
+    }
+
+    public List<Territory> getMap() {
+        return _mapService.getTerritoryListFromGraph();
+    }
+
+    public boolean validateNewBuildMap() {
+        if (!_mapService.isValidBuildSelection()) {
+            return false;
+        }
+        _mapService.removeClosedTerritories();
+        return true;
     }
 
     public void tradeArmyCards(int infantryAmount, int cavalryAmount, int artilleryAmount, int playerId,

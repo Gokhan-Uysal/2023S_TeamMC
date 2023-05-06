@@ -12,6 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import app.common.Logger;
 import app.domain.models.game.map.*;
 import app.domain.services.base.JsonService;
 
@@ -35,9 +36,9 @@ public class MapReadService {
                 _gameMapData.put(continent, terriotiList);
             }
         } catch (IOException e) {
-            System.err.println("Cannot load from json file");
+            Logger.error(e);
         } catch (ParseException e) {
-            System.err.println("Cannot parse json to custom object");
+            Logger.error(e);
         }
     }
 

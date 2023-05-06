@@ -1,7 +1,6 @@
 package app.ui.views.game;
 
 import app.common.AppConfig;
-import app.domain.services.map.MapService;
 import app.ui.controllers.game.helpscreen.HelpPanelController;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.controllers.game.player.PlayerStatePanelController;
@@ -16,7 +15,6 @@ public class GameFrame extends BaseJFrame {
 
     // Map mvc
     private MapPanel _mapPanel;
-    private MapService _mapService;
     private MapPanelController _mapPanelController;
 
     private PlayerStatePanel _playerStatePanel;
@@ -25,9 +23,8 @@ public class GameFrame extends BaseJFrame {
     private HelpPanel _helpPanel;
     private HelpPanelController _helpPanelController;
 
-    public GameFrame(Point location, MapService mapService) {
+    public GameFrame(Point location) {
         super("Risk Game", AppConfig.appSize, location);
-        this._mapService = mapService;
         this.setLayout(new BorderLayout());
         initilizeComponents();
         buildComponents();
@@ -36,7 +33,7 @@ public class GameFrame extends BaseJFrame {
     @Override
     public void initilizeComponents() {
         _mapPanel = new MapPanel();
-        _mapPanelController = new MapPanelController(_mapPanel, _mapService);
+        _mapPanelController = new MapPanelController(_mapPanel);
 
         _playerStatePanel = new PlayerStatePanel();
         _playerStatePanelController = new PlayerStatePanelController(_playerStatePanel);

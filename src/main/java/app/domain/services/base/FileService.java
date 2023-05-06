@@ -6,7 +6,7 @@ import java.util.*;
 import app.common.AppConfig;
 
 public class FileService {
-    private static final String FILENAME = AppConfig.basePath + "/resource/assets/data.csv";
+    private static final String FILENAME = AppConfig.basePath + "/__resource__/assets/data.csv";
 
     public static void writeData(String username, char[] password) {
         try {

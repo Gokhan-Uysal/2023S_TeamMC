@@ -42,7 +42,7 @@ public class Territory {
     }
 
     public BufferedImage getImage() throws IOException {
-        File imageFile = new File(AppConfig.basePath + "/resource/assets/territories/" + imageName);
+        File imageFile = new File(AppConfig.basePath + "/__resource__/assets/territories/" + imageName);
         BufferedImage originalImage = ImageIO.read(imageFile);
         int newWidth = originalImage.getWidth() / 2;
         int newHeight = originalImage.getHeight() / 2;

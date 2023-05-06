@@ -14,18 +14,18 @@ public class MapService {
 	private MapGraphService _mapGraphService;
 
 	public MapService() {
-		this._mapReadService = new MapReadService(AppConfig.basePath + "/resource/map.json");
+		this._mapReadService = new MapReadService(AppConfig.basePath + "/__resource__/map.json");
 		this._mapGraphService = new MapGraphService();
 	}
 
 	public void loadGameMapDataToGraph() {
 		_mapReadService.buildGameMapData();
-		_mapGraphService.addVerticies(getTerritoryListFromReadService());
-		_mapGraphService.addEdges(getTerritoryListFromReadService());
+		List<Territory> territoryList = getTerritoryListFromReadService();
+		_mapGraphService.addVerticies(territoryList);
+		_mapGraphService.addEdges(territoryList);
 	}
 
 	public List<Territory> getTerritoryListFromGraph() {
-		System.out.println(_mapGraphService.getVertexCount());
 		return _mapGraphService.getVerticies();
 	}
 

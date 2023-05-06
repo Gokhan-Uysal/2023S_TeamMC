@@ -5,22 +5,19 @@ import java.util.List;
 
 import app.common.Logger;
 import app.domain.models.game.map.Territory;
+import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
-import app.domain.services.map.MapService;
 import app.ui.views.game.map.MapPanel;
 
 public class MapPanelController implements ISubscriber<Territory> {
-
-    private MapService _mapService;
     private MapPanel _mapPanel;
 
-    public MapPanelController(MapPanel mapPanel, MapService mapService) {
+    public MapPanelController(MapPanel mapPanel) {
         this._mapPanel = mapPanel;
-        this._mapService = mapService;
     }
 
     public void displayMap() {
-        List<Territory> territoryList = _mapService.getTerritoryListFromGraph();
+        List<Territory> territoryList = GameManagerService.getInstance().getMap();
         territoryList.forEach((territory) -> {
             TerritoryComponentController trController;
             try {
@@ -34,7 +31,7 @@ public class MapPanelController implements ISubscriber<Territory> {
     }
 
     public void loadMap() {
-        _mapService.loadGameMapDataToGraph();
+        GameManagerService.getInstance().loadMap();
     }
 
     @Override
