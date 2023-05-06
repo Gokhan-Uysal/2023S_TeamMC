@@ -9,32 +9,33 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
-import app.ui.controllers.game.player.PlayerStatePanelController;
-import app.ui.views.game.player.PlayerStatePanel;
+import app.ui.views.game.state.BaseStatePanel;
+import app.ui.views.game.state.DistributePanel;
 
-public class Footer extends JPanel {
+public class FooterPanel extends JPanel {
     private int cornerRadius = 50;
+    private BaseStatePanel _statePanel;
 
-    private PlayerStatePanel _playerStatePanel;
-    private PlayerStatePanelController _playerStatePanelController;
-
-    public Footer() {
+    public FooterPanel() {
         setOpaque(false);
         setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setPreferredSize(new Dimension(0, 150));
-        setBackground(Color.CYAN);
+        setBackground(Color.lightGray);
         setForeground(Color.black);
         initializeComponents();
         addComponents();
     }
 
     public void initializeComponents() {
-        _playerStatePanel = new PlayerStatePanel();
-        _playerStatePanelController = new PlayerStatePanelController(_playerStatePanel);
+        _statePanel = new DistributePanel();
     }
 
     public void addComponents() {
-        this.add(_playerStatePanel);
+        this.add(_statePanel);
+    }
+
+    public void updateStatePanel(BaseStatePanel baseStatePanel) {
+        _statePanel = baseStatePanel;
     }
 
     @Override

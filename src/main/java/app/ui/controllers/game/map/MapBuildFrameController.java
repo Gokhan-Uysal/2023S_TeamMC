@@ -20,6 +20,7 @@ public class MapBuildFrameController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (GameManagerService.getInstance().validateNewBuildMap()) {
             new GameFrame(_mapBuildFrame.getLocation(null));
+            GameManagerService.getInstance().handleNextState();
             _mapBuildFrame.dispose();
         } else {
             Logger.warning("Wrong territory adjustemnt");

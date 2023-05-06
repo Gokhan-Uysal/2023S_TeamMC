@@ -10,14 +10,14 @@ import app.ui.controllers.game.player.TurnStatePanelController;
 import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.player.TurnStatePanel;
 
-public class Header extends JPanel {
+public class HeaderPanel extends JPanel {
     private HelpPanel _helpPanel;
     private HelpPanelController _helpPanelController;
 
     private TurnStatePanel _turnStatePanel;
     private TurnStatePanelController _turnStatePanelController;
 
-    public Header() {
+    public HeaderPanel() {
         setLayout(new BorderLayout());
         initializeComponents();
         addComponents();

@@ -83,9 +83,15 @@ public class GameManagerService extends BasePublisher<GameState> {
                 initilizeArmyDeck(_playerService.getPlayerCount());
                 initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
                 updateGameState(GameState.DISTRIBUTING_STATE);
+                initilizeArmyUnits(PlayerService.getInstance().getPlayerCount());
                 break;
             case DISTRIBUTING_STATE:
-                updateGameState(GameState.RECEIVING_STATE);
+                if (_distributeState.isInitialUnitFinished()) {
+                    updateGameState(GameState.RECEIVING_STATE);
+                    break;
+                }
+                _playerService.turnChange();
+                System.out.println(_playerService.getCurrentPlayer().get_username());
                 break;
             case RECEIVING_STATE:
                 updateGameState(GameState.ATTACK_STATE);
@@ -99,7 +105,6 @@ public class GameManagerService extends BasePublisher<GameState> {
                     break;
                 }
                 _playerService.turnChange();
-                System.out.println(_playerService.getCurrentPlayer().get_username());
                 updateGameState(GameState.RECEIVING_STATE);
                 break;
             default:
@@ -147,6 +152,19 @@ public class GameManagerService extends BasePublisher<GameState> {
             } catch (IOException e) {
                 Logger.error(e);
             }
+        }
+    }
+
+    public void initilizeArmyUnits(int playerCount) {
+        int unitAmount = 45 - (playerCount - 1) * 5;
+        _distributeState.fillArmy(unitAmount);
+    }
+
+    public void placeInfantryToTerritory(int territoryId, int playerId) {
+        boolean result = _distributeState.placeInfantryToTerritory(territoryId, playerId);
+        if (result) {
+            updateGameState(GameState.DISTRIBUTING_STATE);
+            return;
         }
     }
 }

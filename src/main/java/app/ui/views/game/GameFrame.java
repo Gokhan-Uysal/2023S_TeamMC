@@ -1,6 +1,7 @@
 package app.ui.views.game;
 
 import app.common.AppConfig;
+import app.ui.controllers.FooterPanelController;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.map.MapPanel;
@@ -13,9 +14,10 @@ public class GameFrame extends BaseJFrame {
     private MapPanel _mapPanel;
     private MapPanelController _mapPanelController;
 
-    private Header _header;
+    private HeaderPanel _header;
 
-    private Footer _footer;
+    private FooterPanel _footer;
+    private FooterPanelController _footerPanelController;
 
     public GameFrame(Point location) {
         super("Risk Game", AppConfig.appSize, location);
@@ -29,9 +31,10 @@ public class GameFrame extends BaseJFrame {
         _mapPanel = new MapPanel();
         _mapPanelController = new MapPanelController(_mapPanel);
 
-        _footer = new Footer();
+        _footer = new FooterPanel();
+        _footerPanelController = new FooterPanelController(_footer);
 
-        _header = new Header();
+        _header = new HeaderPanel();
     }
 
     @Override
