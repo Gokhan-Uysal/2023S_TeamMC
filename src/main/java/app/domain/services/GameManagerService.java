@@ -32,8 +32,8 @@ public class GameManagerService extends BasePublisher<GameState> {
     private FortifyState _fortifyState;
 
     private MapService _mapService;
-    private PlayerService _playerService;
     private MainDecks _centralDeck;
+    private PlayerService _playerService;
     private List<Player> _players;
     private int _currentPlayer;
     private boolean _isGameFinished;
@@ -60,8 +60,8 @@ public class GameManagerService extends BasePublisher<GameState> {
         _attackState = new AttackState();
         _fortifyState = new FortifyState();
         _mapService = new MapService();
-        _playerService = new PlayerService();
         _centralDeck = new MainDecks();
+        _playerService = PlayerService.getInstance();
     }
 
     private void initializeGame() {
@@ -78,6 +78,8 @@ public class GameManagerService extends BasePublisher<GameState> {
         GameState currentState = super.getState();
         switch (currentState) {
             case BUILDING_STATE:
+                initilizeArmyDeck(_playerService.getPlayerCount());
+                initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
                 updateGameState(GameState.DISTRIBUTING_STATE);
                 break;
             case DISTRIBUTING_STATE:
@@ -94,6 +96,8 @@ public class GameManagerService extends BasePublisher<GameState> {
                     updateGameState(GameState.GAME_OVER_STATE);
                     break;
                 }
+                _playerService.turnChange();
+                System.out.println(_playerService.getCurrentPlayer().getUsername());
                 updateGameState(GameState.RECEIVING_STATE);
                 break;
             default:
@@ -102,8 +106,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public void createPlayers(ArrayList<String> names) {
-        _playerService.createPlayer(names);
-        initilizeArmyDeck(names.size());
+        _playerService.createPlayers(names);
     }
 
     public void loadMap() {
@@ -113,9 +116,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public List<Territory> getMap() {
-        List<Territory> territoryList = _mapService.getTerritoryListFromGraph();
-        initilizeTerritoyDeck(territoryList);
-        return territoryList;
+        return _mapService.getTerritoryListFromGraph();
     }
 
     public boolean validateNewBuildMap() {
@@ -141,83 +142,5 @@ public class GameManagerService extends BasePublisher<GameState> {
             }
         }
     }
-
-    public void initilizeChanceDeck() {
-        // TO:DO
-    }
-
-    public void placeInitialArmy(Territory territory) {
-        Player currentPlayer = _playerService.getCurrentPlayer();
-        if (!_mapService.unclaimedTerritorySubPhase(territory)) {
-            throw new Error("Unclaimed territories exist");
-        }
-
-        _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, 1, currentPlayer.getId());
-
-    }
-
-    // public void tradeArmyCards(int infantryAmount, int cavalryAmount, int
-    // artilleryAmount, int playerId,
-    // int territoryId) {
-    // if (_playerService.tradeArmyCards(infantryAmount, cavalryAmount,
-    // artilleryAmount, playerId, territoryId)) {
-
-    // _centralDeck.addArmyCards(ArmyCardType.Infantry, infantryAmount);
-    // _centralDeck.addArmyCards(ArmyCardType.Cavalry, cavalryAmount);
-    // _centralDeck.addArmyCards(ArmyCardType.Artillery, artilleryAmount);
-    // }
-    // }
-
-    // public void tradeTerritoryCards(String continentName, int playerId) {
-    // if (_playerService.tradeTerritoryCards(continentName, playerId)) {
-
-    // ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService
-    // .getTerritoriesOfContinent(continentName);
-
-    // for (Territory t : territoryList) {
-    // _centralDeck.addTerritoryCards(t.getName(), new
-    // ImageIcon("territorycard.png"));
-    // }
-    // }
-    // }
-
-    // public void attack(int attackingPlayerId, int attackedPlayerId, int
-    // attackerTerritoryId,
-    // int attackedTerritoryId) {
-    // boolean playerCanDrawCard = _playerService.attack(attackingPlayerId,
-    // attackedPlayerId,
-    // attackerTerritoryId, attackedTerritoryId);
-
-    // // if (playerCanDrawCard) {
-    // // Player winningPlayer = _playerService.getPlayer(attackingPlayerId);
-    // // BaseCard drawnCard = _centralDeck.drawCard(CardType.Army);
-    // // switch (drawnCard.getDescription()) {
-    // // case "Infantry card." -> {
-    // // InfantryCard iDrawnCard = (InfantryCard) drawnCard;
-    // // winningPlayer.getPlayerDeck().addArmyCards(CardType.Infantry,
-    // // iDrawnCard.getDescription(),
-    // // iDrawnCard.getImageIcon(), iDrawnCard.getValue());
-    // // }
-    // // case "Cavalry card." -> {
-    // // CavalryCard cDrawnCard = (CavalryCard) drawnCard;
-    // // winningPlayer.getPlayerDeck().addArmyCards(CardType.Cavalry,
-    // // cDrawnCard.getDescription(),
-    // // cDrawnCard.getImageIcon(), cDrawnCard.getValue());
-    // // }
-    // // case "Artillery card." -> {
-    // // ArtilleryCard aDrawnCard = (ArtilleryCard) drawnCard;
-    // // winningPlayer.getPlayerDeck().addArmyCards(CardType.Artillery,
-    // // aDrawnCard.getDescription(),
-    // // aDrawnCard.getImageIcon(), aDrawnCard.getValue());
-    // // }
-    // // case "Territory card." -> {
-    // // TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
-    // // winningPlayer.getPlayerDeck().addArmyCards(CardType.Territory,
-    // // tDrawnCard.getDescription(),
-    // // tDrawnCard.getImageIcon());
-    // // }
-    // // }
-    // // }
-    // }
 
 }

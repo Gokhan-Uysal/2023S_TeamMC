@@ -1,11 +1,8 @@
 package app.domain.services.map;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import app.common.AppConfig;
-import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
 
@@ -71,41 +68,5 @@ public class MapService {
 
 	public void removeClosedTerritories() {
 		_mapGraphService.removeClosedTerritories();
-	}
-
-	public List<Territory> getTerriotryListOfPlayer(int playerId) {
-		List<Territory> territories = getTerritoryListFromGraph();
-		return territories.stream()
-				.filter((territory) -> territory.getOwnerId() == playerId)
-				.collect(Collectors.toList());
-	}
-
-	// public boolean isValidFortify(int infantryAmount, int cavalryAmount, int
-	// artilleryAmount,
-	// int territoryId) {
-	// Army foundTerritoryArmy = this.findTerritory(territoryId).getTerritoryArmy();
-	// return ((infantryAmount + cavalryAmount + artilleryAmount) <
-	// foundTerritoryArmy.getTotalArmyAmount() &&
-	// (infantryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) &&
-	// cavalryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) &&
-	// artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
-	// }
-
-	public void placeArmyUnit(Territory territory, ArmyUnitType type, int amount, int playerId) {
-		territory.getTerritoryArmy().addArmyUnits(type, amount);
-		territory.setOwnerId(playerId);
-	}
-
-	public boolean unclaimedTerritoryExist() {
-		for (Territory territory : this.getTerritoryListFromGraph()) {
-			if (territory.getOwnerId() == -1) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean unclaimedTerritorySubPhase(Territory territory) {
-		return this.unclaimedTerritoryExist() && territory.getOwnerId() == -1;
 	}
 }

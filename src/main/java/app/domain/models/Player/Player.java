@@ -1,9 +1,6 @@
 package app.domain.models.player;
 
 import app.domain.models.card.MainDecks;
-import app.domain.models.game.map.Territory;
-
-import java.util.ArrayList;
 
 public class Player {
     private int id;
@@ -18,25 +15,7 @@ public class Player {
         this.playerDecks = new MainDecks();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getUsername() {
         return username;
     }
-
-    // public boolean isOwnerOf(String territoryName) {
-    // for (Territory t : this.territoryList) {
-    // if (territoryName.equals(t.getName())) {
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
-    // public void addTerritory(Territory t) {
-    // this.territoryList.add(t);
-    // }
-
 }

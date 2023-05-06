@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Continent {
     private String name;
-    private ArrayList<Integer> territoryList = new ArrayList<>();
+    private ArrayList<Territory> territoryList = new ArrayList<>();
 
     public Continent(String name) {
         this.name = name;
@@ -14,11 +14,11 @@ public class Continent {
         return name;
     }
 
-    public ArrayList<Integer> getTerritoryList() {
+    public ArrayList<Territory> getTerritoryList() {
         return territoryList;
     }
 
-    public void addTerritory(int territoryId) {
-        this.territoryList.add(territoryId);
+    public void addTerritory(Territory territory) {
+        this.territoryList.add(territory);
     }
 }
