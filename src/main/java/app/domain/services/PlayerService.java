@@ -208,4 +208,25 @@ public class PlayerService {
                 tradingPlayer.getPlayerDeck().findCardAmount(CardType.Cavalry) >= cavalryCardAmount &&
                 tradingPlayer.getPlayerDeck().findCardAmount(CardType.Artillery) >= artilleryCardAmount;
     }
+
+    private boolean doesPlayerOwnTerritory(int playerId, int territoryId){
+        return getPlayer(playerId).getTerritoryList().contains(mapService.findTerritory(territoryId));
+    }
+
+    public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount, int startTerritoryId,
+                           int destinationTerritoryId, int playerId){
+        if (doesPlayerOwnTerritory(playerId, startTerritoryId) && doesPlayerOwnTerritory(playerId, destinationTerritoryId) &&
+                mapService.territoryFortifyCondition(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId)){
+
+            Army startTerritoryArmy = mapService.findTerritory(startTerritoryId).getTerritoryArmy();
+            Army destinationTerritoryArmy = mapService.findTerritory(destinationTerritoryId).getTerritoryArmy();
+
+            startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy, ArmyUnitType.Infantry, infantryAmount);
+            startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy, ArmyUnitType.Chivalry, cavalryAmount);
+            startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy, ArmyUnitType.Artillery, artilleryAmount);
+        }
+        else{
+            System.out.println("There has been a fortify error, please check the territories and army unit number.");
+        }
+    }
 }
