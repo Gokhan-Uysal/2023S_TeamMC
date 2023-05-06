@@ -158,4 +158,19 @@ public class GameManagerService extends BasePublisher<GameState> {
         }
     }
 
+    public boolean playerHasLost(int playerId){
+        if (_playerService.hasPlayerLost(playerId)){
+            _playerService.removePlayer(playerId);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean playerHasWon(int playerId){
+        if (_playerService.hasPlayerWon(playerId)){
+            return true;
+        }
+        return false;
+    }
+
 }

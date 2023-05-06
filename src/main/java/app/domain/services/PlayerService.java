@@ -274,4 +274,17 @@ public class PlayerService {
         }
         return totalArmyAmount;
     }
+
+    public boolean hasPlayerLost(int playerId){
+        return (getPlayer(playerId).getTerritoryList().isEmpty());
+    }
+
+    public boolean hasPlayerWon(int playerId){
+        return (getPlayers().contains(playerId)) && (getPlayers().size() == 1);
+    }
+
+    public void removePlayer(int playerId){
+        this.getPlayers().remove(getPlayer(playerId));
+    }
+
 }
