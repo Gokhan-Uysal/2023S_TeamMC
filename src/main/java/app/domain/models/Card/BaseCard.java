@@ -18,11 +18,11 @@ public abstract class BaseCard {
         return this.name;
     }
 
-    protected String getDiscription() {
+    public String getDescription() {
         return this.description;
     }
 
-    protected ImageIcon getImageIcon() {
+    public ImageIcon getImageIcon() {
         return this.imageIcon;
     }
 }

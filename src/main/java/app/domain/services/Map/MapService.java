@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.common.AppConfig;
+import app.domain.models.ArmyUnit.Army;
 import app.domain.models.ArmyUnit.ArmyUnitType;
+import app.domain.models.GameMap.Continent;
 import app.domain.models.GameMap.Territory;
 
 public class MapService {
@@ -34,7 +36,7 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
-	private Territory findTerritory(int territoryId) {
+	public Territory findTerritory(int territoryId){
 
 		for (Territory t : this.getTerritoryListFromGraph()) {
 			if (t.getTerritoryId() == territoryId) {
@@ -44,7 +46,7 @@ public class MapService {
 		return null;
 	}
 
-	private Territory findTerritory(String territoryName) {
+	public Territory findTerritory(String territoryName){
 
 		for (Territory t : this.getTerritoryListFromGraph()) {
 			if (t.getName().equals(territoryName)) {
@@ -52,6 +54,20 @@ public class MapService {
 			}
 		}
 		return null;
+	}
+
+	public Continent findContinent(String continentName){
+		for (Continent c: _mapReadService.getGameMapData().keySet()){
+			if (c.getName().equals(continentName)){
+				return c;
+			}
+		}
+		return null;
+	}
+
+	public List<Territory> getTerritoriesOfContinent(String continentName){
+		Continent foundContinent = this.findContinent(continentName);
+		return this._mapReadService.getGameMapData().get(foundContinent);
 	}
 
 	private List<Territory> getAttackableTerritories(int selectedTerritoryId) {
@@ -71,7 +87,7 @@ public class MapService {
 		return attackableTerritoryList;
 	}
 
-	private List<Territory> playerCanAttackFrom(int playerId) {
+	public List<Territory> playerCanAttackFrom(int playerId){
 		ArrayList<Territory> attackableFrom = new ArrayList<>();
 
 		for (Territory t : this.getTerritoryListFromGraph()) {
@@ -107,5 +123,32 @@ public class MapService {
 		}
 		return false;
 	}
+
+	public boolean territoryFortifyCondition(int infantryAmount, int cavalryAmount, int artilleryAmount,
+											 int territoryId){
+		Army foundTerritoryArmy = this.findTerritory(territoryId).getTerritoryArmy();
+		return ((infantryAmount+cavalryAmount+artilleryAmount) < foundTerritoryArmy.getTotalArmyAmount() &&
+				(infantryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) &&
+				 cavalryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) &&
+				 artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
+	}
+
+	public void placeArmyUnit(int territoryId, ArmyUnitType type, int amount){
+		Territory t = this.findTerritory(territoryId);
+		t.getTerritoryArmy().addArmyUnits(type, amount);
+	}
+
+	public boolean unclaimedTerritoryExist(){
+		for (Territory t: this.getTerritoryListFromGraph()){
+			if (t.getOwnerId() == -1){
+				return true;
+			}
+		}
+		return false;
+	}
+	 public boolean unclaimedTerritorySubPhase(int territoryId){
+		Territory t = this.findTerritory(territoryId);
+		return this.unclaimedTerritoryExist() && t.getOwnerId() == -1;
+	 }
 
 }
