@@ -1,4 +1,4 @@
-package app.domain.models.ArmyUnit;
+package app.domain.models.army;
 
 public class Artillery extends ArmyUnit {
     protected Artillery(String description) {

@@ -1,6 +1,6 @@
 package app.ui.views.menu.playermenu;
 
-import app.ui.controllers.menu.playermenu.PlayerPanelController;
+import app.ui.controllers.menu.player.PlayerPanelController;
 import app.ui.views.components.BaseJFrame;
 
 import javax.swing.*;

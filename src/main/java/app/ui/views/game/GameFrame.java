@@ -1,10 +1,10 @@
 package app.ui.views.game;
 
 import app.common.AppConfig;
-import app.domain.services.Map.MapService;
+import app.domain.services.map.MapService;
+import app.ui.controllers.game.helpscreen.HelpPanelController;
 import app.ui.controllers.game.map.MapPanelController;
-import app.ui.controllers.game.map.player.PlayerStatePanelController;
-import app.ui.controllers.helpscreen.HelpPanelController;
+import app.ui.controllers.game.player.PlayerStatePanelController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.map.MapPanel;

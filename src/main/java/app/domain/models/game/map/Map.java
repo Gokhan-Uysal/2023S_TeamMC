@@ -1,4 +1,4 @@
-package app.domain.models.GameMap;
+package app.domain.models.game.map;
 
 public class Map {
 }

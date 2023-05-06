@@ -1,4 +1,4 @@
-package app.ui.controllers.menu.playermenu;
+package app.ui.controllers.menu.player;
 
 import app.domain.services.PlayerService;
 import app.ui.views.menu.playermenu.PlayerPanel;

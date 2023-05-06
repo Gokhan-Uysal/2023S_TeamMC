@@ -1,7 +1,7 @@
-package app.ui.controllers.login;
+package app.ui.controllers.menu.login;
 
 import app.common.AppConfig;
-import app.domain.services.FileService;
+import app.domain.services.base.FileService;
 import app.ui.views.login.LoginFrame;
 import app.ui.views.login.RegisterFrame;
 import app.ui.views.menu.MainMenuFrame;

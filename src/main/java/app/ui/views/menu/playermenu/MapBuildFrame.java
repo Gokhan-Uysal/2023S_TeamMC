@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.JButton;
 
 import app.common.AppConfig;
-import app.domain.services.Map.MapService;
+import app.domain.services.map.MapService;
 import app.ui.controllers.game.map.MapPanelController;
 import app.ui.views.components.BaseJFrame;
 import app.ui.views.game.map.MapPanel;

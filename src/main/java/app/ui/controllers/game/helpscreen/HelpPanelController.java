@@ -1,4 +1,4 @@
-package app.ui.controllers.helpscreen;
+package app.ui.controllers.game.helpscreen;
 
 import app.common.AppConfig;
 import app.ui.views.game.help.HelpPanel;

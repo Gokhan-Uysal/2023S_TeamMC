@@ -1,4 +1,4 @@
-package app.domain.services;
+package app.domain.services.base;
 
 import java.io.*;
 import java.util.*;

@@ -5,8 +5,6 @@ import app.ui.views.components.BaseJFrame;
 import javax.swing.*;
 import java.awt.*;
 
-
-
 public class LoginFrame extends BaseJFrame {
 
     public JPasswordField passwordField;
@@ -16,36 +14,35 @@ public class LoginFrame extends BaseJFrame {
     public JButton registerButton;
     public JCheckBox showPasswordBox;
 
-
-
     public LoginFrame(String title, Dimension size) {
         super(title, size);
         this.setLayout(null);
         initilizeComponents();
 
         usernameLabel = new JLabel("Username");
-        usernameLabel.setBounds(460,150,100,40);
+        usernameLabel.setBounds(460, 150, 100, 40);
 
         usernameField = new JTextField();
         usernameField.setBounds(540, 150, 200, 40);
 
         passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(460,200,100,40);
+        passwordLabel.setBounds(460, 200, 100, 40);
 
         passwordField = new JPasswordField();
         passwordField.setBounds(540, 200, 200, 40);
 
         showPasswordBox = new JCheckBox("Show Password");
-        showPasswordBox.setBounds(540,250,200,40);
+        showPasswordBox.setBounds(540, 250, 200, 40);
 
         loginButton = new JButton("Login");
-        loginButton.setBounds(540,300,100,40);
+        loginButton.setBounds(540, 300, 100, 40);
 
         registerButton = new JButton("Register");
         registerButton.setBounds(640, 300, 100, 40);
 
         buildComponents();
     }
+
     @Override
     public void initilizeComponents() {
     }
@@ -72,7 +69,6 @@ public class LoginFrame extends BaseJFrame {
 
         this.add(loginButton);
         this.add(registerButton);
-
 
     }
 

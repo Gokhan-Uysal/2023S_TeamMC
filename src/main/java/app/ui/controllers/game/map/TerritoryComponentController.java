@@ -1,7 +1,7 @@
 package app.ui.controllers.game.map;
 
-import app.domain.models.GameMap.Territory;
 import app.domain.models.game.GameState;
+import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.BasePublisher;
 import app.domain.services.base.ISubscriber;

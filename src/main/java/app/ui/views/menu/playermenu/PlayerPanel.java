@@ -12,7 +12,7 @@ public class PlayerPanel extends JPanel {
     public JTextField nameField;
     private JCheckBox checkBox;
 
-    public PlayerPanel(int x, int y){
+    public PlayerPanel(int x, int y) {
         super();
         setOpaque(false);
         setLayout(null);
@@ -28,7 +28,7 @@ public class PlayerPanel extends JPanel {
         this.cornerRadius = cornerRadius;
     }
 
-    public void BuildPanel(int x, int y){
+    public void BuildPanel(int x, int y) {
         submitButton = new JButton("Submit");
         nameField = new JTextField("Enter your name");
         checkBox = new JCheckBox();
@@ -65,7 +65,7 @@ public class PlayerPanel extends JPanel {
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
         g2.setColor(getForeground());
-        g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, cornerRadius, cornerRadius);
+        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
         g2.dispose();
     }
 }

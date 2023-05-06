@@ -1,4 +1,4 @@
-package app.domain.models.GameMap;
+package app.domain.models.game.map;
 
 public class TerritoryPosition {
     private int x;
@@ -25,6 +25,5 @@ public class TerritoryPosition {
     public int getY() {
         return y;
     }
-
 
 }

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.domain.services.GameManagerService;
-import app.domain.services.Map.MapService;
+import app.domain.services.map.MapService;
 import app.ui.views.game.GameFrame;
 import app.ui.views.menu.playermenu.MapBuildFrame;
 

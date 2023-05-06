@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import app.common.Logger;
-import app.domain.models.GameMap.Territory;
-import app.domain.services.Map.MapService;
+import app.domain.models.game.map.Territory;
 import app.domain.services.base.ISubscriber;
+import app.domain.services.map.MapService;
 import app.ui.views.game.map.MapPanel;
 
 public class MapPanelController implements ISubscriber<Territory> {

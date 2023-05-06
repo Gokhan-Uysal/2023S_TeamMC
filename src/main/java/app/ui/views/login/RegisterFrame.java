@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class RegisterFrame extends BaseJFrame {
 
-
     public JPasswordField passwordField, passwordAgainField;
     public JTextField usernameField;
     JLabel passwordLabel, passwordAgainLabel, usernameLabel;
@@ -21,13 +20,13 @@ public class RegisterFrame extends BaseJFrame {
         initilizeComponents();
 
         usernameLabel = new JLabel("Username");
-        usernameLabel.setBounds(460,150,100,40);
+        usernameLabel.setBounds(460, 150, 100, 40);
 
         usernameField = new JTextField();
         usernameField.setBounds(540, 150, 200, 40);
 
         passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(460,200,100,40);
+        passwordLabel.setBounds(460, 200, 100, 40);
 
         passwordField = new JPasswordField();
         passwordField.setBounds(540, 200, 200, 40);
@@ -36,10 +35,10 @@ public class RegisterFrame extends BaseJFrame {
         passwordAgainField.setBounds(540, 250, 200, 40);
 
         passwordAgainLabel = new JLabel("Password Again");
-        passwordAgainLabel.setBounds(420,250,100,40);
+        passwordAgainLabel.setBounds(420, 250, 100, 40);
 
         showPasswordBox = new JCheckBox("Show Password");
-        showPasswordBox.setBounds(540,300,200,40);
+        showPasswordBox.setBounds(540, 300, 200, 40);
 
         backButton = new JButton("Back");
         backButton.setBounds(540, 350, 100, 40);
@@ -80,7 +79,6 @@ public class RegisterFrame extends BaseJFrame {
 
         this.add(backButton);
         this.add(registerButton);
-
 
     }
 }

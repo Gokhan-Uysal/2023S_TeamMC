@@ -3,7 +3,7 @@ package app;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
-import app.ui.controllers.login.LoginFrameController;
+import app.ui.controllers.menu.login.LoginFrameController;
 import app.ui.views.login.LoginFrame;
 
 public class Main {

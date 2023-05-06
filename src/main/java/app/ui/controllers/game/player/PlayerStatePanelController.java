@@ -1,4 +1,4 @@
-package app.ui.controllers.game.map.player;
+package app.ui.controllers.game.player;
 
 import app.domain.models.game.GameState;
 import app.domain.services.GameManagerService;

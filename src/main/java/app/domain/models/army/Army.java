@@ -1,4 +1,4 @@
-package app.domain.models.ArmyUnit;
+package app.domain.models.army;
 
 import java.util.ArrayList;
 import java.util.HashMap;

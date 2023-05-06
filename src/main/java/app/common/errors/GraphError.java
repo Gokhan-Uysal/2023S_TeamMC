@@ -1,4 +1,4 @@
-package app.common;
+package app.common.errors;
 
 public class GraphError extends Error {
     public String title;
