@@ -1,17 +1,17 @@
 package app.domain.models.card;
 
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
 
 public abstract class BaseCard {
 
     protected String name;
     protected String description;
-    protected ImageIcon imageIcon;
+    protected BufferedImage image;
 
-    protected BaseCard(String name, String description, ImageIcon imageIcon) {
+    protected BaseCard(String name, String description, BufferedImage image) {
         this.name = name;
         this.description = description;
-        this.imageIcon = imageIcon;
+        this.image = image;
     }
 
     protected String getName() {
@@ -22,7 +22,7 @@ public abstract class BaseCard {
         return this.description;
     }
 
-    public ImageIcon getImageIcon() {
-        return this.imageIcon;
+    public BufferedImage getImage() {
+        return this.image;
     }
 }

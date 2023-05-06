@@ -1,16 +1,27 @@
 package app.domain.models.card;
 
-import javax.swing.*;
+import java.util.*;
 
-public interface Deck {
+public class Deck<CardType> {
+    private List<CardType> _deck;
 
-    void addArmyCards(CardType type, int amount);
+    public Deck() {
+        _deck = new ArrayList<>();
+    }
 
-    void addTerritoryCards(String description, ImageIcon imageIcon);
+    protected void addCard(CardType card) {
+        _deck.add(card);
+    }
 
-    void addChanceCards(String description, ImageIcon imageIcon);
+    protected void addCards(Collection<CardType> cards) {
+        _deck.addAll(cards);
+    }
 
-    BaseCard drawCard(CardType type);
+    protected CardType drawCard() throws IndexOutOfBoundsException, UnsupportedOperationException {
+        return _deck.remove(0);
+    }
 
-    void shuffle();
+    protected void shuffle() {
+        Collections.shuffle(_deck);
+    }
 }

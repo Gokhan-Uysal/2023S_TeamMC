@@ -1,6 +1,8 @@
 package app.domain.services.map;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import app.common.AppConfig;
 import app.domain.models.army.ArmyUnitType;
@@ -39,16 +41,6 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
-	public Territory findTerritory(int territoryId) {
-
-		for (Territory t : this.getTerritoryListFromGraph()) {
-			if (t.getTerritoryId() == territoryId) {
-				return t;
-			}
-		}
-		return null;
-	}
-
 	public Territory findTerritory(String territoryName) {
 
 		for (Territory t : this.getTerritoryListFromGraph()) {
@@ -81,6 +73,13 @@ public class MapService {
 		_mapGraphService.removeClosedTerritories();
 	}
 
+	public List<Territory> getTerriotryListOfPlayer(int playerId) {
+		List<Territory> territories = getTerritoryListFromGraph();
+		return territories.stream()
+				.filter((territory) -> territory.getOwnerId() == playerId)
+				.collect(Collectors.toList());
+	}
+
 	// public boolean isValidFortify(int infantryAmount, int cavalryAmount, int
 	// artilleryAmount,
 	// int territoryId) {
@@ -92,23 +91,21 @@ public class MapService {
 	// artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
 	// }
 
-	public void placeArmyUnit(int territoryId, ArmyUnitType type, int amount) {
-		Territory t = this.findTerritory(territoryId);
-		t.getTerritoryArmy().addArmyUnits(type, amount);
+	public void placeArmyUnit(Territory territory, ArmyUnitType type, int amount, int playerId) {
+		territory.getTerritoryArmy().addArmyUnits(type, amount);
+		territory.setOwnerId(playerId);
 	}
 
 	public boolean unclaimedTerritoryExist() {
-		for (Territory t : this.getTerritoryListFromGraph()) {
-			if (t.getOwnerId() == -1) {
+		for (Territory territory : this.getTerritoryListFromGraph()) {
+			if (territory.getOwnerId() == -1) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean unclaimedTerritorySubPhase(int territoryId) {
-		Territory t = this.findTerritory(territoryId);
-		return this.unclaimedTerritoryExist() && t.getOwnerId() == -1;
+	public boolean unclaimedTerritorySubPhase(Territory territory) {
+		return this.unclaimedTerritoryExist() && territory.getOwnerId() == -1;
 	}
-
 }

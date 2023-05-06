@@ -26,7 +26,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
     public void addEdges(List<Territory> territoryListFromReadService) {
         territoryListFromReadService.forEach((Territory territory) -> {
-            Set<String> adjList = territory.getAdjList();
+            Set<String> adjList = territory.get_adjList();
             adjList.forEach((String adj) -> {
                 addEdge(territory, adj);
             });
@@ -70,7 +70,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
                 for (Territory neighbor : graph.get(current)) {
                     if (!visited.contains(neighbor)) {
-                        if (!neighbor.getIsOpen()) {
+                        if (!neighbor.get_isOpen()) {
                             removedEdgeCount += getEdgeCount(neighbor);
                             continue;
                         }
@@ -90,7 +90,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
     public void removeClosedTerritories() {
         getVerticies().forEach((Territory territory) -> {
-            if (!territory.getIsOpen()) {
+            if (!territory.get_isOpen()) {
                 removeVertex(territory);
             }
         });

@@ -1,14 +1,14 @@
 package app.domain.models.card.army;
 
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
 
 import app.domain.models.card.BaseCard;
 
 public abstract class ArmyCard extends BaseCard {
     protected int value;
 
-    protected ArmyCard(String description, ImageIcon imageIcon, int value) {
-        super(ArmyCard.class.getName(), description, imageIcon);
+    protected ArmyCard(String description, BufferedImage image, int value) {
+        super(ArmyCard.class.getName(), description, image);
         this.value = value;
     }
 

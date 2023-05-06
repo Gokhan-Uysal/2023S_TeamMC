@@ -1,10 +1,7 @@
 package app.domain.models.card;
 
-public enum CardType {
+public enum DeckType {
     Army,
-    Infantry,
-    Cavalry,
-    Artillery,
     Territory,
     Chance
 }

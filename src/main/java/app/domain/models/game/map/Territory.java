@@ -11,38 +11,42 @@ import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
 
 public class Territory {
-    private String name;
-    private String imageName;
-    private TerritoryPosition territoryPosition;
-    private Set<String> adjList;
-    private int ownerId;
-    private int territoryId;
-    private static int classTerritoryId = 0;
-    private Army territoryArmy;
-    private boolean isOpen;
+    private String _name;
+    private String _imageName;
+    private TerritoryPosition _territoryPosition;
+    private Set<String> _adjList;
+    private Army _territoryArmy;
+    private int _ownerId;
+    private boolean _isOpen;
 
-    public boolean getIsOpen() {
-        return this.isOpen;
+    public boolean get_isOpen() {
+        return this._isOpen;
     }
 
     public void setIsOpen(Boolean isOpen) {
-        this.isOpen = isOpen;
+        this._isOpen = isOpen;
+    }
+
+    public int getOwnerId() {
+        return this._ownerId;
+    }
+
+    public void setOwnerId(int id) {
+        this._ownerId = id;
     }
 
     public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
-        this.name = name;
-        this.imageName = imageName;
-        this.territoryPosition = territoryPosition;
-        this.adjList = adjList;
-
-        this.territoryArmy = new Army();
-        this.territoryId = ++classTerritoryId;
-        this.ownerId = -1;
-        isOpen = true;
+        this._name = name;
+        this._imageName = imageName;
+        this._territoryPosition = territoryPosition;
+        this._adjList = adjList;
+        this._territoryArmy = new Army();
+        _ownerId = -1;
+        _isOpen = true;
     }
 
     public BufferedImage getImage() throws IOException {
-        File imageFile = new File(AppConfig.basePath + "/__resource__/assets/territories/" + imageName);
+        File imageFile = new File(AppConfig.basePath + "/__resource__/assets/territories/" + _imageName);
         BufferedImage originalImage = ImageIO.read(imageFile);
         int newWidth = originalImage.getWidth() / 2;
         int newHeight = originalImage.getHeight() / 2;
@@ -57,63 +61,51 @@ public class Territory {
     }
 
     public int getInfantryCount() {
-        return this.territoryArmy.getArmyAmount(ArmyUnitType.Infantry);
+        return this._territoryArmy.getArmyAmount(ArmyUnitType.Infantry);
     }
 
     public int getChivalryCount() {
-        return this.territoryArmy.getArmyAmount(ArmyUnitType.Chivalry);
+        return this._territoryArmy.getArmyAmount(ArmyUnitType.Chivalry);
     }
 
     public int getArtilleryCount() {
-        return this.territoryArmy.getArmyAmount(ArmyUnitType.Artillery);
+        return this._territoryArmy.getArmyAmount(ArmyUnitType.Artillery);
+    }
+
+    public String getName() {
+        return _name;
+    }
+
+    public String getImageName() {
+        return _imageName;
+    }
+
+    public TerritoryPosition getTerritoryPosition() {
+        return _territoryPosition;
+    }
+
+    public Set<String> get_adjList() {
+        return _adjList;
+    }
+
+    public void setTerritoryPosition(TerritoryPosition territoryPosition) {
+        this._territoryPosition = territoryPosition;
+    }
+
+    public Army getTerritoryArmy() {
+        return this._territoryArmy;
     }
 
     @Override
     public String toString() {
         String info = "";
-        info += name;
+        info += _name;
         info += "\s\s";
-        info += imageName;
+        info += _imageName;
         info += "\s\s";
-        info += territoryPosition.toString();
+        info += _territoryPosition.toString();
         info += "\s\s";
         info += "\n";
         return info;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public TerritoryPosition getTerritoryPosition() {
-        return territoryPosition;
-    }
-
-    public Set<String> getAdjList() {
-        return adjList;
-    }
-
-    public int getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public void setTerritoryPosition(TerritoryPosition territoryPosition) {
-        this.territoryPosition = territoryPosition;
-    }
-
-    public Army getTerritoryArmy() {
-        return this.territoryArmy;
-    }
-
-    public int getTerritoryId() {
-        return this.territoryId;
     }
 }

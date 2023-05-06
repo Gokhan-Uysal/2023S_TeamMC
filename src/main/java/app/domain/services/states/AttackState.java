@@ -4,7 +4,7 @@ import app.common.errors.AttackError;
 import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
 
-public class AttackSerice {
+public class AttackState {
     public void attack(Army attacker, Army defender) {
         validateAttack(attacker, defender);
 
