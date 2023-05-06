@@ -3,7 +3,7 @@ package app.domain.services;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.card.BaseCard;
 import app.domain.models.card.CardType;
-import app.domain.models.card.TerritoryCard;
+import app.domain.models.card.territory.TerritoryCard;
 import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
 import app.domain.services.map.MapService;
@@ -111,52 +111,58 @@ public class PlayerService {
         }
     }
 
-    public boolean tradeTerritoryCards(String continentName, int playerId) {
-        if (checkIfTerritoryCardsTradable(continentName, playerId)) {
-            Player tradingPlayer = getPlayer(playerId);
-            Player opponentPlayer;
-            ArrayList<Territory> continentTerritories = (ArrayList<Territory>) _mapService
-                    .getTerritoriesOfContinent(continentName);
-            TerritoryCard tc;
+    // public boolean tradeTerritoryCards(String continentName, int playerId) {
+    // if (checkIfTerritoryCardsTradable(continentName, playerId)) {
+    // Player tradingPlayer = getPlayer(playerId);
+    // Player opponentPlayer;
+    // ArrayList<Territory> continentTerritories = (ArrayList<Territory>)
+    // _mapService
+    // .getTerritoriesOfContinent(continentName);
+    // TerritoryCard tc;
 
-            for (Territory t : continentTerritories) {
-                if (t.getOwnerId() != playerId) {
-                    opponentPlayer = getPlayer(t.getOwnerId());
-                    opponentPlayer.removeTerritory(t.getTerritoryId());
-                    tradingPlayer.addTerritory(t);
-                    t.setOwnerId(tradingPlayer.getId());
-                }
-                for (BaseCard c : tradingPlayer.getPlayerDeck().getCardContainer().get(CardType.Territory)) {
-                    tc = (TerritoryCard) c;
-                    if (t.getTerritoryId() == tc.getTerritoryId()) {
-                        tradingPlayer.getPlayerDeck().drawTerritoryCard(tc.getTerritoryId());
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
+    // for (Territory t : continentTerritories) {
+    // if (t.getOwnerId() != playerId) {
+    // opponentPlayer = getPlayer(t.getOwnerId());
+    // opponentPlayer.removeTerritory(t.getTerritoryId());
+    // tradingPlayer.addTerritory(t);
+    // t.setOwnerId(tradingPlayer.getId());
+    // }
+    // for (BaseCard c :
+    // tradingPlayer.getPlayerDeck().getCardContainer().get(CardType.Territory)) {
+    // tc = (TerritoryCard) c;
+    // if (t.getTerritoryId() == tc.getTerritoryId()) {
+    // tradingPlayer.getPlayerDeck().drawTerritoryCard(tc.getTerritoryId());
+    // }
+    // }
+    // }
+    // return true;
+    // }
+    // return false;
+    // }
 
-    private boolean checkIfTerritoryCardsTradable(String continentName, int playerId) {
-        ArrayList<Territory> continentTerritoryList = (ArrayList<Territory>) _mapService
-                .getTerritoriesOfContinent(continentName);
-        ArrayList<Territory> playerTerritoryCardTerritoryList = getTerritoriesFromTerritoryCards(playerId);
+    // private boolean checkIfTerritoryCardsTradable(String continentName, int
+    // playerId) {
+    // ArrayList<Territory> continentTerritoryList = (ArrayList<Territory>)
+    // _mapService
+    // .getTerritoriesOfContinent(continentName);
+    // ArrayList<Territory> playerTerritoryCardTerritoryList =
+    // getTerritoriesFromTerritoryCards(playerId);
 
-        return playerTerritoryCardTerritoryList.containsAll(continentTerritoryList);
-    }
+    // return playerTerritoryCardTerritoryList.containsAll(continentTerritoryList);
+    // }
 
-    private ArrayList<Territory> getTerritoriesFromTerritoryCards(int playerId) {
-        Player p = getPlayer(playerId);
-        ArrayList<Territory> territoryCardTerritories = null;
+    // private ArrayList<Territory> getTerritoriesFromTerritoryCards(int playerId) {
+    // Player p = getPlayer(playerId);
+    // ArrayList<Territory> territoryCardTerritories = null;
 
-        for (BaseCard t : p.getPlayerDeck().getCardContainer().get(CardType.Territory)) {
-            TerritoryCard tt = (TerritoryCard) t;
-            territoryCardTerritories.add(_mapService.findTerritory(tt.getTerritoryId()));
-        }
+    // for (BaseCard t :
+    // p.getPlayerDeck().getCardContainer().get(CardType.Territory)) {
+    // TerritoryCard tt = (TerritoryCard) t;
+    // territoryCardTerritories.add(_mapService.findTerritory(tt.getTerritoryId()));
+    // }
 
-        return territoryCardTerritories;
-    }
+    // return territoryCardTerritories;
+    // }
 
     public boolean tradeArmyCards(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount, int playerId,
             int territoryId) {
@@ -210,23 +216,30 @@ public class PlayerService {
         return getPlayer(playerId).getTerritoryList().contains(_mapService.findTerritory(territoryId));
     }
 
-    public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount, int startTerritoryId,
-            int destinationTerritoryId, int playerId) {
-        if (doesPlayerOwnTerritory(playerId, startTerritoryId)
-                && doesPlayerOwnTerritory(playerId, destinationTerritoryId) &&
-                _mapService.territoryFortifyCondition(infantryAmount, cavalryAmount, artilleryAmount,
-                        startTerritoryId)) {
+    // public void fortify(int infantryAmount, int cavalryAmount, int
+    // artilleryAmount, int startTerritoryId,
+    // int destinationTerritoryId, int playerId) {
+    // if (doesPlayerOwnTerritory(playerId, startTerritoryId)
+    // && doesPlayerOwnTerritory(playerId, destinationTerritoryId) &&
+    // _mapService.isValidFortify(infantryAmount, cavalryAmount, artilleryAmount,
+    // startTerritoryId)) {
 
-            Army startTerritoryArmy = _mapService.findTerritory(startTerritoryId).getTerritoryArmy();
-            Army destinationTerritoryArmy = _mapService.findTerritory(destinationTerritoryId).getTerritoryArmy();
+    // Army startTerritoryArmy =
+    // _mapService.findTerritory(startTerritoryId).getTerritoryArmy();
+    // Army destinationTerritoryArmy =
+    // _mapService.findTerritory(destinationTerritoryId).getTerritoryArmy();
 
-            startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy, ArmyUnitType.Infantry, infantryAmount);
-            startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy, ArmyUnitType.Chivalry, cavalryAmount);
-            startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy, ArmyUnitType.Artillery, artilleryAmount);
-        } else {
-            System.out.println("There has been a fortify error, please check the territories and army unit number.");
-        }
-    }
+    // startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy,
+    // ArmyUnitType.Infantry, infantryAmount);
+    // startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy,
+    // ArmyUnitType.Chivalry, cavalryAmount);
+    // startTerritoryArmy.transferArmyUnits(destinationTerritoryArmy,
+    // ArmyUnitType.Artillery, artilleryAmount);
+    // } else {
+    // System.out.println("There has been a fortify error, please check the
+    // territories and army unit number.");
+    // }
+    // }
 
     private void setPlayerInitialArmyAmount() {
         _playerInitialArmyAmount = 40 - (_playerCount - 2) * 5;

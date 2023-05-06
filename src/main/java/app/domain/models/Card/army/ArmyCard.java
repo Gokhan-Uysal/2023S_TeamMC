@@ -1,6 +1,8 @@
-package app.domain.models.card;
+package app.domain.models.card.army;
 
 import javax.swing.ImageIcon;
+
+import app.domain.models.card.BaseCard;
 
 public abstract class ArmyCard extends BaseCard {
     protected int value;

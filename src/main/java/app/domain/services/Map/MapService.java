@@ -1,10 +1,8 @@
 package app.domain.services.map;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import app.common.AppConfig;
-import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
@@ -75,35 +73,6 @@ public class MapService {
 		return this._mapReadService.getGameMapData().get(foundContinent);
 	}
 
-	private List<Territory> getAttackableTerritories(int selectedTerritoryId) {
-		ArrayList<Territory> attackableTerritoryList = new ArrayList<>();
-		Territory selectedTerritory = this.findTerritory(selectedTerritoryId);
-
-		for (String s : selectedTerritory.getAdjList()) {
-
-			Territory adjacentTerritory = this.findTerritory(s);
-			if (adjacentTerritory.getOwnerId() != selectedTerritory.getOwnerId()) {
-				if (this.territoryArmyCondition(selectedTerritory, adjacentTerritory)) {
-					attackableTerritoryList.add(adjacentTerritory);
-				}
-			}
-		}
-
-		return attackableTerritoryList;
-	}
-
-	public List<Territory> playerCanAttackFrom(int playerId) {
-		ArrayList<Territory> attackableFrom = new ArrayList<>();
-
-		for (Territory t : this.getTerritoryListFromGraph()) {
-			if (t.getOwnerId() == playerId && t.getTerritoryArmy().getTotalArmyAmount() >= 2) {
-				attackableFrom.add(t);
-			}
-		}
-
-		return attackableFrom;
-	}
-
 	public void openAllTerritories() {
 		_mapGraphService.openAllTerritories();
 	}
@@ -112,31 +81,16 @@ public class MapService {
 		_mapGraphService.removeClosedTerritories();
 	}
 
-	private boolean territoryArmyCondition(Territory attackingTerritory, Territory attackedTerritory) {
-		if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Artillery) > 0) {
-			return attackingTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Artillery) > 0 &&
-					attackingTerritory.getTerritoryArmy().getTotalArmyValue() > attackedTerritory.getTerritoryArmy()
-							.getTotalArmyValue();
-		} else if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Chivalry) > 0) {
-			return attackingTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Chivalry) > 0 &&
-					attackingTerritory.getTerritoryArmy().getTotalArmyValue() > attackedTerritory.getTerritoryArmy()
-							.getTotalArmyValue();
-		} else if (attackedTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry) > 0) {
-			return attackingTerritory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry) > 0 &&
-					attackingTerritory.getTerritoryArmy().getTotalArmyValue() > attackedTerritory.getTerritoryArmy()
-							.getTotalArmyValue();
-		}
-		return false;
-	}
-
-	public boolean territoryFortifyCondition(int infantryAmount, int cavalryAmount, int artilleryAmount,
-			int territoryId) {
-		Army foundTerritoryArmy = this.findTerritory(territoryId).getTerritoryArmy();
-		return ((infantryAmount + cavalryAmount + artilleryAmount) < foundTerritoryArmy.getTotalArmyAmount() &&
-				(infantryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) &&
-						cavalryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) &&
-						artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
-	}
+	// public boolean isValidFortify(int infantryAmount, int cavalryAmount, int
+	// artilleryAmount,
+	// int territoryId) {
+	// Army foundTerritoryArmy = this.findTerritory(territoryId).getTerritoryArmy();
+	// return ((infantryAmount + cavalryAmount + artilleryAmount) <
+	// foundTerritoryArmy.getTotalArmyAmount() &&
+	// (infantryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) &&
+	// cavalryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) &&
+	// artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
+	// }
 
 	public void placeArmyUnit(int territoryId, ArmyUnitType type, int amount) {
 		Territory t = this.findTerritory(territoryId);

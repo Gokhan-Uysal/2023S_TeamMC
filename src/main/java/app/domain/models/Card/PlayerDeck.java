@@ -20,15 +20,15 @@ public class PlayerDeck implements Deck {
         return cardContainer;
     }
 
-    public void addArmyCards(CardType type, String description, ImageIcon imageIcon, int amount) {
+    public void addArmyCards(CardType type, int amount) {
         for (int i = 0; i < amount; i++) {
-            this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type, description, imageIcon));
+            this.cardContainer.get(type).add(this.cardFactory.createArmyCard(type));
         }
     }
 
-    public void addTerritoryCards(String description, ImageIcon imageIcon, int territoryId) {
+    public void addTerritoryCards(String description, ImageIcon imageIcon) {
         this.cardContainer.get(CardType.Territory)
-                .add(this.cardFactory.createTerritoryCard(description, imageIcon, territoryId));
+                .add(this.cardFactory.createTerritoryCard(description, imageIcon));
     }
 
     public void addChanceCards(String description, ImageIcon imageIcon) {
@@ -42,14 +42,14 @@ public class PlayerDeck implements Deck {
 
     public void drawTerritoryCard(int territoryId) {
 
-        TerritoryCard tc;
+        // TerritoryCard tc;
 
-        for (BaseCard c : this.cardContainer.get(CardType.Territory)) {
-            tc = (TerritoryCard) c;
-            if (tc.getTerritoryId() == territoryId) {
-                this.cardContainer.get(CardType.Territory).remove(tc);
-            }
-        }
+        // for (BaseCard c : this.cardContainer.get(CardType.Territory)) {
+        // tc = (TerritoryCard) c;
+        // if (tc.getTerritoryId() == territoryId) {
+        // this.cardContainer.get(CardType.Territory).remove(tc);
+        // }
+        // }
     }
 
     @Override

@@ -24,6 +24,13 @@ public class GameManagerService extends BasePublisher<GameState> {
         initializeGame();
     }
 
+    public static GameManagerService getInstance() {
+        if (_instance == null) {
+            _instance = new GameManagerService();
+        }
+        return _instance;
+    }
+
     private void initDependicies() {
         _mapService = new MapService();
         _playerService = new PlayerService();
@@ -35,14 +42,7 @@ public class GameManagerService extends BasePublisher<GameState> {
         _isGameFinished = false;
     }
 
-    public static GameManagerService getInstance() {
-        if (_instance == null) {
-            _instance = new GameManagerService();
-        }
-        return _instance;
-    }
-
-    public void updateGameState(GameState newState) {
+    private void updateGameState(GameState newState) {
         setState(newState);
         notifySubscribers();
     }
@@ -79,6 +79,7 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     public void createPlayers(ArrayList<String> names) {
         _playerService.createPlayer(names);
+        initilizeCentralDeck(names.size());
     }
 
     public void loadMap() {
@@ -99,79 +100,70 @@ public class GameManagerService extends BasePublisher<GameState> {
         return true;
     }
 
+    public void initilizeCentralDeck(int playerCount) {
+        _centralDeck.initilizeArmyDeck(playerCount);
+        _centralDeck.initilizeTerritoryDeck(_mapService.getTerritoryListFromGraph());
+        _centralDeck.shuffle();
+    }
+
     public void tradeArmyCards(int infantryAmount, int cavalryAmount, int artilleryAmount, int playerId,
             int territoryId) {
         if (_playerService.tradeArmyCards(infantryAmount, cavalryAmount, artilleryAmount, playerId, territoryId)) {
 
-            _centralDeck.addArmyCards(CardType.Infantry, "Infantry card.", new ImageIcon("infantrycard.png"),
-                    infantryAmount);
-            _centralDeck.addArmyCards(CardType.Cavalry, "Cavalry card.", new ImageIcon("cavalrycard.png"),
-                    cavalryAmount);
-            _centralDeck.addArmyCards(CardType.Artillery, "Artillery card.",
-                    new ImageIcon("artillerycard.png"), artilleryAmount);
+            _centralDeck.addArmyCards(CardType.Infantry, infantryAmount);
+            _centralDeck.addArmyCards(CardType.Cavalry, cavalryAmount);
+            _centralDeck.addArmyCards(CardType.Artillery, artilleryAmount);
         }
     }
 
-    public void initializeCards(int playerNumber) {
-        _centralDeck.addArmyCards(CardType.Infantry, "Infantry card", new ImageIcon("infantrycard.png"),
-                playerNumber * 3);
-        _centralDeck.addArmyCards(CardType.Cavalry, "Cavalry card", new ImageIcon("cavalrycard.png"), playerNumber * 2);
-        _centralDeck.addArmyCards(CardType.Artillery, "Artillery card.", new ImageIcon("artillerycard.png"),
-                playerNumber);
+    // public void tradeTerritoryCards(String continentName, int playerId) {
+    // if (_playerService.tradeTerritoryCards(continentName, playerId)) {
 
-        ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService.getTerritoryListFromGraph();
+    // ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService
+    // .getTerritoriesOfContinent(continentName);
 
-        for (Territory t : territoryList) {
-            _centralDeck.addTerritoryCards("Territory card.", new ImageIcon("territorycard.png"), t.getTerritoryId());
-        }
-
-        _centralDeck.shuffle();
-    }
-
-    public void tradeTerritoryCards(String continentName, int playerId) {
-        if (_playerService.tradeTerritoryCards(continentName, playerId)) {
-
-            ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService
-                    .getTerritoriesOfContinent(continentName);
-
-            for (Territory t : territoryList) {
-                _centralDeck.addTerritoryCards("Territory card.", new ImageIcon("territorycard.png"),
-                        t.getTerritoryId());
-            }
-        }
-    }
+    // for (Territory t : territoryList) {
+    // _centralDeck.addTerritoryCards(t.getName(), new
+    // ImageIcon("territorycard.png"));
+    // }
+    // }
+    // }
 
     public void attack(int attackingPlayerId, int attackedPlayerId, int attackerTerritoryId,
             int attackedTerritoryId) {
         boolean playerCanDrawCard = _playerService.attack(attackingPlayerId, attackedPlayerId,
                 attackerTerritoryId, attackedTerritoryId);
 
-        if (playerCanDrawCard) {
-            Player winningPlayer = _playerService.getPlayer(attackingPlayerId);
-            BaseCard drawnCard = _centralDeck.drawCard(CardType.Army);
-            switch (drawnCard.getDescription()) {
-                case "Infantry card." -> {
-                    InfantryCard iDrawnCard = (InfantryCard) drawnCard;
-                    winningPlayer.getPlayerDeck().addArmyCards(CardType.Infantry, iDrawnCard.getDescription(),
-                            iDrawnCard.getImageIcon(), iDrawnCard.getValue());
-                }
-                case "Cavalry card." -> {
-                    CavalryCard cDrawnCard = (CavalryCard) drawnCard;
-                    winningPlayer.getPlayerDeck().addArmyCards(CardType.Cavalry, cDrawnCard.getDescription(),
-                            cDrawnCard.getImageIcon(), cDrawnCard.getValue());
-                }
-                case "Artillery card." -> {
-                    ArtilleryCard aDrawnCard = (ArtilleryCard) drawnCard;
-                    winningPlayer.getPlayerDeck().addArmyCards(CardType.Artillery, aDrawnCard.getDescription(),
-                            aDrawnCard.getImageIcon(), aDrawnCard.getValue());
-                }
-                case "Territory card." -> {
-                    TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
-                    winningPlayer.getPlayerDeck().addArmyCards(CardType.Territory, tDrawnCard.getDescription(),
-                            tDrawnCard.getImageIcon(), tDrawnCard.getTerritoryId());
-                }
-            }
-        }
+        // if (playerCanDrawCard) {
+        // Player winningPlayer = _playerService.getPlayer(attackingPlayerId);
+        // BaseCard drawnCard = _centralDeck.drawCard(CardType.Army);
+        // switch (drawnCard.getDescription()) {
+        // case "Infantry card." -> {
+        // InfantryCard iDrawnCard = (InfantryCard) drawnCard;
+        // winningPlayer.getPlayerDeck().addArmyCards(CardType.Infantry,
+        // iDrawnCard.getDescription(),
+        // iDrawnCard.getImageIcon(), iDrawnCard.getValue());
+        // }
+        // case "Cavalry card." -> {
+        // CavalryCard cDrawnCard = (CavalryCard) drawnCard;
+        // winningPlayer.getPlayerDeck().addArmyCards(CardType.Cavalry,
+        // cDrawnCard.getDescription(),
+        // cDrawnCard.getImageIcon(), cDrawnCard.getValue());
+        // }
+        // case "Artillery card." -> {
+        // ArtilleryCard aDrawnCard = (ArtilleryCard) drawnCard;
+        // winningPlayer.getPlayerDeck().addArmyCards(CardType.Artillery,
+        // aDrawnCard.getDescription(),
+        // aDrawnCard.getImageIcon(), aDrawnCard.getValue());
+        // }
+        // case "Territory card." -> {
+        // TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
+        // winningPlayer.getPlayerDeck().addArmyCards(CardType.Territory,
+        // tDrawnCard.getDescription(),
+        // tDrawnCard.getImageIcon());
+        // }
+        // }
+        // }
     }
 
 }

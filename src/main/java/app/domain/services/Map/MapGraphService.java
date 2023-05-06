@@ -44,6 +44,10 @@ public class MapGraphService extends BaseGraph<Territory> {
         throw new GraphError("Territory vertex not found");
     }
 
+    public Set<Territory> getEdges(Territory territory) {
+        return super.getEdges(territory);
+    }
+
     public void addEdge(Territory sourceTerritory, String destinationName) {
         Territory destination = getVertex(destinationName);
         super.addEdge(sourceTerritory, destination);

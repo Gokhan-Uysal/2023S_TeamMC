@@ -17,12 +17,9 @@ public abstract class BasePublisher<MessageType> implements IPublisher<MessageTy
     @Override
     public boolean addSubscriber(ISubscriber<MessageType> subscriber) {
         boolean response = subscribers.add(subscriber);
-        if (response) {
-            Logger.info(String.format("New subscriber added: %s", subscriber.toString()));
-        } else {
+        if (!response) {
             Logger.error(String.format("Failed to add new subscriber: %s", subscriber.toString()));
         }
-
         return response;
     }
 

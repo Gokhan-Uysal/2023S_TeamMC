@@ -4,9 +4,9 @@ import javax.swing.*;
 
 public interface Deck {
 
-    void addArmyCards(CardType type, String description, ImageIcon imageIcon, int amount);
+    void addArmyCards(CardType type, int amount);
 
-    void addTerritoryCards(String description, ImageIcon imageIcon, int territoryID);
+    void addTerritoryCards(String description, ImageIcon imageIcon);
 
     void addChanceCards(String description, ImageIcon imageIcon);
 

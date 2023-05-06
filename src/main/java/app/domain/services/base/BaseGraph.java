@@ -162,6 +162,10 @@ public class BaseGraph<Vertex> {
         return source.equals(path.getFirst()) ? path : null;
     }
 
+    public Set<Vertex> getEdges(Vertex vertex) {
+        return graph.get(vertex);
+    }
+
     public int getEdgeCount() {
         int count = 0;
         for (HashSet<Vertex> list : this.graph.values()) {
