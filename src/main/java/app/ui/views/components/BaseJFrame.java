@@ -27,7 +27,7 @@ public abstract class BaseJFrame extends JFrame {
         this.setDefaultCloseOperation(GameFrame.EXIT_ON_CLOSE);
     }
 
-    public abstract void initilizeComponents();
+    public abstract void initializeComponents();
 
     public abstract void buildComponents();
 

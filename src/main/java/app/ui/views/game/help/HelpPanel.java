@@ -1,22 +1,30 @@
 package app.ui.views.game.help;
 
-import app.ui.controllers.helpscreen.HelpPanelController;
-
 import javax.swing.*;
+
+import app.ui.controllers.game.helpscreen.HelpPanelController;
+
 import java.awt.*;
 
 public class HelpPanel extends JPanel {
     public JButton helpButton;
-    public HelpPanel (){
+
+    public HelpPanel() {
         buildView();
         initializeComponents();
         addComponents();
     }
+
     private void buildView() {
         this.setLayout(new FlowLayout(FlowLayout.RIGHT));
     }
 
-    private void initializeComponents() {helpButton = new JButton("?"); new HelpPanelController(this);}
+    private void initializeComponents() {
+        helpButton = new JButton("?");
+        new HelpPanelController(this);
+    }
 
-    private void addComponents() {this.add(helpButton);}
+    private void addComponents() {
+        this.add(helpButton);
+    }
 }

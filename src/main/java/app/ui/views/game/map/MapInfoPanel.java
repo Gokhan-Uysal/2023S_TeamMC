@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import app.common.AppConfig;
 
 public class MapInfoPanel extends JPanel {
+    private JLabel _owner;
     private JLabel _territoryNameLabel;
     private JLabel _infantryCountLabel;
     private JLabel _chivalryCountLabel;
@@ -19,11 +20,13 @@ public class MapInfoPanel extends JPanel {
     }
 
     private void buildPanel() {
-        this.setLayout(new GridLayout(4, 1));
+        this.setLayout(new GridLayout(5, 1));
+        this._owner = getLabel("Owner: N/A");
         this._territoryNameLabel = getLabel("N/A");
         this._infantryCountLabel = getLabel("Infantry: 0");
         this._chivalryCountLabel = getLabel("Chivalry: 0");
         this._artilleryCountLabel = getLabel("Artillery: 0");
+        this.add(_owner);
         this.add(_territoryNameLabel);
         this.add(_infantryCountLabel);
         this.add(_chivalryCountLabel);
@@ -32,7 +35,9 @@ public class MapInfoPanel extends JPanel {
         this.setBounds((int) (AppConfig.appSize.getWidth() - 250), 0, 250, 200);
     }
 
-    public void updateInfo(String territoryName, int infantryCount, int chivalryCount, int artilleryCount) {
+    public void updateInfo(String owner, String territoryName, int infantryCount, int chivalryCount,
+            int artilleryCount) {
+        _owner.setText("Owner: " + owner);
         _territoryNameLabel.setText(territoryName);
         _infantryCountLabel.setText("Infantry: " + Integer.toString(infantryCount));
         _chivalryCountLabel.setText("Chivalry: " + Integer.toString(chivalryCount));

@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
-import app.ui.controllers.menu.playermenu.PlayerMenuController;
-import app.ui.controllers.menu.playermenu.PlayerPanelController;
+import app.ui.controllers.menu.player.PlayerMenuController;
+import app.ui.controllers.menu.player.PlayerPanelController;
 import app.ui.views.menu.ButtonsPanel;
 import app.ui.views.menu.playermenu.PlayerMenuFrame;
 import app.util.ActionListenerUtil;
