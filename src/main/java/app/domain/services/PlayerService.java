@@ -64,6 +64,10 @@ public class PlayerService {
         _currentPlayerId += 1;
     }
 
+    public void resatrtTurn() {
+        _currentPlayerId = 0;
+    }
+
     public Player getPlayer(int playerId) {
         for (Player player : this._players) {
             if (player.getId() == playerId) {

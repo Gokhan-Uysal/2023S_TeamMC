@@ -103,15 +103,10 @@ public class Territory {
 
     @Override
     public String toString() {
-        System.out.println(_territoryArmy.getArmyAmount(ArmyUnitType.Infantry));
         String info = "";
-        info += _name;
-        info += "\s\s";
-        info += _imageName;
-        info += "\s\s";
-        info += _territoryPosition.toString();
-        info += "\s\s";
-        info += "\n";
+        info += "-----------------------";
+        info += String.format("\n%s \s %s \s \n%s\n", _name, _imageName, _territoryArmy.toString());
+        info += "-----------------------";
         return info;
     }
 }

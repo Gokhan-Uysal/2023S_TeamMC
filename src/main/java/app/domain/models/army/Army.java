@@ -17,6 +17,7 @@ public class Army {
         for (int i = 0; i < amount; i++) {
             this.armyContainer.get(type).add(armyUnitFactory.create(type));
         }
+
     }
 
     public void addArmyUnits(ArmyUnitType type, ArrayList<ArmyUnit> armyUnitList) {
@@ -73,5 +74,14 @@ public class Army {
     public int getTotalArmyValue() {
         return this.getArmyValue(ArmyUnitType.Infantry) + this.getArmyValue(ArmyUnitType.Chivalry) +
                 this.getArmyValue(ArmyUnitType.Artillery);
+    }
+
+    @Override
+    public String toString() {
+        String info = "";
+        info += String.format("Infantry: %s\n", getArmyAmount(ArmyUnitType.Infantry));
+        info += String.format("Chivalry: %s\n", getArmyAmount(ArmyUnitType.Chivalry));
+        info += String.format("Artillery: %s", getArmyAmount(ArmyUnitType.Artillery));
+        return info;
     }
 }

@@ -31,10 +31,10 @@ public class DistributeState {
 
     public boolean placeInfantryToTerritory(Territory territory, int playerId) {
         _initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
-        // if (!isValidTerritorySelection(territory)) {
-        // throw new Error("Invalid territory placement");
-        // }
-        _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, playerId, playerId);
+        if (!isValidTerritorySelection(territory)) {
+            throw new Error("Invalid territory placement");
+        }
+        _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, 1, playerId);
         return true;
     }
 }

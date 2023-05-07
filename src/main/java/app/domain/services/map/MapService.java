@@ -89,7 +89,6 @@ public class MapService {
 	public void placeArmyUnit(Territory territory, ArmyUnitType type, int amount, int playerId) {
 		territory.getTerritoryArmy().addArmyUnits(type, amount);
 		territory.setOwnerId(playerId);
-		System.out.println(territory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry));
 	}
 
 	public boolean unclaimedTerritoryExist() {

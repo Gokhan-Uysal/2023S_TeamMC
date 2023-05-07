@@ -88,6 +88,7 @@ public class GameManagerService extends BasePublisher<GameState> {
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
                     updateGameState(GameState.RECEIVING_STATE);
+                    _playerService.resatrtTurn();
                     break;
                 }
                 _playerService.turnChange();

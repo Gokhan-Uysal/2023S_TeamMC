@@ -3,8 +3,6 @@ package app.domain.services.base;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.Is;
-
 import app.common.Logger;
 
 public abstract class BasePublisher<MessageType> implements IPublisher<MessageType> {
