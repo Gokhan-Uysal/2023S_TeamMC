@@ -132,7 +132,7 @@ public class AttackState {
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
-        if (attacker.getTotalArmyAmount() < 2) {
+        if (attacker.getTotalArmyAmount() <= 2) {
             throw new AttackError("Insufficent army count");
         }
         if (attacker.getTotalArmyValue() <= defender.getTotalArmyValue()) {
