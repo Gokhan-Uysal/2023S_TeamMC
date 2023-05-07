@@ -56,7 +56,7 @@ public class TerritoryComponentController extends BasePublisher<Territory> imple
             territoryComponent.repaint();
             territory.setIsOpen(territoryComponent.getVisibilty());
         } else {
-            super.notifySubscriber(BaseStatePanelController.getInstance());
+            super.notifySubscribersOfType(BaseStatePanelController.class);
         }
     }
 

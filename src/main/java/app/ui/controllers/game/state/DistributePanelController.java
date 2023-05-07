@@ -30,4 +30,10 @@ public class DistributePanelController extends BaseStatePanelController implemen
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
+
+    @Override
+    public void update(Territory message) {
+        _distributePanel.updateSelectedTerritory(message.getName());
+        _distributePanel.revalidate();
+    }
 }

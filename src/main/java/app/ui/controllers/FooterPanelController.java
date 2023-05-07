@@ -3,8 +3,8 @@ package app.ui.controllers;
 import app.domain.models.game.GameState;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
+import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.views.game.FooterPanel;
-import app.ui.views.game.state.DistributePanel;
 import app.ui.views.game.state.RecievePanel;
 
 public class FooterPanelController implements ISubscriber<GameState> {
@@ -19,7 +19,7 @@ public class FooterPanelController implements ISubscriber<GameState> {
     public void update(GameState message) {
         switch (message) {
             case DISTRIBUTING_STATE:
-                _footerPanel.updateStatePanel(new DistributePanel());
+                _footerPanel.updateStatePanel(DistributePanelController.getInstance().getDistributePanel());
                 _footerPanel.revalidate();
                 break;
             case RECEIVING_STATE:

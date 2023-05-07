@@ -51,8 +51,12 @@ public abstract class BasePublisher<MessageType> implements IPublisher<MessageTy
         }
     }
 
-    public void notifySubscriber(ISubscriber<MessageType> subscriber) {
-        subscriber.update(message);
+    public <CustomSubscriber> void notifySubscribersOfType(Class<CustomSubscriber> subscriberType) {
+        for (ISubscriber<MessageType> subscriber : subscribers) {
+            if (subscriberType.isInstance(subscriber)) {
+                subscriber.update(message);
+            }
+        }
     }
 
     @Override

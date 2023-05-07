@@ -7,7 +7,7 @@ import app.common.Logger;
 import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
-import app.ui.controllers.game.state.BaseStatePanelController;
+import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.views.game.map.MapPanel;
 
 public class MapPanelController implements ISubscriber<Territory> {
@@ -25,7 +25,7 @@ public class MapPanelController implements ISubscriber<Territory> {
                 trController = new TerritoryComponentController(territory);
                 _mapPanel.drawTerriotry(trController.getTerritoryComponent());
                 trController.addSubscriber(this);
-                trController.addSubscriber(BaseStatePanelController.getInstance());
+                trController.addSubscriber(DistributePanelController.getInstance());
             } catch (IOException e) {
                 Logger.error(e);
             }
