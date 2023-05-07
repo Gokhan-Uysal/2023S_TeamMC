@@ -19,6 +19,7 @@ import java.util.Random;
 public class AttackState {
 
     private MapService _mapService = MapService.getInstance();
+    private String _winningPlayer;
 
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
@@ -60,8 +61,11 @@ public class AttackState {
 
         if (attackerDiceRoll > attackedDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
+            this._winningPlayer = PlayerService.getInstance().getPlayerById(attackingPlayerId).getUsername();
         } else {
             dealArmyDefenderWin(attackerTerritoryArmy);
+            this._winningPlayer = PlayerService.getInstance().getPlayerById(_mapService.findTerritory(attackedTerritoryId)
+                    .getOwnerId()).getUsername();
         }
 
         if (attackedTerritoryArmy.getTotalArmyAmount() <= 0) {
