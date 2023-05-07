@@ -62,19 +62,19 @@ public class MainDecks {
         }
     }
 
-    public void drawTerritoryCard(int territoryId){
+    public void drawTerritoryCard(int territoryId) {
         this._territoryDeck.drawTerritoryCard(territoryId);
     }
 
-    public int armyUnitCardNumbers(ArmyUnitType type){
+    public int armyUnitCardNumbers(ArmyUnitType type) {
         return this._armyDeck.armyUnitCardNumber(type);
     }
 
-    public void drawArmyUnitCard(ArmyUnitType type){
+    public void drawArmyUnitCard(ArmyUnitType type) {
         this._armyDeck.drawArmyUnitCard(type);
     }
 
-    public ArrayList<Integer> territoryIds(){
+    public ArrayList<Integer> territoryIds() {
         return this._territoryDeck.getTerritoryIdsFromTerritoryCards();
     }
 
