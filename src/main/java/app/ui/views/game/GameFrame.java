@@ -1,14 +1,10 @@
 package app.ui.views.game;
 
 import app.common.AppConfig;
-import app.domain.services.Map.MapService;
+import app.ui.controllers.FooterPanelController;
 import app.ui.controllers.game.map.MapPanelController;
-import app.ui.controllers.game.map.player.PlayerStatePanelController;
-import app.ui.controllers.helpscreen.HelpPanelController;
 import app.ui.views.components.BaseJFrame;
-import app.ui.views.game.help.HelpPanel;
 import app.ui.views.game.map.MapPanel;
-import app.ui.views.game.player.PlayerStatePanel;
 
 import java.awt.*;
 
@@ -16,33 +12,29 @@ public class GameFrame extends BaseJFrame {
 
     // Map mvc
     private MapPanel _mapPanel;
-    private MapService _mapService;
     private MapPanelController _mapPanelController;
 
-    private PlayerStatePanel _playerStatePanel;
-    private PlayerStatePanelController _playerStatePanelController;
+    private HeaderPanel _header;
 
-    private HelpPanel _helpPanel;
-    private HelpPanelController _helpPanelController;
+    private FooterPanel _footer;
+    private FooterPanelController _footerPanelController;
 
-    public GameFrame(Point location, MapService mapService) {
+    public GameFrame(Point location) {
         super("Risk Game", AppConfig.appSize, location);
-        this._mapService = mapService;
         this.setLayout(new BorderLayout());
-        initilizeComponents();
+        initializeComponents();
         buildComponents();
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         _mapPanel = new MapPanel();
-        _mapPanelController = new MapPanelController(_mapPanel, _mapService);
+        _mapPanelController = new MapPanelController(_mapPanel);
 
-        _playerStatePanel = new PlayerStatePanel();
-        _playerStatePanelController = new PlayerStatePanelController(_playerStatePanel);
+        _footer = new FooterPanel();
+        _footerPanelController = new FooterPanelController(_footer);
 
-        _helpPanel = new HelpPanel();
-        _helpPanelController = new HelpPanelController(_helpPanel);
+        _header = new HeaderPanel();
     }
 
     @Override
@@ -59,8 +51,8 @@ public class GameFrame extends BaseJFrame {
     @Override
     public void addComponents() {
         this.add(_mapPanel, BorderLayout.CENTER);
-        this.add(_playerStatePanel, BorderLayout.SOUTH);
-        this.add(_helpPanel, BorderLayout.NORTH);
+        this.add(_header, BorderLayout.NORTH);
+        this.add(_footer, BorderLayout.SOUTH);
     }
 
     private void displayMap() {

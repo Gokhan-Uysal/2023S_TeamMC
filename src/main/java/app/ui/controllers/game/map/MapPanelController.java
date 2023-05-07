@@ -4,29 +4,30 @@ import java.io.IOException;
 import java.util.List;
 
 import app.common.Logger;
-import app.domain.models.GameMap.Territory;
-import app.domain.services.Map.MapService;
+import app.domain.models.game.map.Territory;
+import app.domain.models.player.Player;
+import app.domain.services.GameManagerService;
+import app.domain.services.PlayerService;
 import app.domain.services.base.ISubscriber;
+import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.views.game.map.MapPanel;
 
 public class MapPanelController implements ISubscriber<Territory> {
-
-    private MapService _mapService;
     private MapPanel _mapPanel;
 
-    public MapPanelController(MapPanel mapPanel, MapService mapService) {
+    public MapPanelController(MapPanel mapPanel) {
         this._mapPanel = mapPanel;
-        this._mapService = mapService;
     }
 
     public void displayMap() {
-        List<Territory> territoryList = _mapService.getTerritoryListFromGraph();
+        List<Territory> territoryList = GameManagerService.getInstance().getMap();
         territoryList.forEach((territory) -> {
             TerritoryComponentController trController;
             try {
                 trController = new TerritoryComponentController(territory);
                 _mapPanel.drawTerriotry(trController.getTerritoryComponent());
                 trController.addSubscriber(this);
+                trController.addSubscriber(DistributePanelController.getInstance());
             } catch (IOException e) {
                 Logger.error(e);
             }
@@ -34,12 +35,20 @@ public class MapPanelController implements ISubscriber<Territory> {
     }
 
     public void loadMap() {
-        _mapService.loadGameMapDataToGraph();
+        GameManagerService.getInstance().loadMap();
     }
 
     @Override
     public void update(Territory message) {
-        _mapPanel.updateMapInfo(message.getName(), message.getInfantryCount(), message.getChivalryCount(),
-                message.getArtilleryCount());
+        try {
+            Player player = PlayerService.getInstance().getPlayerById(message.getOwnerId());
+            _mapPanel.updateMapInfo(player.getUsername(), message.getName(), message.getInfantryCount(),
+                    message.getChivalryCount(),
+                    message.getArtilleryCount());
+        } catch (Error e) {
+            _mapPanel.updateMapInfo("Not occupied", message.getName(), message.getInfantryCount(),
+                    message.getChivalryCount(),
+                    message.getArtilleryCount());
+        }
     }
 }

@@ -13,12 +13,12 @@ public class MainMenuFrame extends BaseJFrame {
     public MainMenuFrame() {
         super("Main Menu", AppConfig.appSize);
         this.setLayout(new BorderLayout());
-        initilizeComponents();
+        initializeComponents();
         buildComponents();
     }
 
     @Override
-    public void initilizeComponents() {
+    public void initializeComponents() {
         buttonsPanel = new ButtonsPanel(3, 1);
         buttonsPanelController = new ButtonsPanelController(buttonsPanel);
     }
