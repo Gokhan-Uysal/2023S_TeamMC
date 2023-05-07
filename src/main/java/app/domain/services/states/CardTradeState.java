@@ -38,7 +38,7 @@ public class CardTradeState {
         }
     }
 
-    public boolean tradeTerritoryCardsHelper(String continentName, int playerId) {
+    private boolean tradeTerritoryCardsHelper(String continentName, int playerId) {
         if (checkIfTerritoryCardsTradable(continentName, playerId)) {
             Player tradingPlayer = PlayerService.getInstance().getCurrentPlayer();
             Player opponentPlayer;
@@ -67,7 +67,7 @@ public class CardTradeState {
         return playerTerritoryCardTerritoryList.containsAll(continentTerritoryList);
     }
 
-    public boolean tradeArmyCardsHelper(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount,
+    private boolean tradeArmyCardsHelper(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount,
             int playerId,
             int territoryId) {
 
@@ -106,7 +106,7 @@ public class CardTradeState {
         }
     }
 
-    public boolean checkIfArmyCardTradable(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount,
+    private boolean checkIfArmyCardTradable(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount,
             int playerId) {
 
         Player tradingPlayer = PlayerService.getInstance().getPlayer(playerId);
