@@ -25,8 +25,9 @@ public class MapPanel extends JPanel {
         this.refresh();
     }
 
-    public void updateMapInfo(String territoryName, int infantryCount, int chivalryCount, int artilleryCount) {
-        mapInfoPanel.updateInfo(territoryName, infantryCount, chivalryCount, artilleryCount);
+    public void updateMapInfo(String owner, String territoryName, int infantryCount, int chivalryCount,
+            int artilleryCount) {
+        mapInfoPanel.updateInfo(owner, territoryName, infantryCount, chivalryCount, artilleryCount);
         this.refresh();
     }
 

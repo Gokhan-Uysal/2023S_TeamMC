@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import app.common.GraphError;
+import app.common.errors.GraphError;
 
 public class BaseGraph<Vertex> {
     protected Map<Vertex, HashSet<Vertex>> graph;
@@ -160,6 +160,10 @@ public class BaseGraph<Vertex> {
         }
 
         return source.equals(path.getFirst()) ? path : null;
+    }
+
+    public Set<Vertex> getEdges(Vertex vertex) {
+        return graph.get(vertex);
     }
 
     public int getEdgeCount() {
