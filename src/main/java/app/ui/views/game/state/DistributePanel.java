@@ -24,7 +24,7 @@ public class DistributePanel extends BaseStatePanel {
 
     public void initializeComponents() {
         _selectedTerritoryLabel = new JLabel("None of the territories selected");
-        _confirmPlacementButton = new JButton("Confitm placement");
+        _confirmPlacementButton = new JButton("Confirm placement");
     }
 
     public void addComponents() {
