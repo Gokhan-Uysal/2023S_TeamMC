@@ -7,46 +7,112 @@ import java.awt.*;
 
 public class CardTradePanel extends BaseStatePanel {
 
-    private JButton _tradeArmyCards;
-    private JButton _tradeTerritoryCards;
-    private JButton _trade;
-    private JComboBox<Integer> _infantryCardCount;
-    private JComboBox<Integer> _cavalryCardCount;
-    private JComboBox<Integer> _artilleryCardCount;
-    private JComboBox<String> _continentList;
+    private JButton _tradeArmyCardButton;
+    private JButton _tradeTerritoryCardButton;
+    private JButton _tradeButton;
+    private JButton _nextPhaseButton;
+    public JComboBox<Integer> infantryCardBox;
+    public JComboBox<Integer> cavalryCardBox;
+    public JComboBox<Integer> artilleryCardBox;
+    public JComboBox<String> continentListBox;
+
+    public JButton getTradeArmyCardButton() {
+        return this._tradeArmyCardButton;
+    }
+
+    public JButton getTradeTerritoryCardButton() {
+        return this._tradeTerritoryCardButton;
+    }
+
+    public JButton getTradeButton() {
+        return this._tradeButton;
+    }
 
     public CardTradePanel() {
         super("Please select the card type you want to trade.");
-        this.setLayout(new GridLayout(5,3));
+        this.setLayout(new GridBagLayout());
         initializeComponents();
         addComponents();
     }
 
+    public void toggleVisiblty(Component component) {
+        component.setEnabled(!component.isVisible());
+    }
+
+    public void addItemToCardBox(JComboBox<Integer> comboBox, int item) {
+        addItemToBox(comboBox, item);
+    }
+
+    public void addItemToTerritoryBox(JComboBox<String> comboBox, String item) {
+        addItemToBox(comboBox, item);
+    }
+
+    public <Item> void addItemToBox(JComboBox<Item> comboBox, Item item) {
+        comboBox.addItem(item);
+    }
+
     @Override
     public void initializeComponents() {
-        this._tradeArmyCards = new JButton("Trade army cards.");
-        this._tradeTerritoryCards = new JButton("Trade army cards.");
-        this._trade = new JButton("Trade.");
+        this._tradeArmyCardButton = new JButton("Trade army cards.");
+        this._tradeTerritoryCardButton = new JButton("Trade territory cards.");
+        this._tradeButton = new JButton("Trade.");
+        this._nextPhaseButton = new JButton("Next phase ->");
 
-        int[] cardAmount = new int[]{1,2,3,4,5,6,7,8,9,10};
-        this._infantryCardCount = new JComboBox<>();
-        this._cavalryCardCount = new JComboBox<>();
-        this._artilleryCardCount = new JComboBox<>();
-        for (Integer i: cardAmount){
-            _infantryCardCount.addItem(i);
-            _cavalryCardCount.addItem(i);
-            _artilleryCardCount.addItem(i);
-        }
-
-        String[] continents = new String[]{"Australia", "South America", "North America", "Asia", "Africa", "Europe"};
-        this._continentList = new JComboBox<>();
-        for (String s: continents){
-            _continentList.addItem(s);
-        }
+        this.infantryCardBox = new JComboBox<>();
+        this.cavalryCardBox = new JComboBox<>();
+        this.artilleryCardBox = new JComboBox<>();
+        this.continentListBox = new JComboBox<>();
     }
 
     @Override
     public void addComponents() {
+        GridBagConstraints constraint = new GridBagConstraints();
+
+        constraint.anchor = GridBagConstraints.CENTER;
+        constraint.weightx = 0.5;
+        constraint.weighty = 0.5;
+
+        constraint.gridx = 0;
+        constraint.gridy = 0;
+        constraint.gridwidth = 4;
+        constraint.gridheight = 1;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        this.add(super._infoLabel, constraint);
+
+        constraint.gridx = 0;
+        constraint.gridy = 1;
+        constraint.gridwidth = 1;
+        this.add(_tradeArmyCardButton, constraint);
+
+        constraint.gridx = 1;
+        constraint.gridy = 1;
+        this.add(infantryCardBox, constraint);
+
+        constraint.gridx = 2;
+        constraint.gridy = 1;
+        this.add(cavalryCardBox, constraint);
+
+        constraint.gridx = 3;
+        constraint.gridy = 1;
+        this.add(artilleryCardBox, constraint);
+
+        constraint.gridx = 0;
+        constraint.gridy = 2;
+        constraint.gridwidth = 1;
+        this.add(_tradeTerritoryCardButton, constraint);
+
+        constraint.gridx = 1;
+        constraint.gridwidth = 2;
+        this.add(continentListBox, constraint);
+
+        constraint.gridx = 0;
+        constraint.gridy = 3;
+        constraint.gridwidth = 1;
+        this.add(_tradeButton, constraint);
+
+        constraint.gridx = 1;
+        constraint.gridy = 3;
+        this.add(_nextPhaseButton, constraint);
 
     }
 }

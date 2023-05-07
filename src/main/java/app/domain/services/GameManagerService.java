@@ -87,7 +87,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                 break;
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
-                    updateGameState(GameState.ATTACK_STATE);
+                    updateGameState(GameState.TRADE_CARD_STATE);
                     _playerService.resatrtTurn();
                     break;
                 }
@@ -95,6 +95,9 @@ public class GameManagerService extends BasePublisher<GameState> {
                 updateGameState(GameState.DISTRIBUTING_STATE);
                 break;
             case RECEIVING_STATE:
+                updateGameState(GameState.TRADE_CARD_STATE);
+                break;
+            case TRADE_CARD_STATE:
                 updateGameState(GameState.ATTACK_STATE);
                 break;
             case ATTACK_STATE:
@@ -158,7 +161,7 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     public void initilizeArmyUnits(int playerCount) {
         int unitAmount = (45 - (playerCount - 1) * 5) * playerCount;
-        _distributeState.fillArmy(unitAmount);
+        _distributeState.fillArmy(2);
     }
 
     public void placeInfantryToTerritory(Territory territory, Player player) {
