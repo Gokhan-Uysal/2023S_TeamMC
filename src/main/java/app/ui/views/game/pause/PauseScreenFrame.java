@@ -14,7 +14,6 @@ public class PauseScreenFrame extends BaseJFrame {
         this.setLayout(new BorderLayout());
         initializeComponents();
         buildComponents();
-
     }
     @Override
     public void initializeComponents() {
@@ -48,6 +47,7 @@ public class PauseScreenFrame extends BaseJFrame {
 
     }
     private JFrame getRootFrame() {
+
         return (JFrame) SwingUtilities.getWindowAncestor(this);
     }
 }

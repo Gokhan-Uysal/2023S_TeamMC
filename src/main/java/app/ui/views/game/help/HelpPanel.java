@@ -21,7 +21,6 @@ public class HelpPanel extends JPanel {
 
     private void initializeComponents() {
         helpButton = new JButton("?");
-        new HelpPanelController(this);
     }
 
     private void addComponents() {

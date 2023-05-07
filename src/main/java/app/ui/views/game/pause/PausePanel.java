@@ -20,7 +20,6 @@ public class PausePanel extends JPanel{
 
     private void initializeComponents() {
         pauseButton = new JButton("Pause");
-        new PausePanelController(this);
     }
 
     private void addComponents() {

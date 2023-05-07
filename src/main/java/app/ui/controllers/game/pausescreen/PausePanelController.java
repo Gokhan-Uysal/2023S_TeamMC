@@ -20,7 +20,9 @@ public class PausePanelController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new PauseScreenFrame("Pause", AppConfig.helpScreenSize);
+        if (e.getSource().equals(pausePanel.pauseButton)){
+            new PauseScreenFrame("Pause", AppConfig.helpScreenSize);
+        }
 
     }
 }
