@@ -127,4 +127,8 @@ public class MapService {
 		Territory t = findTerritory(territoryId);
 		t.setOwnerId(playerId);
 	}
+
+	public Set<Territory> getAdjacentTerritories(Territory territory){
+		return _mapGraphService.getEdges(territory);
+	}
 }

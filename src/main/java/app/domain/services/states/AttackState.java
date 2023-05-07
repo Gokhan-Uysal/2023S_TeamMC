@@ -20,23 +20,6 @@ public class AttackState {
 
     private MapService _mapService = MapService.getInstance();
 
-    public void attack(Army attacker, Army defender) {
-        validateAttack(attacker, defender);
-
-    }
-
-    public void validateAttack(Army attacker, Army defender) throws AttackError {
-        if (attacker.getTotalArmyAmount() < 2) {
-            throw new AttackError("Insufficent army count");
-        }
-        if (attacker.getTotalArmyValue() <= defender.getTotalArmyValue()) {
-            throw new AttackError("Weak army force");
-        }
-        if (!isValidAttack(attacker, defender)) {
-            throw new AttackError("Not valid matchup");
-        }
-    }
-
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         validateAttack(attackerTerritoryId, attackedTerritoryId);
@@ -178,7 +161,7 @@ public class AttackState {
         Territory defenderTerritory = _mapService.findTerritory(defenderTerritoryId);
 
         return defenderTerritory.getOwnerId() != attackerTerritory.getOwnerId() &&
-                attackerTerritory.get_adjList().contains(defenderTerritory);
+                _mapService.getAdjacentTerritories(attackerTerritory).contains(defenderTerritory);
     }
 
 }
