@@ -92,4 +92,8 @@ public class PlayerService {
         ArrayList<Integer> territoryIds = player.getPlayerDecks().territoryIds();
         return _mapService.findTerritories(territoryIds);
     }
+
+    public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId){
+        return playerId == _mapService.findTerritory(territoryId).getOwnerId();
+    }
 }

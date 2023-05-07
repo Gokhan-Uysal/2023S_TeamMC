@@ -19,6 +19,7 @@ import app.domain.services.base.JsonService;
 public class MapReadService {
     private JsonService _jsonService;
     private Map<Continent, List<Territory>> _gameMapData;
+    private static int counter = 0;
 
     public MapReadService(String filePath) {
         this._jsonService = new JsonService(filePath);
@@ -68,6 +69,7 @@ public class MapReadService {
 
         for (Object model : territoryModels) {
             Territory territory = parseTerritoryObject((JSONObject) model);
+            counter += 1;
             territoryList.add(territory);
         }
         return territoryList;
@@ -78,7 +80,7 @@ public class MapReadService {
         String imageName = (String) jsonObject.get("imageName");
         TerritoryPosition territoryPosition = parseTerritoryPositionObject(jsonObject);
         Set<String> adjList = parseAdjTerritoryList(jsonObject);
-        return new Territory(territoryName, imageName, territoryPosition, adjList);
+        return new Territory(counter, territoryName, imageName, territoryPosition, adjList);
     }
 
     private TerritoryPosition parseTerritoryPositionObject(JSONObject jsonObject) {

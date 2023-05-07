@@ -1,10 +1,7 @@
 package app.ui.views.components;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 public abstract class BaseStatePanel extends JPanel implements IBaseStatePanel {
     public JLabel _infoLabel;
@@ -16,5 +13,10 @@ public abstract class BaseStatePanel extends JPanel implements IBaseStatePanel {
         _infoLabel.setFont(newFont);
         this.setBackground(Color.lightGray);
         this.add(_infoLabel);
+    }
+
+    public JFrame getRootFrame(Component component) {
+        JFrame rootFrame = (JFrame) SwingUtilities.getWindowAncestor(component);
+        return rootFrame;
     }
 }

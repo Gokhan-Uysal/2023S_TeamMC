@@ -9,7 +9,6 @@ import javax.swing.SwingUtilities;
 
 import app.common.AppConfig;
 import app.ui.controllers.menu.player.PlayerMenuController;
-import app.ui.controllers.menu.player.PlayerPanelController;
 import app.ui.views.menu.ButtonsPanel;
 import app.ui.views.menu.playermenu.PlayerMenuFrame;
 import app.util.ActionListenerUtil;
@@ -34,6 +33,6 @@ public class ButtonsPanelController implements ActionListener {
         rootFrame.dispose();
 
         PlayerMenuFrame playerMenuFrame = new PlayerMenuFrame(AppConfig.title, AppConfig.appSize, location);
-        PlayerMenuController playerMenuController = new PlayerMenuController(playerMenuFrame);
+        new PlayerMenuController(playerMenuFrame);
     }
 }
