@@ -11,6 +11,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import app.ui.views.components.IBaseStatePanel;
+import app.ui.views.game.state.DistributePanel;
 
 public class FooterPanel extends JPanel {
     private int cornerRadius = 50;
@@ -26,7 +27,7 @@ public class FooterPanel extends JPanel {
     }
 
     public void initializeComponents() {
-        _statePanel = null;
+        _statePanel = new DistributePanel();
     }
 
     public void addComponents() {
@@ -34,8 +35,12 @@ public class FooterPanel extends JPanel {
     }
 
     public void updateStatePanel(IBaseStatePanel baseStatePanel) {
+        if (_statePanel != null) {
+            remove((Component) _statePanel);
+        }
         _statePanel = baseStatePanel;
-        addComponents();
+        add((Component) _statePanel);
+        refresh();
     }
 
     @Override
@@ -48,5 +53,10 @@ public class FooterPanel extends JPanel {
         g2.setColor(getForeground());
         g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
         g2.dispose();
+    }
+
+    public void refresh() {
+        revalidate();
+        repaint();
     }
 }

@@ -15,5 +15,6 @@ public abstract class BaseStatePanel extends JPanel implements IBaseStatePanel {
         Font newFont = new Font(currentFont.getName(), currentFont.getStyle(), 24);
         _infoLabel.setFont(newFont);
         this.setBackground(Color.lightGray);
+        this.add(_infoLabel);
     }
 }

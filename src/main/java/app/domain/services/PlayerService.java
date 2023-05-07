@@ -23,7 +23,7 @@ public class PlayerService {
     private PlayerService() {
         _players = new ArrayList<>();
         _currentPlayerCount = 0;
-        _mapService = new MapService();
+        _mapService = MapService.getInstance();
     }
 
     public static PlayerService getInstance() {
@@ -64,16 +64,16 @@ public class PlayerService {
         _currentPlayerId += 1;
     }
 
-    public Player getPlayer(int playerId){
-        for (Player player: this._players){
-            if (player.getId() == playerId){
+    public Player getPlayer(int playerId) {
+        for (Player player : this._players) {
+            if (player.getId() == playerId) {
                 return player;
             }
         }
         return null;
     }
 
-    public ArrayList<Territory> getTerritoriesFromTerritoryCards(int playerId){
+    public ArrayList<Territory> getTerritoriesFromTerritoryCards(int playerId) {
 
         Player player = getPlayer(playerId);
         ArrayList<Integer> territoryIds = player.getPlayerDecks().territoryIds();

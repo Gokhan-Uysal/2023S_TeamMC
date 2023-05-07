@@ -28,7 +28,6 @@ public class DistributePanel extends BaseStatePanel {
     }
 
     public void addComponents() {
-        this.add(_infoLabel);
         this.add(_selectedTerritoryLabel);
         this.add(_confirmPlacementButton);
     }

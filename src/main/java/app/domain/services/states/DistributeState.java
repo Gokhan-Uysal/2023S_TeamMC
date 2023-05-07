@@ -7,19 +7,19 @@ import app.domain.services.map.MapService;
 
 public class DistributeState {
     private MapService _mapService;
-    private Army initialArmy;
+    private Army _initialArmy;
 
     public DistributeState() {
         _mapService = MapService.getInstance();
-        initialArmy = new Army();
+        _initialArmy = new Army();
     }
 
     public void fillArmy(int amount) {
-        initialArmy.addArmyUnits(ArmyUnitType.Infantry, amount);
+        _initialArmy.addArmyUnits(ArmyUnitType.Infantry, amount);
     }
 
     public boolean isInitialUnitFinished() {
-        if (initialArmy.getArmyAmount(ArmyUnitType.Infantry) == 0) {
+        if (_initialArmy.getArmyAmount(ArmyUnitType.Infantry) <= 0) {
             return true;
         }
         return false;
@@ -30,10 +30,10 @@ public class DistributeState {
     }
 
     public boolean placeInfantryToTerritory(Territory territory, int playerId) {
-        initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
-        if (!isValidTerritorySelection(territory)) {
-            throw new Error("Invalid territory placement");
-        }
+        _initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
+        // if (!isValidTerritorySelection(territory)) {
+        // throw new Error("Invalid territory placement");
+        // }
         _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, playerId, playerId);
         return true;
     }

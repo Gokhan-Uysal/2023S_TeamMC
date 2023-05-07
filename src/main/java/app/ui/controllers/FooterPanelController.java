@@ -20,7 +20,6 @@ public class FooterPanelController implements ISubscriber<GameState> {
         switch (message) {
             case DISTRIBUTING_STATE:
                 _footerPanel.updateStatePanel(DistributePanelController.getInstance().getDistributePanel());
-                _footerPanel.revalidate();
                 break;
             case RECEIVING_STATE:
                 _footerPanel.updateStatePanel(new RecievePanel());
