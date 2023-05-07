@@ -6,6 +6,7 @@ import java.util.*;
 
 import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
+import app.ui.views.components.AlertPane;
 import app.ui.views.components.ErrorAlertPanel;
 import app.ui.views.game.state.AttackPanel;
 
@@ -56,7 +57,10 @@ public class AttackPanelController extends BaseStatePanelController implements A
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            GameManagerService.getInstance().attack(_selectedTerritoryIds.get(0), _selectedTerritoryIds.get(1));
+            String winner = GameManagerService.getInstance().attack(_selectedTerritoryIds.get(0),
+                    _selectedTerritoryIds.get(1));
+            new AlertPane(_attackPanel.getRootFrame(_attackPanel), "Winner", "Winner is: " + winner,
+                    AlertPane.INFORMATION_MESSAGE);
         } catch (Error error) {
             new ErrorAlertPanel(_attackPanel.getRootFrame(_attackPanel), error.getMessage());
         }
