@@ -3,6 +3,7 @@ package app.domain.services.states;
 import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Territory;
+import app.domain.services.GameManagerService;
 import app.domain.services.map.MapService;
 
 public class DistributeState {
@@ -27,6 +28,7 @@ public class DistributeState {
 
     public void placeInfantryToTerritory(Territory territory, int playerId) {
         if (isInitialUnitFinished()) {
+            GameManagerService.getInstance().handleNextState();
             throw new Error("Initial armies placed");
         }
         _initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);

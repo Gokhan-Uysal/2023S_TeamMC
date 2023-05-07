@@ -34,7 +34,6 @@ public class AttackPanelController extends BaseStatePanelController implements A
 
     @Override
     public void update(Territory message) {
-        System.out.println(_selectedTerritoryIds);
         if (_selectedTerritoryIds.size() > 1) {
             _selectedTerritoryIds.clear();
             _attackPanel.setButtonActive(false);
