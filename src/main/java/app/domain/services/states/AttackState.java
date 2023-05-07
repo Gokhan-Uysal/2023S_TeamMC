@@ -19,10 +19,11 @@ import java.util.Random;
 public class AttackState {
 
     private MapService _mapService = MapService.getInstance();
+    private String _winningPlayer;
 
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
-        validateAttack(attackerTerritoryId, attackedTerritoryId);
+        validateAttack(attackerTerritoryId, attackedTerritoryId, attackingPlayerId);
 
         boolean playerCanDrawCard = this.attackOneTerritory(attackingPlayerId,
                 attackerTerritoryId, attackedTerritoryId);
@@ -50,6 +51,10 @@ public class AttackState {
         }
     }
 
+    public String getWinningPlayer(){
+        return this._winningPlayer;
+    }
+
     private boolean attackOneTerritory(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         Army attackerTerritoryArmy = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
@@ -60,8 +65,11 @@ public class AttackState {
 
         if (attackerDiceRoll > attackedDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
+            this._winningPlayer = PlayerService.getInstance().getPlayerById(attackingPlayerId).getUsername();
         } else {
             dealArmyDefenderWin(attackerTerritoryArmy);
+            this._winningPlayer = PlayerService.getInstance().getPlayerById(_mapService.findTerritory(attackedTerritoryId)
+                    .getOwnerId()).getUsername();
         }
 
         if (attackedTerritoryArmy.getTotalArmyAmount() <= 0) {
@@ -119,19 +127,23 @@ public class AttackState {
         }
     }
 
-    public void validateAttack(int attackerTerritoryId, int defenderTerritoryId) throws AttackError {
+
+    private void validateAttack(int attackerTerritoryId, int defenderTerritoryId, int playerId) throws AttackError {
 
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
-        if (attacker.getTotalArmyAmount() < 2) {
-            throw new AttackError("Insufficent army count");
+        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)){
+            throw new AttackError("Please choose one of your own territories.");
+        }
+        if (attacker.getTotalArmyAmount() <= 2) {
+            throw new AttackError("Insufficient army count");
         }
         if (attacker.getTotalArmyValue() <= defender.getTotalArmyValue()) {
             throw new AttackError("Weak army force");
         }
         if (!isValidAttack(attacker, defender)) {
-            throw new AttackError("Not valid matchup");
+            throw new AttackError("Not valid match-up");
         }
         if (!checkIfAdjacentAndAttackable(attackerTerritoryId, defenderTerritoryId)) {
             throw new AttackError("Territory not adjacent or not enemy territory.");

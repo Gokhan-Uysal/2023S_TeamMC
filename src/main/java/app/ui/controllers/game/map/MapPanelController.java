@@ -9,6 +9,7 @@ import app.domain.models.player.Player;
 import app.domain.services.GameManagerService;
 import app.domain.services.PlayerService;
 import app.domain.services.base.ISubscriber;
+import app.ui.controllers.game.state.AttackPanelController;
 import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.views.game.map.MapPanel;
 
@@ -28,6 +29,7 @@ public class MapPanelController implements ISubscriber<Territory> {
                 _mapPanel.drawTerriotry(trController.getTerritoryComponent());
                 trController.addSubscriber(this);
                 trController.addSubscriber(DistributePanelController.getInstance());
+                trController.addSubscriber(AttackPanelController.getInstance());
             } catch (IOException e) {
                 Logger.error(e);
             }

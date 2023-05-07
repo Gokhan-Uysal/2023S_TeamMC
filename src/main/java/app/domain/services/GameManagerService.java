@@ -87,14 +87,12 @@ public class GameManagerService extends BasePublisher<GameState> {
                 break;
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
-                    System.out.println(_distributeState.isInitialUnitFinished());
-                    updateGameState(GameState.RECEIVING_STATE);
+                    updateGameState(GameState.ATTACK_STATE);
                     _playerService.resatrtTurn();
                     break;
                 }
                 _playerService.turnChange();
                 updateGameState(GameState.DISTRIBUTING_STATE);
-                System.out.println(_distributeState.isInitialUnitFinished());
                 break;
             case RECEIVING_STATE:
                 updateGameState(GameState.ATTACK_STATE);
@@ -151,7 +149,7 @@ public class GameManagerService extends BasePublisher<GameState> {
         for (int i = 0; i < territoryList.size(); i++) {
             Territory territory = territoryList.get(i);
             try {
-                _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.getTerritoryId());
+                _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.get_territoryId());
             } catch (IOException e) {
                 Logger.error(e);
             }
@@ -166,5 +164,11 @@ public class GameManagerService extends BasePublisher<GameState> {
     public void placeInfantryToTerritory(Territory territory, Player player) {
         _distributeState.placeInfantryToTerritory(territory, player.getId());
         handleNextState();
+    }
+
+    public String attack(int attackTerritoryId, int defenderTerritoryId) {
+        Player player = _playerService.getCurrentPlayer();
+        _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
+        return _attackState.getWinningPlayer();
     }
 }

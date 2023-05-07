@@ -106,7 +106,7 @@ public class MapService {
 
 	public Territory findTerritory(int territoryId) {
 		for (Territory territory : this.getTerritoryListFromGraph()) {
-			if (territory.getTerritoryId() == territoryId) {
+			if (territory.get_territoryId() == territoryId) {
 				return territory;
 			}
 		}
@@ -128,7 +128,7 @@ public class MapService {
 		t.setOwnerId(playerId);
 	}
 
-	public Set<Territory> getAdjacentTerritories(Territory territory){
+	public Set<Territory> getAdjacentTerritories(Territory territory) {
 		return _mapGraphService.getEdges(territory);
 	}
 }
