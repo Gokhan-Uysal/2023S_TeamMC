@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
 import app.domain.services.PlayerService;
+import app.ui.views.components.ErrorAlertPanel;
 import app.ui.views.game.state.DistributePanel;
 
 public class DistributePanelController extends BaseStatePanelController implements ActionListener {
@@ -34,9 +35,12 @@ public class DistributePanelController extends BaseStatePanelController implemen
         if (currentSelection == null) {
             return;
         }
-
-        GameManagerService.getInstance().placeInfantryToTerritory(currentSelection,
-                PlayerService.getInstance().getCurrentPlayer());
+        try {
+            GameManagerService.getInstance().placeInfantryToTerritory(currentSelection,
+                    PlayerService.getInstance().getCurrentPlayer());
+        } catch (Error error) {
+            new ErrorAlertPanel(_distributePanel.getRootFrame(_distributePanel), error.getMessage());
+        }
     }
 
     @Override

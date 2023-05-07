@@ -1,12 +1,10 @@
 package app.domain.models.card;
 
 import app.domain.models.army.ArmyUnitType;
-import app.domain.models.army.Infantry;
 import app.domain.models.card.army.ArmyCard;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.card.chance.ChanceCard;
 import app.domain.models.card.territory.TerritoryCard;
-import app.domain.models.game.map.Territory;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -62,19 +60,19 @@ public class MainDecks {
         }
     }
 
-    public void drawTerritoryCard(int territoryId){
+    public void drawTerritoryCard(int territoryId) {
         this._territoryDeck.drawTerritoryCard(territoryId);
     }
 
-    public int armyUnitCardNumbers(ArmyUnitType type){
+    public int armyUnitCardNumbers(ArmyUnitType type) {
         return this._armyDeck.armyUnitCardNumber(type);
     }
 
-    public void drawArmyUnitCard(ArmyUnitType type){
+    public void drawArmyUnitCard(ArmyUnitType type) {
         this._armyDeck.drawArmyUnitCard(type);
     }
 
-    public ArrayList<Integer> territoryIds(){
+    public ArrayList<Integer> territoryIds() {
         return this._territoryDeck.getTerritoryIdsFromTerritoryCards();
     }
 
