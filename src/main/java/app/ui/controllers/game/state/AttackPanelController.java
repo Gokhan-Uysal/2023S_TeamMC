@@ -15,6 +15,7 @@ public class AttackPanelController extends BaseStatePanelController{
     }
 
 
+
     @Override
     public void update(Territory message) {
 
