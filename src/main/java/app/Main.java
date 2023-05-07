@@ -2,12 +2,15 @@ package app;
 
 import javax.swing.SwingUtilities;
 
-import app.ui.views.menu.MainMenuFrame;
+import app.common.AppConfig;
+import app.ui.controllers.menu.login.LoginFrameController;
+import app.ui.views.login.LoginFrame;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new MainMenuFrame();
+            LoginFrame loginFrame = new LoginFrame(AppConfig.appSize);
+            new LoginFrameController(loginFrame);
         });
     }
 }

@@ -48,6 +48,10 @@ public class MapService {
 		return _mapReadService.getGameMapTerritories();
 	}
 
+	public Set<Continent> getContinents() {
+		return _mapReadService.getGameMapContinents();
+	}
+
 	public Territory findTerritory(String territoryName) {
 		for (Territory t : this.getTerritoryListFromGraph()) {
 			if (t.getName().equals(territoryName)) {

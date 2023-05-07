@@ -4,6 +4,7 @@ import app.domain.models.game.GameState;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.AttackPanelController;
+import app.ui.controllers.game.state.CardTradePanelController;
 import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.controllers.game.state.FortifyPanelController;
 import app.ui.views.game.FooterPanel;
@@ -25,7 +26,9 @@ public class FooterPanelController implements ISubscriber<GameState> {
                 break;
             case RECEIVING_STATE:
                 _footerPanel.updateStatePanel(new RecievePanel());
-                _footerPanel.revalidate();
+                break;
+            case TRADE_CARD_STATE:
+                _footerPanel.updateStatePanel(new CardTradePanelController().getCardTradePanel());
                 break;
             case ATTACK_STATE:
                 _footerPanel.updateStatePanel(AttackPanelController.getInstance().getAttackPanel());
@@ -35,7 +38,6 @@ public class FooterPanelController implements ISubscriber<GameState> {
                 break;
             default:
                 _footerPanel.updateStatePanel(null);
-                _footerPanel.revalidate();
         }
     }
 }
