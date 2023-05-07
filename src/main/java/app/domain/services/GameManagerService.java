@@ -87,12 +87,14 @@ public class GameManagerService extends BasePublisher<GameState> {
                 break;
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
+                    System.out.println(_distributeState.isInitialUnitFinished());
                     updateGameState(GameState.RECEIVING_STATE);
                     _playerService.resatrtTurn();
                     break;
                 }
                 _playerService.turnChange();
                 updateGameState(GameState.DISTRIBUTING_STATE);
+                System.out.println(_distributeState.isInitialUnitFinished());
                 break;
             case RECEIVING_STATE:
                 updateGameState(GameState.ATTACK_STATE);
@@ -157,15 +159,12 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public void initilizeArmyUnits(int playerCount) {
-        int unitAmount = 45 - (playerCount - 1) * 5;
+        int unitAmount = (45 - (playerCount - 1) * 5) * playerCount;
         _distributeState.fillArmy(unitAmount);
     }
 
     public void placeInfantryToTerritory(Territory territory, Player player) {
-        boolean result = _distributeState.placeInfantryToTerritory(territory, player.getId());
-        if (result) {
-            handleNextState();
-            return;
-        }
+        _distributeState.placeInfantryToTerritory(territory, player.getId());
+        handleNextState();
     }
 }

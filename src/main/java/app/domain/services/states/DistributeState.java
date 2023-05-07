@@ -25,16 +25,23 @@ public class DistributeState {
         return false;
     }
 
-    public boolean isValidTerritorySelection(Territory territory) {
-        return _mapService.unclaimedTerritorySubPhase(territory);
-    }
-
-    public boolean placeInfantryToTerritory(Territory territory, int playerId) {
-        _initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
-        if (!isValidTerritorySelection(territory)) {
-            throw new Error("Invalid territory placement");
+    public void placeInfantryToTerritory(Territory territory, int playerId) {
+        if (isInitialUnitFinished()) {
+            throw new Error("Initial armies placed");
         }
+        _initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
+        if (!_mapService.unclaimedTerritoryExist()) {
+            if (territory.getOwnerId() != playerId) {
+                throw new Error("Not your territory!");
+            }
+            _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, 1, playerId);
+            return;
+        }
+
+        if (!_mapService.unclaimedTerritorySubPhase(territory)) {
+            throw new Error("Invalid territory selection");
+        }
+
         _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, 1, playerId);
-        return true;
     }
 }
