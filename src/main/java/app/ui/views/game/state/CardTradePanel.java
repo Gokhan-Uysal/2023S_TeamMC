@@ -28,6 +28,10 @@ public class CardTradePanel extends BaseStatePanel {
         return this._tradeButton;
     }
 
+    public JButton getNextPhaseButton() {
+        return this._nextPhaseButton;
+    }
+
     public CardTradePanel() {
         super("Please select the card type you want to trade.");
         this.setLayout(new GridBagLayout());

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import app.domain.models.game.map.Continent;
+import app.domain.services.GameManagerService;
 import app.domain.services.map.MapService;
 import app.ui.views.game.state.CardTradePanel;
 
@@ -31,6 +32,7 @@ public class CardTradePanelController implements ActionListener {
         _cardTradePanel.getTradeArmyCardButton().addActionListener(this);
         _cardTradePanel.getTradeTerritoryCardButton().addActionListener(this);
         _cardTradePanel.getTradeButton().addActionListener(this);
+        _cardTradePanel.getNextPhaseButton().addActionListener(this);
     }
 
     public void fetchData() {
@@ -69,6 +71,10 @@ public class CardTradePanelController implements ActionListener {
         if (e.getSource().equals(_cardTradePanel.getTradeButton())) {
 
             return;
+        }
+
+        if (e.getSource().equals(_cardTradePanel.getNextPhaseButton())) {
+            GameManagerService.getInstance().handleNextState();
         }
     }
 
