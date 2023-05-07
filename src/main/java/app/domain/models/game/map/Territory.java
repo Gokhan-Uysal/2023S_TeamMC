@@ -16,11 +16,11 @@ public class Territory {
     private TerritoryPosition _territoryPosition;
     private Set<String> _adjList;
     private Army _territoryArmy;
-    private int territoryId;
+    private int _territoryId;
     private int _ownerId;
     private boolean _isOpen;
 
-    public boolean get_isOpen() {
+    public boolean getIsOpen() {
         return this._isOpen;
     }
 
@@ -36,7 +36,7 @@ public class Territory {
         this._ownerId = id;
     }
 
-    public Territory(String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
+    public Territory(int id, String name, String imageName, TerritoryPosition territoryPosition, Set<String> adjList) {
         this._name = name;
         this._imageName = imageName;
         this._territoryPosition = territoryPosition;
@@ -44,6 +44,7 @@ public class Territory {
         this._territoryArmy = new Army();
         _ownerId = -1;
         _isOpen = true;
+        this._territoryId = id;
     }
 
     public BufferedImage getImage() throws IOException {
@@ -97,8 +98,8 @@ public class Territory {
         return this._territoryArmy;
     }
 
-    public int getTerritoryId() {
-        return this.territoryId;
+    public int get_territoryId() {
+        return this._territoryId;
     }
 
     @Override

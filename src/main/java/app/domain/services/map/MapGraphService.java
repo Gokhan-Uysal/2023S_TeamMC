@@ -70,7 +70,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
                 for (Territory neighbor : graph.get(current)) {
                     if (!visited.contains(neighbor)) {
-                        if (!neighbor.get_isOpen()) {
+                        if (!neighbor.getIsOpen()) {
                             removedEdgeCount += getEdgeCount(neighbor);
                             continue;
                         }
@@ -90,7 +90,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
     public void removeClosedTerritories() {
         getVerticies().forEach((Territory territory) -> {
-            if (!territory.get_isOpen()) {
+            if (!territory.getIsOpen()) {
                 removeVertex(territory);
             }
         });
