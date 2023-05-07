@@ -23,7 +23,7 @@ public class AttackState {
 
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
-        validateAttack(attackerTerritoryId, attackedTerritoryId);
+        validateAttack(attackerTerritoryId, attackedTerritoryId, attackingPlayerId);
 
         boolean playerCanDrawCard = this.attackOneTerritory(attackingPlayerId,
                 attackerTerritoryId, attackedTerritoryId);
@@ -128,19 +128,22 @@ public class AttackState {
     }
 
 
-    public void validateAttack(int attackerTerritoryId, int defenderTerritoryId) throws AttackError {
+    private void validateAttack(int attackerTerritoryId, int defenderTerritoryId, int playerId) throws AttackError {
 
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
+        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)){
+            throw new AttackError("Please choose one of your own territories.");
+        }
         if (attacker.getTotalArmyAmount() <= 2) {
-            throw new AttackError("Insufficent army count");
+            throw new AttackError("Insufficient army count");
         }
         if (attacker.getTotalArmyValue() <= defender.getTotalArmyValue()) {
             throw new AttackError("Weak army force");
         }
         if (!isValidAttack(attacker, defender)) {
-            throw new AttackError("Not valid matchup");
+            throw new AttackError("Not valid match-up");
         }
         if (!checkIfAdjacentAndAttackable(attackerTerritoryId, defenderTerritoryId)) {
             throw new AttackError("Territory not adjacent or not enemy territory.");
