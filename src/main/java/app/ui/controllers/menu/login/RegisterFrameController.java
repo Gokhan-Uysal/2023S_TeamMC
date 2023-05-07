@@ -36,7 +36,7 @@ public class RegisterFrameController extends Component implements ActionListener
                         FileService.writeData(inputName, inputPassword);
                         JOptionPane.showMessageDialog(registerFrame, "You successfully registered!");
                         registerFrame.dispose();
-                        LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
+                        LoginFrame loginFrame = new LoginFrame(AppConfig.appSize);
                         LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
                     } else {
                         JOptionPane.showMessageDialog(registerFrame, "User already exists!");
@@ -50,7 +50,7 @@ public class RegisterFrameController extends Component implements ActionListener
 
         } else if (e.getSource() == registerFrame.backButton) {
             registerFrame.dispose();
-            LoginFrame loginFrame = new LoginFrame("Login", AppConfig.appSize);
+            LoginFrame loginFrame = new LoginFrame(AppConfig.appSize);
             LoginFrameController loginFrameController = new LoginFrameController(loginFrame);
 
         } else if (e.getSource() == registerFrame.showPasswordBox) {

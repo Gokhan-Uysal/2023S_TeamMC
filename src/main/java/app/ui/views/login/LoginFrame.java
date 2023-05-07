@@ -14,8 +14,8 @@ public class LoginFrame extends BaseJFrame {
     public JButton registerButton;
     public JCheckBox showPasswordBox;
 
-    public LoginFrame(String title, Dimension size) {
-        super(title, size);
+    public LoginFrame(Dimension size) {
+        super("Login", size);
         this.setLayout(null);
         initializeComponents();
 

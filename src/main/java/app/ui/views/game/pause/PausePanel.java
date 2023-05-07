@@ -1,15 +1,14 @@
-package app.ui.views.game.help;
+package app.ui.views.game.pause;
+import app.ui.controllers.game.pausescreen.PausePanelController;
 
 import javax.swing.*;
-
-import app.ui.controllers.game.helpscreen.HelpPanelController;
-
 import java.awt.*;
 
-public class HelpPanel extends JPanel {
-    public JButton helpButton;
+public class PausePanel extends JPanel{
 
-    public HelpPanel() {
+    public JButton pauseButton;
+
+    public PausePanel() {
         buildView();
         initializeComponents();
         addComponents();
@@ -20,10 +19,10 @@ public class HelpPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        helpButton = new JButton("?");
+        pauseButton = new JButton("Pause");
     }
 
     private void addComponents() {
-        this.add(helpButton);
+        this.add(pauseButton);
     }
 }
