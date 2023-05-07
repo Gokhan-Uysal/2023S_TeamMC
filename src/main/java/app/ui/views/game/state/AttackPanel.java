@@ -10,14 +10,19 @@ public class AttackPanel extends BaseStatePanel {
     private JLabel _attackerTerritory;
     private JLabel _defenderTerritory;
     private JButton _attackButton;
+    private JButton _endPhaseButton;
 
     public JButton getAttackButton() {
         return this._attackButton;
     }
 
+    public JButton getEndPhaseButton() {
+        return this._endPhaseButton;
+    }
+
     public AttackPanel() {
         super("Please select the attacker and defender territory.");
-        this.setLayout(new GridLayout(4, 1));
+        this.setLayout(new GridLayout(5, 1));
         initializeComponents();
         addComponents();
     }
@@ -28,6 +33,7 @@ public class AttackPanel extends BaseStatePanel {
         this._defenderTerritory = new JLabel("Please select the defender territory.");
         this._attackButton = new JButton("ATTACK!");
         setButtonActive(false);
+        this._endPhaseButton = new JButton("End Attack Phase!");
     }
 
     @Override
@@ -35,6 +41,7 @@ public class AttackPanel extends BaseStatePanel {
         this.add(_attackerTerritory);
         this.add(_defenderTerritory);
         this.add(_attackButton);
+        this.add(_endPhaseButton);
     }
 
     public void setButtonActive(boolean isActive) {

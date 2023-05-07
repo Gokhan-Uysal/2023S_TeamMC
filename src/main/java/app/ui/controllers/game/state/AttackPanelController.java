@@ -19,6 +19,7 @@ public class AttackPanelController extends BaseStatePanelController implements A
     private AttackPanelController() {
         this._attackPanel = new AttackPanel();
         _attackPanel.getAttackButton().addActionListener(this);
+        _attackPanel.getEndPhaseButton().addActionListener(this);
         _selectedTerritoryIds = new ArrayList<>(2);
     }
 
@@ -42,20 +43,27 @@ public class AttackPanelController extends BaseStatePanelController implements A
             return;
         }
 
-        _selectedTerritoryIds.add(message.get_territoryId());
+        if (_selectedTerritoryIds.size() == 0) {
+            _selectedTerritoryIds.add(0, message.get_territoryId());
+            _attackPanel.updateAttackerTerritory(message.getName());
+            return;
+        }
 
         if (_selectedTerritoryIds.size() == 1) {
-            _attackPanel.updateAttackerTerritory(message.getName());
-        }
-        if (_selectedTerritoryIds.size() == 2) {
+            _selectedTerritoryIds.add(1, message.get_territoryId());
             _attackPanel.updateDefenderTerritory(message.getName());
             _attackPanel.setButtonActive(true);
+            return;
         }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(_attackPanel.getEndPhaseButton())) {
+            GameManagerService.getInstance().handleNextState();
+            return;
+        }
+
         try {
             String winner = GameManagerService.getInstance().attack(_selectedTerritoryIds.get(0),
                     _selectedTerritoryIds.get(1));

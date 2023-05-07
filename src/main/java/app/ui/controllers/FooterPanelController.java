@@ -1,11 +1,11 @@
 package app.ui.controllers;
 
-import app.common.Logger;
 import app.domain.models.game.GameState;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.AttackPanelController;
 import app.ui.controllers.game.state.DistributePanelController;
+import app.ui.controllers.game.state.FortifyPanelController;
 import app.ui.views.game.FooterPanel;
 import app.ui.views.game.state.RecievePanel;
 
@@ -31,7 +31,7 @@ public class FooterPanelController implements ISubscriber<GameState> {
                 _footerPanel.updateStatePanel(AttackPanelController.getInstance().getAttackPanel());
                 break;
             case FORTIFY_STATE:
-                Logger.info("Fortify state");
+                _footerPanel.updateStatePanel(FortifyPanelController.getInstance().getFortifyPanel());
                 break;
             default:
                 _footerPanel.updateStatePanel(null);
