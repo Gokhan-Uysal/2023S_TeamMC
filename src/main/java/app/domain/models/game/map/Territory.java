@@ -97,12 +97,13 @@ public class Territory {
         return this._territoryArmy;
     }
 
-    public int getTerritoryId(){
+    public int getTerritoryId() {
         return this.territoryId;
     }
 
     @Override
     public String toString() {
+        System.out.println(_territoryArmy.getArmyAmount(ArmyUnitType.Infantry));
         String info = "";
         info += _name;
         info += "\s\s";

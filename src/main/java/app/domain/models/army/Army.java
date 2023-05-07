@@ -49,8 +49,8 @@ public class Army {
         this.addArmyUnits(addedUnit, addedAmount);
     }
 
-    public int getArmyAmount(ArmyUnitType type) {
-        return this.armyContainer.get(type).size();
+    public int getArmyAmount(ArmyUnitType infantry) {
+        return this.armyContainer.get(infantry).size();
     }
 
     public int getArmyValue(ArmyUnitType type) {

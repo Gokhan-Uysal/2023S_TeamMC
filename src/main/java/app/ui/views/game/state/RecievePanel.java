@@ -4,6 +4,11 @@ import app.ui.views.components.BaseStatePanel;
 
 public class RecievePanel extends BaseStatePanel {
 
+    public RecievePanel() {
+        super("Place your army units to map");
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
     public void initializeComponents() {
         // TODO Auto-generated method stub

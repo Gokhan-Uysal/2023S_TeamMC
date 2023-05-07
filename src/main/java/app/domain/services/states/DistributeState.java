@@ -10,7 +10,7 @@ public class DistributeState {
     private Army initialArmy;
 
     public DistributeState() {
-        _mapService = new MapService();
+        _mapService = MapService.getInstance();
         initialArmy = new Army();
     }
 
@@ -25,22 +25,16 @@ public class DistributeState {
         return false;
     }
 
-    private Territory getTerritoryById(int territoryId) throws IndexOutOfBoundsException {
-        Territory territory = _mapService.findTerritory(territoryId);
-        return territory;
-    }
-
     public boolean isValidTerritorySelection(Territory territory) {
         return _mapService.unclaimedTerritorySubPhase(territory);
     }
 
-    public boolean placeInfantryToTerritory(int terrtoryId, int playerId) {
+    public boolean placeInfantryToTerritory(Territory territory, int playerId) {
         initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
-        Territory territory = getTerritoryById(terrtoryId);
         if (!isValidTerritorySelection(territory)) {
             throw new Error("Invalid territory placement");
         }
-        _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, terrtoryId, playerId);
+        _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, playerId, playerId);
         return true;
     }
 }

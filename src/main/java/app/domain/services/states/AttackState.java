@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class AttackState {
 
-    private MapService _mapService = new MapService();
+    private MapService _mapService = MapService.getInstance();
 
     public void attack(Army attacker, Army defender) {
         validateAttack(attacker, defender);

@@ -58,7 +58,7 @@ public class GameManagerService extends BasePublisher<GameState> {
         _cardTradeState = new CardTradeState();
         _attackState = new AttackState();
         _fortifyState = new FortifyState();
-        _mapService = new MapService();
+        _mapService = MapService.getInstance();
         _centralDeck = new MainDecks();
         _playerService = PlayerService.getInstance();
     }
@@ -91,7 +91,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                     break;
                 }
                 _playerService.turnChange();
-                System.out.println(_playerService.getCurrentPlayer().get_username());
+                updateGameState(GameState.DISTRIBUTING_STATE);
                 break;
             case RECEIVING_STATE:
                 updateGameState(GameState.ATTACK_STATE);
@@ -160,10 +160,10 @@ public class GameManagerService extends BasePublisher<GameState> {
         _distributeState.fillArmy(unitAmount);
     }
 
-    public void placeInfantryToTerritory(int territoryId, int playerId) {
-        boolean result = _distributeState.placeInfantryToTerritory(territoryId, playerId);
+    public void placeInfantryToTerritory(Territory territory, int playerId) {
+        boolean result = _distributeState.placeInfantryToTerritory(territory, playerId);
         if (result) {
-            updateGameState(GameState.DISTRIBUTING_STATE);
+            handleNextState();
             return;
         }
     }

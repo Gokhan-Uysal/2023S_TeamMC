@@ -6,6 +6,6 @@ public class RecieveState {
     private MapService _mapService;
 
     public RecieveState() {
-        _mapService = new MapService();
+        _mapService = MapService.getInstance();
     }
 }

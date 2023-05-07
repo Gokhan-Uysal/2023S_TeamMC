@@ -9,12 +9,20 @@ import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
 
 public class MapService {
+	private static MapService _instance;
 	private MapReadService _mapReadService;
 	private MapGraphService _mapGraphService;
 
-	public MapService() {
+	private MapService() {
 		this._mapReadService = new MapReadService(AppConfig.basePath + "/__resource__/map.json");
 		this._mapGraphService = new MapGraphService();
+	}
+
+	public static MapService getInstance() {
+		if (_instance == null) {
+			_instance = new MapService();
+		}
+		return _instance;
 	}
 
 	public void loadGameMapDataToGraph() {
@@ -78,20 +86,10 @@ public class MapService {
 				.collect(Collectors.toList());
 	}
 
-	// public boolean isValidFortify(int infantryAmount, int cavalryAmount, int
-	// artilleryAmount,
-	// int territoryId) {
-	// Army foundTerritoryArmy = this.findTerritory(territoryId).getTerritoryArmy();
-	// return ((infantryAmount + cavalryAmount + artilleryAmount) <
-	// foundTerritoryArmy.getTotalArmyAmount() &&
-	// (infantryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) &&
-	// cavalryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) &&
-	// artilleryAmount < foundTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery)));
-	// }
-
 	public void placeArmyUnit(Territory territory, ArmyUnitType type, int amount, int playerId) {
 		territory.getTerritoryArmy().addArmyUnits(type, amount);
 		territory.setOwnerId(playerId);
+		System.out.println(territory.getTerritoryArmy().getArmyAmount(ArmyUnitType.Infantry));
 	}
 
 	public boolean unclaimedTerritoryExist() {
@@ -107,26 +105,26 @@ public class MapService {
 		return this.unclaimedTerritoryExist() && territory.getOwnerId() == -1;
 	}
 
-	public Territory findTerritory(int territoryId){
-		for (Territory territory: this.getTerritoryListFromGraph()){
-			if (territory.getTerritoryId() == territoryId){
+	public Territory findTerritory(int territoryId) {
+		for (Territory territory : this.getTerritoryListFromGraph()) {
+			if (territory.getTerritoryId() == territoryId) {
 				return territory;
 			}
 		}
 		return null;
 	}
 
-	public ArrayList<Territory> findTerritories(ArrayList<Integer> territoryIds){
+	public ArrayList<Territory> findTerritories(ArrayList<Integer> territoryIds) {
 
 		ArrayList<Territory> territories = new ArrayList<>();
-		for (Integer id: territoryIds){
+		for (Integer id : territoryIds) {
 			territories.add(findTerritory(id));
 		}
 
 		return territories;
 	}
 
-	public void changeOwnerOfTerritory(int playerId, int territoryId){
+	public void changeOwnerOfTerritory(int playerId, int territoryId) {
 		Territory t = findTerritory(territoryId);
 		t.setOwnerId(playerId);
 	}
