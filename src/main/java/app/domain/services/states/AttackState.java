@@ -51,6 +51,10 @@ public class AttackState {
         }
     }
 
+    public String getWinningPlayer(){
+        return this._winningPlayer;
+    }
+
     private boolean attackOneTerritory(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         Army attackerTerritoryArmy = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();

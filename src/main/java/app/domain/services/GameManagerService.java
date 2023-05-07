@@ -166,8 +166,9 @@ public class GameManagerService extends BasePublisher<GameState> {
         handleNextState();
     }
 
-    public void attack(int attackTerritoryId, int defenderTerritoryId) {
+    public String attack(int attackTerritoryId, int defenderTerritoryId) {
         Player player = _playerService.getCurrentPlayer();
         _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
+        return _attackState.getWinningPlayer();
     }
 }
