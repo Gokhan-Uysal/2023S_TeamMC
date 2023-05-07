@@ -1,12 +1,10 @@
 package app.domain.models.card;
 
 import app.domain.models.army.ArmyUnitType;
-import app.domain.models.army.Infantry;
 import app.domain.models.card.army.ArmyCard;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.card.chance.ChanceCard;
 import app.domain.models.card.territory.TerritoryCard;
-import app.domain.models.game.map.Territory;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
