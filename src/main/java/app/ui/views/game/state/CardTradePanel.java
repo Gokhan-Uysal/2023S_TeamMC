@@ -9,7 +9,6 @@ public class CardTradePanel extends BaseStatePanel {
 
     private JButton _tradeArmyCardButton;
     private JButton _tradeTerritoryCardButton;
-    private JButton _tradeButton;
     private JButton _nextPhaseButton;
     public JComboBox<Integer> infantryCardBox;
     public JComboBox<Integer> cavalryCardBox;
@@ -22,10 +21,6 @@ public class CardTradePanel extends BaseStatePanel {
 
     public JButton getTradeTerritoryCardButton() {
         return this._tradeTerritoryCardButton;
-    }
-
-    public JButton getTradeButton() {
-        return this._tradeButton;
     }
 
     public JButton getNextPhaseButton() {
@@ -59,7 +54,6 @@ public class CardTradePanel extends BaseStatePanel {
     public void initializeComponents() {
         this._tradeArmyCardButton = new JButton("Trade army cards.");
         this._tradeTerritoryCardButton = new JButton("Trade territory cards.");
-        this._tradeButton = new JButton("Trade.");
         this._nextPhaseButton = new JButton("Next phase ->");
 
         this.infantryCardBox = new JComboBox<>();
@@ -88,20 +82,29 @@ public class CardTradePanel extends BaseStatePanel {
         constraint.gridwidth = 1;
         this.add(_tradeArmyCardButton, constraint);
 
+        // New row with Cavalry, Artillery, Infantry
         constraint.gridx = 1;
         constraint.gridy = 1;
+        this.add(new JLabel("Infantry"), constraint);
+
+        constraint.gridx = 2;
+        this.add(new JLabel("Cavalry"), constraint);
+
+        constraint.gridx = 3;
+        this.add(new JLabel("Artillery"), constraint);
+
+        constraint.gridx = 1;
+        constraint.gridy = 2;
         this.add(infantryCardBox, constraint);
 
         constraint.gridx = 2;
-        constraint.gridy = 1;
         this.add(cavalryCardBox, constraint);
 
         constraint.gridx = 3;
-        constraint.gridy = 1;
         this.add(artilleryCardBox, constraint);
 
         constraint.gridx = 0;
-        constraint.gridy = 2;
+        constraint.gridy = 3;
         constraint.gridwidth = 1;
         this.add(_tradeTerritoryCardButton, constraint);
 
@@ -109,13 +112,8 @@ public class CardTradePanel extends BaseStatePanel {
         constraint.gridwidth = 2;
         this.add(continentListBox, constraint);
 
-        constraint.gridx = 0;
-        constraint.gridy = 3;
-        constraint.gridwidth = 1;
-        this.add(_tradeButton, constraint);
-
         constraint.gridx = 1;
-        constraint.gridy = 3;
+        constraint.gridy = 4;
         this.add(_nextPhaseButton, constraint);
 
     }

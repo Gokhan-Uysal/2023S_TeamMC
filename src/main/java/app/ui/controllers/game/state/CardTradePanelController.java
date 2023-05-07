@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+import app.common.Logger;
 import app.domain.models.game.map.Continent;
 import app.domain.services.GameManagerService;
 import app.domain.services.map.MapService;
@@ -31,7 +32,6 @@ public class CardTradePanelController implements ActionListener {
     public void setupActionListeners() {
         _cardTradePanel.getTradeArmyCardButton().addActionListener(this);
         _cardTradePanel.getTradeTerritoryCardButton().addActionListener(this);
-        _cardTradePanel.getTradeButton().addActionListener(this);
         _cardTradePanel.getNextPhaseButton().addActionListener(this);
     }
 
@@ -59,17 +59,12 @@ public class CardTradePanelController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(_cardTradePanel.getTradeArmyCardButton())) {
-
+            Logger.info("Under construction backend is ready");
             return;
         }
 
         if (e.getSource().equals(_cardTradePanel.getTradeTerritoryCardButton())) {
-
-            return;
-        }
-
-        if (e.getSource().equals(_cardTradePanel.getTradeButton())) {
-
+            Logger.info("Under construction backend is ready");
             return;
         }
 
