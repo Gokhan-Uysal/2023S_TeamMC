@@ -33,7 +33,7 @@ public class CardTradeState {
 
             for (Territory t : territoryList) {
                 GameManagerService.getInstance().getCentralDeck().addTerritoryCards("Territory card.", null,
-                        t.getTerritoryId());
+                        t.get_territoryId());
             }
         }
     }
@@ -51,7 +51,7 @@ public class CardTradeState {
                     opponentPlayer = PlayerService.getInstance().getPlayer(t.getOwnerId());
                     t.setOwnerId(tradingPlayer.getId());
                 }
-                tradingPlayer.getPlayerDecks().drawTerritoryCard(t.getTerritoryId());
+                tradingPlayer.getPlayerDecks().drawTerritoryCard(t.get_territoryId());
             }
             return true;
         }

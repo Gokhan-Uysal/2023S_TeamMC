@@ -5,7 +5,6 @@ import app.domain.models.card.army.ArtilleryCard;
 import app.domain.models.card.army.CavalryCard;
 import app.domain.models.card.army.InfantryCard;
 import app.domain.models.card.territory.TerritoryCard;
-import app.domain.models.game.map.Territory;
 
 import java.util.*;
 

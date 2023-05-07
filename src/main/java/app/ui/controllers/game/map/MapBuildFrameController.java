@@ -3,8 +3,8 @@ package app.ui.controllers.game.map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import app.common.Logger;
 import app.domain.services.GameManagerService;
+import app.ui.views.components.ErrorAlertPanel;
 import app.ui.views.game.GameFrame;
 import app.ui.views.menu.playermenu.MapBuildFrame;
 
@@ -23,7 +23,7 @@ public class MapBuildFrameController implements ActionListener {
             GameManagerService.getInstance().handleNextState();
             _mapBuildFrame.dispose();
         } else {
-            Logger.warning("Wrong territory adjustemnt");
+            new ErrorAlertPanel(_mapBuildFrame, "Invalid map configuration");
         }
     }
 }
