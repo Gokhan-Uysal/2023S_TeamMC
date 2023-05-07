@@ -5,7 +5,9 @@ import java.util.List;
 
 import app.common.Logger;
 import app.domain.models.game.map.Territory;
+import app.domain.models.player.Player;
 import app.domain.services.GameManagerService;
+import app.domain.services.PlayerService;
 import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.views.game.map.MapPanel;
@@ -38,7 +40,15 @@ public class MapPanelController implements ISubscriber<Territory> {
 
     @Override
     public void update(Territory message) {
-        _mapPanel.updateMapInfo(message.getName(), message.getInfantryCount(), message.getChivalryCount(),
-                message.getArtilleryCount());
+        try {
+            Player player = PlayerService.getInstance().getPlayerById(message.getOwnerId());
+            _mapPanel.updateMapInfo(player.getUsername(), message.getName(), message.getInfantryCount(),
+                    message.getChivalryCount(),
+                    message.getArtilleryCount());
+        } catch (Error e) {
+            _mapPanel.updateMapInfo("Not occupied", message.getName(), message.getInfantryCount(),
+                    message.getChivalryCount(),
+                    message.getArtilleryCount());
+        }
     }
 }

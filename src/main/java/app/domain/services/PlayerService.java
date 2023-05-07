@@ -56,6 +56,15 @@ public class PlayerService {
         return _players.size();
     }
 
+    public Player getPlayerById(int id) {
+        for (Player player : _players) {
+            if (player.getId() == id) {
+                return player;
+            }
+        }
+        throw new Error(String.format("Player not found by: %d\n", id));
+    }
+
     public void turnChange() {
         if (_currentPlayerId == _players.size() - 1) {
             _currentPlayerId = 0;

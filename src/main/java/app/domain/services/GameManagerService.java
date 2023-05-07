@@ -161,8 +161,8 @@ public class GameManagerService extends BasePublisher<GameState> {
         _distributeState.fillArmy(unitAmount);
     }
 
-    public void placeInfantryToTerritory(Territory territory, int playerId) {
-        boolean result = _distributeState.placeInfantryToTerritory(territory, playerId);
+    public void placeInfantryToTerritory(Territory territory, Player player) {
+        boolean result = _distributeState.placeInfantryToTerritory(territory, player.getId());
         if (result) {
             handleNextState();
             return;
