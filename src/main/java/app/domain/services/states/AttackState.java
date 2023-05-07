@@ -155,6 +155,7 @@ public class AttackState {
         return false;
     }
 
+
     private boolean checkIfAdjacentAndAttackable(int attackerTerritoryId, int defenderTerritoryId) {
 
         Territory attackerTerritory = _mapService.findTerritory(attackerTerritoryId);
