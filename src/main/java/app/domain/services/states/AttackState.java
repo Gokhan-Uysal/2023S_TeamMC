@@ -127,6 +127,7 @@ public class AttackState {
         }
     }
 
+
     public void validateAttack(int attackerTerritoryId, int defenderTerritoryId) throws AttackError {
 
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
