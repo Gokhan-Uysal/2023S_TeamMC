@@ -11,14 +11,14 @@ import java.util.Map;
 public abstract class BaseRepository {
     private final String tableName;
 
-    protected BaseRepository(String tableName) {
+    public BaseRepository(String tableName) {
         this.tableName = tableName;
     }
 
     /*
      * Database CRUD operations
      */
-    protected ResultSet getItemById(int id) throws SQLException {
+    protected ResultSet getById(int id) throws SQLException {
         String query = String.format("SELECT * FROM %s WHERE id=%d", this.tableName, id);
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();
@@ -30,7 +30,7 @@ public abstract class BaseRepository {
         throw new SQLException("Query execution failed");
     }
 
-    protected <T> ResultSet getManyItems(Map<String, T> searchQuery) throws SQLException {
+    protected <T> ResultSet getMany(Map<String, T> searchQuery) throws SQLException {
         String mappedQuery = mapQuery(searchQuery);
         String query = String.format("SELECT * FROM %s WHERE %s", this.tableName, mappedQuery);
         Connection connection = ConnectionPool.getValidConnection();
@@ -43,7 +43,7 @@ public abstract class BaseRepository {
         throw new SQLException("Query execution failed");
     }
 
-    protected <T> ResultSet getManyItems(Map<String, T> searchQuery, int limit, int offset) throws SQLException {
+    protected <T> ResultSet getMany(Map<String, T> searchQuery, int limit, int offset) throws SQLException {
         String mappedQuery = mapQuery(searchQuery);
         String query = String.format("SELECT * FROM %s WHERE %s LIMIT %s OFFSET %s", this.tableName, mappedQuery, limit,
                 offset);
@@ -57,7 +57,7 @@ public abstract class BaseRepository {
         throw new SQLException("Query execution failed");
     }
 
-    protected <T> ResultSet getManyItems(int limit, int offset) throws SQLException {
+    protected <T> ResultSet getMany(int limit, int offset) throws SQLException {
         String query = String.format("SELECT * FROM %s LIMIT %s OFFSET %s", this.tableName, limit, offset);
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();
