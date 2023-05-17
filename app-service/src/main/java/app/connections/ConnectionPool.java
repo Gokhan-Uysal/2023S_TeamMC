@@ -15,7 +15,7 @@ public class ConnectionPool implements Runnable {
             "jdbc:postgresql://%s:%s/%s?user=%s&password=%s",
             EnvService.getEnv("POSTGRES_HOST"),
             EnvService.getEnv("POSTGRES_PORT"),
-            EnvService.getEnv("POSTGRES_DATABASE"),
+            EnvService.getEnv("POSTGRES_DB"),
             EnvService.getEnv("POSTGRES_USER"),
             EnvService.getEnv("POSTGRES_PASSWORD"));
 
