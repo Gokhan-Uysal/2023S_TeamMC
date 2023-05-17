@@ -38,16 +38,11 @@ public class Army {
         }
     }
 
-    public void tradeArmyUnits(ArmyUnitType tradedUnit, int tradedAmount, ArmyUnitType addedUnit, int addedAmount) {
-        this.getArmyUnits(tradedUnit, tradedAmount);
-        this.addArmyUnits(addedUnit, addedAmount);
-    }
-
     public void tradeArmyUnits(ArmyUnitType tradedUnit1, int tradedAmount1, ArmyUnitType tradedUnit2, int tradedAmount2,
-            ArmyUnitType addedUnit, int addedAmount) {
+            ArmyUnitType addedUnit) {
         this.getArmyUnits(tradedUnit1, tradedAmount1);
         this.getArmyUnits(tradedUnit2, tradedAmount2);
-        this.addArmyUnits(addedUnit, addedAmount);
+        this.addArmyUnits(addedUnit, 1);
     }
 
     public int getArmyAmount(ArmyUnitType type) {
