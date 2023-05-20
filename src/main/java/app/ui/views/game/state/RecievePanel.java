@@ -7,9 +7,9 @@ import java.awt.*;
 
 public class RecievePanel extends BaseStatePanel {
 
-    private JLabel _recievedUnitNumberLabel;
+    private JLabel _receivedUnitNumberLabel;
     private JLabel _selectedTerritoryLabel;
-    private JButton _nextPhaseButton;
+    private JButton _placeUnitsButton;
 
     public RecievePanel() {
         super("Place your army units to map");
@@ -20,21 +20,39 @@ public class RecievePanel extends BaseStatePanel {
 
     @Override
     public void initializeComponents() {
-        this._recievedUnitNumberLabel = new JLabel("You have recieved: ");
+        this._receivedUnitNumberLabel = new JLabel("You have received: ");
         this._selectedTerritoryLabel = new JLabel("Please select the territory that you want to place your units.");
-        this._nextPhaseButton = new JButton("Go to the trading phase.");
+        this._placeUnitsButton = new JButton("Place army units.");
         setButtonActive(false);
     }
 
     @Override
     public void addComponents() {
-        this.add(_recievedUnitNumberLabel);
+        this.add(_receivedUnitNumberLabel);
         this.add(_selectedTerritoryLabel);
-        this.add(_nextPhaseButton);
+        this.add(_placeUnitsButton);
     }
 
     public void setButtonActive(boolean isActive) {
-        _nextPhaseButton.setEnabled(isActive);
+        _placeUnitsButton.setEnabled(!isActive);
+    }
+
+    public void updateSelectedTerritory(String territoryName){
+        _selectedTerritoryLabel.setText(String.format("The selected territory is %s.\n", territoryName));
+        this.refresh();
+    }
+
+    public void refresh(){
+        this.revalidate();
+        this.repaint();
+    }
+
+    public JButton getPlaceUnitsButton(){
+        return this._placeUnitsButton;
+    }
+
+    public void setReceivedUnitNumber(int armyUnitNumber){
+        this._receivedUnitNumberLabel.setText(String.format("You have received %d units.", armyUnitNumber));
     }
 
 }

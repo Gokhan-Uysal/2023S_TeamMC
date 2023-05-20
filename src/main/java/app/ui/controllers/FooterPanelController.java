@@ -3,10 +3,7 @@ package app.ui.controllers;
 import app.domain.models.game.GameState;
 import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
-import app.ui.controllers.game.state.AttackPanelController;
-import app.ui.controllers.game.state.CardTradePanelController;
-import app.ui.controllers.game.state.DistributePanelController;
-import app.ui.controllers.game.state.FortifyPanelController;
+import app.ui.controllers.game.state.*;
 import app.ui.views.game.FooterPanel;
 import app.ui.views.game.state.RecievePanel;
 
@@ -25,7 +22,7 @@ public class FooterPanelController implements ISubscriber<GameState> {
                 _footerPanel.updateStatePanel(DistributePanelController.getInstance().getDistributePanel());
                 break;
             case RECEIVING_STATE:
-                _footerPanel.updateStatePanel(new RecievePanel());
+                _footerPanel.updateStatePanel(ReceivePanelController.getInstance().getReceivePanel());
                 break;
             case TRADE_CARD_STATE:
                 _footerPanel.updateStatePanel(new CardTradePanelController().getCardTradePanel());

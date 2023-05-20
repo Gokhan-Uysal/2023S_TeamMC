@@ -101,7 +101,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                 updateGameState(GameState.ATTACK_STATE);
                 break;
             case ATTACK_STATE:
-                updateGameState(GameState.FORTIFY_STATE);
+                updateGameState(GameState.RECEIVING_STATE);
                 break;
             case FORTIFY_STATE:
                 if (_isGameFinished) {
@@ -167,6 +167,15 @@ public class GameManagerService extends BasePublisher<GameState> {
     public void placeInfantryToTerritory(Territory territory, Player player) {
         _distributeState.placeInfantryToTerritory(territory, player.getId());
         handleNextState();
+    }
+
+    public void receiveUnits(int territoryId){
+        _recieveState.placeRecievedUnits(territoryId);
+        handleNextState();
+    }
+
+    public int receivedUnitNumber(){
+        return _recieveState.receivedUnitAmount();
     }
 
     public String attack(int attackTerritoryId, int defenderTerritoryId) {

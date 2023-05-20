@@ -15,15 +15,7 @@ public class RecieveState {
     }
 
     public void placeRecievedUnits(int territoryId){
-        int armyUnitNumber = 0;
-        int territoryNumber = _playerService.numberOfTerritories(_playerService.getCurrentPlayer().getId());
-
-        if (territoryNumber <= 9){
-            armyUnitNumber = 3;
-        }
-        else{
-            armyUnitNumber = territoryNumber / 3;
-        }
+        int armyUnitNumber = receivedUnitAmount();
 
         Territory placementTerritory = _mapService.findTerritory(territoryId);
         if (placementTerritory.getOwnerId() == _playerService.getCurrentPlayer().getId()){
@@ -31,6 +23,15 @@ public class RecieveState {
         }
         else{
             throw new Error("Select one of your own territories.");
+        }
+    }
+
+    public int receivedUnitAmount(){
+        if (_playerService.numberOfTerritories(_playerService.getCurrentPlayer().getId()) <= 9){
+            return 3;
+        }
+        else{
+            return _playerService.numberOfTerritories(_playerService.getCurrentPlayer().getId()) / 3;
         }
     }
 }
