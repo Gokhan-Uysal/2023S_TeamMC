@@ -164,7 +164,7 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     public void initilizeArmyUnits(int playerCount) {
         int unitAmount = (45 - (playerCount - 1) * 5) * playerCount;
-        _distributeState.fillArmy(10);
+        _distributeState.fillArmy(unitAmount);
     }
 
     public void placeInfantryToTerritory(Territory territory, Player player) {
