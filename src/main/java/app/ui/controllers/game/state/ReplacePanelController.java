@@ -40,6 +40,10 @@ public class ReplacePanelController extends BaseStatePanelController implements 
         _replacePanel.addItemToComboBox(_replacePanel.getCavalryAmountComboBox(), 2);
     }
 
+    public ReplacePanel getReplacePanel(){
+        return this._replacePanel;
+    }
+
 
     @Override
     public void update(Territory message) {

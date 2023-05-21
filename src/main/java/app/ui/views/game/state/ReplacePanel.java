@@ -79,28 +79,33 @@ public class ReplacePanel extends BaseStatePanel {
         constraints.gridwidth = 4;
         this.add(_selectedTerritoryLabel, constraints);
 
-        constraints.gridx = 1;
-        constraints.gridy = 1;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         this.add(new JLabel("Infantry"), constraints);
 
         constraints.gridx = 2;
-        this.add(new JLabel("Cavalry"), constraints);
-
-        constraints.gridx = 1;
         constraints.gridy = 2;
-        this.add(_infantryAmountComboBox);
-
-        constraints.gridx = 2;
-        this.add(_cavalryAmountComboBox);
+        this.add(new JLabel("Cavalry"), constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 3;
         constraints.gridwidth = 1;
+        this.add(_infantryAmountComboBox, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 3;
+        constraints.gridwidth = 1;
+        this.add(_cavalryAmountComboBox, constraints);
+
+        constraints.gridx = 4;
+        constraints.gridy = 3;
+        constraints.gridwidth = 1;
         this.add(_tradeUnitsButton, constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        this.add(_nextPhaseButton);
+        constraints.gridx = 2;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        this.add(_nextPhaseButton, constraints);
 
     }
 }
