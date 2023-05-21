@@ -27,6 +27,24 @@ public class ReplacePanel extends BaseStatePanel {
         return this._nextPhaseButton;
     }
 
+    public JComboBox<Integer> getInfantryAmountComboBox(){
+        return this._infantryAmountComboBox;
+    }
+
+    public JComboBox<Integer> getCavalryAmountComboBox(){
+        return this._cavalryAmountComboBox;
+    }
+
+    public void updateTerritoryLabel(String territoryName){
+        this._selectedTerritoryLabel.setText(String.format("Selected territory: %s.", territoryName));
+        this.refresh();
+    }
+
+    public void refresh(){
+        this.revalidate();
+        this.repaint();
+    }
+
     public void addItemToComboBox(JComboBox<Integer> comboBox, int number){
         comboBox.addItem(number);
     }

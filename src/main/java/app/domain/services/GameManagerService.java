@@ -174,4 +174,8 @@ public class GameManagerService extends BasePublisher<GameState> {
         _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
         return _attackState.getWinningPlayer();
     }
+
+    public void tradeArmyUnits(int infantryAmount, int cavalryAmount, int territoryId){
+        _replaceState.replaceUnits(infantryAmount, cavalryAmount, territoryId);
+    }
 }
