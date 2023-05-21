@@ -22,6 +22,22 @@ public class FortifyPanel extends BaseStatePanel {
         return this._nextPhaseButton;
     }
 
+    public JComboBox<Integer> getInfantryComboBox(){
+        return this._infantryComboBox;
+    }
+
+    public JComboBox<Integer> getCavalryComboBox(){
+        return this._cavalryComboBox;
+    }
+
+    public JComboBox<Integer> getArtilleryComboBox(){
+        return this._artilleryComboBox;
+    }
+
+    public void addItemToArmyBox(JComboBox<Integer> armyBox, Integer number){
+        armyBox.addItem(number);
+    }
+
     public FortifyPanel() {
         super("Choose the territories to be fortified.");
         this.setLayout(new GridBagLayout());
@@ -53,6 +69,20 @@ public class FortifyPanel extends BaseStatePanel {
 
     public void setButtonActivate(boolean isActive){
         _fortifyButton.setEnabled(isActive);
+    }
+
+    public void updateStartTerritory(String territory){
+        this._startTerritoryLabel.setText(String.format("The start territory is: %s.", territory));
+    }
+
+    public void updateDestinationTerritory(String territory){
+        this._destinationTerritoryLabel.setText(String.format("The destination territory is: %s.", territory));
+    }
+
+    public void clearLabels(){
+        this._startTerritoryLabel.setText("Choose the starting territory.");
+        this._destinationTerritoryLabel.setText("Choose the destination territory.");
+        this.refresh();
     }
 
 }
