@@ -41,6 +41,8 @@ public class FortifyPanel extends BaseStatePanel {
     public FortifyPanel() {
         super("Choose the territories to be fortified.");
         this.setLayout(new GridBagLayout());
+        initializeComponents();
+        addComponents();
     }
 
     @Override
@@ -58,8 +60,54 @@ public class FortifyPanel extends BaseStatePanel {
 
     @Override
     public void addComponents() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addComponents'");
+        GridBagConstraints constraint = new GridBagConstraints();
+
+        constraint.anchor = GridBagConstraints.CENTER;
+        constraint.weightx = 0.5;
+        constraint.weighty = 0.5;
+
+        constraint.gridx = 0;
+        constraint.gridy = 0;
+        constraint.gridwidth = 4;
+        constraint.gridheight = 1;
+
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        this.add(super._infoLabel, constraint);
+
+        constraint.gridx = 0;
+        constraint.gridy = 1;
+        this.add(_startTerritoryLabel, constraint);
+
+        constraint.gridy = 2;
+        this.add(_destinationTerritoryLabel, constraint);
+
+        constraint.gridy = 3;
+        constraint.gridwidth = 1;
+        this.add(new JLabel("Infantry"), constraint);
+
+        constraint.gridx = 1;
+        this.add(new JLabel("Cavalry"), constraint);
+
+        constraint.gridx = 2;
+        this.add(new JLabel("Artillery"), constraint);
+
+        constraint.gridx = 0;
+        constraint.gridy = 4;
+        this.add(_infantryComboBox, constraint);
+
+        constraint.gridx = 1;
+        this.add(_cavalryComboBox, constraint);
+
+        constraint.gridx = 2;
+        this.add(_artilleryComboBox, constraint);
+
+        constraint.gridx = 5;
+        constraint.gridy = 1;
+        constraint.gridwidth = 2;
+        this.add(_fortifyButton, constraint);
+
+        constraint.gridy = 2;
+        this.add(_nextPhaseButton, constraint);
     }
 
     public void refresh(){
