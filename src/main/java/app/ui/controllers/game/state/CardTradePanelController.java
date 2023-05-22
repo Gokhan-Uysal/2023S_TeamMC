@@ -70,6 +70,7 @@ public class CardTradePanelController implements ActionListener {
 
         if (e.getSource().equals(_cardTradePanel.getNextPhaseButton())) {
             GameManagerService.getInstance().handleNextState();
+            return;
         }
     }
 
