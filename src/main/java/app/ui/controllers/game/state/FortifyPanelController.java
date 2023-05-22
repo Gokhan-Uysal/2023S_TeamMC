@@ -8,6 +8,7 @@ import app.ui.views.game.state.FortifyPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FortifyPanelController extends BaseStatePanelController implements ActionListener {
@@ -29,6 +30,9 @@ public class FortifyPanelController extends BaseStatePanelController implements 
 
     private FortifyPanelController() {
         this._fortifyPanel = new FortifyPanel();
+        this._selectedTerritoryIDs = new ArrayList<>();
+        setupActionListeners();
+        initializePanel();
     }
 
     @Override
