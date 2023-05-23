@@ -102,4 +102,15 @@ public class PlayerService {
             player.getPlayerDecks().emptyDeck();
         }
     }
+
+    public ArrayList<String> getTerritoryCardNames(int playerId){
+        ArrayList<String> territoryNames = new ArrayList<>();
+        ArrayList<Territory> territoryList = this.getTerritoriesFromTerritoryCards(playerId);
+
+        for (Territory territory: territoryList){
+            territoryNames.add(territory.getName());
+        }
+
+        return territoryNames;
+    }
 }
