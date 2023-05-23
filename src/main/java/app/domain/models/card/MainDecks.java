@@ -90,4 +90,14 @@ public class MainDecks {
     public boolean isEmpty(){
         return _territoryDeck.isEmpty() && _armyDeck.isEmpty();
     }
+
+    public boolean isEmpty(DeckType deckType){
+        if (deckType.equals(DeckType.Army)){
+            return _armyDeck.isEmpty();
+        }
+        else if (deckType.equals(DeckType.Territory)){
+            return _territoryDeck.isEmpty();
+        }
+        return false;
+    }
 }
