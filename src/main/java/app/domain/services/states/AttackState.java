@@ -30,7 +30,16 @@ public class AttackState {
 
         if (playerCanDrawCard) {
             Player winningPlayer = PlayerService.getInstance().getCurrentPlayer();
-            BaseCard drawnCard = GameManagerService.getInstance().getCentralDeck().drawCard(DeckType.Army);
+            BaseCard drawnCard;
+
+            Random rand = new Random();
+            int armyOrTerritory = rand.nextInt(2);
+            if (armyOrTerritory == 0){
+                drawnCard = GameManagerService.getInstance().getCentralDeck().drawCard(DeckType.Army);
+            }
+            else {
+                drawnCard = GameManagerService.getInstance().getCentralDeck().drawCard(DeckType.Territory);
+            }
 
             switch (drawnCard.getName()) {
                 case "InfantryCard" -> {
@@ -42,7 +51,7 @@ public class AttackState {
                 case "ArtilleryCard" -> {
                     winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
                 }
-                case "TerritoryCard" -> {
+                default -> {
                     TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
                     winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
                             tDrawnCard.getImage(), tDrawnCard.getTerritoryId());

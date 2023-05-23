@@ -50,10 +50,6 @@ public class CardTradePanel extends BaseStatePanel {
         comboBox.addItem(item);
     }
 
-    public void clearTerritoryLabel(){
-        this._selectedTerritoryLabel.setText("Please select the territory you want to place your armies on.");
-    }
-
     public void clearTerritoryCardLabel(){
         this._territoryCardLabel.setText("Your territory cards:\n");
     }
@@ -67,13 +63,15 @@ public class CardTradePanel extends BaseStatePanel {
     }
 
     public void updateTerritoryCardLabel(ArrayList<String> territoryNames){
+        this.clearTerritoryCardLabel();
         for (String territoryName: territoryNames){
-            this._territoryCardLabel.setText(_territoryCardLabel.getText() + String.format("%s, ", territoryName));
+            this._territoryCardLabel.setText(_territoryCardLabel.getText() + "\n" + String.format("%s, ", territoryName));
         }
     }
 
     public void updateArmyCardLabel(int iAmount, int cAmount, int aAmount){
-        this._armyCardLabel.setText(this._armyCardLabel.getText() + String.format("Infantry: %d, Cavalry: %d, Artillery: %d", iAmount, cAmount, aAmount));
+        this.clearArmyCardLabel();
+        this._armyCardLabel.setText(this._armyCardLabel.getText() + "\n" + String.format("Infantry: %d, Cavalry: %d, Artillery: %d", iAmount, cAmount, aAmount));
     }
 
     @Override
@@ -157,7 +155,7 @@ public class CardTradePanel extends BaseStatePanel {
         this.add(_territoryCardLabel, constraint);
 
         constraint.gridy = 4;
-        this.add(_armyCardLabel);
+        this.add(_armyCardLabel, constraint);
     }
 
     public void refresh(){
