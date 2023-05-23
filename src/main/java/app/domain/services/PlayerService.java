@@ -96,4 +96,10 @@ public class PlayerService {
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId){
         return playerId == _mapService.findTerritory(territoryId).getOwnerId();
     }
+
+    public void emptyPlayerDecks(){
+        for (Player player: this._players){
+            player.getPlayerDecks().emptyDeck();
+        }
+    }
 }
