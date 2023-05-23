@@ -103,9 +103,9 @@ public class PlayerService {
         }
     }
 
-    public ArrayList<String> getTerritoryCardNames(int playerId){
+    public ArrayList<String> getTerritoryCardNames(){
         ArrayList<String> territoryNames = new ArrayList<>();
-        ArrayList<Territory> territoryList = this.getTerritoriesFromTerritoryCards(playerId);
+        ArrayList<Territory> territoryList = this.getTerritoriesFromTerritoryCards(_currentPlayerId);
 
         for (Territory territory: territoryList){
             territoryNames.add(territory.getName());

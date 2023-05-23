@@ -182,4 +182,12 @@ public class GameManagerService extends BasePublisher<GameState> {
         _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
         return _attackState.getWinningPlayer();
     }
+
+    public void tradeArmyCards(int iAmount, int cAmount, int aAmount, int territoryId){
+        _cardTradeState.tradeArmyCards(iAmount, cAmount, aAmount, _playerService.getCurrentPlayer().getId(), territoryId);
+    }
+
+    public void tradeTerritoryCards(String continentName){
+        _cardTradeState.tradeTerritoryCards(continentName, _playerService.getCurrentPlayer().getId());
+    }
 }

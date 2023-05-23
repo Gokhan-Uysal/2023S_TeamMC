@@ -4,6 +4,7 @@ import app.ui.views.components.BaseStatePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CardTradePanel extends BaseStatePanel {
 
@@ -47,6 +48,32 @@ public class CardTradePanel extends BaseStatePanel {
 
     public <Item> void addItemToBox(JComboBox<Item> comboBox, Item item) {
         comboBox.addItem(item);
+    }
+
+    public void clearTerritoryLabel(){
+        this._selectedTerritoryLabel.setText("Please select the territory you want to place your armies on.");
+    }
+
+    public void clearTerritoryCardLabel(){
+        this._territoryCardLabel.setText("Your territory cards:\n");
+    }
+
+    public void clearArmyCardLabel(){
+        this._armyCardLabel.setText("Your army cards:\n");
+    }
+
+    public void updateSelectedTerritory(String name){
+        this._selectedTerritoryLabel.setText(String.format("The selected territory is: %s", name));
+    }
+
+    public void updateTerritoryCardLabel(ArrayList<String> territoryNames){
+        for (String territoryName: territoryNames){
+            this._territoryCardLabel.setText(_territoryCardLabel.getText() + String.format("%s, ", territoryName));
+        }
+    }
+
+    public void updateArmyCardLabel(int iAmount, int cAmount, int aAmount){
+        this._armyCardLabel.setText(this._armyCardLabel.getText() + String.format("Infantry: %d, Cavalry: %d, Artillery: %d", iAmount, cAmount, aAmount));
     }
 
     @Override
@@ -131,6 +158,10 @@ public class CardTradePanel extends BaseStatePanel {
 
         constraint.gridy = 4;
         this.add(_armyCardLabel);
+    }
 
+    public void refresh(){
+        this.revalidate();
+        this.repaint();
     }
 }
