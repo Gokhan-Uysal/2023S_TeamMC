@@ -67,7 +67,11 @@ public class CardTradeState {
 
         Player tradingPlayer = PlayerService.getInstance().getCurrentPlayer();
 
-        if (this.checkIfArmyCardTradable(infantryCardAmount, cavalryCardAmount, artilleryCardAmount, playerId) && !PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, territoryId)) {
+        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, territoryId)){
+            throw new Error("You do not own the territory.");
+        }
+
+        if (this.checkIfArmyCardTradable(infantryCardAmount, cavalryCardAmount, artilleryCardAmount, playerId)) {
             if (infantryCardAmount == 3 && cavalryCardAmount == 0 && artilleryCardAmount == 0) {
                 _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry,1);
             } else if (infantryCardAmount == 2 && cavalryCardAmount == 1 && artilleryCardAmount == 0) {
