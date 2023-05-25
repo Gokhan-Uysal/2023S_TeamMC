@@ -69,6 +69,17 @@ public abstract class BaseRepository {
         throw new SQLException("Query execution failed");
     }
 
+    protected <T> ResultSet deleteById(int id) throws SQLException {
+        String query = String.format("DELETE FROM %s WHERE id=%d", tableName, id);
+        Connection connection = ConnectionPool.getValidConnection();
+        Statement statement = connection.createStatement();
+        boolean success = statement.execute(query);
+        if (success) {
+            return statement.getResultSet();
+        }
+        throw new SQLException("Query execution failed");
+    }
+
     private <T> String mapQuery(Map<String, T> query) {
         StringBuilder stringBuilder = new StringBuilder();
         query.forEach((key, value) -> {

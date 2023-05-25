@@ -32,8 +32,15 @@ public class UserRepository extends BaseRepository implements IDbAdapter<UserEnt
 
     @Override
     public UserEntity[] getManyItems(int limit, int offset) throws DbException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getManyItems'");
+        UserEntity[] users = {};
+        try {
+            ResultSet userData = super.getMany(limit, offset);
+            System.out.println(userData);
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+
+        return users;
     }
 
     @Override
@@ -44,8 +51,11 @@ public class UserRepository extends BaseRepository implements IDbAdapter<UserEnt
 
     @Override
     public void deleteItem(int id) throws DbException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteItem'");
+        try {
+            super.deleteById(id);
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
     }
 
     @Override

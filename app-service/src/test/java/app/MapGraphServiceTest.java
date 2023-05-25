@@ -1,7 +1,6 @@
 package app;
 
 import app.domain.services.map.MapGraphService;
-import app.common.Logger;
 import app.domain.models.game.map.Territory;
 import app.domain.models.game.map.TerritoryPosition;
 
