@@ -2,6 +2,8 @@ package app;
 
 import javax.swing.SwingUtilities;
 
+import app.common.errors.DbException;
+import app.domain.models.entities.CountryEntity;
 import app.domain.repositories.TerritoryRepository;
 import app.ui.views.menu.MainMenuFrame;
 
@@ -13,6 +15,5 @@ public class Main {
         // });
 
         TerritoryRepository tr = new TerritoryRepository();
-        tr.findTerritories((500), 0);
     }
 }

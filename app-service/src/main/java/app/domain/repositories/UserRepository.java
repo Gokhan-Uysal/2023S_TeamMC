@@ -2,65 +2,51 @@ package app.domain.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.common.errors.DbException;
 import app.domain.models.entities.UserEntity;
 
-public class UserRepository extends BaseRepository implements IDbAdapter<UserEntity> {
+public class UserRepository extends BaseRepository {
 
     public UserRepository(String tableName) {
         super(tableName);
     }
 
-    @Override
-    public UserEntity getItemById(int id) throws DbException {
-        try (ResultSet result = super.getById(id)) {
+    public List<UserEntity> findUsers(int limit, int offset) throws DbException {
+        List<UserEntity> userEntityList = new ArrayList<>();
 
-            if (result == null) {
-                throw new DbException("User not found");
-            }
-
-            if (result.next()) {
-                return new UserEntity(result.getInt("id"), result.getString("username"), result.getInt("high_score"));
-            }
-
-            throw new DbException("User not found");
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        }
-    }
-
-    @Override
-    public UserEntity[] getManyItems(int limit, int offset) throws DbException {
-        UserEntity[] users = {};
         try {
-            ResultSet userData = super.getMany(limit, offset);
-            System.out.println(userData);
+            ResultSet resultSet = super.getMany(limit, offset);
+            UserEntity.Builder builder = new UserEntity.Builder();
+
+            while (resultSet.next()) {
+                builder.setId(resultSet.getInt(1));
+                builder.setUsername(resultSet.getString(2));
+                builder.setHighScore(resultSet.getInt(3));
+                UserEntity continentEntity = builder.build();
+                userEntityList.add(continentEntity);
+            }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
-
-        return users;
+        return userEntityList;
     }
 
-    @Override
-    public void createItem(UserEntity model) throws DbException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createItem'");
-    }
-
-    @Override
-    public void deleteItem(int id) throws DbException {
+    public UserEntity findUserById(int id) throws DbException {
         try {
-            super.deleteById(id);
+            ResultSet resultSet = super.getById(id);
+            UserEntity.Builder builder = new UserEntity.Builder();
+
+            while (resultSet.next()) {
+                builder.setId(resultSet.getInt(1));
+                builder.setUsername(resultSet.getString(2));
+                builder.setHighScore(resultSet.getInt(3));
+            }
+            return builder.build();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
-    }
-
-    @Override
-    public void updateItem(UserEntity model) throws DbException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateItem'");
     }
 }
