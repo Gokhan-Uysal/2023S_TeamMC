@@ -183,4 +183,10 @@ public class GameManagerService extends BasePublisher<GameState> {
         _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
         return _attackState.getWinningPlayer();
     }
+
+    public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount,
+                        int startTerritoryId, int destinationTerritoryId, int playerId){
+        _fortifyState.fortify(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId,
+                              destinationTerritoryId, playerId);
+    }
 }

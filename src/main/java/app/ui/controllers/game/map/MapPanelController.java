@@ -12,6 +12,7 @@ import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.AttackPanelController;
 import app.ui.controllers.game.state.DistributePanelController;
 import app.ui.controllers.game.state.ReceivePanelController;
+import app.ui.controllers.game.state.FortifyPanelController;
 import app.ui.views.game.map.MapPanel;
 
 public class MapPanelController implements ISubscriber<Territory> {
@@ -32,6 +33,7 @@ public class MapPanelController implements ISubscriber<Territory> {
                 trController.addSubscriber(DistributePanelController.getInstance());
                 trController.addSubscriber(ReceivePanelController.getInstance());
                 trController.addSubscriber(AttackPanelController.getInstance());
+                trController.addSubscriber(FortifyPanelController.getInstance());
             } catch (IOException e) {
                 Logger.error(e);
             }
