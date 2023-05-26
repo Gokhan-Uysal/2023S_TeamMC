@@ -44,17 +44,18 @@ public class PlayerService {
             if (_currentPlayerCount > UPPER_BOUND) {
                 return;
             }
-            Player player = new Player(_currentPlayerCount, name);
             PlayerEntity.Builder builer = new PlayerEntity.Builder();
-            builer.setId(_currentPlayerCount);
             builer.setUsername(name);
             builer.setHighScore(0);
             try {
                 _playerRepository.insertPlayer(builer.build());
             } catch (DbException e) {
                 Logger.error(e);
+            } catch (NoSuchFieldException e) {
+                Logger.error(e);
+            } catch (SecurityException e) {
+                Logger.error(e);
             }
-            _players.add(player);
             _currentPlayerCount++;
         });
     }

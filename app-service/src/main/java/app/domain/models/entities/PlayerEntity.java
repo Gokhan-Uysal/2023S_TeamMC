@@ -1,6 +1,7 @@
 package app.domain.models.entities;
 
 public class PlayerEntity extends BaseEntity {
+
     public String username;
     public int high_score;
 

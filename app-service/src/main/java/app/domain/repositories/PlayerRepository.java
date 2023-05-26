@@ -52,9 +52,11 @@ public class PlayerRepository extends BaseRepository {
         }
     }
 
-    public void insertPlayer(PlayerEntity playerEntity) throws DbException {
+    public int insertPlayer(PlayerEntity playerEntity) throws DbException, NoSuchFieldException, SecurityException {
         try {
-            super.insertEntity(playerEntity);
+            ResultSet resultSet = super.insertEntity(playerEntity);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }

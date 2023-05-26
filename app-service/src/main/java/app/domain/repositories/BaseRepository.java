@@ -51,7 +51,7 @@ public abstract class BaseRepository {
         return executeQuery(query);
     }
 
-    protected <T> ResultSet insertEntity(T entity) throws SQLException {
+    protected <T> ResultSet insertEntity(T entity) throws SQLException, NoSuchFieldException, SecurityException {
         Field[] fields = entity.getClass().getDeclaredFields();
         String query = String.format("INSERT INTO %s ", this.tableName);
 
@@ -70,6 +70,7 @@ public abstract class BaseRepository {
         }
 
         query += String.format("(%s) VALUES (%s)", String.join(", ", keys), String.join(", ", values));
+        query += " RETURNING id";
         return executeQuery(query);
     }
 
