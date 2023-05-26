@@ -44,13 +44,13 @@ public class MapGraphServiceTest {
 
     @Test
     public void testGetVertex() {
-        Territory territory = _mapGraphService.getVertex("Territory 1");
+        Territory territory = _mapGraphService.getVertex("Territory1");
         assertEquals("Territory 1", territory.getName());
     }
 
     @Test
     public void testGetEdges() {
-        Territory territory = _mapGraphService.getVertex("Territory 1");
+        Territory territory = _mapGraphService.getVertex("Territory1");
         Set<Territory> edges = _mapGraphService.getEdges(territory);
         assertEquals(2, edges.size());
     }
