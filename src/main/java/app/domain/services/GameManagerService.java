@@ -87,7 +87,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                 break;
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
-                    updateGameState(GameState.TRADE_CARD_STATE);
+                    updateGameState(GameState.REPLACEMENT_STATE);
                     _playerService.resatrtTurn();
                     break;
                 }
@@ -95,13 +95,16 @@ public class GameManagerService extends BasePublisher<GameState> {
                 updateGameState(GameState.DISTRIBUTING_STATE);
                 break;
             case RECEIVING_STATE:
+                updateGameState(GameState.REPLACEMENT_STATE);
+                break;
+            case REPLACEMENT_STATE:
                 updateGameState(GameState.TRADE_CARD_STATE);
                 break;
             case TRADE_CARD_STATE:
                 updateGameState(GameState.ATTACK_STATE);
                 break;
             case ATTACK_STATE:
-                updateGameState(GameState.FORTIFY_STATE);
+                updateGameState(GameState.RECEIVING_STATE);
                 break;
             case FORTIFY_STATE:
                 if (_isGameFinished) {
@@ -170,10 +173,19 @@ public class GameManagerService extends BasePublisher<GameState> {
         handleNextState();
     }
 
+    public void receiveUnits(int territoryId) {
+        _recieveState.placeRecievedUnits(territoryId);
+        handleNextState();
+    }
+
+    public int receivedUnitNumber() {
+        return _recieveState.receivedUnitAmount();
+    }
+
     public String attack(int attackTerritoryId, int defenderTerritoryId) {
         Player player = _playerService.getCurrentPlayer();
 
-        if (_centralDeck.isEmpty()){
+        if (_centralDeck.isEmpty()) {
             _playerService.emptyPlayerDecks();
             this.initilizeArmyDeck(_playerService.getPlayerCount());
             this.initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
@@ -183,11 +195,22 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _attackState.getWinningPlayer();
     }
 
-    public void tradeArmyCards(int iAmount, int cAmount, int aAmount, int territoryId){
-        _cardTradeState.tradeArmyCards(iAmount, cAmount, aAmount, _playerService.getCurrentPlayer().getId(), territoryId);
+    public void tradeArmyCards(int iAmount, int cAmount, int aAmount, int territoryId) {
+        _cardTradeState.tradeArmyCards(iAmount, cAmount, aAmount, _playerService.getCurrentPlayer().getId(),
+                territoryId);
     }
 
-    public void tradeTerritoryCards(String continentName){
+    public void tradeTerritoryCards(String continentName) {
         _cardTradeState.tradeTerritoryCards(continentName, _playerService.getCurrentPlayer().getId());
+    }
+
+    public void tradeArmyUnits(int infantryAmount, int cavalryAmount, int territoryId) {
+        _replaceState.replaceUnits(infantryAmount, cavalryAmount, territoryId);
+    }
+
+    public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount,
+            int startTerritoryId, int destinationTerritoryId, int playerId) {
+        _fortifyState.fortify(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId,
+                destinationTerritoryId, playerId);
     }
 }

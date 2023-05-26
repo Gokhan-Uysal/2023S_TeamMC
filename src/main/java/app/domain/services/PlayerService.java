@@ -93,24 +93,37 @@ public class PlayerService {
         return _mapService.findTerritories(territoryIds);
     }
 
-    public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId){
+    public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
         return playerId == _mapService.findTerritory(territoryId).getOwnerId();
     }
 
-    public void emptyPlayerDecks(){
-        for (Player player: this._players){
+    public void emptyPlayerDecks() {
+        for (Player player : this._players) {
             player.getPlayerDecks().emptyDeck();
         }
     }
 
-    public ArrayList<String> getTerritoryCardNames(){
+    public ArrayList<String> getTerritoryCardNames() {
         ArrayList<String> territoryNames = new ArrayList<>();
         ArrayList<Territory> territoryList = this.getTerritoriesFromTerritoryCards(_currentPlayerId);
 
-        for (Territory territory: territoryList){
+        for (Territory territory : territoryList) {
             territoryNames.add(territory.getName());
         }
 
         return territoryNames;
+    }
+
+    public int numberOfTerritories(int playerId) {
+        Player player = this.getPlayer(playerId);
+        int territoryCount = 0;
+
+        for (Territory territory : _mapService.getTerritoryListFromGraph()) {
+            if (territory.getOwnerId() == player.getId()) {
+                territoryCount++;
+            }
+        }
+
+        return territoryCount;
     }
 }

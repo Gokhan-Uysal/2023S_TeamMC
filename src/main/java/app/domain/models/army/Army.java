@@ -33,21 +33,15 @@ public class Army {
     }
 
     public void transferArmyUnits(Army otherArmy, ArmyUnitType type, int amount) {
-        for (int i = 0; i < amount; i++) {
-            otherArmy.addArmyUnits(type, this.getArmyUnits(type, amount));
-        }
-    }
-
-    public void tradeArmyUnits(ArmyUnitType tradedUnit, int tradedAmount, ArmyUnitType addedUnit, int addedAmount) {
-        this.getArmyUnits(tradedUnit, tradedAmount);
-        this.addArmyUnits(addedUnit, addedAmount);
+        this.getArmyUnits(type, amount);
+        otherArmy.addArmyUnits(type, amount);
     }
 
     public void tradeArmyUnits(ArmyUnitType tradedUnit1, int tradedAmount1, ArmyUnitType tradedUnit2, int tradedAmount2,
-            ArmyUnitType addedUnit, int addedAmount) {
+            ArmyUnitType addedUnit) {
         this.getArmyUnits(tradedUnit1, tradedAmount1);
         this.getArmyUnits(tradedUnit2, tradedAmount2);
-        this.addArmyUnits(addedUnit, addedAmount);
+        this.addArmyUnits(addedUnit, 1);
     }
 
     public int getArmyAmount(ArmyUnitType type) {
