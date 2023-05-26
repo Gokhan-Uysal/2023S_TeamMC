@@ -81,4 +81,23 @@ public class MainDecks {
         _territoryDeck.shuffle();
         _chanceDeck.shuffle();
     }
+
+    public void emptyDeck(){
+        _armyDeck.emptyDeck();
+        _territoryDeck.emptyDeck();
+    }
+
+    public boolean isEmpty(){
+        return _territoryDeck.isEmpty() && _armyDeck.isEmpty();
+    }
+
+    public boolean isEmpty(DeckType deckType){
+        if (deckType.equals(DeckType.Army)){
+            return _armyDeck.isEmpty();
+        }
+        else if (deckType.equals(DeckType.Territory)){
+            return _territoryDeck.isEmpty();
+        }
+        return false;
+    }
 }

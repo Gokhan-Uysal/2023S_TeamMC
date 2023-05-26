@@ -3,6 +3,7 @@ package app.domain.services.states;
 import app.common.errors.AttackError;
 import app.domain.models.card.BaseCard;
 import app.domain.models.card.DeckType;
+import app.domain.models.card.MainDecks;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.card.territory.TerritoryCard;
 import app.domain.models.game.map.Territory;
@@ -30,7 +31,26 @@ public class AttackState {
 
         if (playerCanDrawCard) {
             Player winningPlayer = PlayerService.getInstance().getCurrentPlayer();
-            BaseCard drawnCard = GameManagerService.getInstance().getCentralDeck().drawCard(DeckType.Army);
+            MainDecks centralDeck = GameManagerService.getInstance().getCentralDeck();
+            BaseCard drawnCard;
+
+            if (centralDeck.isEmpty(DeckType.Army)){
+                drawnCard = centralDeck.drawCard(DeckType.Territory);
+            }
+            else if (centralDeck.isEmpty(DeckType.Territory)){
+                drawnCard = centralDeck.drawCard(DeckType.Army);
+            }
+            else{
+                Random rand = new Random();
+                int armyOrTerritory = rand.nextInt(2);
+
+                if (armyOrTerritory == 0){
+                    drawnCard = centralDeck.drawCard(DeckType.Army);
+                }
+                else {
+                    drawnCard = centralDeck.drawCard(DeckType.Territory);
+                }
+            }
 
             switch (drawnCard.getName()) {
                 case "InfantryCard" -> {
@@ -42,7 +62,7 @@ public class AttackState {
                 case "ArtilleryCard" -> {
                     winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
                 }
-                case "TerritoryCard" -> {
+                default -> {
                     TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
                     winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
                             tDrawnCard.getImage(), tDrawnCard.getTerritoryId());

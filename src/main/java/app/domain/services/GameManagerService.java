@@ -149,16 +149,17 @@ public class GameManagerService extends BasePublisher<GameState> {
         _centralDeck.addArmyCards(ArmyCardType.Infantry, playerCount * 3);
         _centralDeck.addArmyCards(ArmyCardType.Cavalry, playerCount * 2);
         _centralDeck.addArmyCards(ArmyCardType.Artillery, playerCount);
+        _centralDeck.shuffle();
     }
 
     public void initilizeTerritoyDeck(List<Territory> territoryList) {
-        for (int i = 0; i < territoryList.size(); i++) {
-            Territory territory = territoryList.get(i);
+        for (Territory territory : territoryList) {
             try {
                 _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.get_territoryId());
             } catch (IOException e) {
                 Logger.error(e);
             }
+            _centralDeck.shuffle();
         }
     }
 
@@ -183,8 +184,24 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     public String attack(int attackTerritoryId, int defenderTerritoryId) {
         Player player = _playerService.getCurrentPlayer();
+
+        if (_centralDeck.isEmpty()) {
+            _playerService.emptyPlayerDecks();
+            this.initilizeArmyDeck(_playerService.getPlayerCount());
+            this.initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
+        }
+
         _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
         return _attackState.getWinningPlayer();
+    }
+
+    public void tradeArmyCards(int iAmount, int cAmount, int aAmount, int territoryId) {
+        _cardTradeState.tradeArmyCards(iAmount, cAmount, aAmount, _playerService.getCurrentPlayer().getId(),
+                territoryId);
+    }
+
+    public void tradeTerritoryCards(String continentName) {
+        _cardTradeState.tradeTerritoryCards(continentName, _playerService.getCurrentPlayer().getId());
     }
 
     public void tradeArmyUnits(int infantryAmount, int cavalryAmount, int territoryId) {
