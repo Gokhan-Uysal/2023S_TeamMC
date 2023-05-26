@@ -30,7 +30,6 @@ public class MapService {
 	}
 
 	public void loadGameMapDataToGraph() throws DbException {
-		_mapReadService.buildGameMapData();
 		List<Territory> territoryList = _mapRepository.buildGameMapData();
 		_mapGraphService.addVerticies(territoryList);
 		_mapGraphService.addEdges(territoryList);
@@ -46,10 +45,6 @@ public class MapService {
 
 	public boolean isValidBuildSelection() {
 		return _mapGraphService.validateMap();
-	}
-
-	private List<Territory> getTerritoryListFromReadService() {
-		return _mapReadService.getGameMapTerritories();
 	}
 
 	public Set<Continent> getContinents() {

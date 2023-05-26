@@ -58,7 +58,6 @@ public class Territory {
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
         g.dispose();
-
         return scaledImage;
     }
 

@@ -17,12 +17,12 @@ public class PlayerService {
     private int _currentPlayerCount;
 
     private List<Player> _players;
-    private int _currentPlayerId;
+    private int _currentPlayerIndex;
     private MapService _mapService;
     private PlayerRepository _playerRepository;
 
     public Player getCurrentPlayer() throws IndexOutOfBoundsException {
-        return _players.get(_currentPlayerId);
+        return _players.get(_currentPlayerIndex);
     }
 
     private PlayerService() {
@@ -48,7 +48,8 @@ public class PlayerService {
             builer.setUsername(name);
             builer.setHighScore(0);
             try {
-                _playerRepository.insertPlayer(builer.build());
+                int playerId = _playerRepository.insertPlayer(builer.build());
+                builer.setId(playerId);
             } catch (DbException e) {
                 Logger.error(e);
             } catch (NoSuchFieldException e) {
@@ -56,6 +57,8 @@ public class PlayerService {
             } catch (SecurityException e) {
                 Logger.error(e);
             }
+
+            this._players.add(new Player(builer.build().id, name));
             _currentPlayerCount++;
         });
     }
@@ -82,15 +85,15 @@ public class PlayerService {
     }
 
     public void turnChange() {
-        if (_currentPlayerId == _players.size() - 1) {
-            _currentPlayerId = 0;
+        if (_currentPlayerIndex == _players.size() - 1) {
+            _currentPlayerIndex = 0;
             return;
         }
-        _currentPlayerId += 1;
+        _currentPlayerIndex += 1;
     }
 
     public void resatrtTurn() {
-        _currentPlayerId = 0;
+        _currentPlayerIndex = 0;
     }
 
     public Player getPlayer(int playerId) {
@@ -111,5 +114,18 @@ public class PlayerService {
 
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
         return playerId == _mapService.findTerritory(territoryId).getOwnerId();
+    }
+
+    public int numberOfTerritories(int playerId) {
+        Player player = this.getPlayer(playerId);
+        int territoryCount = 0;
+
+        for (Territory territory : _mapService.getTerritoryListFromGraph()) {
+            if (territory.getOwnerId() == player.getId()) {
+                territoryCount++;
+            }
+        }
+
+        return territoryCount;
     }
 }

@@ -102,7 +102,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                 updateGameState(GameState.ATTACK_STATE);
                 break;
             case ATTACK_STATE:
-                updateGameState(GameState.FORTIFY_STATE);
+                updateGameState(GameState.RECEIVING_STATE);
                 break;
             case FORTIFY_STATE:
                 if (_isGameFinished) {
@@ -174,9 +174,24 @@ public class GameManagerService extends BasePublisher<GameState> {
         handleNextState();
     }
 
+    public void receiveUnits(int territoryId){
+        _recieveState.placeRecievedUnits(territoryId);
+        handleNextState();
+    }
+
+    public int receivedUnitNumber(){
+        return _recieveState.receivedUnitAmount();
+    }
+
     public String attack(int attackTerritoryId, int defenderTerritoryId) {
         Player player = _playerService.getCurrentPlayer();
         _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
         return _attackState.getWinningPlayer();
+    }
+
+    public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount,
+                        int startTerritoryId, int destinationTerritoryId, int playerId){
+        _fortifyState.fortify(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId,
+                              destinationTerritoryId, playerId);
     }
 }
