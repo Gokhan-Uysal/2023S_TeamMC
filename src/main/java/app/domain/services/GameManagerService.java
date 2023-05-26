@@ -87,7 +87,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                 break;
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
-                    updateGameState(GameState.TRADE_CARD_STATE);
+                    updateGameState(GameState.REPLACEMENT_STATE);
                     _playerService.resatrtTurn();
                     break;
                 }
@@ -95,6 +95,9 @@ public class GameManagerService extends BasePublisher<GameState> {
                 updateGameState(GameState.DISTRIBUTING_STATE);
                 break;
             case RECEIVING_STATE:
+                updateGameState(GameState.REPLACEMENT_STATE);
+                break;
+            case REPLACEMENT_STATE:
                 updateGameState(GameState.TRADE_CARD_STATE);
                 break;
             case TRADE_CARD_STATE:
@@ -169,12 +172,12 @@ public class GameManagerService extends BasePublisher<GameState> {
         handleNextState();
     }
 
-    public void receiveUnits(int territoryId){
+    public void receiveUnits(int territoryId) {
         _recieveState.placeRecievedUnits(territoryId);
         handleNextState();
     }
 
-    public int receivedUnitNumber(){
+    public int receivedUnitNumber() {
         return _recieveState.receivedUnitAmount();
     }
 
@@ -184,9 +187,13 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _attackState.getWinningPlayer();
     }
 
+    public void tradeArmyUnits(int infantryAmount, int cavalryAmount, int territoryId) {
+        _replaceState.replaceUnits(infantryAmount, cavalryAmount, territoryId);
+    }
+
     public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount,
-                        int startTerritoryId, int destinationTerritoryId, int playerId){
+            int startTerritoryId, int destinationTerritoryId, int playerId) {
         _fortifyState.fortify(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId,
-                              destinationTerritoryId, playerId);
+                destinationTerritoryId, playerId);
     }
 }
