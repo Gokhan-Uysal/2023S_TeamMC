@@ -1,6 +1,7 @@
 package app.domain.services;
 
 import app.common.Logger;
+import app.common.errors.DbException;
 import app.domain.models.card.*;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.game.GameState;
@@ -121,7 +122,11 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public void loadMap() {
-        _mapService.loadGameMapDataToGraph();
+        try {
+            _mapService.loadGameMapDataToGraph();
+        } catch (DbException e) {
+            Logger.error(e);
+        }
         setState(GameState.BUILDING_STATE);
         notifySubscribers();
     }

@@ -15,69 +15,45 @@ public abstract class BaseRepository {
         this.tableName = tableName;
     }
 
+    protected ResultSet executeQuery(String query) throws SQLException {
+        Connection connection = ConnectionPool.getValidConnection();
+        Statement statement = connection.createStatement();
+        boolean success = statement.execute(query);
+        if (success) {
+            return statement.getResultSet();
+        }
+        throw new SQLException("Query execution failed");
+    }
+
     /*
      * Database CRUD operations
      */
     protected ResultSet getById(int id) throws SQLException {
         String query = String.format("SELECT * FROM %s WHERE id=%d", this.tableName, id);
-        Connection connection = ConnectionPool.getValidConnection();
-        Statement statement = connection.createStatement();
-        boolean success = statement.execute(query);
-        if (success) {
-            return statement.getResultSet();
-        }
-
-        throw new SQLException("Query execution failed");
+        return executeQuery(query);
     }
 
     protected <T> ResultSet getMany(Map<String, T> searchQuery) throws SQLException {
         String mappedQuery = mapQuery(searchQuery);
         String query = String.format("SELECT * FROM %s WHERE %s", this.tableName, mappedQuery);
-        Connection connection = ConnectionPool.getValidConnection();
-        Statement statement = connection.createStatement();
-        boolean success = statement.execute(query);
-        if (success) {
-            return statement.getResultSet();
-        }
-
-        throw new SQLException("Query execution failed");
+        return executeQuery(query);
     }
 
     protected <T> ResultSet getMany(Map<String, T> searchQuery, int limit, int offset) throws SQLException {
         String mappedQuery = mapQuery(searchQuery);
         String query = String.format("SELECT * FROM %s WHERE %s LIMIT %s OFFSET %s", this.tableName, mappedQuery, limit,
                 offset);
-        Connection connection = ConnectionPool.getValidConnection();
-        Statement statement = connection.createStatement();
-        boolean success = statement.execute(query);
-        if (success) {
-            return statement.getResultSet();
-        }
-
-        throw new SQLException("Query execution failed");
+        return executeQuery(query);
     }
 
     protected ResultSet getMany(int limit, int offset) throws SQLException {
         String query = String.format("SELECT * FROM %s LIMIT %s OFFSET %s", this.tableName, limit, offset);
-        Connection connection = ConnectionPool.getValidConnection();
-        Statement statement = connection.createStatement();
-        boolean success = statement.execute(query);
-        if (success) {
-            return statement.getResultSet();
-        }
-
-        throw new SQLException("Query execution failed");
+        return executeQuery(query);
     }
 
     protected ResultSet deleteById(int id) throws SQLException {
         String query = String.format("DELETE FROM %s WHERE id=%d", tableName, id);
-        Connection connection = ConnectionPool.getValidConnection();
-        Statement statement = connection.createStatement();
-        boolean success = statement.execute(query);
-        if (success) {
-            return statement.getResultSet();
-        }
-        throw new SQLException("Query execution failed");
+        return executeQuery(query);
     }
 
     private <T> String mapQuery(Map<String, T> query) {

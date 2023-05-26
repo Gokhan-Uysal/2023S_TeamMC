@@ -4,16 +4,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import app.common.AppConfig;
+import app.common.errors.DbException;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
+import app.domain.repositories.MapRepsitory;
 
 public class MapService {
 	private static MapService _instance;
+	private MapRepsitory _mapRepository;
 	private MapReadService _mapReadService;
 	private MapGraphService _mapGraphService;
 
 	private MapService() {
+		this._mapRepository = new MapRepsitory();
 		this._mapReadService = new MapReadService(AppConfig.basePath + "/__resource__/map.json");
 		this._mapGraphService = new MapGraphService();
 	}
@@ -25,9 +29,9 @@ public class MapService {
 		return _instance;
 	}
 
-	public void loadGameMapDataToGraph() {
+	public void loadGameMapDataToGraph() throws DbException {
 		_mapReadService.buildGameMapData();
-		List<Territory> territoryList = getTerritoryListFromReadService();
+		List<Territory> territoryList = _mapRepository.buildGameMapData();
 		_mapGraphService.addVerticies(territoryList);
 		_mapGraphService.addEdges(territoryList);
 	}

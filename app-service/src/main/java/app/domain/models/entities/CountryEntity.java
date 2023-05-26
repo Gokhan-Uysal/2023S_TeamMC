@@ -5,10 +5,12 @@ public class CountryEntity extends BaseEntity {
     public int position_x;
     public int position_y;
     public int continent_id;
+    public String image_name;
 
-    public CountryEntity(int id, String name, int position_x, int position_y, int continent_id) {
+    public CountryEntity(int id, String name, int position_x, int position_y, int continent_id, String image_name) {
         super(id);
         this.name = name;
+        this.image_name = image_name;
         this.position_x = position_x;
         this.position_y = position_y;
         this.continent_id = continent_id;
@@ -20,6 +22,7 @@ public class CountryEntity extends BaseEntity {
         private int position_x;
         private int position_y;
         private int continent_id;
+        private String image_name;
 
         public Builder setId(int id) {
             this.id = id;
@@ -28,6 +31,11 @@ public class CountryEntity extends BaseEntity {
 
         public Builder setName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder setImageName(String image_name) {
+            this.image_name = image_name;
             return this;
         }
 
@@ -47,7 +55,7 @@ public class CountryEntity extends BaseEntity {
         }
 
         public CountryEntity build() {
-            return new CountryEntity(id, name, position_x, position_y, continent_id);
+            return new CountryEntity(id, name, position_x, position_y, continent_id, image_name);
         }
     }
 }

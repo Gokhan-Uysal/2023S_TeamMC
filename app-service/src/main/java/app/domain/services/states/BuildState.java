@@ -1,5 +1,7 @@
 package app.domain.services.states;
 
+import app.common.Logger;
+import app.common.errors.DbException;
 import app.domain.services.map.MapService;
 
 public class BuildState {
@@ -9,6 +11,10 @@ public class BuildState {
     }
 
     public void loadGameMap() {
-        _mapService.loadGameMapDataToGraph();
+        try {
+            _mapService.loadGameMapDataToGraph();
+        } catch (DbException e) {
+            Logger.error(e);
+        }
     }
 }

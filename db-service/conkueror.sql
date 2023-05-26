@@ -8,7 +8,8 @@ CREATE TABLE continent (
 DROP TABLE IF EXISTS country cascade;
 CREATE TABLE country (
     id SERIAL,
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL ,
+    image_name VARCHAR(255),
     position_x INT NOT NULL,
     position_y INT NOT NULL,
     continent_id INT NOT NULL,
@@ -35,56 +36,56 @@ INSERT INTO continent(name)  VALUES ('North America');
 INSERT INTO continent(name)  VALUES ('South America');
 
 -- Insert countries
-INSERT INTO country (name, position_x, position_y, continent_id)
+INSERT INTO country (name, position_x, position_y, continent_id, image_name)
 VALUES
     -- Australia
-    ('Eastern Australia', 810, 445, 1),
-    ('Indonesia', 696, 393, 1),
-    ('New Guinea', 789, 383, 1),
-    ('Western Australia', 752, 459, 1),
+    ('Eastern Australia', 810, 445, 1, 'eastern_australia.png'),
+    ('Indonesia', 696, 393, 1, 'indonesia.png'),
+    ('New Guinea', 789, 383, 1, 'new_guinea.png'),
+    ('Western Australia', 752, 459, 1, 'western_australia.png'),
     -- South America
-    ('Argentina', 208, 419, 6),
-    ('Brazil', 195, 337, 6),
-    ('Peru', 175, 350, 6),
-    ('Venezuela', 181, 309, 6),
+    ('Argentina', 208, 419, 6, 'argentina.png'),
+    ('Brazil', 195, 337, 6, 'brazil.png'),
+    ('Peru', 175, 350, 6, 'peru.png'),
+    ('Venezuela', 181, 309, 6, 'venezuela.png'),
     -- Asia
-    ('Afghanistan', 563, 168, 2),
-    ('China', 644, 185, 2),
-    ('India', 613, 248, 2),
-    ('Irkutsk', 686, 105, 2),
-    ('Japan', 797, 156, 2),
-    ('Kamchatka', 746, 51, 2),
-    ('Middle East', 493, 257, 2),
-    ('Mongolia', 693, 156, 2),
-    ('Siam (Southeast Asia)', 700, 294, 2),
-    ('Siberia', 618, 24, 2),
-    ('Ural', 599, 52, 2),
-    ('Yakutsk', 699, 37, 2),
+    ('Afghanistan', 563, 168, 2, 'afghanistan.png'),
+    ('China', 644, 185, 2, 'china.png'),
+    ('India', 613, 248, 2, 'india.png'),
+    ('Irkutsk', 686, 105, 2, 'irkutsk.png'),
+    ('Japan', 797, 156, 2, 'japan.png'),
+    ('Kamchatka', 746, 51, 2, 'kamchatka.png'),
+    ('Middle East', 493, 257, 2, 'middle_east.png'),
+    ('Mongolia', 693, 156, 2, 'mongolia.png'),
+    ('Siam (Southeast Asia)', 700, 294, 2, 'siam.png'),
+    ('Siberia', 618, 24, 2, 'siberia.png'),
+    ('Ural', 599, 52, 2, 'ural.png'),
+    ('Yakutsk', 699, 37, 2, 'yakutsk.png'),
     -- Africa
-    ('Congo (Central Africa)', 452, 394, 3),
-    ('East Africa', 495, 355, 3),
-    ('Egypt', 454, 311, 3),
-    ('Madagascar', 556, 480, 3),
-    ('North Africa', 376, 293, 3),
-    ('South Africa', 462, 451, 3),
+    ('Congo (Central Africa)', 452, 394, 3, 'congo.png'),
+    ('East Africa', 495, 355, 3, 'east_africa.png'),
+    ('Egypt', 454, 311, 3, 'egypt.png'),
+    ('Madagascar', 556, 480, 3, 'madagascar.png'),
+    ('North Africa', 376, 293, 3, 'north_africa.png'),
+    ('South Africa', 462, 451, 3, 'south_africa.png'),
     -- Europe
-    ('Great Britain (Great Britain & Ireland)', 345, 140, 4),
-    ('Iceland', 370, 100, 4),
-    ('Northern Europe', 420, 152, 4),
-    ('Scandinavia', 430, 70, 4),
-    ('Southern Europe', 428, 210, 4),
-    ('Ukraine (Eastern Europe, Russia)', 483, 73, 4),
-    ('Western Europe', 368, 210, 4),
+    ('Great Britain (Great Britain & Ireland)', 345, 140, 4, 'great_britain.png'),
+    ('Iceland', 370, 100, 4, 'iceland.png'),
+    ('Northern Europe', 420, 152, 4, 'northern_europe.png'),
+    ('Scandinavia', 430, 70, 4, 'scandinavia.png'),
+    ('Southern Europe', 428, 210, 4, 'southern_europe.png'),
+    ('Ukraine (Eastern Europe, Russia)', 483, 73, 4, 'ukraine.png'),
+    ('Western Europe',   368, 210, 4, 'western_europe.png'),
     -- North America
-    ('Alaska', 30, 60, 5),
-    ('Alberta (Western Canada)', 103, 108, 5),
-    ('Central America', 117, 234, 5),
-    ('Eastern United States', 160, 168, 5),
-    ('Greenland', 250, 15, 5),
-    ('Northwest Territory', 95, 47, 5),
-    ('Ontario (Central Canada)', 175, 110, 5),
-    ('Quebec (Eastern Canada)', 230, 106, 5),
-    ('Western United States', 110, 166, 5);
+    ('Alaska', 30, 60, 5, 'alaska.png'),
+    ('Alberta (Western Canada)', 103, 108, 5, 'alberta.png'),
+    ('Central America', 117, 234, 5, 'central_america.png'),
+    ('Eastern United States', 160, 168, 5, 'eastern_united_states.png'),
+    ('Greenland', 250, 15, 5, 'greenland.png'),
+    ('Northwest Territory', 95, 47, 5, 'northwest_territory.png'),
+    ('Ontario (Central Canada)', 175, 110, 5, 'ontario.png'),
+    ('Quebec (Eastern Canada)', 230, 106, 5, 'quebec.png'),
+    ('Western United States', 110, 166, 5, 'western_united_states.png');
 
 -- Australia
 INSERT INTO adjacent_country (country_id, adjacent_country_id)
@@ -255,7 +256,13 @@ VALUES
     -- Ukraine (Eastern Europe, Russia)
     ((SELECT id FROM country WHERE name = 'Ukraine (Eastern Europe, Russia)'), (SELECT id FROM country WHERE name = 'Northern Europe')),
     ((SELECT id FROM country WHERE name = 'Ukraine (Eastern Europe, Russia)'), (SELECT id FROM country WHERE name = 'Scandinavia')),
-    ((SELECT id FROM country WHERE name = 'Ukraine (Eastern Europe, Russia)'), (SELECT id FROM country WHERE name = 'Southern Europe'));
+    ((SELECT id FROM country WHERE name = 'Ukraine (Eastern Europe, Russia)'), (SELECT id FROM country WHERE name = 'Southern Europe')),
+    ((SELECT id FROM country WHERE name = 'Western Europe'), (SELECT id FROM country WHERE name = 'Great Britain (Great Britain & Ireland)')),
+    -- Western Europe
+    ((SELECT id FROM country WHERE name = 'Western Europe'), (SELECT id FROM country WHERE name = 'Northern Europe')),
+    ((SELECT id FROM country WHERE name = 'Western Europe'), (SELECT id FROM country WHERE name = 'Southern Europe')),
+    ((SELECT id FROM country WHERE name = 'Western Europe'), (SELECT id FROM country WHERE name = 'North Africa')),
+    ((SELECT id FROM country WHERE name = 'Western Europe'), (SELECT id FROM country WHERE name = 'Western United States'));
 
 -- North America
 INSERT INTO adjacent_country (country_id, adjacent_country_id)
@@ -289,7 +296,6 @@ VALUES
     ((SELECT id FROM country WHERE name = 'Northwest Territory'), (SELECT id FROM country WHERE name = 'Alberta (Western Canada)')),
     ((SELECT id FROM country WHERE name = 'Northwest Territory'), (SELECT id FROM country WHERE name = 'Greenland')),
     ((SELECT id FROM country WHERE name = 'Northwest Territory'), (SELECT id FROM country WHERE name = 'Ontario (Central Canada)')),
-
     -- Ontario (Central Canada) (continued)
     ((SELECT id FROM country WHERE name = 'Ontario (Central Canada)'), (SELECT id FROM country WHERE name = 'Eastern United States')),
     ((SELECT id FROM country WHERE name = 'Ontario (Central Canada)'), (SELECT id FROM country WHERE name = 'Greenland')),

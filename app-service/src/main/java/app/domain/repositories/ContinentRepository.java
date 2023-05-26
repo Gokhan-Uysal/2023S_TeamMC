@@ -46,4 +46,5 @@ public class ContinentRepository extends BaseRepository {
             throw new DbException(e.getMessage());
         }
     }
+
 }
