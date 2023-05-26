@@ -23,7 +23,7 @@ public class FooterPanelController implements ISubscriber<GameState> {
                 _footerPanel.updateStatePanel(DistributePanelController.getInstance().getDistributePanel());
                 break;
             case RECEIVING_STATE:
-                _footerPanel.updateStatePanel(new RecievePanel());
+                _footerPanel.updateStatePanel(ReceivePanelController.getInstance().getReceivePanel());
                 break;
             case REPLACEMENT_STATE:
                 _footerPanel.updateStatePanel(ReplacePanelController.getInstance().getReplacePanel());

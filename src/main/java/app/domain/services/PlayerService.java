@@ -96,4 +96,17 @@ public class PlayerService {
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId){
         return playerId == _mapService.findTerritory(territoryId).getOwnerId();
     }
+
+    public int numberOfTerritories(int playerId){
+        Player player = this.getPlayer(playerId);
+        int territoryCount = 0;
+
+        for (Territory territory: _mapService.getTerritoryListFromGraph()){
+            if (territory.getOwnerId() == player.getId()){
+                territoryCount++;
+            }
+        }
+
+        return territoryCount;
+    }
 }

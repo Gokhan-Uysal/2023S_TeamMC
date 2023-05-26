@@ -33,9 +33,8 @@ public class Army {
     }
 
     public void transferArmyUnits(Army otherArmy, ArmyUnitType type, int amount) {
-        for (int i = 0; i < amount; i++) {
-            otherArmy.addArmyUnits(type, this.getArmyUnits(type, amount));
-        }
+        this.getArmyUnits(type, amount);
+        otherArmy.addArmyUnits(type, amount);
     }
 
     public void tradeArmyUnits(ArmyUnitType tradedUnit1, int tradedAmount1, ArmyUnitType tradedUnit2, int tradedAmount2,
