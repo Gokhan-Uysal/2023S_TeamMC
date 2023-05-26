@@ -6,6 +6,7 @@ import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.*;
 import app.ui.views.game.FooterPanel;
 import app.ui.views.game.state.RecievePanel;
+import app.ui.views.game.state.ReplacePanel;
 
 public class FooterPanelController implements ISubscriber<GameState> {
     private FooterPanel _footerPanel;
@@ -24,8 +25,11 @@ public class FooterPanelController implements ISubscriber<GameState> {
             case RECEIVING_STATE:
                 _footerPanel.updateStatePanel(ReceivePanelController.getInstance().getReceivePanel());
                 break;
+            case REPLACEMENT_STATE:
+                _footerPanel.updateStatePanel(ReplacePanelController.getInstance().getReplacePanel());
+                break;
             case TRADE_CARD_STATE:
-                _footerPanel.updateStatePanel(new CardTradePanelController().getCardTradePanel());
+                _footerPanel.updateStatePanel(CardTradePanelController.getInstance().getCardTradePanel());
                 break;
             case ATTACK_STATE:
                 _footerPanel.updateStatePanel(AttackPanelController.getInstance().getAttackPanel());

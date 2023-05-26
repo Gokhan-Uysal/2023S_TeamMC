@@ -85,4 +85,12 @@ public class Deck<CardType> {
 
         return territoryIds;
     }
+
+    protected void emptyDeck(){
+        this._deck.clear();
+    }
+
+    protected boolean isEmpty(){
+        return this._deck.size() > 0;
+    }
 }

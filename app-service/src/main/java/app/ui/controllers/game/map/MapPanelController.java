@@ -10,7 +10,9 @@ import app.domain.services.GameManagerService;
 import app.domain.services.PlayerService;
 import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.AttackPanelController;
+import app.ui.controllers.game.state.CardTradePanelController;
 import app.ui.controllers.game.state.DistributePanelController;
+import app.ui.controllers.game.state.ReplacePanelController;
 import app.ui.controllers.game.state.ReceivePanelController;
 import app.ui.controllers.game.state.FortifyPanelController;
 import app.ui.views.game.map.MapPanel;
@@ -33,6 +35,8 @@ public class MapPanelController implements ISubscriber<Territory> {
                 trController.addSubscriber(DistributePanelController.getInstance());
                 trController.addSubscriber(ReceivePanelController.getInstance());
                 trController.addSubscriber(AttackPanelController.getInstance());
+                trController.addSubscriber(CardTradePanelController.getInstance());
+                trController.addSubscriber(ReplacePanelController.getInstance());
                 trController.addSubscriber(FortifyPanelController.getInstance());
             } catch (IOException e) {
                 Logger.error(e);

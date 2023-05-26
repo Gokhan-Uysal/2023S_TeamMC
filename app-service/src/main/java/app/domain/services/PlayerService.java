@@ -57,8 +57,8 @@ public class PlayerService {
             } catch (SecurityException e) {
                 Logger.error(e);
             }
-
-            this._players.add(new Player(builer.build().id, name));
+            Player player = new Player(builer.build().id, name);
+            this._players.add(player);
             _currentPlayerCount++;
         });
     }
@@ -105,15 +105,31 @@ public class PlayerService {
         return null;
     }
 
-    public ArrayList<Territory> getTerritoriesFromTerritoryCards(int playerId) {
+    public ArrayList<Territory> getTerritoriesFromTerritoryCards() {
 
-        Player player = getPlayer(playerId);
-        ArrayList<Integer> territoryIds = player.getPlayerDecks().territoryIds();
+        ArrayList<Integer> territoryIds = getCurrentPlayer().getPlayerDecks().territoryIds();
         return _mapService.findTerritories(territoryIds);
     }
 
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
         return playerId == _mapService.findTerritory(territoryId).getOwnerId();
+    }
+
+    public void emptyPlayerDecks() {
+        for (Player player : this._players) {
+            player.getPlayerDecks().emptyDeck();
+        }
+    }
+
+    public ArrayList<String> getTerritoryCardNames() {
+        ArrayList<String> territoryNames = new ArrayList<>();
+        ArrayList<Territory> territoryList = this.getTerritoriesFromTerritoryCards();
+
+        for (Territory territory : territoryList) {
+            territoryNames.add(territory.getName());
+        }
+
+        return territoryNames;
     }
 
     public int numberOfTerritories(int playerId) {

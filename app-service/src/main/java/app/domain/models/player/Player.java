@@ -1,7 +1,6 @@
 package app.domain.models.player;
 
 import app.domain.models.card.MainDecks;
-import app.domain.models.card.army.ArmyCard;
 
 public class Player {
     private int _id;
