@@ -26,6 +26,7 @@ public class ContinentRepository extends BaseRepository {
                 ContinentEntity continentEntity = builder.build();
                 continentEntityList.add(continentEntity);
             }
+            resultSet.close();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
@@ -41,6 +42,7 @@ public class ContinentRepository extends BaseRepository {
                 builder.setId(resultSet.getInt(1));
                 builder.setName(resultSet.getString(2));
             }
+            resultSet.close();
             return builder.build();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());

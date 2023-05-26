@@ -1,19 +1,19 @@
 package app.domain.models.entities;
 
-public class UserEntity extends BaseEntity {
+public class PlayerEntity extends BaseEntity {
     public String username;
-    public int highScore;
+    public int high_score;
 
-    public UserEntity(int id, String username, int highScore) {
+    public PlayerEntity(int id, String username, int highScore) {
         super(id);
         this.username = username;
-        this.highScore = highScore;
+        this.high_score = highScore;
     }
 
     public static class Builder {
         private int id;
         private String username;
-        private int highScore;
+        private int high_score;
 
         public Builder setId(int id) {
             this.id = id;
@@ -25,13 +25,13 @@ public class UserEntity extends BaseEntity {
             return this;
         }
 
-        public Builder setHighScore(int highScore) {
-            this.highScore = highScore;
+        public Builder setHighScore(int high_score) {
+            this.high_score = high_score;
             return this;
         }
 
-        public UserEntity build() {
-            return new UserEntity(id, username, highScore);
+        public PlayerEntity build() {
+            return new PlayerEntity(id, username, high_score);
         }
     }
 }

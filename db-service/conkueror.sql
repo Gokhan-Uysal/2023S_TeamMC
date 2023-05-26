@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS game_state_persist cascade;
+CREATE TABLE game_state_persist (
+    id SERIAL,
+    game_state INT,
+    last_save TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
 DROP TABLE IF EXISTS continent cascade;
 CREATE TABLE continent (
     id SERIAL,
@@ -25,6 +33,20 @@ CREATE TABLE adjacent_country (
     PRIMARY KEY (country_id, adjacent_country_id),
     FOREIGN KEY (adjacent_country_id) REFERENCES country(id),
     CHECK (country_id <> adjacent_country.adjacent_country_id)
+);
+
+DROP TABLE IF EXISTS player cascade;
+CREATE TABLE player (
+    id SERIAL,
+    username VARCHAR(255),
+    high_score INT,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS card cascade;
+CREATE TABLE card (
+    id SERIAL,
+    PRIMARY KEY (id)
 );
 
 -- Continents

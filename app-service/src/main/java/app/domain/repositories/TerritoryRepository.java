@@ -31,6 +31,7 @@ public class TerritoryRepository extends BaseRepository {
                 CountryEntity continentEntity = builder.build();
                 countryEntityList.add(continentEntity);
             }
+            resultSet.close();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
@@ -50,6 +51,7 @@ public class TerritoryRepository extends BaseRepository {
                 builder.setPositionY(resultSet.getInt(5));
                 builder.setContinentId(resultSet.getInt(6));
             }
+            resultSet.close();
             return builder.build();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -70,6 +72,7 @@ public class TerritoryRepository extends BaseRepository {
                 AdjacentCountryEntity continentEntity = builder.build();
                 adjCountryEntityList.add(continentEntity);
             }
+            resultSet.close();
             return adjCountryEntityList;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());

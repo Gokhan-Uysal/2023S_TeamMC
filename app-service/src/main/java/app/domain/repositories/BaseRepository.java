@@ -2,10 +2,13 @@ package app.domain.repositories;
 
 import app.connections.ConnectionPool;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public abstract class BaseRepository {
@@ -18,11 +21,8 @@ public abstract class BaseRepository {
     protected ResultSet executeQuery(String query) throws SQLException {
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();
-        boolean success = statement.execute(query);
-        if (success) {
-            return statement.getResultSet();
-        }
-        throw new SQLException("Query execution failed");
+        statement.execute(query);
+        return statement.getResultSet();
     }
 
     /*
@@ -48,6 +48,28 @@ public abstract class BaseRepository {
 
     protected ResultSet getMany(int limit, int offset) throws SQLException {
         String query = String.format("SELECT * FROM %s LIMIT %s OFFSET %s", this.tableName, limit, offset);
+        return executeQuery(query);
+    }
+
+    protected <T> ResultSet insertEntity(T entity) throws SQLException {
+        Field[] fields = entity.getClass().getDeclaredFields();
+        String query = String.format("INSERT INTO %s ", this.tableName);
+
+        List<String> keys = new ArrayList<>(fields.length);
+        List<String> values = new ArrayList<>(fields.length);
+
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(entity);
+                keys.add(field.getName());
+                values.add("\'" + value.toString() + "\'");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        query += String.format("(%s) VALUES (%s)", String.join(", ", keys), String.join(", ", values));
         return executeQuery(query);
     }
 

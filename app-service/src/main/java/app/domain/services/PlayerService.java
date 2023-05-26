@@ -2,8 +2,12 @@ package app.domain.services;
 
 import java.util.*;
 
+import app.common.Logger;
+import app.common.errors.DbException;
+import app.domain.models.entities.PlayerEntity;
 import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
+import app.domain.repositories.PlayerRepository;
 import app.domain.services.map.MapService;
 
 public class PlayerService {
@@ -15,6 +19,7 @@ public class PlayerService {
     private List<Player> _players;
     private int _currentPlayerId;
     private MapService _mapService;
+    private PlayerRepository _playerRepository;
 
     public Player getCurrentPlayer() throws IndexOutOfBoundsException {
         return _players.get(_currentPlayerId);
@@ -24,6 +29,7 @@ public class PlayerService {
         _players = new ArrayList<>();
         _currentPlayerCount = 0;
         _mapService = MapService.getInstance();
+        _playerRepository = new PlayerRepository();
     }
 
     public static PlayerService getInstance() {
@@ -39,6 +45,15 @@ public class PlayerService {
                 return;
             }
             Player player = new Player(_currentPlayerCount, name);
+            PlayerEntity.Builder builer = new PlayerEntity.Builder();
+            builer.setId(_currentPlayerCount);
+            builer.setUsername(name);
+            builer.setHighScore(0);
+            try {
+                _playerRepository.insertPlayer(builer.build());
+            } catch (DbException e) {
+                Logger.error(e);
+            }
             _players.add(player);
             _currentPlayerCount++;
         });
@@ -93,7 +108,7 @@ public class PlayerService {
         return _mapService.findTerritories(territoryIds);
     }
 
-    public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId){
+    public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
         return playerId == _mapService.findTerritory(territoryId).getOwnerId();
     }
 }
