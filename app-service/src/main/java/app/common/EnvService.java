@@ -5,13 +5,14 @@ import java.util.Map;
 public class EnvService {
     private static Map<String, String> env = System.getenv();
 
-    public static String getEnv(String key){
-        try{
-            return EnvService.env.get(key);
+    public static String getEnv(String key, String defaultValue) {
+        String value = EnvService.env.get(key);
+        if (value != null) {
+            return value;
         }
-        catch (NullPointerException e){
-            System.err.printf("Environment variable not found with %s", key);
+        if (defaultValue == null) {
+            throw new NullPointerException(String.format("Env variable and default value %s is missing", key));
         }
-        return null;
+        return defaultValue;
     }
 }

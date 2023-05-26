@@ -57,7 +57,7 @@ public abstract class BaseRepository {
         throw new SQLException("Query execution failed");
     }
 
-    protected <T> ResultSet getMany(int limit, int offset) throws SQLException {
+    protected ResultSet getMany(int limit, int offset) throws SQLException {
         String query = String.format("SELECT * FROM %s LIMIT %s OFFSET %s", this.tableName, limit, offset);
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();
@@ -69,7 +69,7 @@ public abstract class BaseRepository {
         throw new SQLException("Query execution failed");
     }
 
-    protected <T> ResultSet deleteById(int id) throws SQLException {
+    protected ResultSet deleteById(int id) throws SQLException {
         String query = String.format("DELETE FROM %s WHERE id=%d", tableName, id);
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();

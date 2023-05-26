@@ -9,4 +9,29 @@ public class UserEntity extends BaseEntity {
         this.username = username;
         this.highScore = highScore;
     }
+
+    public static class Builder {
+        private int id;
+        private String username;
+        private int highScore;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder setHighScore(int highScore) {
+            this.highScore = highScore;
+            return this;
+        }
+
+        public UserEntity build() {
+            return new UserEntity(id, username, highScore);
+        }
+    }
 }

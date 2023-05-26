@@ -13,11 +13,11 @@ public class ConnectionPool implements Runnable {
 
     private static final String dbConnectionUrl = String.format(
             "jdbc:postgresql://%s:%s/%s?user=%s&password=%s",
-            EnvService.getEnv("POSTGRES_HOST"),
-            EnvService.getEnv("POSTGRES_PORT"),
-            EnvService.getEnv("POSTGRES_DB"),
-            EnvService.getEnv("POSTGRES_USER"),
-            EnvService.getEnv("POSTGRES_PASSWORD"));
+            EnvService.getEnv("POSTGRES_HOST", "localhost"),
+            EnvService.getEnv("POSTGRES_PORT", "5432"),
+            EnvService.getEnv("POSTGRES_DB", null),
+            EnvService.getEnv("POSTGRES_USER", "postgres"),
+            EnvService.getEnv("POSTGRES_PASSWORD", null));
 
     public ConnectionPool() {
         Thread thread = new Thread(this);
