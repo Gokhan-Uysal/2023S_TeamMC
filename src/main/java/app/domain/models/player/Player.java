@@ -26,8 +26,4 @@ public class Player {
     public MainDecks getPlayerDecks() {
         return this._playerDecks;
     }
-
-    public void addArmyCard(ArmyCard armyCard) {
-        _playerDecks.addArmyCard(armyCard);
-    }
 }
