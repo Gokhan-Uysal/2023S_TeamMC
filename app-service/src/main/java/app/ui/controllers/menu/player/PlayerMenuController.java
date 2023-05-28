@@ -1,7 +1,6 @@
 package app.ui.controllers.menu.player;
 
 import app.domain.services.GameManagerService;
-import app.domain.services.PlayerService;
 import app.ui.controllers.game.map.MapBuildFrameController;
 import app.ui.views.menu.playermenu.MapBuildFrame;
 import app.ui.views.menu.playermenu.PlayerMenuFrame;
