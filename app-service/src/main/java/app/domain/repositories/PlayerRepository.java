@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.common.Logger;
 import app.common.errors.DbException;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.entities.PlayerEntity;
