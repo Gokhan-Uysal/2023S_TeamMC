@@ -1,5 +1,6 @@
 package app.domain.repositories;
 
+import app.common.Logger;
 import app.connections.ConnectionPool;
 
 import java.lang.reflect.Field;
@@ -51,7 +52,8 @@ public abstract class BaseRepository {
         return executeQuery(query);
     }
 
-    protected <T> ResultSet insertEntity(T entity) throws SQLException, NoSuchFieldException, SecurityException {
+    protected <T> ResultSet insertEntity(T entity, boolean returnId)
+            throws SQLException, NoSuchFieldException, SecurityException {
         Field[] fields = entity.getClass().getDeclaredFields();
         String query = String.format("INSERT INTO %s ", this.tableName);
 
@@ -60,17 +62,23 @@ public abstract class BaseRepository {
 
         for (Field field : fields) {
             try {
+                if (field.getName().equals("id")) {
+                    continue;
+                }
                 field.setAccessible(true);
                 Object value = field.get(entity);
                 keys.add(field.getName());
                 values.add("\'" + value.toString() + "\'");
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                Logger.error(e);
             }
         }
 
         query += String.format("(%s) VALUES (%s)", String.join(", ", keys), String.join(", ", values));
-        query += " RETURNING id";
+
+        if (returnId) {
+            query += " RETURNING id";
+        }
         return executeQuery(query);
     }
 

@@ -6,9 +6,9 @@ import java.util.*;
 
 import app.common.errors.DbException;
 import app.domain.models.card.army.ArmyCardType;
-import app.domain.models.entities.AdjacentCountryEntity;
-import app.domain.models.entities.CountryArmyEntity;
 import app.domain.models.entities.CountryEntity;
+import app.domain.models.modelViews.AdjacentCountryViewModel;
+import app.domain.models.modelViews.CountryArmyModelView;
 
 public class CountryRepository extends BaseRepository {
 
@@ -61,18 +61,18 @@ public class CountryRepository extends BaseRepository {
         }
     }
 
-    public List<AdjacentCountryEntity> findAdjacentCountriesById(int id) throws DbException {
-        List<AdjacentCountryEntity> adjCountryEntityList = new ArrayList<>();
+    public List<AdjacentCountryViewModel> findAdjacentCountriesById(int id) throws DbException {
+        List<AdjacentCountryViewModel> adjCountryEntityList = new ArrayList<>();
         String query = String.format(
                 "SELECT c1.name AS country_name, c2.name AS adjacent_country_name FROM country c1 INNER JOIN adjacent_country ac on c1.id = ac.country_id INNER JOIN country c2 ON ac.adjacent_country_id=c2.id WHERE c1.id=%d;",
                 id);
         try {
             ResultSet resultSet = super.executeQuery(query);
             while (resultSet.next()) {
-                AdjacentCountryEntity.Builder builder = new AdjacentCountryEntity.Builder();
+                AdjacentCountryViewModel.Builder builder = new AdjacentCountryViewModel.Builder();
                 builder.setCountryName(resultSet.getString(1));
                 builder.setAdjacentCountryName(resultSet.getString(2));
-                AdjacentCountryEntity continentEntity = builder.build();
+                AdjacentCountryViewModel continentEntity = builder.build();
                 adjCountryEntityList.add(continentEntity);
             }
             resultSet.close();
@@ -82,13 +82,13 @@ public class CountryRepository extends BaseRepository {
         }
     }
 
-    public CountryArmyEntity findCountryArmy(int id) throws DbException {
+    public CountryArmyModelView findCountryArmy(int id) throws DbException {
         String query = String.format(
                 "SELECT c.id, c.name AS country_name, SUM(CASE WHEN a.name = 'Infantry' THEN ta.count ELSE 0 END) AS infantry_count, SUM(CASE WHEN a.name = 'Cavalry' THEN ta.count ELSE 0 END) AS cavalry_count, SUM(CASE WHEN a.name = 'Artillery' THEN ta.count ELSE 0 END) AS artilary_count FROM country c INNER JOIN territory_army ta ON c.id = ta.country_id INNER JOIN army a ON ta.army_id = a.id WHERE c.id = %d GROUP BY c.id, c.name;",
                 id);
         try {
             ResultSet resultSet = super.executeQuery(query);
-            CountryArmyEntity.Builder builder = new CountryArmyEntity.Builder();
+            CountryArmyModelView.Builder builder = new CountryArmyModelView.Builder();
 
             while (resultSet.next()) {
                 builder.setId(resultSet.getInt(1));
