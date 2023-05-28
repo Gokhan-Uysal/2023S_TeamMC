@@ -1,14 +1,17 @@
-package app.domain.models.entities;
+package app.domain.models.modelViews;
 
-public class CountryArmyEntity extends BaseEntity {
-    public String country_name;
+import app.domain.models.entities.BaseEntity;
+
+public class PlayerArmyCardViewModel extends BaseEntity {
+    public String username;
     public int infantry_count;
     public int cavalry_count;
     public int artillery_count;
 
-    public CountryArmyEntity(int id, String country_name, int infantry_count, int cavalry_count, int artillery_count) {
+    public PlayerArmyCardViewModel(int id, String username, int infantry_count, int cavalry_count,
+            int artillery_count) {
         super(id);
-        this.country_name = country_name;
+        this.username = username;
         this.infantry_count = infantry_count;
         this.cavalry_count = cavalry_count;
         this.artillery_count = artillery_count;
@@ -16,7 +19,7 @@ public class CountryArmyEntity extends BaseEntity {
 
     public static class Builder {
         private int id;
-        private String country_name;
+        private String username;
         private int infantry_count;
         private int cavalry_count;
         private int artillery_count;
@@ -26,8 +29,8 @@ public class CountryArmyEntity extends BaseEntity {
             return this;
         }
 
-        public Builder setCountryName(String country_name) {
-            this.country_name = country_name;
+        public Builder setUsername(String username) {
+            this.username = username;
             return this;
         }
 
@@ -46,8 +49,8 @@ public class CountryArmyEntity extends BaseEntity {
             return this;
         }
 
-        public CountryArmyEntity build() {
-            return new CountryArmyEntity(id, country_name, infantry_count, cavalry_count, artillery_count);
+        public PlayerArmyCardViewModel build() {
+            return new PlayerArmyCardViewModel(id, username, infantry_count, cavalry_count, artillery_count);
         }
     }
 }

@@ -5,10 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.common.Logger;
 import app.common.errors.DbException;
 import app.domain.models.card.army.ArmyCardType;
-import app.domain.models.entities.PlayerArmyEntity;
 import app.domain.models.entities.PlayerEntity;
+import app.domain.models.modelViews.PlayerArmyCardViewModel;
 
 public class PlayerRepository extends BaseRepository {
 
@@ -54,13 +55,13 @@ public class PlayerRepository extends BaseRepository {
         }
     }
 
-    public PlayerArmyEntity findPlayerArmy(int id) throws DbException {
+    public PlayerArmyCardViewModel findPlayerArmy(int id) throws DbException {
         String query = String.format(
                 "SELECT p.id, p.username AS player_username, SUM(CASE WHEN ac.name = 'Infantry' THEN pac.count ELSE 0 END) AS infantry_count, SUM(CASE WHEN ac.name = 'Cavalry' THEN pac.count ELSE 0 END) AS cavalry_count, SUM(CASE WHEN ac.name = 'Artillery' THEN pac.count ELSE 0 END) AS artilary_count FROM player p INNER JOIN player_army_card pac ON p.id = pac.player_id INNER JOIN army_card ac ON pac.army_card_id = ac.id WHERE p.id = %d GROUP BY p.id, p.username;",
                 id);
         try {
             ResultSet resultSet = super.executeQuery(query);
-            PlayerArmyEntity.Builder builder = new PlayerArmyEntity.Builder();
+            PlayerArmyCardViewModel.Builder builder = new PlayerArmyCardViewModel.Builder();
 
             while (resultSet.next()) {
                 builder.setId(resultSet.getInt(1));
@@ -79,7 +80,7 @@ public class PlayerRepository extends BaseRepository {
 
     public int insertPlayer(PlayerEntity playerEntity) throws DbException, NoSuchFieldException, SecurityException {
         try {
-            ResultSet resultSet = super.insertEntity(playerEntity);
+            ResultSet resultSet = super.insertEntity(playerEntity, true);
             resultSet.next();
             return resultSet.getInt(1);
         } catch (SQLException e) {

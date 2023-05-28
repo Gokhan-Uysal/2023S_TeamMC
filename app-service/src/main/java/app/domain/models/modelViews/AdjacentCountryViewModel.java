@@ -1,10 +1,10 @@
-package app.domain.models.entities;
+package app.domain.models.modelViews;
 
-public class AdjacentCountryEntity {
+public class AdjacentCountryViewModel {
     public String country_name;
     public String adjacent_country_name;
 
-    public AdjacentCountryEntity(String country_name, String adjacent_country_name) {
+    public AdjacentCountryViewModel(String country_name, String adjacent_country_name) {
         this.country_name = country_name;
         this.adjacent_country_name = adjacent_country_name;
     }
@@ -23,8 +23,8 @@ public class AdjacentCountryEntity {
             return this;
         }
 
-        public AdjacentCountryEntity build() {
-            return new AdjacentCountryEntity(country_name, adjacent_country_name);
+        public AdjacentCountryViewModel build() {
+            return new AdjacentCountryViewModel(country_name, adjacent_country_name);
         }
     }
 }
