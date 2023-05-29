@@ -2,9 +2,9 @@ package app;
 
 import static org.junit.Assert.assertTrue;
 
+import app.common.Logger;
 import org.junit.Test;
 
-import app.common.Logger;
 import app.domain.services.states.AttackState;
 
 public class AttackStateTest {
