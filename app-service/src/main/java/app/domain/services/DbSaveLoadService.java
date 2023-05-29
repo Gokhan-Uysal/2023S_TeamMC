@@ -6,18 +6,18 @@ import app.domain.models.game.GameState;
 import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
 import app.domain.repositories.CountryRepository;
-import app.domain.repositories.MapRepsitory;
+import app.domain.repositories.MapRepository;
 import app.domain.repositories.PlayerRepository;
 
 public class DbSaveLoadService implements ISaveLoadAdapter {
     private PlayerRepository _playerRepository;
     private CountryRepository _countryRepository;
-    private MapRepsitory _mapRepsitory;
+    private MapRepository _mapRepsitory;
 
     public DbSaveLoadService() {
         _playerRepository = new PlayerRepository();
         _countryRepository = new CountryRepository();
-        _mapRepsitory = new MapRepsitory();
+        _mapRepsitory = new MapRepository();
     }
 
     @Override

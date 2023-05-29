@@ -22,7 +22,7 @@ public abstract class BaseRepository {
     protected ResultSet executeQuery(String query) throws SQLException {
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();
-        statement.execute(query);
+        statement.executeQuery(query);
         return statement.getResultSet();
     }
 

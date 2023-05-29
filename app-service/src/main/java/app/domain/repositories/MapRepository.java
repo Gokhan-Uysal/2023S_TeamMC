@@ -10,10 +10,10 @@ import app.domain.models.game.map.Territory;
 import app.domain.models.game.map.TerritoryPosition;
 import app.domain.models.modelViews.AdjacentCountryViewModel;
 
-public class MapRepsitory {
+public class MapRepository {
     private CountryRepository _territoryRepository;
 
-    public MapRepsitory() {
+    public MapRepository() {
         this._territoryRepository = new CountryRepository();
     }
 
