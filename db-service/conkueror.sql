@@ -35,12 +35,31 @@ CREATE TABLE adjacent_country (
     CHECK (country_id <> adjacent_country.adjacent_country_id)
 );
 
+DROP TABLE IF EXISTS army cascade;
+CREATE TABLE army (
+    id SERIAL,
+    name VARCHAR(255) NOT NULL,
+    value INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
 DROP TABLE IF EXISTS player cascade;
 CREATE TABLE player (
     id SERIAL,
     username VARCHAR(255),
     high_score INT,
     PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS territory_army cascade;
+CREATE TABLE territory_army (
+    country_id INT NOT NULL,
+    army_id INT NOT NULL,
+    count INT DEFAULT 0,
+    PRIMARY KEY (country_id, army_id),
+    FOREIGN KEY (country_id) REFERENCES country(id),
+    FOREIGN KEY (army_id) REFERENCES army(id),
+    CHECK (count >= 0)
 );
 
 DROP TABLE IF EXISTS player_game cascade;
@@ -71,23 +90,24 @@ CREATE TABLE territory_card (
     FOREIGN KEY (country_id) REFERENCES country(id)
 );
 
-DROP TABLE IF EXISTS player_amry_card cascade;
-CREATE TABLE player_amry_card (
+DROP TABLE IF EXISTS player_army_card cascade;
+CREATE TABLE player_army_card (
     player_id INT NOT NULL,
     count INT DEFAULT 0,
-    army_card INT NOT NULL,
-    PRIMARY KEY (player_id, army_card),
+    army_card_id INT NOT NULL,
+    PRIMARY KEY (player_id, army_card_id),
     FOREIGN KEY (player_id) REFERENCES player(id),
-    FOREIGN KEY (army_card) REFERENCES army_card(id)
+    FOREIGN KEY (army_card_id) REFERENCES army_card(id),
+    CHECK (count >= 0)
 );
 
 DROP TABLE IF EXISTS player_territory_card cascade;
 CREATE TABLE player_territory_card (
     player_id INT NOT NULL,
-    territory_card INT NOT NULL,
-    PRIMARY KEY (player_id, territory_card),
+    territory_card_id INT NOT NULL,
+    PRIMARY KEY (player_id, territory_card_id),
     FOREIGN KEY (player_id) REFERENCES player(id),
-    FOREIGN KEY (territory_card) REFERENCES territory_card(id)
+    FOREIGN KEY (territory_card_id) REFERENCES territory_card(id)
 );
 
 -- Continents
@@ -435,8 +455,17 @@ VALUES ('Alaska', 'alaska_card.png', (SELECT id FROM country WHERE name = 'Alask
        ('Quebec (Eastern Canada)', 'quebec_card.png', (SELECT id FROM country WHERE name = 'Quebec (Eastern Canada)')),
        ('Western United States', 'western_united_states_card.png', (SELECT id FROM country WHERE name = 'Western United States'));
 
-
 INSERT INTO army_card (name, value, image)
 VALUES ('Infantry', 10, 'infantry.png'),
        ('Cavalry', 40, 'cavalry.png'),
        ('Artillery', 60, 'artillery.png');
+
+INSERT INTO army (name, value)
+VALUES ('Infantry', 1),
+       ('Cavalry', 5),
+       ('Artillery', 10);
+
+-- Inserting territory_army records for all territories and armies
+INSERT INTO territory_army (country_id, army_id)
+SELECT c.id, a.id
+FROM country c, army a;
