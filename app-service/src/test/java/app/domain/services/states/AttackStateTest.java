@@ -1,4 +1,4 @@
-package app;
+package app.domain.services.states;
 
 import static org.junit.Assert.assertTrue;
 

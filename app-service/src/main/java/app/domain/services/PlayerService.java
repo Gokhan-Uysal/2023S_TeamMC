@@ -39,6 +39,14 @@ public class PlayerService {
         return _playerService;
     }
 
+    public void setPlayers(ArrayList<Player> players){
+        this._players = players;
+    }
+
+    public void setCurrentPlayerIndex(int index){
+        this._currentPlayerIndex = index;
+    }
+
     public void createPlayers(List<String> names) {
         names.forEach((name) -> {
             if (_currentPlayerCount > UPPER_BOUND) {
@@ -112,7 +120,7 @@ public class PlayerService {
     }
 
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
-        return playerId == _mapService.findTerritory(territoryId).getOwnerId();
+        return playerId != _mapService.findTerritory(territoryId).getOwnerId();
     }
 
     public void emptyPlayerDecks() {

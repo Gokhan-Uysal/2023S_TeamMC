@@ -3,23 +3,19 @@ package app.domain.services.states;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Territory;
 import app.domain.services.PlayerService;
-import app.domain.services.map.MapService;
 
-public class RecieveState {
-    private MapService _mapService;
+public class ReceiveState {
     private PlayerService _playerService;
 
-    public RecieveState() {
-        _mapService = MapService.getInstance();
+    public ReceiveState() {
         _playerService = PlayerService.getInstance();
     }
 
-    public void placeRecievedUnits(int territoryId){
+    public void placeReceivedUnits(Territory territory){
         int armyUnitNumber = receivedUnitAmount();
 
-        Territory placementTerritory = _mapService.findTerritory(territoryId);
-        if (placementTerritory.getOwnerId() == _playerService.getCurrentPlayer().getId()){
-            placementTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry, armyUnitNumber);
+        if (territory.getOwnerId() == _playerService.getCurrentPlayer().getId()){
+            territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry, armyUnitNumber);
         }
         else{
             throw new Error("Select one of your own territories.");
@@ -27,6 +23,7 @@ public class RecieveState {
     }
 
     public int receivedUnitAmount(){
+
         if (_playerService.numberOfTerritories(_playerService.getCurrentPlayer().getId()) <= 9){
             return 3;
         }

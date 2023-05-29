@@ -153,7 +153,7 @@ public class AttackState {
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
-        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
+        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
             throw new AttackError("Please choose one of your own territories.");
         }
         if (attacker.getTotalArmyAmount() <= 2) {
