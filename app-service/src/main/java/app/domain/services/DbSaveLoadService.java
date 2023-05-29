@@ -5,8 +5,20 @@ import java.util.List;
 import app.domain.models.game.GameState;
 import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
+import app.domain.repositories.CountryRepository;
+import app.domain.repositories.MapRepsitory;
+import app.domain.repositories.PlayerRepository;
 
 public class DbSaveLoadService implements ISaveLoadAdapter {
+    private PlayerRepository _playerRepository;
+    private CountryRepository _countryRepository;
+    private MapRepsitory _mapRepsitory;
+
+    public DbSaveLoadService() {
+        _playerRepository = new PlayerRepository();
+        _countryRepository = new CountryRepository();
+        _mapRepsitory = new MapRepsitory();
+    }
 
     @Override
     public void saveMap(List<Territory> territories) {
@@ -28,8 +40,7 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
 
     @Override
     public List<Territory> loadMap() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadMap'");
+        return _mapRepsitory.buildGameMapData();
     }
 
     @Override
