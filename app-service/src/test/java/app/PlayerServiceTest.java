@@ -1,6 +1,7 @@
 package app;
 
 import app.common.errors.DbException;
+import app.domain.models.entities.PlayerEntity;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
@@ -10,28 +11,28 @@ import app.domain.repositories.PlayerRepository;
 import app.domain.repositories.PlayerArmyCardRepository;
 import app.domain.services.PlayerService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
 public class PlayerServiceTest {
-    @Mock
     private PlayerRepository mockPlayerRepository;
 
-    @Mock
+
     private PlayerArmyCardRepository mockPlayerArmyCardRepository;
 
-    @InjectMocks
     private PlayerService playerService;
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+        mockPlayerRepository = new PlayerRepository();
+        mockPlayerArmyCardRepository = new PlayerArmyCardRepository();
+        playerService = new PlayerService();
     }
 
     @Test
     public void createPlayers_successfullyCreatesPlayersWhenBelowUpperBound() throws Exception {
         // Arrange
         List<String> names = Arrays.asList("Player1", "Player2", "Player3", "Player4", "Player5");
-        when(mockPlayerRepository.insertPlayer(any())).thenReturn(1, 2, 3, 4, 5);
 
         // Act
         playerService.createPlayers(names);

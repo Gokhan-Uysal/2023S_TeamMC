@@ -77,7 +77,7 @@ public class RecieveState {
         territoryToCoup.setOwnerId(playerId);
     }
 
-    public void revolution(int opponentTerritoryId){
+    public void revolution(int opponentTerritoryId, int playerId){
         Territory territoryToRevolution = _mapService.findTerritory(opponentTerritoryId);
         territoryToRevolution.setOwnerId(playerId);
     }
