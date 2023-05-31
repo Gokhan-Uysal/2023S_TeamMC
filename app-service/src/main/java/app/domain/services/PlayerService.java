@@ -141,11 +141,10 @@ public class PlayerService {
     }
 
     public int numberOfTerritories(int playerId) {
-        Player player = this.getPlayer(playerId);
         int territoryCount = 0;
 
         for (Territory territory : _mapService.getTerritoryListFromGraph()) {
-            if (territory.getOwnerId() == player.getId()) {
+            if (territory.getOwnerId() == playerId) {
                 territoryCount++;
             }
         }

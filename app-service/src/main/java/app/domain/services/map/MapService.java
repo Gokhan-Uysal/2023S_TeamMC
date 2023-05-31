@@ -29,6 +29,10 @@ public class MapService {
 		return _instance;
 	}
 
+	public void setMapGraphService(MapGraphService mapGraphService){
+		this._mapGraphService = mapGraphService;
+	}
+
 	public void loadGameMapDataToGraph() throws DbException {
 		List<Territory> territoryList = _mapRepository.buildGameMapData();
 		_mapGraphService.addVerticies(territoryList);

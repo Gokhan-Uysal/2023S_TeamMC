@@ -11,7 +11,7 @@ public class ReceiveState {
         _playerService = PlayerService.getInstance();
     }
 
-    public void placeReceivedUnits(Territory territory){
+    public void placeReceivedUnits(Territory territory) throws Error{
         int armyUnitNumber = receivedUnitAmount();
 
         if (territory.getOwnerId() == _playerService.getCurrentPlayer().getId()){
@@ -29,6 +29,16 @@ public class ReceiveState {
         }
         else{
             return _playerService.numberOfTerritories(_playerService.getCurrentPlayer().getId()) / 3;
+        }
+    }
+
+    public void placeReceivedUnits(Territory territory, int receivedAmount) throws Error{
+
+        if (territory.getOwnerId() == _playerService.getCurrentPlayer().getId()){
+            territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry, receivedAmount);
+        }
+        else{
+            throw new Error("Select one of your own territories.");
         }
     }
 }
