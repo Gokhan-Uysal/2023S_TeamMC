@@ -47,6 +47,10 @@ public class PlayerService {
         this._currentPlayerIndex = index;
     }
 
+    public List<Player> getPlayers(){
+        return this._players;
+    }
+
     public void createPlayers(List<String> names) {
         names.forEach((name) -> {
             if (_currentPlayerCount > UPPER_BOUND) {
