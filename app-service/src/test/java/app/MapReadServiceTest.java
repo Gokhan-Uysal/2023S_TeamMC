@@ -1,37 +1,87 @@
 package app;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+
 import app.domain.services.map.MapReadService;
-import app.domain.services.base.JsonService;
 import app.domain.models.game.map.Continent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapReadServiceTest {
 
     private MapReadService mapReadService;
-    private JsonService _jsonService;
-    private static final String filePath = "/main/java/app/__resource__/map.json";
+    private List<File> tempFiles;
 
     @Before
     public void setUp() {
-        _jsonService = mock(JsonService.class);
-        mapReadService = new MapReadService(filePath);
-          // Manually inject the mock
+        tempFiles = new ArrayList<>();
     }
 
+    @After
+    public void tearDown() {
+        for (File file : tempFiles) {
+            file.delete();
+        }
+    }
+
+    private File createTempJsonFile(JSONArray jsonArray) {
+        try {
+            // Create a temporary file
+            Path tempPath = Files.createTempFile("tempJsonFile", ".json");
+            File tempFile = tempPath.toFile();
+
+            // Write the JSONArray to the file
+            FileWriter writer = new FileWriter(tempFile);
+            writer.write(jsonArray.toJSONString());
+            writer.close();
+
+            // Return the temporary file
+            return tempFile;
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to create temp file for testing", e);
+        }
+    }
+
+    private JSONObject createContinentObject(String continentName, String territoryName, String imageName, int x, int y) {
+        JSONObject continentObject = new JSONObject();
+        continentObject.put("continent", continentName);
+
+        JSONObject territoryObject = new JSONObject();
+        territoryObject.put("name", territoryName);
+        territoryObject.put("imageName", imageName);
+        territoryObject.put("neighbors", new JSONArray());
+
+        JSONObject positionObject = new JSONObject();
+        positionObject.put("x", x);
+        positionObject.put("y", y);
+        territoryObject.put("position", positionObject);
+
+        JSONArray territoriesArray = new JSONArray();
+        territoriesArray.add(territoryObject);
+
+        continentObject.put("countries", territoriesArray);
+
+        return continentObject;
+    }
     @Test
-    public void testBuildGameMapData_emptyData() throws IOException, ParseException {
+    public void testBuildGameMapData_emptyData() {
         // Arrange
-        when(_jsonService.readJSON()).thenReturn(new JSONArray());
+        JSONArray emptyArray = new JSONArray();
+        File tempFile = createTempJsonFile(emptyArray);
+        tempFiles.add(tempFile);
+        mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
         // Act
         mapReadService.buildGameMapData();
@@ -41,7 +91,7 @@ public class MapReadServiceTest {
     }
 
     @Test
-    public void testBuildGameMapData_oneEntry() throws IOException, ParseException {
+    public void testBuildGameMapData_oneEntry() {
         // Arrange
         JSONObject continentObject = new JSONObject();
         continentObject.put("continent", "TestContinent");
@@ -64,7 +114,9 @@ public class MapReadServiceTest {
         JSONArray modelList = new JSONArray();
         modelList.add(continentObject);
 
-        when(_jsonService.readJSON()).thenReturn(modelList);
+        File tempFile = createTempJsonFile(modelList);
+        tempFiles.add(tempFile);
+        mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
         // Act
         mapReadService.buildGameMapData();
@@ -73,75 +125,34 @@ public class MapReadServiceTest {
         assertEquals(1, mapReadService.getGameMapData().size());
     }
 
+    // Include the rest of your tests here, following the same pattern
     @Test
-    public void testBuildGameMapData_throwsIOException() throws IOException, ParseException {
+    public void testBuildGameMapData_throwsIOException() {
         // Arrange
-        when(_jsonService.readJSON()).thenThrow(new IOException());
+        String invalidPath = "src/main/java/app/__resource__/non_existent.json";
+        mapReadService = new MapReadService(invalidPath);
 
         // Act
         mapReadService.buildGameMapData();
 
         // Assert
         assertTrue(mapReadService.getGameMapData().isEmpty());
-        // Consider using a mock Logger to verify logging behavior
     }
 
     @Test
-    public void testBuildGameMapData_throwsParseException() throws IOException, ParseException {
+    public void testBuildGameMapData_multipleEntries() {
         // Arrange
-        when(_jsonService.readJSON()).thenThrow(new ParseException(ParseException.ERROR_UNEXPECTED_EXCEPTION));
-
-        // Act
-        mapReadService.buildGameMapData();
-
-        // Assert
-        assertTrue(mapReadService.getGameMapData().isEmpty());
-        // Consider using a mock Logger to verify logging behavior
-    }
-    @Test
-    public void testBuildGameMapData_multipleEntries() throws IOException, ParseException {
-        // Arrange
-        JSONObject continentObject1 = new JSONObject();
-        continentObject1.put("continent", "TestContinent1");
-
-        JSONObject territoryObject1 = new JSONObject();
-        territoryObject1.put("name", "TestTerritory1");
-        territoryObject1.put("imageName", "TestImageName1");
-        territoryObject1.put("neighbors", new JSONArray());
-
-        JSONObject positionObject1 = new JSONObject();
-        positionObject1.put("x", 0);
-        positionObject1.put("y", 0);
-        territoryObject1.put("position", positionObject1);
-
-        JSONArray territoriesArray1 = new JSONArray();
-        territoriesArray1.add(territoryObject1);
-
-        continentObject1.put("countries", territoriesArray1);
-
-        JSONObject continentObject2 = new JSONObject();
-        continentObject2.put("continent", "TestContinent2");
-
-        JSONObject territoryObject2 = new JSONObject();
-        territoryObject2.put("name", "TestTerritory2");
-        territoryObject2.put("imageName", "TestImageName2");
-        territoryObject2.put("neighbors", new JSONArray());
-
-        JSONObject positionObject2 = new JSONObject();
-        positionObject2.put("x", 1);
-        positionObject2.put("y", 1);
-        territoryObject2.put("position", positionObject2);
-
-        JSONArray territoriesArray2 = new JSONArray();
-        territoriesArray2.add(territoryObject2);
-
-        continentObject2.put("countries", territoriesArray2);
-
         JSONArray modelList = new JSONArray();
+
+        JSONObject continentObject1 = createContinentObject("TestContinent1", "TestTerritory1", "TestImageName1", 0, 0);
+        JSONObject continentObject2 = createContinentObject("TestContinent2", "TestTerritory2", "TestImageName2", 1, 1);
+
         modelList.add(continentObject1);
         modelList.add(continentObject2);
 
-        when(_jsonService.readJSON()).thenReturn(modelList);
+        File tempFile = createTempJsonFile(modelList);
+        tempFiles.add(tempFile);
+        mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
         // Act
         mapReadService.buildGameMapData();
@@ -151,17 +162,18 @@ public class MapReadServiceTest {
     }
 
     @Test
-    public void testBuildGameMapData_noTerritoriesInContinent() throws IOException, ParseException {
+    public void testBuildGameMapData_noTerritoriesInContinent() {
         // Arrange
         JSONObject continentObject = new JSONObject();
         continentObject.put("continent", "TestContinent");
-
         continentObject.put("countries", new JSONArray());
 
         JSONArray modelList = new JSONArray();
         modelList.add(continentObject);
 
-        when(_jsonService.readJSON()).thenReturn(modelList);
+        File tempFile = createTempJsonFile(modelList);
+        tempFiles.add(tempFile);
+        mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
         // Act
         mapReadService.buildGameMapData();
@@ -173,6 +185,30 @@ public class MapReadServiceTest {
 
 
 
+    @Test
+    public void testBuildGameMapData_multipleContinents() throws IOException {
+        // Arrange
+        JSONObject firstContinentObject = new JSONObject();
+        firstContinentObject.put("continent", "TestContinent1");
+        firstContinentObject.put("countries", new JSONArray());
+
+        JSONObject secondContinentObject = new JSONObject();
+        secondContinentObject.put("continent", "TestContinent2");
+        secondContinentObject.put("countries", new JSONArray());
+
+        JSONArray modelList = new JSONArray();
+        modelList.add(firstContinentObject);
+        modelList.add(secondContinentObject);
+
+        File tempFile = createTempJsonFile(modelList);
+        mapReadService = new MapReadService(tempFile.getPath());
+
+        // Act
+        mapReadService.buildGameMapData();
+
+        // Assert
+        assertEquals(2, mapReadService.getGameMapData().size());
+    }
+
 
 }
-
