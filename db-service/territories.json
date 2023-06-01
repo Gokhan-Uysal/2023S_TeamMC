@@ -1,0 +1,757 @@
+[ {
+  "_adjList" : [ "South Africa", "North Africa", "East Africa" ],
+  "_territoryId" : 20,
+  "name" : "Congo (Central Africa)",
+  "isOpen" : true,
+  "imageName" : "congo.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 452,
+    "y" : 394
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Middle East", "Congo (Central Africa)", "Egypt", "South Africa", "Madagascar", "North Africa" ],
+  "_territoryId" : 21,
+  "name" : "East Africa",
+  "isOpen" : true,
+  "imageName" : "east_africa.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 495,
+    "y" : 355
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Middle East", "Southern Europe", "North Africa", "East Africa" ],
+  "_territoryId" : 22,
+  "name" : "Egypt",
+  "isOpen" : true,
+  "imageName" : "egypt.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 454,
+    "y" : 311
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "South Africa", "East Africa" ],
+  "_territoryId" : 23,
+  "name" : "Madagascar",
+  "isOpen" : true,
+  "imageName" : "madagascar.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 556,
+    "y" : 480
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Congo (Central Africa)", "Egypt", "Brazil", "Southern Europe", "East Africa", "Western Europe" ],
+  "_territoryId" : 24,
+  "name" : "North Africa",
+  "isOpen" : true,
+  "imageName" : "north_africa.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 376,
+    "y" : 293
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Congo (Central Africa)", "Madagascar", "East Africa" ],
+  "_territoryId" : 25,
+  "name" : "South Africa",
+  "isOpen" : true,
+  "imageName" : "south_africa.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 462,
+    "y" : 451
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Northern Europe", "Scandinavia", "Iceland", "Western Europe" ],
+  "_territoryId" : 26,
+  "name" : "Great Britain (Great Britain & Ireland)",
+  "isOpen" : true,
+  "imageName" : "great_britain.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 345,
+    "y" : 140
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Great Britain (Great Britain & Ireland)", "Scandinavia", "Greenland" ],
+  "_territoryId" : 27,
+  "name" : "Iceland",
+  "isOpen" : true,
+  "imageName" : "iceland.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 370,
+    "y" : 100
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Great Britain (Great Britain & Ireland)", "Ukraine (Eastern Europe, Russia)", "Southern Europe", "Scandinavia", "Western Europe" ],
+  "_territoryId" : 28,
+  "name" : "Northern Europe",
+  "isOpen" : true,
+  "imageName" : "northern_europe.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 420,
+    "y" : 152
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Great Britain (Great Britain & Ireland)", "Northern Europe", "Ukraine (Eastern Europe, Russia)", "Iceland" ],
+  "_territoryId" : 29,
+  "name" : "Scandinavia",
+  "isOpen" : true,
+  "imageName" : "scandinavia.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 430,
+    "y" : 70
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Middle East", "Northern Europe", "Egypt", "Ukraine (Eastern Europe, Russia)", "North Africa", "Western Europe" ],
+  "_territoryId" : 30,
+  "name" : "Southern Europe",
+  "isOpen" : true,
+  "imageName" : "southern_europe.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 428,
+    "y" : 210
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Middle East", "Ural", "Afghanistan", "Northern Europe", "Southern Europe", "Scandinavia" ],
+  "_territoryId" : 31,
+  "name" : "Ukraine (Eastern Europe, Russia)",
+  "isOpen" : true,
+  "imageName" : "ukraine.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 483,
+    "y" : 73
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Great Britain (Great Britain & Ireland)", "Northern Europe", "Southern Europe", "North Africa" ],
+  "_territoryId" : 32,
+  "name" : "Western Europe",
+  "isOpen" : true,
+  "imageName" : "western_europe.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 368,
+    "y" : 210
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Northwest Territory", "Kamchatka", "Alberta (Western Canada)" ],
+  "_territoryId" : 33,
+  "name" : "Alaska",
+  "isOpen" : true,
+  "imageName" : "alaska.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 30,
+    "y" : 60
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Ontario (Central Canada)", "Northwest Territory", "Alaska", "Western United States" ],
+  "_territoryId" : 34,
+  "name" : "Alberta (Western Canada)",
+  "isOpen" : true,
+  "imageName" : "alberta.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 103,
+    "y" : 108
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Venezuela", "Eastern United States", "Western United States", "Peru" ],
+  "_territoryId" : 35,
+  "name" : "Central America",
+  "isOpen" : true,
+  "imageName" : "central_america.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 117,
+    "y" : 234
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Central America", "Ontario (Central Canada)", "Quebec (Eastern Canada)", "Western United States" ],
+  "_territoryId" : 36,
+  "name" : "Eastern United States",
+  "isOpen" : true,
+  "imageName" : "eastern_united_states.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 160,
+    "y" : 168
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Ontario (Central Canada)", "Northwest Territory", "Quebec (Eastern Canada)", "Iceland" ],
+  "_territoryId" : 37,
+  "name" : "Greenland",
+  "isOpen" : true,
+  "imageName" : "greenland.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 250,
+    "y" : 15
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Ontario (Central Canada)", "Alaska", "Greenland", "Alberta (Western Canada)" ],
+  "_territoryId" : 38,
+  "name" : "Northwest Territory",
+  "isOpen" : true,
+  "imageName" : "northwest_territory.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 95,
+    "y" : 47
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Northwest Territory", "Quebec (Eastern Canada)", "Eastern United States", "Western United States", "Greenland", "Alberta (Western Canada)" ],
+  "_territoryId" : 39,
+  "name" : "Ontario (Central Canada)",
+  "isOpen" : true,
+  "imageName" : "ontario.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 175,
+    "y" : 110
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Ontario (Central Canada)", "Eastern United States", "Greenland" ],
+  "_territoryId" : 40,
+  "name" : "Quebec (Eastern Canada)",
+  "isOpen" : true,
+  "imageName" : "quebec.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 230,
+    "y" : 106
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Central America", "Ontario (Central Canada)", "Eastern United States", "Alberta (Western Canada)" ],
+  "_territoryId" : 41,
+  "name" : "Western United States",
+  "isOpen" : true,
+  "imageName" : "western_united_states.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 110,
+    "y" : 166
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Western Australia", "New Guinea" ],
+  "_territoryId" : 0,
+  "name" : "Eastern Australia",
+  "isOpen" : true,
+  "imageName" : "eastern_australia.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 810,
+    "y" : 445
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Western Australia", "New Guinea", "Siam (Southeast Asia)" ],
+  "_territoryId" : 1,
+  "name" : "Indonesia",
+  "isOpen" : true,
+  "imageName" : "indonesia.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 696,
+    "y" : 393
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Western Australia", "Eastern Australia", "Indonesia" ],
+  "_territoryId" : 2,
+  "name" : "New Guinea",
+  "isOpen" : true,
+  "imageName" : "new_guinea.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 789,
+    "y" : 383
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "New Guinea", "Eastern Australia", "Indonesia" ],
+  "_territoryId" : 3,
+  "name" : "Western Australia",
+  "isOpen" : true,
+  "imageName" : "western_australia.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 752,
+    "y" : 459
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Middle East", "Ural", "China", "India" ],
+  "_territoryId" : 8,
+  "name" : "Afghanistan",
+  "isOpen" : true,
+  "imageName" : "afghanistan.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 563,
+    "y" : 168
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Ural", "Afghanistan", "Mongolia", "Siam (Southeast Asia)", "Siberia", "India" ],
+  "_territoryId" : 9,
+  "name" : "China",
+  "isOpen" : true,
+  "imageName" : "china.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 644,
+    "y" : 185
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Middle East", "Afghanistan", "China", "Siam (Southeast Asia)" ],
+  "_territoryId" : 10,
+  "name" : "India",
+  "isOpen" : true,
+  "imageName" : "india.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 613,
+    "y" : 248
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Yakutsk", "Mongolia", "Siberia", "Kamchatka" ],
+  "_territoryId" : 11,
+  "name" : "Irkutsk",
+  "isOpen" : true,
+  "imageName" : "irkutsk.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 686,
+    "y" : 105
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Mongolia", "Kamchatka" ],
+  "_territoryId" : 12,
+  "name" : "Japan",
+  "isOpen" : true,
+  "imageName" : "japan.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 797,
+    "y" : 156
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Yakutsk", "Mongolia", "Irkutsk", "Japan", "Alaska" ],
+  "_territoryId" : 13,
+  "name" : "Kamchatka",
+  "isOpen" : true,
+  "imageName" : "kamchatka.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 746,
+    "y" : 51
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Afghanistan", "Egypt", "Ukraine (Eastern Europe, Russia)", "Southern Europe", "East Africa", "India" ],
+  "_territoryId" : 14,
+  "name" : "Middle East",
+  "isOpen" : true,
+  "imageName" : "middle_east.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 493,
+    "y" : 257
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Irkutsk", "China", "Japan", "Siberia", "Kamchatka" ],
+  "_territoryId" : 15,
+  "name" : "Mongolia",
+  "isOpen" : true,
+  "imageName" : "mongolia.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 693,
+    "y" : 156
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "China", "India", "Indonesia" ],
+  "_territoryId" : 16,
+  "name" : "Siam (Southeast Asia)",
+  "isOpen" : true,
+  "imageName" : "siam.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 700,
+    "y" : 294
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Ural", "Yakutsk", "Mongolia", "Irkutsk", "China" ],
+  "_territoryId" : 17,
+  "name" : "Siberia",
+  "isOpen" : true,
+  "imageName" : "siberia.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 618,
+    "y" : 24
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Afghanistan", "China", "Siberia", "Ukraine (Eastern Europe, Russia)" ],
+  "_territoryId" : 18,
+  "name" : "Ural",
+  "isOpen" : true,
+  "imageName" : "ural.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 599,
+    "y" : 52
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Irkutsk", "Siberia", "Kamchatka" ],
+  "_territoryId" : 19,
+  "name" : "Yakutsk",
+  "isOpen" : true,
+  "imageName" : "yakutsk.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 699,
+    "y" : 37
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Brazil", "Peru" ],
+  "_territoryId" : 4,
+  "name" : "Argentina",
+  "isOpen" : true,
+  "imageName" : "argentina.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 208,
+    "y" : 419
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Venezuela", "Argentina", "North Africa", "Peru" ],
+  "_territoryId" : 5,
+  "name" : "Brazil",
+  "isOpen" : true,
+  "imageName" : "brazil.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 195,
+    "y" : 337
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Central America", "Venezuela", "Argentina", "Brazil" ],
+  "_territoryId" : 6,
+  "name" : "Peru",
+  "isOpen" : true,
+  "imageName" : "peru.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 175,
+    "y" : 350
+  },
+  "ownerId" : -1
+}, {
+  "_adjList" : [ "Central America", "Brazil", "Peru" ],
+  "_territoryId" : 7,
+  "name" : "Venezuela",
+  "isOpen" : true,
+  "imageName" : "venezuela.png",
+  "artilleryCount" : 0,
+  "territoryArmy" : {
+    "totalArmyValue" : 10,
+    "totalArmyAmount" : 0
+  },
+  "chivalryCount" : 0,
+  "infantryCount" : 0,
+  "territoryPosition" : {
+    "x" : 181,
+    "y" : 309
+  },
+  "ownerId" : -1
+} ]

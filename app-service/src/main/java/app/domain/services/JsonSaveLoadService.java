@@ -15,13 +15,13 @@ import app.domain.models.player.Player;
 
 public class JsonSaveLoadService implements ISaveLoadAdapter {
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final String SAVE_PATH = "db-service/";
+    private static String SAVE_PATH = "C:\\Users\\sgtfr\\IdeaProjects\\2023S_TeamMC_new\\db-service\\territories.json";
     @Override
     public void saveMap(List<Territory> territories) {
         // TODO Auto-generated method stub
         try {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(SAVE_PATH + "territories.json"), territories);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(SAVE_PATH ), territories);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class JsonSaveLoadService implements ISaveLoadAdapter {
         try {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            return mapper.readValue(new File(SAVE_PATH + "territories.json"), new TypeReference<List<Territory>>() {});
+            return mapper.readValue(new File(SAVE_PATH), new TypeReference<List<Territory>>() {});
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,4 +87,7 @@ public class JsonSaveLoadService implements ISaveLoadAdapter {
         }
         return null;    }
 
+    public void setSavePath(String s) {
+        this.SAVE_PATH = s;
+    }
 }
