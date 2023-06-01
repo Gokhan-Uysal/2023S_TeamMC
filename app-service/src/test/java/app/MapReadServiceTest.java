@@ -38,16 +38,13 @@ public class MapReadServiceTest {
 
     private File createTempJsonFile(JSONArray jsonArray) {
         try {
-            // Create a temporary file
             Path tempPath = Files.createTempFile("tempJsonFile", ".json");
             File tempFile = tempPath.toFile();
 
-            // Write the JSONArray to the file
             FileWriter writer = new FileWriter(tempFile);
             writer.write(jsonArray.toJSONString());
             writer.close();
 
-            // Return the temporary file
             return tempFile;
         } catch (IOException e) {
             throw new RuntimeException("Unable to create temp file for testing", e);
@@ -77,22 +74,18 @@ public class MapReadServiceTest {
     }
     @Test
     public void testBuildGameMapData_emptyData() {
-        // Arrange
         JSONArray emptyArray = new JSONArray();
         File tempFile = createTempJsonFile(emptyArray);
         tempFiles.add(tempFile);
         mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
-        // Act
         mapReadService.buildGameMapData();
 
-        // Assert
         assertTrue(mapReadService.getGameMapData().isEmpty());
     }
 
     @Test
     public void testBuildGameMapData_oneEntry() {
-        // Arrange
         JSONObject continentObject = new JSONObject();
         continentObject.put("continent", "TestContinent");
 
@@ -118,30 +111,23 @@ public class MapReadServiceTest {
         tempFiles.add(tempFile);
         mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
-        // Act
         mapReadService.buildGameMapData();
 
-        // Assert
         assertEquals(1, mapReadService.getGameMapData().size());
     }
 
-    // Include the rest of your tests here, following the same pattern
     @Test
     public void testBuildGameMapData_throwsIOException() {
-        // Arrange
         String invalidPath = "src/main/java/app/__resource__/non_existent.json";
         mapReadService = new MapReadService(invalidPath);
 
-        // Act
         mapReadService.buildGameMapData();
 
-        // Assert
         assertTrue(mapReadService.getGameMapData().isEmpty());
     }
 
     @Test
     public void testBuildGameMapData_multipleEntries() {
-        // Arrange
         JSONArray modelList = new JSONArray();
 
         JSONObject continentObject1 = createContinentObject("TestContinent1", "TestTerritory1", "TestImageName1", 0, 0);
@@ -154,16 +140,13 @@ public class MapReadServiceTest {
         tempFiles.add(tempFile);
         mapReadService = new MapReadService(tempFile.getAbsolutePath());
 
-        // Act
         mapReadService.buildGameMapData();
 
-        // Assert
         assertEquals(2, mapReadService.getGameMapData().size());
     }
 
     @Test
     public void testBuildGameMapData_multipleContinents() throws IOException {
-        // Arrange
         JSONObject firstContinentObject = new JSONObject();
         firstContinentObject.put("continent", "TestContinent1");
         firstContinentObject.put("countries", new JSONArray());
@@ -179,10 +162,8 @@ public class MapReadServiceTest {
         File tempFile = createTempJsonFile(modelList);
         mapReadService = new MapReadService(tempFile.getPath());
 
-        // Act
         mapReadService.buildGameMapData();
 
-        // Assert
         assertEquals(2, mapReadService.getGameMapData().size());
     }
 
