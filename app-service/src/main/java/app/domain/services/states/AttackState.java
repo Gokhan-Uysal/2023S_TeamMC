@@ -192,17 +192,20 @@ public class AttackState {
 
     private boolean isValidAttack(Army attacker, Army defender) {
         if (defender.getArmyAmount(ArmyUnitType.Artillery) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Artillery) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
+            return attacker.getArmyAmount(ArmyUnitType.Artillery) >
+                    defender.getArmyAmount(ArmyUnitType.Artillery) &&
+                    attacker.getTotalArmyValue() >
+                            defender.getTotalArmyValue();
         } else if (defender.getArmyAmount(ArmyUnitType.Chivalry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Chivalry) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
+            return attacker.getArmyAmount(ArmyUnitType.Chivalry) >
+                    defender.getArmyAmount(ArmyUnitType.Chivalry) &&
+                    attacker.getTotalArmyValue() >
+                            defender.getTotalArmyValue();
         } else if (defender.getArmyAmount(ArmyUnitType.Infantry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Infantry) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
+            return attacker.getArmyAmount(ArmyUnitType.Infantry) >
+                    defender.getArmyAmount(ArmyUnitType.Infantry) &&
+                    attacker.getTotalArmyValue() >
+                            defender.getTotalArmyValue();
         }
         return false;
     }

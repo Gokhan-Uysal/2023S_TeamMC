@@ -136,7 +136,17 @@ class AttackStateTest {
     void validateAttackWhenNotValidMatchUp(){
         this.setUp();
 
+        Territory attackerTerritory = _mapService.findTerritory(0);
+        Territory defenderTerritory = _mapService.findTerritory(1);
 
+        attackerTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry, 8);
+        attackerTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 1);
+
+        defenderTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Infantry,1);
+        defenderTerritory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 2);
+
+        assertThrows(AttackError.class, () -> _attackState.validateAttack(0,1,0),
+                "Not valid match-up");
 
         this.tearDown();
     }
