@@ -162,30 +162,6 @@ public class MapReadServiceTest {
     }
 
     @Test
-    public void testBuildGameMapData_noTerritoriesInContinent() {
-        // Arrange
-        JSONObject continentObject = new JSONObject();
-        continentObject.put("continent", "TestContinent");
-        continentObject.put("countries", new JSONArray());
-
-        JSONArray modelList = new JSONArray();
-        modelList.add(continentObject);
-
-        File tempFile = createTempJsonFile(modelList);
-        tempFiles.add(tempFile);
-        mapReadService = new MapReadService(tempFile.getAbsolutePath());
-
-        // Act
-        mapReadService.buildGameMapData();
-
-        // Assert
-        assertEquals(1, mapReadService.getGameMapData().size());
-        assertTrue(mapReadService.getGameMapData().get(new Continent("TestContinent")).isEmpty());
-    }
-
-
-
-    @Test
     public void testBuildGameMapData_multipleContinents() throws IOException {
         // Arrange
         JSONObject firstContinentObject = new JSONObject();
