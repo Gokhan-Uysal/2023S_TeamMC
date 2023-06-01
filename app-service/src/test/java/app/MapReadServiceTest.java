@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import app.domain.services.map.MapReadService;
-import app.domain.models.game.map.Continent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.FileWriter;
