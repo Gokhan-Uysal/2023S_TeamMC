@@ -9,6 +9,7 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) throws DbException {
+
         SwingUtilities.invokeLater(() -> {
             new MainMenuFrame();
             PlayerRepository pr = new PlayerRepository();
