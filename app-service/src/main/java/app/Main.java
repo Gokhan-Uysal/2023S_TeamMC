@@ -7,7 +7,6 @@ import app.ui.views.menu.MainMenuFrame;
 
 import javax.swing.*;
 
-
 public class Main {
     public static void main(String[] args) throws DbException {
 
@@ -23,6 +22,5 @@ public class Main {
                 e.printStackTrace();
             }
         });
-
     }
 }
