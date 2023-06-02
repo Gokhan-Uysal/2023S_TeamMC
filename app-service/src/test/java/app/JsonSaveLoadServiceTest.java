@@ -2,16 +2,15 @@ package app;
 
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Territory;
+import app.domain.models.game.map.TerritoryPosition;
 import app.domain.services.JsonSaveLoadService;
 import app.domain.services.map.MapReadService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,33 +20,46 @@ class JsonSaveLoadServiceTest {
     private List<Territory> initialList;
     private JsonSaveLoadService _jsonSaveLoadService;
     private List<Territory> newList;
-    private String territoryRoot = "C:\\Users\\sgtfr\\IdeaProjects\\2023S_TeamMC_new\\db-service\\territories.json";
-    private ObjectMapper mapper;
+    private String territoryRoot = "src/main/java/app/__resource__/territories.json";
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         //Arrange
-        _mapReadService = new MapReadService("C:\\Users\\sgtfr\\IdeaProjects\\2023S_TeamMC_new\\app-service\\src\\main\\java\\app\\__resource__\\map.json");
+        _mapReadService = new MapReadService("src/main/java/app/__resource__/map.json");
         _mapReadService.buildGameMapData();
         initialList = _mapReadService.getGameMapTerritories();
-        _jsonSaveLoadService = new JsonSaveLoadService();
-        mapper = new ObjectMapper();
-
+        _jsonSaveLoadService = new JsonSaveLoadService("src/main/java/app/__resource__/");
     }
 
-    @org.junit.jupiter.api.AfterEach
+
+    @AfterEach
     void tearDown() {
-        /*
+
         //Arrange
         File territoryFile= new File(territoryRoot);
         //Act
         if (territoryFile.exists()) {
+            System.out.println("territory.json deleted");
             territoryFile.delete();
         }
-         */
+
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void testMultipleSaving() {
+        //Act
+        _jsonSaveLoadService.saveMap(initialList);
+        newList = _jsonSaveLoadService.loadMap();
+        newList.get(0).setTerritoryPosition(new TerritoryPosition(999,999));
+        _jsonSaveLoadService.saveMap(newList.subList(0,1));
+        newList= _jsonSaveLoadService.loadMap();
+        //Assert
+        assertFalse(newList.get(0).getTerritoryPosition().getX() == initialList.get(0).getTerritoryPosition().getX(), "X values of territories are not same");
+        assertFalse(newList.get(0).getTerritoryPosition().getY() == initialList.get(0).getTerritoryPosition().getY(), "Y values of territories are not same");
+
+    }
+
+    @Test
     void testSavingLoadingSimpleValues() {
         //Act
         _jsonSaveLoadService.saveMap(initialList);
@@ -64,8 +76,8 @@ class JsonSaveLoadServiceTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
-    void testSavingLoadingComplexValues() throws IOException {
+    @Test
+    void testSavingLoadingComplexValues() {
         //Act
         _jsonSaveLoadService.saveMap(initialList);
         newList = _jsonSaveLoadService.loadMap();
@@ -86,7 +98,7 @@ class JsonSaveLoadServiceTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSingleElementSave() {
         //Act
         _jsonSaveLoadService.saveMap(initialList.subList(0,1));
