@@ -15,10 +15,35 @@ import app.domain.models.player.Player;
 
 public class JsonSaveLoadService implements ISaveLoadAdapter {
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final String SAVE_PATH = "db-service/";
+    private static String SAVE_PATH = "app-service/src/main/java/app/__resource__/";
+
+    public JsonSaveLoadService() {
+    }
+
+    public JsonSaveLoadService(String path) {
+        this.SAVE_PATH = path;
+    }
+
+    // Overview: Saves the current state of the territories in the game map.
     @Override
     public void saveMap(List<Territory> territories) {
-        // TODO Auto-generated method stub
+        /**
+         * Overview: Saves the current state of the territories in the game map.
+         *
+         * @requires
+         *           territories != null
+         *           Every element in territories should correspond to a Territory object.
+         *           ObjectMapper is configured correctly.
+         *           SAVE_PATH should contain a valid directory path.
+         *
+         * @modifies
+         *           This method modifies the "territories.json" file in the path specified by SAVE_PATH.
+         *
+         * @effects
+         *          Writes the List of territories to a file named "territories.json" in the directory specified by SAVE_PATH.
+         *          The territories are saved in a pretty-printed JSON format.
+         *          If an IOException occurs during the process, it catches the exception and prints the stack trace.
+         */
         try {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(SAVE_PATH + "territories.json"), territories);
@@ -50,10 +75,24 @@ public class JsonSaveLoadService implements ISaveLoadAdapter {
             e.printStackTrace();
         }
     }
-
+    //Overview: Loads the territories from a saved game state.
     @Override
     public List<Territory> loadMap() {
-        // TODO Auto-generated method stub
+        /**
+         * Overview: Loads the territories from a saved game state.
+         *
+         * @requires
+         *           The file at the location SAVE_PATH + "territories.json" should exist and be readable.
+         *           The file should contain a valid JSON representation of a List of Territory objects.
+         *           ObjectMapper is configured correctly.
+         *
+         * @modifies
+         *           This method does not modify any object or file.
+         *
+         * @effects
+         *          Returns a List of Territory objects that were previously saved in the "territories.json" file in the directory specified by SAVE_PATH.
+         *          If an IOException occurs during the process, it catches the exception, prints the stack trace, and returns null.
+         */
         try {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
