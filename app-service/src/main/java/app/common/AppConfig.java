@@ -35,5 +35,5 @@ public class AppConfig {
     public static final Point appLocation = new Point(xLocation, yLocation);
 
     // Paths
-    public static final String basePath = "src/main/java/app";
+    public static final String basePath = "app-service/src/main/java/app";
 }
