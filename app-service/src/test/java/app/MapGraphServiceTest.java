@@ -1,79 +1,146 @@
 package app;
 
-import app.domain.services.map.MapGraphService;
-import app.domain.models.game.map.Territory;
-import app.domain.models.game.map.TerritoryPosition;
-
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Arrays;
+
+import app.domain.models.game.map.Territory;
+import app.domain.services.map.MapGraphService;
+
+import java.util.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class MapGraphServiceTest {
     private MapGraphService _mapGraphService;
-    private List<Territory> territories;
 
     @Before
     public void setUp() {
         _mapGraphService = new MapGraphService();
-        territories = new ArrayList<>();
+        cleanUp();
+    }
 
-        Territory territory1 = new Territory(1, "Territory1", "territory1", new TerritoryPosition(0, 0),
-                new HashSet<String>(Arrays.asList("Territory2", "Territory3")));
-        Territory territory2 = new Territory(2, "Territory2", "territory2", new TerritoryPosition(10, 10),
-                new HashSet<String>(Arrays.asList("Territory1", "Territory3")));
-        Territory territory3 = new Territory(3, "Territory3", "territory3", new TerritoryPosition(20, 20),
-                new HashSet<String>(Arrays.asList("Territory2", "Territory1")));
+    public void cleanUp() {
+        _mapGraphService.clear();
+    }
 
-        territories.add(territory1);
-        territories.add(territory2);
-        territories.add(territory3);
+    public List<Territory> makeMockTerritory(int count) {
+        List<Territory> territoryList = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Territory territory = new Territory(
+                    i,
+                    "Territory" + i,
+                    "image" + i,
+                    null,
+                    null);
+            territoryList.add(territory);
+        }
+        return territoryList;
+    }
 
-        _mapGraphService.addEdges(territories);
+    public void buildGraphVerticies(List<Territory> territoryList) {
+        _mapGraphService.addVerticies(territoryList);
+    }
+
+    public void buildGraphEdges(List<Territory> territoryList) {
+        for (int i = 0; i < territoryList.size(); i++) {
+            for (int j = i + 1; j < territoryList.size(); j++) {
+                addEdge(territoryList.get(i), territoryList.get(j));
+            }
+        }
+    }
+
+    public List<Territory> buildGraph(int territoryCount) {
+        List<Territory> mockTerritories = makeMockTerritory(territoryCount);
+        buildGraphVerticies(mockTerritories);
+        buildGraphEdges(mockTerritories);
+        return mockTerritories;
+    }
+
+    public void addEdge(Territory source, Territory destination) {
+        _mapGraphService.addEdge(source, destination);
+    }
+
+    public void removeEdge(Territory source, Territory destination) {
+        _mapGraphService.removeEdge(source, destination);
     }
 
     @Test
-    public void testGetVerticies() {
-        List<Territory> vertices = _mapGraphService.getVerticies();
-        assertEquals(3, vertices.size());
-    }
-
-    @Test
-    public void testGetVertex() {
-        Territory territory = _mapGraphService.getVertex("Territory1");
-        assertEquals("Territory 1", territory.getName());
-    }
-
-    @Test
-    public void testGetEdges() {
-        Territory territory = _mapGraphService.getVertex("Territory1");
-        Set<Territory> edges = _mapGraphService.getEdges(territory);
-        assertEquals(2, edges.size());
-    }
-
-    @Test
-    public void testValidateMap() {
+    public void allTerritoriesConnected() {
+        cleanUp();
+        buildGraph(7);
         assertTrue(_mapGraphService.validateMap());
     }
 
     @Test
-    public void testRemoveClosedTerritories() {
-        territories.get(1).setIsOpen(false);
-        _mapGraphService.removeClosedTerritories();
-        List<Territory> vertices = _mapGraphService.getVerticies();
-        assertEquals(2, vertices.size());
+    public void allTerritoriesConnectedWithExtraEdges() {
+        cleanUp();
+        List<Territory> territoryList = buildGraph(7);
+        _mapGraphService.addEdge(territoryList.get(0), territoryList.get(3));
+        assertTrue(_mapGraphService.validateMap());
     }
 
     @Test
-    public void testOpenAllTerritories() {
-        territories.forEach(t -> t.setIsOpen(false));
-        _mapGraphService.openAllTerritories();
-        for (Territory t : _mapGraphService.getVerticies()) {
-            assertTrue(t.getIsOpen());
-        }
+    public void allTerritoriesConnectedWithMissingEdges() {
+        cleanUp();
+        List<Territory> territoryList = buildGraph(7);
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(1));
+        assertFalse(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void allTerritoriesConnectedWithMissingEdgesAndExtraEdges() {
+        cleanUp();
+        List<Territory> territoryList = buildGraph(7);
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(1));
+        _mapGraphService.addEdge(territoryList.get(0), territoryList.get(3));
+        assertFalse(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void singleTerritoryMap() {
+        cleanUp();
+        buildGraph(1);
+        assertTrue(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void closedTerritories() {
+        cleanUp();
+        List<Territory> territoryList = buildGraph(3);
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(1));
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(2));
+        assertFalse(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void allTerritoriesClosed() {
+        cleanUp();
+        List<Territory> territoryList = buildGraph(2);
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(1));
+        _mapGraphService.removeEdge(territoryList.get(1), territoryList.get(0));
+        assertFalse(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void emptyMap() {
+        cleanUp();
+        assertTrue(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void largeMap() {
+        cleanUp();
+        buildGraph(1000);
+        assertTrue(_mapGraphService.validateMap());
+    }
+
+    @Test
+    public void disconnectedTerritories() {
+        cleanUp();
+        List<Territory> territoryList = buildGraph(3);
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(1));
+        _mapGraphService.removeEdge(territoryList.get(0), territoryList.get(2));
+        assertFalse(_mapGraphService.validateMap());
     }
 }

@@ -5,28 +5,28 @@ import java.util.stream.Collectors;
 
 import app.common.Logger;
 import app.common.errors.DbException;
-import app.domain.models.entities.AdjacentCountryEntity;
 import app.domain.models.entities.CountryEntity;
 import app.domain.models.game.map.Territory;
 import app.domain.models.game.map.TerritoryPosition;
+import app.domain.models.modelViews.AdjacentCountryViewModel;
 
-public class MapRepsitory {
-    private TerritoryRepository _territoryRepository;
+public class MapRepository {
+    private CountryRepository _territoryRepository;
 
-    public MapRepsitory() {
-        this._territoryRepository = new TerritoryRepository();
+    public MapRepository() {
+        this._territoryRepository = new CountryRepository();
     }
 
     public List<Territory> buildGameMapData() {
         List<Territory> territoryList = new ArrayList<>();
 
         try {
-            List<CountryEntity> countryEntityList = this._territoryRepository.findTerritories(500, 0);
+            List<CountryEntity> countryEntityList = this._territoryRepository.findCountries(500, 0);
             for (CountryEntity countryEntity : countryEntityList) {
-                List<AdjacentCountryEntity> adjacentCountryEntities = this._territoryRepository
-                        .findAdjacentTerritoriesById(countryEntity.id);
+                List<AdjacentCountryViewModel> adjacentCountryEntities = this._territoryRepository
+                        .findAdjacentCountriesById(countryEntity.id);
                 Set<String> adjList = adjacentCountryEntities.stream()
-                        .map((AdjacentCountryEntity adjEntity) -> adjEntity.adjacent_country_name)
+                        .map((AdjacentCountryViewModel adjEntity) -> adjEntity.adjacent_country_name)
                         .collect(Collectors.toSet());
                 TerritoryPosition territoryPosition = new TerritoryPosition(countryEntity.position_x,
                         countryEntity.position_y);

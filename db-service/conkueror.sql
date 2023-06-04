@@ -35,6 +35,14 @@ CREATE TABLE adjacent_country (
     CHECK (country_id <> adjacent_country.adjacent_country_id)
 );
 
+DROP TABLE IF EXISTS army cascade;
+CREATE TABLE army (
+    id SERIAL,
+    name VARCHAR(255) NOT NULL,
+    value INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
 DROP TABLE IF EXISTS player cascade;
 CREATE TABLE player (
     id SERIAL,
@@ -43,10 +51,63 @@ CREATE TABLE player (
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS card cascade;
-CREATE TABLE card (
+DROP TABLE IF EXISTS territory_army cascade;
+CREATE TABLE territory_army (
+    country_id INT NOT NULL,
+    army_id INT NOT NULL,
+    count INT DEFAULT 0,
+    PRIMARY KEY (country_id, army_id),
+    FOREIGN KEY (country_id) REFERENCES country(id),
+    FOREIGN KEY (army_id) REFERENCES army(id),
+    CHECK (count >= 0)
+);
+
+DROP TABLE IF EXISTS player_game cascade;
+CREATE TABLE player_game (
+    player_id INT NOT NULL,
+    game_state_persist_id INT NOT NULL,
+    PRIMARY KEY (player_id, game_state_persist_id),
+    FOREIGN KEY (player_id) REFERENCES player(id),
+    FOREIGN KEY (game_state_persist_id) REFERENCES game_state_persist(id)
+);
+
+DROP TABLE IF EXISTS army_card cascade;
+CREATE TABLE army_card (
     id SERIAL,
+    name VARCHAR(255) NOT NULL,
+    value INT NOT NULL,
+    image VARCHAR(255),
     PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS territory_card cascade;
+CREATE TABLE territory_card (
+    id SERIAL,
+    description TEXT,
+    image VARCHAR(255),
+    country_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (country_id) REFERENCES country(id)
+);
+
+DROP TABLE IF EXISTS player_army_card cascade;
+CREATE TABLE player_army_card (
+    player_id INT NOT NULL,
+    count INT DEFAULT 0,
+    army_card_id INT NOT NULL,
+    PRIMARY KEY (player_id, army_card_id),
+    FOREIGN KEY (player_id) REFERENCES player(id),
+    FOREIGN KEY (army_card_id) REFERENCES army_card(id),
+    CHECK (count >= 0)
+);
+
+DROP TABLE IF EXISTS player_territory_card cascade;
+CREATE TABLE player_territory_card (
+    player_id INT NOT NULL,
+    territory_card_id INT NOT NULL,
+    PRIMARY KEY (player_id, territory_card_id),
+    FOREIGN KEY (player_id) REFERENCES player(id),
+    FOREIGN KEY (territory_card_id) REFERENCES territory_card(id)
 );
 
 -- Continents
@@ -333,3 +394,78 @@ VALUES
     ((SELECT id FROM country WHERE name = 'Western United States'), (SELECT id FROM country WHERE name = 'Central America')),
     ((SELECT id FROM country WHERE name = 'Western United States'), (SELECT id FROM country WHERE name = 'Eastern United States')),
     ((SELECT id FROM country WHERE name = 'Western United States'), (SELECT id FROM country WHERE name = 'Ontario (Central Canada)'));
+
+-- Australia
+INSERT INTO territory_card (description, image, country_id)
+VALUES ('Eastern Australia', 'eastern_australia_card.png', (SELECT id FROM country WHERE name = 'Eastern Australia')),
+       ('Indonesia', 'indonesia_card.png', (SELECT id FROM country WHERE name = 'Indonesia')),
+       ('New Guinea', 'new_guinea_card.png', (SELECT id FROM country WHERE name = 'New Guinea')),
+       ('Western Australia', 'western_australia_card.png', (SELECT id FROM country WHERE name = 'Western Australia'));
+
+-- South America
+INSERT INTO territory_card (description, image, country_id)
+VALUES ('Argentina', 'argentina_card.png', (SELECT id FROM country WHERE name = 'Argentina')),
+       ('Brazil', 'brazil_card.png', (SELECT id FROM country WHERE name = 'Brazil')),
+       ('Peru', 'peru_card.png', (SELECT id FROM country WHERE name = 'Peru')),
+       ('Venezuela', 'venezuela_card.png', (SELECT id FROM country WHERE name = 'Venezuela'));
+
+-- Asia
+INSERT INTO territory_card (description, image, country_id)
+VALUES ('Afghanistan', 'afghanistan_card.png', (SELECT id FROM country WHERE name = 'Afghanistan')),
+       ('China', 'china_card.png', (SELECT id FROM country WHERE name = 'China')),
+       ('India', 'india_card.png', (SELECT id FROM country WHERE name = 'India')),
+       ('Irkutsk', 'irkutsk_card.png', (SELECT id FROM country WHERE name = 'Irkutsk')),
+       ('Japan', 'japan_card.png', (SELECT id FROM country WHERE name = 'Japan')),
+       ('Kamchatka', 'kamchatka_card.png', (SELECT id FROM country WHERE name = 'Kamchatka')),
+       ('Middle East', 'middle_east_card.png', (SELECT id FROM country WHERE name = 'Middle East')),
+       ('Mongolia', 'mongolia_card.png', (SELECT id FROM country WHERE name = 'Mongolia')),
+       ('Siam (Southeast Asia)', 'siam_card.png', (SELECT id FROM country WHERE name = 'Siam (Southeast Asia)')),
+       ('Siberia', 'siberia_card.png', (SELECT id FROM country WHERE name = 'Siberia')),
+       ('Ural', 'ural_card.png', (SELECT id FROM country WHERE name = 'Ural')),
+       ('Yakutsk', 'yakutsk_card.png', (SELECT id FROM country WHERE name = 'Yakutsk'));
+
+-- Africa
+INSERT INTO territory_card (description, image, country_id)
+VALUES ('Congo (Central Africa)', 'congo_card.png', (SELECT id FROM country WHERE name = 'Congo (Central Africa)')),
+       ('East Africa', 'east_africa_card.png', (SELECT id FROM country WHERE name = 'East Africa')),
+       ('Egypt', 'egypt_card.png', (SELECT id FROM country WHERE name = 'Egypt')),
+       ('Madagascar', 'madagascar_card.png', (SELECT id FROM country WHERE name = 'Madagascar')),
+       ('North Africa', 'north_africa_card.png', (SELECT id FROM country WHERE name = 'North Africa')),
+       ('South Africa', 'south_africa_card.png', (SELECT id FROM country WHERE name = 'South Africa'));
+
+-- Europe
+INSERT INTO territory_card (description, image, country_id)
+VALUES ('Great Britain (Great Britain & Ireland)', 'great_britain_card.png', (SELECT id FROM country WHERE name = 'Great Britain (Great Britain & Ireland)')),
+        ('Iceland', 'iceland_card.png', (SELECT id FROM country WHERE name = 'Iceland')),
+       ('Northern Europe', 'northern_europe_card.png', (SELECT id FROM country WHERE name = 'Northern Europe')),
+       ('Scandinavia', 'scandinavia_card.png', (SELECT id FROM country WHERE name = 'Scandinavia')),
+       ('Southern Europe', 'southern_europe_card.png', (SELECT id FROM country WHERE name = 'Southern Europe')),
+       ('Ukraine (Eastern Europe, Russia)', 'ukraine_card.png', (SELECT id FROM country WHERE name = 'Ukraine (Eastern Europe, Russia)')),
+       ('Western Europe', 'western_europe_card.png', (SELECT id FROM country WHERE name = 'Western Europe'));
+
+-- North America
+INSERT INTO territory_card (description, image, country_id)
+VALUES ('Alaska', 'alaska_card.png', (SELECT id FROM country WHERE name = 'Alaska')),
+       ('Alberta (Western Canada)', 'alberta_card.png', (SELECT id FROM country WHERE name = 'Alberta (Western Canada)')),
+       ('Central America', 'central_america_card.png', (SELECT id FROM country WHERE name = 'Central America')),
+       ('Eastern United States', 'eastern_united_states_card.png', (SELECT id FROM country WHERE name = 'Eastern United States')),
+       ('Greenland', 'greenland_card.png', (SELECT id FROM country WHERE name = 'Greenland')),
+       ('Northwest Territory', 'northwest_territory_card.png', (SELECT id FROM country WHERE name = 'Northwest Territory')),
+       ('Ontario (Central Canada)', 'ontario_card.png', (SELECT id FROM country WHERE name = 'Ontario (Central Canada)')),
+       ('Quebec (Eastern Canada)', 'quebec_card.png', (SELECT id FROM country WHERE name = 'Quebec (Eastern Canada)')),
+       ('Western United States', 'western_united_states_card.png', (SELECT id FROM country WHERE name = 'Western United States'));
+
+INSERT INTO army_card (name, value, image)
+VALUES ('Infantry', 10, 'infantry.png'),
+       ('Cavalry', 40, 'cavalry.png'),
+       ('Artillery', 60, 'artillery.png');
+
+INSERT INTO army (name, value)
+VALUES ('Infantry', 1),
+       ('Cavalry', 5),
+       ('Artillery', 10);
+
+-- Inserting territory_army records for all territories and armies
+INSERT INTO territory_army (country_id, army_id)
+SELECT c.id, a.id
+FROM country c, army a;
