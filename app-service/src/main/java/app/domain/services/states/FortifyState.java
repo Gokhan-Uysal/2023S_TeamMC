@@ -11,8 +11,8 @@ public class FortifyState {
 
     public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount, int startTerritoryId,
                         int destinationTerritoryId, int playerId) throws Error{
-        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, startTerritoryId) &&
-                !PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, destinationTerritoryId) &&
+        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, startTerritoryId) &&
+                PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, destinationTerritoryId) &&
                 territoryFortifyCondition(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId)){
 
             Army startTerritoryArmy = _mapService.findTerritory(startTerritoryId).getTerritoryArmy();

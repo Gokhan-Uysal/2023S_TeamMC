@@ -5,8 +5,6 @@ import app.domain.services.GameManagerService;
 import app.domain.services.base.ISubscriber;
 import app.ui.controllers.game.state.*;
 import app.ui.views.game.FooterPanel;
-import app.ui.views.game.state.RecievePanel;
-import app.ui.views.game.state.ReplacePanel;
 
 public class FooterPanelController implements ISubscriber<GameState> {
     private FooterPanel _footerPanel;
