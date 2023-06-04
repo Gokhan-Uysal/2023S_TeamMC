@@ -5,13 +5,13 @@ import app.ui.views.components.BaseStatePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class RecievePanel extends BaseStatePanel {
+public class ReceivePanel extends BaseStatePanel {
 
     private JLabel _receivedUnitNumberLabel;
     private JLabel _selectedTerritoryLabel;
     private JButton _placeUnitsButton;
 
-    public RecievePanel() {
+    public ReceivePanel() {
         super("Place your army units to map");
         this.setLayout(new GridLayout(5,1));
         initializeComponents();

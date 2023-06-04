@@ -147,13 +147,33 @@ public class AttackState {
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
     }
-
-    private void validateAttack(int attackerTerritoryId, int defenderTerritoryId, int playerId) throws AttackError {
+    /*
+     * validateAttack: Check the validity of the attack that the player wants to perform.
+     *
+     * @requires
+     *           attackerTerritoryId corresponds to the ID of a valid territory in the game. This means that
+     *                             the attackerTerritoryId should be positive and correspond to the ID of a
+     *                             territory that is not closed.
+     *           defenderTerritoryId corresponds to the ID of a valid territory in the game. This means that
+     *                             the defenderTerritoryId should be positive and correspond to the ID of a
+     *                             territory that is not closed.
+     *           playerId should correspond to the ID of a valid player in the game.
+     * @modifies
+     *          The method does not modify any parameters.
+     * @effect
+     *          Returns nothing if the attack is valid. This means that the attacking player is attacking
+     *              from one of their own territories to another player's territory, the attacker army has at least
+     *              2 units and the attacker army is stronger than the defender army.
+     *          Throws an error if the previously mentioned conditions are not satisfied.
+     *
+     *
+     */
+    public void validateAttack(int attackerTerritoryId, int defenderTerritoryId, int playerId) throws AttackError {
 
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
-        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
+        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
             throw new AttackError("Please choose one of your own territories.");
         }
         if (attacker.getTotalArmyAmount() <= 2) {
@@ -172,17 +192,20 @@ public class AttackState {
 
     private boolean isValidAttack(Army attacker, Army defender) {
         if (defender.getArmyAmount(ArmyUnitType.Artillery) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Artillery) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
+            return attacker.getArmyAmount(ArmyUnitType.Artillery) >
+                    defender.getArmyAmount(ArmyUnitType.Artillery) &&
+                    attacker.getTotalArmyValue() >
+                            defender.getTotalArmyValue();
         } else if (defender.getArmyAmount(ArmyUnitType.Chivalry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Chivalry) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
+            return attacker.getArmyAmount(ArmyUnitType.Chivalry) >
+                    defender.getArmyAmount(ArmyUnitType.Chivalry) &&
+                    attacker.getTotalArmyValue() >
+                            defender.getTotalArmyValue();
         } else if (defender.getArmyAmount(ArmyUnitType.Infantry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Infantry) > 0 &&
-                    attacker.getTotalArmyValue() > defender
-                            .getTotalArmyValue();
+            return attacker.getArmyAmount(ArmyUnitType.Infantry) >
+                    defender.getArmyAmount(ArmyUnitType.Infantry) &&
+                    attacker.getTotalArmyValue() >
+                            defender.getTotalArmyValue();
         }
         return false;
     }
