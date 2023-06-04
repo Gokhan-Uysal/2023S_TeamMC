@@ -29,7 +29,7 @@ public class PlayerService {
         return _players.get(_currentPlayerIndex);
     }
 
-    private PlayerService() {
+    public PlayerService() {
         _players = new ArrayList<>();
         _currentPlayerCount = 0;
         _mapService = MapService.getInstance();
