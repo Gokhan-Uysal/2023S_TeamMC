@@ -2,13 +2,13 @@ package app.domain.services.states;
 
 import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
-import app.domain.models.army.Infantry;
 import app.domain.models.game.map.Territory;
 import app.domain.services.PlayerService;
+import app.domain.services.map.MapService;
 
 import java.util.Random;
 
-public class RecieveState {
+public class ReceiveState {
     private MapService _mapService;
     private PlayerService _playerService;
     private ArmyUnitType Infantry;
