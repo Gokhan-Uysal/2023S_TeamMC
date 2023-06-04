@@ -28,11 +28,18 @@ class DeckTest {
 
     @Test
     void repOk(){
+        this.setUp();
+        assertNotNull(_deck);
 
+        TerritoryCard testTerritoryCard = new TerritoryCard("testTerritoryCard", null, 1);
+        _deck.addCard(testTerritoryCard);
+        assertNotNull(_deck.drawCard());
+
+        this.tearDown();
     }
 
     @Test
-    void addCard() {
+    void addCardTest() {
         this.setUp();
 
         TerritoryCard testTerritoryCard = new TerritoryCard("testCard", null, 1);
@@ -43,7 +50,7 @@ class DeckTest {
     }
 
     @Test
-    void drawCard() {
+    void drawCardTest() {
         this.setUp();
 
         TerritoryCard testTerritoryCard = new TerritoryCard("testCard", null, 1);
@@ -55,7 +62,7 @@ class DeckTest {
     }
 
     @Test
-    void drawTerritoryCard() {
+    void drawTerritoryCardTest() {
         this.setUp();
 
         TerritoryCard testTerritoryCard = new TerritoryCard("testCard", null, 1);
@@ -74,7 +81,7 @@ class DeckTest {
     }
 
     @Test
-    void armyUnitCardNumber() {
+    void armyUnitCardNumberTest() {
         this.setUp();
 
         InfantryCard testCard1 = new InfantryCard();
@@ -95,7 +102,7 @@ class DeckTest {
     }
 
     @Test
-    void getTerritoryIdsFromTerritoryCards() {
+    void getTerritoryIdsFromTerritoryCardsTest() {
         this.setUp();
 
         TerritoryCard testTerritoryCard = new TerritoryCard("testCard", null, 1);
