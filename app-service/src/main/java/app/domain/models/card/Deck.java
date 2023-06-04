@@ -9,10 +9,32 @@ import app.domain.models.card.territory.TerritoryCard;
 import java.util.*;
 
 public class Deck<CardType> {
+    //Overview: Decks are unbounded, mutable stacks of Card object. They act as the containers and creators of
+    //              card objects.
+
     private List<CardType> _deck;
+    /*
+     * Contains card objects.
+     * Representation Invariant:
+     *      The _deck list should not be null.
+     *      All elements in the _deck list should correspond to a non-null Card object.
+     * Abstraction Function:
+     *      The deck object represents a deck of Card objects.
+     *      The ordering of the elements in the "_deck" list correspond to the order of the cards in the deck. The first
+     *              element represents the top card in the deck, and the last element represents the bottom card in the
+     *              deck.
+     *      The "_deck" list can be manipulated using standard list operations such as adding or removing cards,
+     *              shuffling the deck and dealing cards from the top.
+     *      A(c) = c._deck[i] | 0 <= i < c._deck.size
+     *
+     */
 
     public Deck() {
         _deck = new ArrayList<>();
+    }
+
+    public List<CardType> getDeck(){
+        return this._deck;
     }
 
     protected void addCard(CardType card) {
@@ -31,13 +53,14 @@ public class Deck<CardType> {
         Collections.shuffle(_deck);
     }
 
-    protected void drawTerritoryCard(int territoryId) {
+    protected CardType drawTerritoryCard(int territoryId) {
         for (CardType card : this._deck) {
-            TerritoryCard territoryCard = (TerritoryCard) card;
-            if (territoryCard.getTerritoryId() == territoryId) {
-                this._deck.remove(territoryCard);
+            if ((((TerritoryCard) card).getTerritoryId()) == territoryId) {
+                this._deck.remove(card);
+                return card;
             }
         }
+        return null;
     }
 
     protected int size() {
@@ -73,13 +96,10 @@ public class Deck<CardType> {
     }
 
     protected ArrayList<Integer> getTerritoryIdsFromTerritoryCards() {
-
         ArrayList<Integer> territoryIds = new ArrayList<>();
 
         for (CardType card : _deck) {
-
             TerritoryCard territoryCard = (TerritoryCard) card;
-
             territoryIds.add(territoryCard.getTerritoryId());
         }
 
@@ -91,6 +111,6 @@ public class Deck<CardType> {
     }
 
     protected boolean isEmpty(){
-        return this._deck.size() > 0;
+        return this._deck.isEmpty();
     }
 }
