@@ -9,6 +9,9 @@ public class TerritoryPosition {
         this.y = yPos;
     }
 
+    public TerritoryPosition() {
+    }
+
     @Override
     public String toString() {
         String info = "";
