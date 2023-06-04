@@ -9,15 +9,23 @@ import javax.imageio.ImageIO;
 import app.common.AppConfig;
 import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Territory {
+    @JsonProperty("name")
     private String _name;
+    @JsonProperty("imageName")
     private String _imageName;
+    @JsonProperty("territoryPosition")
     private TerritoryPosition _territoryPosition;
     private Set<String> _adjList;
+    @JsonProperty("territoryArmy")
     private Army _territoryArmy;
     private int _territoryId;
+    @JsonProperty("ownerId")
     private int _ownerId;
+    @JsonProperty("isOpen")
     private boolean _isOpen;
 
     public boolean getIsOpen() {
@@ -46,7 +54,10 @@ public class Territory {
         _isOpen = true;
         this._territoryId = id;
     }
+    public Territory() {
+    }
 
+    @JsonIgnore
     public BufferedImage getImage() throws IOException {
         File imageFile = new File(AppConfig.basePath + "/__resource__/assets/territories/" + _imageName);
         BufferedImage originalImage = ImageIO.read(imageFile);
@@ -105,7 +116,7 @@ public class Territory {
     public String toString() {
         String info = "";
         info += "-----------------------";
-        info += String.format("\n%s \s %s \s \n%s\n", _name, _imageName, _territoryArmy.toString());
+        info += String.format("\n%s \s %s \s \n%s\n %s\n", _name, _imageName, _territoryArmy == null ? "No army" : _territoryArmy.toString(),_territoryPosition);
         info += "-----------------------";
         return info;
     }
