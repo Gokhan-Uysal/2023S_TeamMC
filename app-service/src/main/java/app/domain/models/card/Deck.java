@@ -33,6 +33,10 @@ public class Deck<CardType> {
         _deck = new ArrayList<>();
     }
 
+    public List<CardType> getDeck(){
+        return this._deck;
+    }
+
     protected void addCard(CardType card) {
         _deck.add(card);
     }
@@ -49,13 +53,14 @@ public class Deck<CardType> {
         Collections.shuffle(_deck);
     }
 
-    protected void drawTerritoryCard(int territoryId) {
+    protected CardType drawTerritoryCard(int territoryId) {
         for (CardType card : this._deck) {
-            TerritoryCard territoryCard = (TerritoryCard) card;
-            if (territoryCard.getTerritoryId() == territoryId) {
-                this._deck.remove(territoryCard);
+            if ((((TerritoryCard) card).getTerritoryId()) == territoryId) {
+                this._deck.remove(card);
+                return card;
             }
         }
+        return null;
     }
 
     protected int size() {
@@ -91,13 +96,10 @@ public class Deck<CardType> {
     }
 
     protected ArrayList<Integer> getTerritoryIdsFromTerritoryCards() {
-
         ArrayList<Integer> territoryIds = new ArrayList<>();
 
         for (CardType card : _deck) {
-
             TerritoryCard territoryCard = (TerritoryCard) card;
-
             territoryIds.add(territoryCard.getTerritoryId());
         }
 
@@ -109,6 +111,6 @@ public class Deck<CardType> {
     }
 
     protected boolean isEmpty(){
-        return this._deck.size() > 0;
+        return this._deck.isEmpty();
     }
 }
