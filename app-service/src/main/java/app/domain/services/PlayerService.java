@@ -4,9 +4,12 @@ import java.util.*;
 
 import app.common.Logger;
 import app.common.errors.DbException;
+import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.entities.PlayerArmyCardEntity;
 import app.domain.models.entities.PlayerEntity;
 import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
+import app.domain.repositories.PlayerArmyCardRepository;
 import app.domain.repositories.PlayerRepository;
 import app.domain.services.map.MapService;
 
@@ -20,6 +23,7 @@ public class PlayerService {
     private int _currentPlayerIndex;
     private MapService _mapService;
     private PlayerRepository _playerRepository;
+    private PlayerArmyCardRepository _playerArmyCardRepository;
 
     public Player getCurrentPlayer() throws IndexOutOfBoundsException {
         return _players.get(_currentPlayerIndex);
@@ -30,6 +34,7 @@ public class PlayerService {
         _currentPlayerCount = 0;
         _mapService = MapService.getInstance();
         _playerRepository = new PlayerRepository();
+        _playerArmyCardRepository = new PlayerArmyCardRepository();
     }
 
     public static PlayerService getInstance() {
@@ -58,9 +63,34 @@ public class PlayerService {
                 Logger.error(e);
             }
             Player player = new Player(builer.build().id, name);
+            createPlayerArmyCards(player.getId());
             this._players.add(player);
             _currentPlayerCount++;
         });
+    }
+
+    public void createPlayerArmyCards(int playerId) {
+        try {
+            PlayerArmyCardEntity.Builder builder = new PlayerArmyCardEntity.Builder();
+            builder.setPlayerId(playerId);
+            builder.setCount(0);
+
+            builder.setArmyCardId(ArmyCardType.Infantry);
+            _playerArmyCardRepository.insertPlayerArmyCard(builder.build());
+
+            builder.setArmyCardId(ArmyCardType.Cavalry);
+            _playerArmyCardRepository.insertPlayerArmyCard(builder.build());
+
+            builder.setArmyCardId(ArmyCardType.Artillery);
+            _playerArmyCardRepository.insertPlayerArmyCard(builder.build());
+
+        } catch (DbException e) {
+            Logger.error(e);
+        } catch (NoSuchFieldException e) {
+            Logger.error(e);
+        } catch (SecurityException e) {
+            Logger.error(e);
+        }
     }
 
     public void removePlayer(Player player) {

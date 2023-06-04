@@ -8,16 +8,16 @@ import app.common.errors.DbException;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
-import app.domain.repositories.MapRepsitory;
+import app.domain.repositories.MapRepository;
 
 public class MapService {
 	private static MapService _instance;
-	private MapRepsitory _mapRepository;
+	private MapRepository _mapRepository;
 	private MapReadService _mapReadService;
 	private MapGraphService _mapGraphService;
 
 	private MapService() {
-		this._mapRepository = new MapRepsitory();
+		this._mapRepository = new MapRepository();
 		this._mapReadService = new MapReadService(AppConfig.basePath + "/__resource__/map.json");
 		this._mapGraphService = new MapGraphService();
 	}
