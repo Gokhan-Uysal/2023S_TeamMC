@@ -74,10 +74,6 @@ public class MapGraphService extends BaseGraph<Territory> {
      *          Returns false if territories are not connected or if there is an
      *          inconsistency between the edge count of the graph
      *          and the count of visited edges.
-     *
-     * @return
-     *         true if all open territories are connected and the total edge count
-     *         is consistent, otherwise false.
      */
     public boolean validateMap() {
         if (graph.isEmpty()) {
