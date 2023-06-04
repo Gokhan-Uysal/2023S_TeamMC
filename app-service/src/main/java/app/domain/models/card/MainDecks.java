@@ -48,20 +48,16 @@ public class MainDecks {
     }
 
     public BaseCard drawCard(DeckType deckType) throws IndexOutOfBoundsException {
-        switch (deckType) {
-            case Army:
-                return _armyDeck.drawCard();
-            case Territory:
-                return _territoryDeck.drawCard();
-            case Chance:
-                return _chanceDeck.drawCard();
-            default:
-                return null;
-        }
+        return switch (deckType) {
+            case Army -> _armyDeck.drawCard();
+            case Territory -> _territoryDeck.drawCard();
+            case Chance -> _chanceDeck.drawCard();
+            default -> null;
+        };
     }
 
-    public void drawTerritoryCard(int territoryId) {
-        this._territoryDeck.drawTerritoryCard(territoryId);
+    public BaseCard drawTerritoryCard(int territoryId) {
+        return this._territoryDeck.drawTerritoryCard(territoryId);
     }
 
     public int armyUnitCardNumbers(ArmyUnitType type) {
