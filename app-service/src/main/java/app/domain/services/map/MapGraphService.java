@@ -52,7 +52,34 @@ public class MapGraphService extends BaseGraph<Territory> {
         super.addEdge(sourceTerritory, destination);
     }
 
+    /**
+     * validateMap: Validates the connectivity of the graph representing the game
+     * map.
+     *
+     * @requires
+     *           graph != null
+     *           Every vertex in graph should correspond to a Territory object.
+     *           The graph is an undirected and might contain multiple disconnected
+     *           subgraphs.
+     *           The getEdgeCount method must return the total number of edges in
+     *           the graph.
+     *
+     * @modifies
+     *           This method does not modify any object.
+     *
+     * @effects
+     *          Returns true if and only if all the territories in the graph are
+     *          connected (excluding the ones that are not open),
+     *          taking into account the "removed" edges.
+     *          Returns false if territories are not connected or if there is an
+     *          inconsistency between the edge count of the graph
+     *          and the count of visited edges.
+     */
     public boolean validateMap() {
+        if (graph.isEmpty()) {
+            return true;
+        }
+
         Set<Territory> visited = new HashSet<>();
         Queue<Territory> queue = new LinkedList<>();
         int edgeCount = 0;
@@ -71,16 +98,24 @@ public class MapGraphService extends BaseGraph<Territory> {
                     if (!visited.contains(neighbor)) {
                         if (!neighbor.getIsOpen()) {
                             removedEdgeCount += getEdgeCount(neighbor);
+                            visited.add(neighbor);
                             continue;
                         }
                         queue.add(neighbor);
+                        edgeCount++;
                     }
-                    edgeCount++;
                 }
             }
         }
 
-        if ((edgeCount / 2 + removedEdgeCount / 4) != getEdgeCount()) {
+        int totalEdges = getEdgeCount();
+
+        if ((edgeCount + removedEdgeCount) != totalEdges) {
+            return false;
+        }
+
+        long openTerritories = graph.keySet().stream().filter(Territory::getIsOpen).count();
+        if (visited.size() != openTerritories) {
             return false;
         }
 
