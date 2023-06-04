@@ -13,7 +13,7 @@ public class Player {
 
         this._playerDecks = new MainDecks();
     }
-
+    public Player(){}
     public Integer getId() {
         return _id;
     }
