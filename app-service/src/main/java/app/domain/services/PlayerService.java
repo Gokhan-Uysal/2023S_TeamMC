@@ -95,13 +95,10 @@ public class PlayerService {
 
             builder.setArmyCardId(ArmyCardType.Artillery);
             _playerArmyCardRepository.insertPlayerArmyCard(builder.build());
-
-        } catch (DbException e) {
-            Logger.error(e);
         } catch (NoSuchFieldException e) {
-            Logger.error(e);
+            Logger.error(e.getMessage());
         } catch (SecurityException e) {
-            Logger.error(e);
+            Logger.error(e.getMessage());
         }
     }
 
@@ -134,7 +131,7 @@ public class PlayerService {
         _currentPlayerIndex += 1;
     }
 
-    public void resatrtTurn() {
+    public void restartTurn() {
         _currentPlayerIndex = 0;
     }
 

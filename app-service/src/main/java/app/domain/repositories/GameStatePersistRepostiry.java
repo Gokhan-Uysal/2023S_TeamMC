@@ -45,4 +45,13 @@ public class GameStatePersistRepostiry extends BaseRepository {
             throw new DbException(e.getMessage());
         }
     }
+
+    public void insertGameState(GameStatePersistEntity gameStatePersistEntity)
+            throws DbException, NoSuchFieldException, SecurityException {
+        try {
+            super.insertEntity(gameStatePersistEntity, true);
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
 }

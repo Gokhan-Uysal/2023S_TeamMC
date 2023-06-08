@@ -23,6 +23,10 @@ public abstract class BaseRepository {
         Connection connection = ConnectionPool.getValidConnection();
         Statement statement = connection.createStatement();
         statement.executeQuery(query);
+        if (statement.getResultSet() == null) {
+            Logger.warning("No result set returned");
+            return null;
+        }
         return statement.getResultSet();
     }
 
@@ -84,6 +88,11 @@ public abstract class BaseRepository {
 
     protected ResultSet deleteById(int id) throws SQLException {
         String query = String.format("DELETE FROM %s WHERE id=%d", tableName, id);
+        return executeQuery(query);
+    }
+
+    protected ResultSet deleteAllTable() throws SQLException {
+        String query = String.format("DELETE FROM %s", tableName);
         return executeQuery(query);
     }
 
