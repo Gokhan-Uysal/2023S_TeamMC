@@ -29,7 +29,7 @@ public class PlayerService {
         return _players.get(_currentPlayerIndex);
     }
 
-    private PlayerService() {
+    public PlayerService() {
         _players = new ArrayList<>();
         _currentPlayerCount = 0;
         _mapService = MapService.getInstance();
@@ -42,6 +42,18 @@ public class PlayerService {
             _playerService = new PlayerService();
         }
         return _playerService;
+    }
+
+    public void setPlayers(ArrayList<Player> players){
+        this._players = players;
+    }
+
+    public void setCurrentPlayerIndex(int index){
+        this._currentPlayerIndex = index;
+    }
+
+    public List<Player> getPlayers(){
+        return this._players;
     }
 
     public void createPlayers(List<String> names) {
@@ -139,7 +151,7 @@ public class PlayerService {
     }
 
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
-        return playerId == _mapService.findTerritory(territoryId).getOwnerId();
+        return playerId != _mapService.findTerritory(territoryId).getOwnerId();
     }
 
     public void emptyPlayerDecks() {
@@ -160,11 +172,10 @@ public class PlayerService {
     }
 
     public int numberOfTerritories(int playerId) {
-        Player player = this.getPlayer(playerId);
         int territoryCount = 0;
 
         for (Territory territory : _mapService.getTerritoryListFromGraph()) {
-            if (territory.getOwnerId() == player.getId()) {
+            if (territory.getOwnerId() == playerId) {
                 territoryCount++;
             }
         }

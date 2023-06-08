@@ -14,7 +14,7 @@ import app.domain.services.states.BuildState;
 import app.domain.services.states.CardTradeState;
 import app.domain.services.states.DistributeState;
 import app.domain.services.states.FortifyState;
-import app.domain.services.states.RecieveState;
+import app.domain.services.states.ReceiveState;
 import app.domain.services.states.ReplaceState;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class GameManagerService extends BasePublisher<GameState> {
 
     private BuildState _buildState;
     private DistributeState _distributeState;
-    private RecieveState _recieveState;
+    private ReceiveState _receiveState;
     private ReplaceState _replaceState;
     private CardTradeState _cardTradeState;
     private AttackState _attackState;
@@ -54,7 +54,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     private void initDependicies() {
         _buildState = new BuildState();
         _distributeState = new DistributeState();
-        _recieveState = new RecieveState();
+        _receiveState = new ReceiveState();
         _replaceState = new ReplaceState();
         _cardTradeState = new CardTradeState();
         _attackState = new AttackState();
@@ -178,13 +178,13 @@ public class GameManagerService extends BasePublisher<GameState> {
         handleNextState();
     }
 
-    public void receiveUnits(int territoryId) {
-        _recieveState.placeRecievedUnits(territoryId);
+    public void receiveUnits(Territory territory) {
+        _receiveState.placeReceivedUnits(territory);
         handleNextState();
     }
 
     public int receivedUnitNumber() {
-        return _recieveState.receivedUnitAmount();
+        return _receiveState.receivedUnitAmount();
     }
 
     public String attack(int attackTerritoryId, int defenderTerritoryId) {

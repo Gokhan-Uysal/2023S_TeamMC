@@ -26,6 +26,28 @@ public class MapReadService {
         this._gameMapData = new HashMap<>(7);
     }
 
+    /**
+     * buildGameMapData: Reads a JSON file and constructs game map data.
+     *
+     * @requires
+     *           The JSON file should exist at the path provided to the _jsonService.readJSON() method.
+     *           The JSON file should contain a JSONArray, with each JSONObject representing a continent
+     *           and its territories. Each territory should have properties like name, imageName, neighbors
+     *           and a position with x, y coordinates.
+     *
+     * @modifies
+     *           This method modifies the _gameMapData field of the current MapReadService object, populating
+     *           it with continents as keys and lists of territories as values.
+     *
+     * @effects
+     *          Parses a JSON file and constructs a mapping of Continent objects to Lists of Territory
+     *          objects in _gameMapData.
+     *          If the JSON file is empty or the path is invalid, the _gameMapData map will be empty after
+     *          this method is called.
+     *          If there are any issues in reading the file or parsing the JSON data, these exceptions are
+     *          caught and logged, and the _gameMapData map may be partially filled or empty depending on
+     *          when the exception occurred.
+     */
     public void buildGameMapData() {
         try {
             JSONArray modelList = _jsonService.readJSON();
