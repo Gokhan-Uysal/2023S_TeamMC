@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import app.common.errors.DbException;
-import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.army.ArmyUnitType;
 import app.domain.models.entities.CountryEntity;
 import app.domain.models.modelViews.AdjacentCountryViewModel;
 import app.domain.models.modelViews.CountryArmyModelView;
@@ -105,7 +105,7 @@ public class CountryRepository extends BaseRepository {
         }
     }
 
-    public void updateCountryArmy(int id, int count, ArmyCardType armyUnit) throws DbException {
+    public void updateCountryArmy(int id, int count, ArmyUnitType armyUnit) throws DbException {
         String query = String.format(
                 "UPDATE territory_army SET count = %d WHERE country_id = %d AND army_id = ( SELECT id FROM army WHERE name = '%s');",
                 count, id, armyUnit.toString());
