@@ -16,8 +16,8 @@ public interface ISaveLoadAdapter {
 
     public List<Territory> loadMap();
 
-    public List<Player> loadPlayer();
+    public List<Player> loadPlayers();
 
-    public GameState loadGameState();
+    public GameState loadGameState(int id);
 
 }
