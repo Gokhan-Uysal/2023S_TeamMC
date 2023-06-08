@@ -18,8 +18,9 @@ public class PlayerTerritoryCardEntity {
             return this;
         }
 
-        public void setTerritoryCardId(int territoryCardId) {
+        public Builder setTerritoryCardId(int territoryCardId) {
             this.territory_card_id = territoryCardId;
+            return this;
         }
 
         public PlayerTerritoryCardEntity build() {

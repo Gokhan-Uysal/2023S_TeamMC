@@ -16,6 +16,12 @@ public class Player {
         this._playerDecks = new MainDecks();
     }
 
+    public Player(int id, String username, MainDecks playerDecks) {
+        this._username = username;
+        this._id = id;
+        this._playerDecks = playerDecks;
+    }
+
     public Integer getId() {
         return _id;
     }
@@ -34,5 +40,20 @@ public class Player {
 
     public List<Integer> getTerritoryCardIds() {
         return this._playerDecks.territoryIds();
+    }
+
+    @Override
+    public String toString() {
+        String info = "Player{" +
+                "id=" + _id +
+                ", username='" + _username + '\'' +
+                ", infantry=" + _playerDecks.armyUnitCardNumbers(ArmyUnitType.Infantry) +
+                ", chivalry=" + _playerDecks.armyUnitCardNumbers(ArmyUnitType.Chivalry) +
+                ", artillery=" + _playerDecks.armyUnitCardNumbers(ArmyUnitType.Artillery) +
+                '}';
+        for (Integer id : _playerDecks.territoryIds()) {
+            info += "\n" + id;
+        }
+        return info;
     }
 }

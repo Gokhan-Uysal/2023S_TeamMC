@@ -1,30 +1,42 @@
 package app.domain.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.common.Logger;
 import app.common.errors.DbException;
 import app.domain.models.army.ArmyUnitType;
+import app.domain.models.card.MainDecks;
 import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.entities.GameStatePersistEntity;
+import app.domain.models.entities.PlayerEntity;
 import app.domain.models.entities.PlayerTerritoryCardEntity;
+import app.domain.models.entities.TerritoryCardEntity;
 import app.domain.models.game.GameState;
 import app.domain.models.game.map.Territory;
+import app.domain.models.modelViews.PlayerArmyCardViewModel;
 import app.domain.models.player.Player;
 import app.domain.repositories.CountryRepository;
+import app.domain.repositories.GameStatePersistRepostiry;
 import app.domain.repositories.MapRepository;
 import app.domain.repositories.PlayerArmyCardRepository;
+import app.domain.repositories.PlayerRepository;
 import app.domain.repositories.PlayerTerritoryCardRepository;
 
 public class DbSaveLoadService implements ISaveLoadAdapter {
+    private PlayerRepository _playerRepository;
     private PlayerArmyCardRepository _playerArmyCardRepository;
     private PlayerTerritoryCardRepository _playerTerritoryCardRepository;
     private CountryRepository _countryRepository;
+    private GameStatePersistRepostiry _gameStatePersistRepostiry;
     private MapRepository _mapRepsitory;
 
     public DbSaveLoadService() {
+        _playerRepository = new PlayerRepository();
         _playerArmyCardRepository = new PlayerArmyCardRepository();
         _playerTerritoryCardRepository = new PlayerTerritoryCardRepository();
         _countryRepository = new CountryRepository();
+        _gameStatePersistRepostiry = new GameStatePersistRepostiry();
         _mapRepsitory = new MapRepository();
     }
 
@@ -50,10 +62,7 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
             int infantryCardCount = player.getArmyCardCount(ArmyUnitType.Infantry);
             int chivaltryCardCount = player.getArmyCardCount(ArmyUnitType.Chivalry);
             int artilleryCardCount = player.getArmyCardCount(ArmyUnitType.Artillery);
-            System.out.println(infantryCardCount);
-            System.out.println(chivaltryCardCount);
-            System.out.println(artilleryCardCount);
-            System.out.println("--------");
+
             _playerArmyCardRepository.updatePlayerArmyCard(player.getId(), infantryCardCount,
                     ArmyCardType.Infantry);
 
@@ -87,8 +96,13 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
 
     @Override
     public void saveGameState(GameState gameState) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveGameState'");
+        GameStatePersistEntity.Builder builder = new GameStatePersistEntity.Builder();
+        builder.setGameState(gameState.ordinal());
+        try {
+            _gameStatePersistRepostiry.insertGameState(builder.build());
+        } catch (NoSuchFieldException | SecurityException | DbException e) {
+            Logger.error(e);
+        }
     }
 
     @Override
@@ -97,15 +111,49 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
     }
 
     @Override
-    public List<Player> loadPlayer() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadPlayer'");
+    public List<Player> loadPlayers() {
+        List<Player> playerList = new ArrayList<Player>();
+        try {
+            List<PlayerEntity> playerEnityList = _playerRepository.findPlayers(6, 0);
+            playerEnityList.forEach((PlayerEntity playerEntity) -> {
+                try {
+                    PlayerArmyCardViewModel playerArmyCardEntity = _playerArmyCardRepository
+                            .findPlayerArmyCard(playerEntity.id);
+                    MainDecks playerDecks = new MainDecks();
+                    playerDecks.addArmyCards(ArmyCardType.Infantry, playerArmyCardEntity.infantry_count);
+                    playerDecks.addArmyCards(ArmyCardType.Cavalry, playerArmyCardEntity.cavalry_count);
+                    playerDecks.addArmyCards(ArmyCardType.Artillery, playerArmyCardEntity.artillery_count);
+
+                    List<TerritoryCardEntity> playerTerritoryCardList = _playerTerritoryCardRepository
+                            .findTerritoryCardsByPlayerId(playerEntity.id);
+                    playerTerritoryCardList.forEach((TerritoryCardEntity territoryCardEntity) -> {
+                        playerDecks.addTerritoryCards(territoryCardEntity.description, null,
+                                territoryCardEntity.country_id);
+                    });
+
+                    Player player = new Player(playerEntity.id, playerEntity.username, playerDecks);
+                    playerList.add(player);
+
+                } catch (DbException e) {
+                    Logger.error(e.getMessage());
+                }
+            });
+        } catch (DbException e) {
+            Logger.error(e);
+        }
+
+        return playerList;
     }
 
     @Override
-    public GameState loadGameState() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadGameState'");
+    public GameState loadGameState(int id) {
+        try {
+            GameStatePersistEntity gameStatePersistEntity = _gameStatePersistRepostiry.findGameStateBySeasionId(id);
+            return GameState.fromInt(gameStatePersistEntity.getGameState());
+        } catch (DbException e) {
+            Logger.error(e);
+        }
+        return GameState.BUILDING_STATE;
     }
 
 }
