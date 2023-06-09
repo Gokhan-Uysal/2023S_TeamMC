@@ -24,6 +24,7 @@ public class AttackPanelController extends BaseStatePanelController implements A
     }
 
     public static AttackPanelController getInstance() {
+
         if (_attackPanelController == null) {
             _attackPanelController = new AttackPanelController();
         }
