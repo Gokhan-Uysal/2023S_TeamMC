@@ -17,9 +17,7 @@ public class TurnStatePanelController implements ISubscriber<GameState> {
 
     @Override
     public void update(GameState message) {
-        if (message == GameState.RECEIVING_STATE || message == GameState.DISTRIBUTING_STATE) {
-            Player currentPlayer = PlayerService.getInstance().getCurrentPlayer();
-            _turnStatePanel.updateView(currentPlayer.getUsername());
-        }
+        Player currentPlayer = PlayerService.getInstance().getCurrentPlayer();
+        _turnStatePanel.updateView(currentPlayer.getUsername());
     }
 }

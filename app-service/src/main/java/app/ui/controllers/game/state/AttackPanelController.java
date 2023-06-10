@@ -1,13 +1,17 @@
 package app.ui.controllers.game.state;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 
 import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
+import app.domain.services.map.MapService;
 import app.domain.services.states.AttackState;
 import app.ui.views.animations.DiceAnimationPanel;
+import app.ui.views.animations.NumberAnimation;
 import app.ui.views.components.AlertPane;
 import app.ui.views.components.ErrorAlertPanel;
 import app.ui.views.game.state.AttackPanel;
@@ -15,7 +19,7 @@ import app.ui.views.game.state.AttackPanel;
 public class AttackPanelController extends BaseStatePanelController implements ActionListener {
     private static AttackPanelController _attackPanelController;
     private AttackPanel _attackPanel;
-
+    private NumberAnimation _numberAnimation;
     private List<Integer> _selectedTerritoryIds;
 
     private AttackPanelController() {
@@ -73,7 +77,11 @@ public class AttackPanelController extends BaseStatePanelController implements A
         try {
             String winner = GameManagerService.getInstance().attack(_selectedTerritoryIds.get(0),
                     _selectedTerritoryIds.get(1));
-            _attackPanel._diceAnimationPanel.startDiceAnimation(AttackState._attackerDiceRoll, AttackState._defenderDiceRoll);
+            _attackPanel._diceAnimationPanel.startDiceAnimation(AttackState._attackerDiceRoll,
+                    AttackState._defenderDiceRoll);
+            Point endPoint = new Point(MapService.getInstance().findTerritory(_selectedTerritoryIds.get(1)).getTerritoryPosition().getX(),
+                                        MapService.getInstance().findTerritory(_selectedTerritoryIds.get(1)).getTerritoryPosition().getY());
+           // _numberAnimation = new NumberAnimation(AttackState.changedUnitNumber, endPoint, );
             new AlertPane(_attackPanel.getRootFrame(_attackPanel), "Winner", "Winner is: " + winner,
                     AlertPane.INFORMATION_MESSAGE);
         } catch (Error error) {

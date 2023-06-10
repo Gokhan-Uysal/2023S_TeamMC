@@ -88,8 +88,8 @@ public class GameManagerService extends BasePublisher<GameState> {
                 break;
             case DISTRIBUTING_STATE:
                 if (_distributeState.isInitialUnitFinished()) {
-                    updateGameState(GameState.REPLACEMENT_STATE);
                     _playerService.restartTurn();
+                    updateGameState(GameState.REPLACEMENT_STATE);
                     break;
                 }
                 _playerService.turnChange();
@@ -105,7 +105,7 @@ public class GameManagerService extends BasePublisher<GameState> {
                 updateGameState(GameState.ATTACK_STATE);
                 break;
             case ATTACK_STATE:
-                updateGameState(GameState.RECEIVING_STATE);
+                updateGameState(GameState.FORTIFY_STATE);
                 break;
             case FORTIFY_STATE:
                 if (_isGameFinished) {
@@ -188,15 +188,13 @@ public class GameManagerService extends BasePublisher<GameState> {
     }
 
     public String attack(int attackTerritoryId, int defenderTerritoryId) {
-        Player player = _playerService.getCurrentPlayer();
-
         if (_centralDeck.isEmpty()) {
             _playerService.emptyPlayerDecks();
             this.initilizeArmyDeck(_playerService.getPlayerCount());
             this.initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
         }
 
-        _attackState.attack(player.getId(), attackTerritoryId, defenderTerritoryId);
+        _attackState.attack(attackTerritoryId, defenderTerritoryId);
         return _attackState.getWinningPlayer();
     }
 

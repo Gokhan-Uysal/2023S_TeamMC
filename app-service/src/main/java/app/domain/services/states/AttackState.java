@@ -25,16 +25,19 @@ import java.util.concurrent.atomic.AtomicMarkableReference;
 public class AttackState {
 
     private MapService _mapService = MapService.getInstance();
+    private PlayerService _playerService = PlayerService.getInstance();
     private String _winningPlayer;
     public static int _attackerDiceRoll = 0;
     public static int _defenderDiceRoll = 0;
     public static boolean playerCanDrawCard = false;
+    public static int changedUnitNumber = 0;
 
-    public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
+    public void attack(int attackerTerritoryId, int attackedTerritoryId) {
+        validateAttack(attackerTerritoryId, attackedTerritoryId);
+        if (!playerCanDrawCard){
+            playerCanDrawCard = this.attackOneTerritory(attackerTerritoryId, attackedTerritoryId);
+        }
 
-        validateAttack(attackerTerritoryId, attackedTerritoryId, attackingPlayerId);
-        playerCanDrawCard = this.attackOneTerritory(attackingPlayerId,
-                attackerTerritoryId, attackedTerritoryId);
     }
 
     public static void drawCardIfAbleTo(){
@@ -63,17 +66,21 @@ public class AttackState {
 
             if (drawnCard instanceof InfantryCard){
                 winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Infantry);
+                System.out.println("Player has drawn infantry card.");
             }
             else if (drawnCard instanceof CavalryCard){
                 winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Cavalry);
+                System.out.println("Player has drawn cavalry card.");
             }
             else if (drawnCard instanceof ArtilleryCard){
                 winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
+                System.out.println("Player has drawn artillery card.");
             }
             else{
                 TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
                 winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
                         tDrawnCard.getImage(), tDrawnCard.getTerritoryId());
+                System.out.println("Player has drawn territory card.");
             }
         }
     }
@@ -82,25 +89,26 @@ public class AttackState {
         return this._winningPlayer;
     }
 
-    public boolean attackOneTerritory(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
+    public boolean attackOneTerritory(int attackerTerritoryId, int defenderTerritoryId) {
+
+        Player currentPlayer = _playerService.getCurrentPlayer();
 
         Army attackerTerritoryArmy = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
-        Army attackedTerritoryArmy = _mapService.findTerritory(attackedTerritoryId).getTerritoryArmy();
+        Army attackedTerritoryArmy = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
         int attackerDiceRoll = rollDice();
-        int attackedDiceRoll = rollDice();
+        int defenderDiceRoll = rollDice();
+
 
         _attackerDiceRoll = attackerDiceRoll;
-        _defenderDiceRoll = attackedDiceRoll;
+        _defenderDiceRoll = defenderDiceRoll;
 
-        if (attackerDiceRoll > attackedDiceRoll) {
+        if (attackerDiceRoll > defenderDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
-            this._winningPlayer = PlayerService.getInstance().getPlayerById(attackingPlayerId).getUsername();
+            _winningPlayer = currentPlayer.getUsername();
         } else {
             dealArmyDefenderWin(attackerTerritoryArmy);
-            this._winningPlayer = PlayerService.getInstance()
-                    .getPlayerById(_mapService.findTerritory(attackedTerritoryId)
-                            .getOwnerId())
+            _winningPlayer = _playerService.getPlayerById(_mapService.findTerritory(defenderTerritoryId).getOwnerId())
                     .getUsername();
         }
 
@@ -117,7 +125,7 @@ public class AttackState {
                         ArmyUnitType.Artillery, 1);
             }
 
-            _mapService.changeOwnerOfTerritory(attackingPlayerId, attackedTerritoryId);
+            _mapService.changeOwnerOfTerritory(currentPlayer.getId(), defenderTerritoryId);
             return true;
         }
 
@@ -138,6 +146,8 @@ public class AttackState {
         } else if (loserArmy.getArmyAmount(ArmyUnitType.Infantry) > 0) {
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
+
+        changedUnitNumber = 1;
     }
 
     private void dealArmyDefenderWin(Army loserArmy) {
@@ -156,7 +166,11 @@ public class AttackState {
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 2);
         } else if (loserArmy.getArmyAmount(ArmyUnitType.Infantry) > 0) {
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
+            changedUnitNumber = 1;
+            return;
         }
+
+        changedUnitNumber = 2;
     }
 
     /*
@@ -180,12 +194,13 @@ public class AttackState {
      *
      *
      */
-    public void validateAttack(int attackerTerritoryId, int defenderTerritoryId, int playerId) throws AttackError {
+    public void validateAttack(int attackerTerritoryId, int defenderTerritoryId) throws AttackError {
+        Player currentPlayer = _playerService.getCurrentPlayer();
 
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
-        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
+        if (!_playerService.checkIfPlayerOwnsTerritory(currentPlayer.getId(), attackerTerritoryId)) {
             throw new AttackError("Please choose one of your own territories.");
         }
         if (attacker.getTotalArmyAmount() <= 2) {
