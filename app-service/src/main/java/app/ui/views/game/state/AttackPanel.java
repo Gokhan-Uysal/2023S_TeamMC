@@ -66,7 +66,7 @@ public class AttackPanel extends BaseStatePanel {
         constrain.gridy = 4;
         this.add(_endPhaseButton, constrain);
 
-        constrain.gridx = 5;
+        constrain.gridx = 6;
         constrain.gridy = 2;
         constrain.gridwidth = 10;
         constrain.gridheight = 7;

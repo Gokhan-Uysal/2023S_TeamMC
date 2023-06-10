@@ -43,9 +43,9 @@ public class DiceAnimationPanel extends JPanel {
         animationWorker = new SwingWorker<Void, Integer>() {
             @Override
             protected Void doInBackground() throws Exception {
-                while (!isCancelled() && currentFrame < 30) {
+                while (!isCancelled() && currentFrame < 20) {
                     publish(currentFrame);
-                    Thread.sleep(100);
+                    Thread.sleep(80);
                     currentFrame++;
                 }
                 return null;
