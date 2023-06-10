@@ -15,7 +15,6 @@ import app.ui.views.game.state.AttackPanel;
 public class AttackPanelController extends BaseStatePanelController implements ActionListener {
     private static AttackPanelController _attackPanelController;
     private AttackPanel _attackPanel;
-    private DiceAnimationPanel _diceAnimationPanel = new DiceAnimationPanel();
 
     private List<Integer> _selectedTerritoryIds;
 
@@ -64,8 +63,7 @@ public class AttackPanelController extends BaseStatePanelController implements A
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(_attackPanel.getEndPhaseButton())) {
-            this._diceAnimationPanel.stopDiceAnimation();
-            this._attackPanel.remove(this._diceAnimationPanel);
+            _attackPanel._diceAnimationPanel.stopDiceAnimation();
             GameManagerService.getInstance().handleNextState();
             return;
         }
@@ -73,8 +71,7 @@ public class AttackPanelController extends BaseStatePanelController implements A
         try {
             String winner = GameManagerService.getInstance().attack(_selectedTerritoryIds.get(0),
                     _selectedTerritoryIds.get(1));
-            this._attackPanel.add(this._diceAnimationPanel);
-            this._diceAnimationPanel.startDiceAnimation(AttackState._attackerDiceRoll, AttackState._defenderDiceRoll);
+            _attackPanel._diceAnimationPanel.startDiceAnimation(AttackState._attackerDiceRoll, AttackState._defenderDiceRoll);
             new AlertPane(_attackPanel.getRootFrame(_attackPanel), "Winner", "Winner is: " + winner,
                     AlertPane.INFORMATION_MESSAGE);
         } catch (Error error) {

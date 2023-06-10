@@ -2,16 +2,14 @@ package app.ui.views.animations;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
 
 public class DiceAnimationPanel extends JPanel {
 
     private ImageIcon[] diceFaces;
     private JLabel diceLabel;
     private JLabel diceLabel2;
-    private Thread animationThread;
-    private volatile boolean animationRunning;
+    private SwingWorker<Void, Integer> animationWorker;
     private int currentFrame;
 
     public DiceAnimationPanel() {
@@ -36,45 +34,46 @@ public class DiceAnimationPanel extends JPanel {
     }
 
     public void startDiceAnimation(int settlingFace1, int settlingFace2) {
-        if (animationThread != null && animationThread.isAlive()) {
+        if (animationWorker != null && !animationWorker.isDone()) {
             return; // Animation already running
         }
 
         currentFrame = 0;
-        animationRunning = true;
 
-        animationThread = new Thread(() -> {
-            while (animationRunning && currentFrame < 30) {
-                SwingUtilities.invokeLater(() -> {
-                    diceLabel.setIcon(diceFaces[currentFrame % 5]);
-                    diceLabel2.setIcon(diceFaces[(currentFrame + 1) % 5]);
-                });
-
-                try {
+        animationWorker = new SwingWorker<Void, Integer>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                while (!isCancelled() && currentFrame < 30) {
+                    publish(currentFrame);
                     Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    currentFrame++;
                 }
-
-                currentFrame++;
+                return null;
             }
 
-            SwingUtilities.invokeLater(() -> {
+            @Override
+            protected void process(List<Integer> chunks) {
+                int frame = chunks.get(chunks.size() - 1);
+                diceLabel.setIcon(diceFaces[frame % 5]);
+                diceLabel2.setIcon(diceFaces[(frame + 1) % 5]);
+            }
+
+            @Override
+            protected void done() {
                 diceLabel.setIcon(diceFaces[settlingFace1 - 1]);
                 diceLabel2.setIcon(diceFaces[settlingFace2 - 1]);
-            });
-        });
+            }
+        };
 
-        animationThread.start();
+        animationWorker.execute();
     }
 
     public void stopDiceAnimation() {
-        animationRunning = false;
-        currentFrame = 0;
+        if (animationWorker != null && !animationWorker.isDone()) {
+            animationWorker.cancel(true);
+        }
 
-        SwingUtilities.invokeLater(() -> {
-            diceLabel.setIcon(null);
-            diceLabel2.setIcon(null);
-        });
+        diceLabel.setIcon(null);
+        diceLabel2.setIcon(null);
     }
 }
