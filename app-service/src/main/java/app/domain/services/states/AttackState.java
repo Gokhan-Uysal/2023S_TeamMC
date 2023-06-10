@@ -20,6 +20,8 @@ public class AttackState {
 
     private MapService _mapService = MapService.getInstance();
     private String _winningPlayer;
+    public static int _attackerDiceRoll = 0;
+    public static int _defenderDiceRoll = 0;
 
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
@@ -81,6 +83,9 @@ public class AttackState {
 
         int attackerDiceRoll = rollDice();
         int attackedDiceRoll = rollDice();
+
+        this._attackerDiceRoll = attackerDiceRoll;
+        this._defenderDiceRoll = attackedDiceRoll;
 
         if (attackerDiceRoll > attackedDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
@@ -173,7 +178,7 @@ public class AttackState {
         Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
         Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
 
-        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
+        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, attackerTerritoryId)) {
             throw new AttackError("Please choose one of your own territories.");
         }
         if (attacker.getTotalArmyAmount() <= 2) {
