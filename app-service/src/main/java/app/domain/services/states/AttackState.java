@@ -5,8 +5,12 @@ import app.domain.models.card.BaseCard;
 import app.domain.models.card.DeckType;
 import app.domain.models.card.MainDecks;
 import app.domain.models.card.army.ArmyCardType;
+import app.domain.models.card.army.ArtilleryCard;
+import app.domain.models.card.army.CavalryCard;
+import app.domain.models.card.army.InfantryCard;
 import app.domain.models.card.territory.TerritoryCard;
 import app.domain.models.game.map.Territory;
+import app.domain.models.game.map.TerritoryPosition;
 import app.domain.models.player.Player;
 import app.domain.models.army.Army;
 import app.domain.models.army.ArmyUnitType;
@@ -14,7 +18,9 @@ import app.domain.services.GameManagerService;
 import app.domain.services.map.MapService;
 import app.domain.services.PlayerService;
 
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class AttackState {
 
@@ -22,14 +28,16 @@ public class AttackState {
     private String _winningPlayer;
     public static int _attackerDiceRoll = 0;
     public static int _defenderDiceRoll = 0;
+    public static boolean playerCanDrawCard = false;
 
     public void attack(int attackingPlayerId, int attackerTerritoryId, int attackedTerritoryId) {
 
         validateAttack(attackerTerritoryId, attackedTerritoryId, attackingPlayerId);
-
-        boolean playerCanDrawCard = this.attackOneTerritory(attackingPlayerId,
+        playerCanDrawCard = this.attackOneTerritory(attackingPlayerId,
                 attackerTerritoryId, attackedTerritoryId);
+    }
 
+    public static void drawCardIfAbleTo(){
         if (playerCanDrawCard) {
             Player winningPlayer = PlayerService.getInstance().getCurrentPlayer();
             MainDecks centralDeck = GameManagerService.getInstance().getCentralDeck();
@@ -53,21 +61,19 @@ public class AttackState {
                 }
             }
 
-            switch (drawnCard.getName()) {
-                case "InfantryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Infantry);
-                }
-                case "CavalryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Cavalry);
-                }
-                case "ArtilleryCard" -> {
-                    winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
-                }
-                default -> {
-                    TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
-                    winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
-                            tDrawnCard.getImage(), tDrawnCard.getTerritoryId());
-                }
+            if (drawnCard instanceof InfantryCard){
+                winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Infantry);
+            }
+            else if (drawnCard instanceof CavalryCard){
+                winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Cavalry);
+            }
+            else if (drawnCard instanceof ArtilleryCard){
+                winningPlayer.getPlayerDecks().addArmyCard(ArmyCardType.Artillery);
+            }
+            else{
+                TerritoryCard tDrawnCard = (TerritoryCard) drawnCard;
+                winningPlayer.getPlayerDecks().addTerritoryCards(tDrawnCard.getDescription(),
+                        tDrawnCard.getImage(), tDrawnCard.getTerritoryId());
             }
         }
     }
@@ -84,8 +90,8 @@ public class AttackState {
         int attackerDiceRoll = rollDice();
         int attackedDiceRoll = rollDice();
 
-        this._attackerDiceRoll = attackerDiceRoll;
-        this._defenderDiceRoll = attackedDiceRoll;
+        _attackerDiceRoll = attackerDiceRoll;
+        _defenderDiceRoll = attackedDiceRoll;
 
         if (attackerDiceRoll > attackedDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
@@ -152,6 +158,7 @@ public class AttackState {
             loserArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
         }
     }
+
     /*
      * validateAttack: Check the validity of the attack that the player wants to perform.
      *

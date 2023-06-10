@@ -64,6 +64,8 @@ public class AttackPanelController extends BaseStatePanelController implements A
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(_attackPanel.getEndPhaseButton())) {
             _attackPanel._diceAnimationPanel.stopDiceAnimation();
+            AttackState.drawCardIfAbleTo();
+            AttackState.playerCanDrawCard = false;
             GameManagerService.getInstance().handleNextState();
             return;
         }
