@@ -17,6 +17,7 @@ import app.domain.models.army.ArmyUnitType;
 import app.domain.services.GameManagerService;
 import app.domain.services.map.MapService;
 import app.domain.services.PlayerService;
+import app.ui.views.game.map.TerritoryComponent;
 
 import java.util.List;
 import java.util.Random;
@@ -31,6 +32,7 @@ public class AttackState {
     public static int _defenderDiceRoll = 0;
     public static boolean playerCanDrawCard = false;
     public static int changedUnitNumber = 0;
+    public static TerritoryPosition lostTerritoryPosition = null;
 
     public void attack(int attackerTerritoryId, int attackedTerritoryId) {
         validateAttack(attackerTerritoryId, attackedTerritoryId);
@@ -105,9 +107,11 @@ public class AttackState {
 
         if (attackerDiceRoll > defenderDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
+            lostTerritoryPosition = _mapService.findTerritory(defenderTerritoryId).getTerritoryPosition();
             _winningPlayer = currentPlayer.getUsername();
         } else {
             dealArmyDefenderWin(attackerTerritoryArmy);
+            lostTerritoryPosition = _mapService.findTerritory(attackerTerritoryId).getTerritoryPosition();
             _winningPlayer = _playerService.getPlayerById(_mapService.findTerritory(defenderTerritoryId).getOwnerId())
                     .getUsername();
         }

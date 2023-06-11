@@ -18,15 +18,16 @@ public class NumberAnimation extends SwingWorker<Void, Void> {
     @Override
     protected Void doInBackground() throws Exception {
         JLabel label = new JLabel(Integer.toString(number));
-        label.setFont(new Font("Arial", Font.BOLD, 24));
+        label.setFont(new Font("Arial", Font.BOLD, 20));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBounds(position.x, position.y, 50, 30);
 
         panel.add(label);
+        panel.setComponentZOrder(label, 0);
         panel.revalidate();
         panel.repaint();
 
-        Thread.sleep(3000); // Display the number for 3 seconds
+        Thread.sleep(2000); // Display the number for 3 seconds
 
         panel.remove(label);
         panel.revalidate();

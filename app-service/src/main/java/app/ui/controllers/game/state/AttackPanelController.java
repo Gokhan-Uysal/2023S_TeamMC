@@ -14,7 +14,10 @@ import app.ui.views.animations.DiceAnimationPanel;
 import app.ui.views.animations.NumberAnimation;
 import app.ui.views.components.AlertPane;
 import app.ui.views.components.ErrorAlertPanel;
+import app.ui.views.game.GameFrame;
 import app.ui.views.game.state.AttackPanel;
+
+import javax.swing.*;
 
 public class AttackPanelController extends BaseStatePanelController implements ActionListener {
     private static AttackPanelController _attackPanelController;
@@ -76,14 +79,19 @@ public class AttackPanelController extends BaseStatePanelController implements A
 
         try {
             String winner = GameManagerService.getInstance().attack(_selectedTerritoryIds.get(0),
-                    _selectedTerritoryIds.get(1));
+                                                                    _selectedTerritoryIds.get(1));
             _attackPanel._diceAnimationPanel.startDiceAnimation(AttackState._attackerDiceRoll,
-                    AttackState._defenderDiceRoll);
-            Point endPoint = new Point(MapService.getInstance().findTerritory(_selectedTerritoryIds.get(1)).getTerritoryPosition().getX(),
-                                        MapService.getInstance().findTerritory(_selectedTerritoryIds.get(1)).getTerritoryPosition().getY());
-           // _numberAnimation = new NumberAnimation(AttackState.changedUnitNumber, endPoint, );
+                                                                AttackState._defenderDiceRoll);
+            Point endPoint = new Point(AttackState.lostTerritoryPosition.getX(),
+                                       AttackState.lostTerritoryPosition.getY());
+            SwingUtilities.invokeLater(() -> {
+                _numberAnimation = new NumberAnimation(-1*AttackState.changedUnitNumber, endPoint,
+                                                      ((GameFrame) SwingUtilities.getRoot(this._attackPanel)).getMapPanel());
+                _numberAnimation.execute();
+                    }
+            );
             new AlertPane(_attackPanel.getRootFrame(_attackPanel), "Winner", "Winner is: " + winner,
-                    AlertPane.INFORMATION_MESSAGE);
+                          AlertPane.INFORMATION_MESSAGE);
         } catch (Error error) {
             new ErrorAlertPanel(_attackPanel.getRootFrame(_attackPanel), error.getMessage());
         }
