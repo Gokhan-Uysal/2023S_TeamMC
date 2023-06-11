@@ -113,7 +113,7 @@ public class MapService {
 
 	public Territory findTerritory(int territoryId) {
 		for (Territory territory : this.getTerritoryListFromGraph()) {
-			if (territory.get_territoryId() == territoryId) {
+			if (territory.getTerritoryId() == territoryId) {
 				return territory;
 			}
 		}

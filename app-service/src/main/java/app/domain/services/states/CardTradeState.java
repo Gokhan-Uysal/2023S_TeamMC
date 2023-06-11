@@ -31,7 +31,7 @@ public class CardTradeState {
 
         for (Territory t : territoryList) {
             GameManagerService.getInstance().getCentralDeck().addTerritoryCards("Territory card.", null,
-                    t.get_territoryId());
+                    t.getTerritoryId());
         }
     }
 
@@ -44,7 +44,7 @@ public class CardTradeState {
 
             for (Territory t : continentTerritories) {
                 t.setOwnerId(tradingPlayer.getId());
-                tradingPlayer.getPlayerDecks().drawTerritoryCard(t.get_territoryId());
+                tradingPlayer.getPlayerDecks().drawTerritoryCard(t.getTerritoryId());
             }
         } else {
             throw new Error("You do not have the appropriate territory cards.");

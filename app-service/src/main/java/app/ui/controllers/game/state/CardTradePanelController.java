@@ -17,13 +17,13 @@ public class CardTradePanelController extends BaseStatePanelController implement
     private static CardTradePanelController _cardTradePanelController;
     private CardTradePanel _cardTradePanel;
 
-    private List<Integer> _cardAmount;
+    private int _cardAmount;
     private List<String> _continents;
     private Territory _currentSelection;
 
     public CardTradePanelController() {
         _cardTradePanel = new CardTradePanel();
-        _cardAmount = new ArrayList<>();
+        _cardAmount = 15;
         _continents = new ArrayList<>(7);
         setupActionListeners();
         fetchData();
@@ -52,13 +52,10 @@ public class CardTradePanelController extends BaseStatePanelController implement
         continents.forEach((Continent continent) -> {
             _continents.add(continent.getName());
         });
-        for (int i = 0; i < 11; i++) {
-            _cardAmount.add(i);
-        }
     }
 
     public void initilizePanel() {
-        for (int i : _cardAmount) {
+        for (int i = 0; i < _cardAmount; i++) {
             _cardTradePanel.addItemToCardBox(_cardTradePanel.artilleryCardBox, i);
             _cardTradePanel.addItemToCardBox(_cardTradePanel.cavalryCardBox, i);
             _cardTradePanel.addItemToCardBox(_cardTradePanel.infantryCardBox, i);
@@ -94,7 +91,7 @@ public class CardTradePanelController extends BaseStatePanelController implement
             GameManagerService.getInstance().tradeArmyCards((int) _cardTradePanel.infantryCardBox.getSelectedItem(),
                                                             (int) _cardTradePanel.cavalryCardBox.getSelectedItem(),
                                                             (int) _cardTradePanel.artilleryCardBox.getSelectedItem(),
-                                                            _currentSelection.get_territoryId());
+                                                            _currentSelection.getTerritoryId());
             this.updateLabels();
             return;
         }

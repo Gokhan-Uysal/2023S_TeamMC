@@ -17,8 +17,10 @@ import app.domain.services.states.FortifyState;
 import app.domain.services.states.ReceiveState;
 import app.domain.services.states.ReplaceState;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class GameManagerService extends BasePublisher<GameState> {
     private static GameManagerService _instance;
@@ -160,7 +162,7 @@ public class GameManagerService extends BasePublisher<GameState> {
     public void initilizeTerritoyDeck(List<Territory> territoryList) {
         for (Territory territory : territoryList) {
             try {
-                _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.get_territoryId());
+                _centralDeck.addTerritoryCards(territory.getName(), territory.getImage(), territory.getTerritoryId());
             } catch (IOException e) {
                 Logger.error(e);
             }
@@ -187,15 +189,26 @@ public class GameManagerService extends BasePublisher<GameState> {
         return _receiveState.receivedUnitAmount();
     }
 
-    public String attack(int attackTerritoryId, int defenderTerritoryId) {
+    public String attack(Territory attackerTerritory, Territory defenderTerritory) {
         if (_centralDeck.isEmpty()) {
             _playerService.emptyPlayerDecks();
             this.initilizeArmyDeck(_playerService.getPlayerCount());
             this.initilizeTerritoyDeck(_mapService.getTerritoryListFromGraph());
         }
 
-        _attackState.attack(attackTerritoryId, defenderTerritoryId);
+        _attackState.attack(attackerTerritory, defenderTerritory);
         return _attackState.getWinningPlayer();
+    }
+
+    public List<Point> getPositionOfPossibleAttacks(Territory territory){
+        ArrayList<Point> endPoints = new ArrayList<>();
+        List<Territory> possibleAttacks = _attackState.getPossibleAttacks(territory);
+
+        for (Territory t: possibleAttacks){
+            endPoints.add(t.getTerritoryPositionAsPoint());
+        }
+
+        return endPoints;
     }
 
     public void tradeArmyCards(int iAmount, int cAmount, int aAmount, int territoryId) {

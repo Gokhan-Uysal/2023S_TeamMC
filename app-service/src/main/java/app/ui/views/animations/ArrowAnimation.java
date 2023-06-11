@@ -2,15 +2,16 @@ package app.ui.views.animations;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrowAnimation extends SwingWorker<Void, java.util.List<Point>> {
+public class ArrowAnimation extends SwingWorker<Void, List<Point>> {
     private final JPanel panel;
     private final Point startPoint;
-    private final java.util.List<Point> endPoints;
+    private final List<Point> endPoints;
 
-    public ArrowAnimation(JPanel panel, Point startPoint, java.util.List<Point> endPoints) {
+    public ArrowAnimation(JPanel panel, Point startPoint, List<Point> endPoints) {
         this.panel = panel;
         this.startPoint = startPoint;
         this.endPoints = endPoints;
@@ -18,62 +19,66 @@ public class ArrowAnimation extends SwingWorker<Void, java.util.List<Point>> {
 
     @Override
     protected Void doInBackground() throws Exception {
-        int steps = 100;
-        int delay = 10;
+        int numSteps = 100;
+        for (int i = 1; i <= numSteps; i++) {
+            if (isCancelled()) {
+                break;
+            }
 
-        for (int i = 0; i <= steps; i++) {
-            java.util.List<Point> intermediatePoints = new ArrayList<>();
-
+            double ratio = (double) i / numSteps;
+            List<Point> intermediatePoints = new ArrayList<>();
             for (Point endPoint : endPoints) {
-                int startX = (int) (startPoint.x + 50 * Math.cos(getAngle(startPoint, endPoint)));
-                int startY = (int) (startPoint.y + 50 * Math.sin(getAngle(startPoint, endPoint)));
-                int endX = endPoint.x;
-                int endY = endPoint.y;
-
-                int dx = endX - startX;
-                int dy = endY - startY;
-
-                int x = startX + dx * i / steps;
-                int y = startY + dy * i / steps;
-
+                int x = (int) (startPoint.x + ratio * (endPoint.x - startPoint.x));
+                int y = (int) (startPoint.y + ratio * (endPoint.y - startPoint.y));
                 intermediatePoints.add(new Point(x, y));
             }
 
+            Thread.sleep(10);
             publish(intermediatePoints);
-            Thread.sleep(delay);
         }
 
         return null;
     }
 
     @Override
-    protected void process(java.util.List<java.util.List<Point>> chunks) {
-        List<Point> lastIntermediatePoints = chunks.get(chunks.size() - 1);
-        panel.getGraphics().clearRect(0, 0, panel.getWidth(), panel.getHeight());
+    protected void process(List<List<Point>> chunks) {
+        List<Point> latestChunk = chunks.get(chunks.size() - 1);
 
-        for (Point endPoint : endPoints) {
-            drawLine(panel.getGraphics(), (int) (startPoint.x + 50 * Math.cos(getAngle(startPoint, endPoint))),
-                    (int) (startPoint.y + 50 * Math.sin(getAngle(startPoint, endPoint))), endPoint.x, endPoint.y);
+        // Create a BufferedImage with the same dimensions as the panel
+        BufferedImage image = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setStroke(new BasicStroke(3)); // Set the line thickness
+        g2d.setColor(Color.BLACK);
+
+        // Draw the lines on the BufferedImage
+        for (Point endPoint : latestChunk) {
+            int x1 = startPoint.x;
+            int y1 = startPoint.y;
+            int x2 = endPoint.x;
+            int y2 = endPoint.y;
+
+            int dx = x2 - x1;
+            int dy = y2 - y1;
+            double angle = Math.atan2(dy, dx);
+            int length = (int) Math.sqrt(dx * dx + dy * dy);
+            int arrowLength = 15;
+            int arrowAngle = 30;
+
+            int x3 = (int) (x2 - arrowLength * Math.cos(angle - Math.toRadians(arrowAngle)));
+            int y3 = (int) (y2 - arrowLength * Math.sin(angle - Math.toRadians(arrowAngle)));
+            int x4 = (int) (x2 - arrowLength * Math.cos(angle + Math.toRadians(arrowAngle)));
+            int y4 = (int) (y2 - arrowLength * Math.sin(angle + Math.toRadians(arrowAngle)));
+
+            g2d.drawLine(x1, y1, x2, y2);
+            g2d.drawLine(x2, y2, x3, y3);
+            g2d.drawLine(x2, y2, x4, y4);
         }
-
-        for (Point intermediatePoint : lastIntermediatePoints) {
-            drawLine(panel.getGraphics(), (int) (startPoint.x + 50 * Math.cos(getAngle(startPoint, intermediatePoint))),
-                    (int) (startPoint.y + 50 * Math.sin(getAngle(startPoint, intermediatePoint))),
-                    intermediatePoint.x, intermediatePoint.y);
-        }
-    }
-
-    private void drawLine(Graphics g, int startX, int startY, int endX, int endY) {
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setColor(Color.RED);
-        g2d.setStroke(new BasicStroke(4)); // Increase line thickness here
-
-        g2d.drawLine(startX, startY, endX, endY);
 
         g2d.dispose();
-    }
 
-    private double getAngle(Point startPoint, Point endPoint) {
-        return Math.atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x);
+        // Paint the BufferedImage onto the panel
+        Graphics panelGraphics = panel.getGraphics();
+        panelGraphics.drawImage(image, 0, 0, null);
+        panelGraphics.dispose();
     }
 }

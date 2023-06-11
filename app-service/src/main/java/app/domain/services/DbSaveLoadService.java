@@ -44,11 +44,11 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
     public void saveMap(List<Territory> territories) {
         territories.forEach((Territory territory) -> {
             try {
-                _countryRepository.updateCountryArmy(territory.get_territoryId(),
+                _countryRepository.updateCountryArmy(territory.getTerritoryId(),
                         territory.getInfantryCount(), ArmyUnitType.Infantry);
-                _countryRepository.updateCountryArmy(territory.get_territoryId(),
+                _countryRepository.updateCountryArmy(territory.getTerritoryId(),
                         territory.getChivalryCount(), ArmyUnitType.Chivalry);
-                _countryRepository.updateCountryArmy(territory.get_territoryId(),
+                _countryRepository.updateCountryArmy(territory.getTerritoryId(),
                         territory.getArtilleryCount(), ArmyUnitType.Artillery);
             } catch (DbException e) {
                 Logger.error(e);

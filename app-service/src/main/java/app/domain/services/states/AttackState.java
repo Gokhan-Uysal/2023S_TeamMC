@@ -17,11 +17,11 @@ import app.domain.models.army.ArmyUnitType;
 import app.domain.services.GameManagerService;
 import app.domain.services.map.MapService;
 import app.domain.services.PlayerService;
-import app.ui.views.game.map.TerritoryComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicMarkableReference;
+import java.util.Set;
 
 public class AttackState {
 
@@ -34,10 +34,10 @@ public class AttackState {
     public static int changedUnitNumber = 0;
     public static TerritoryPosition lostTerritoryPosition = null;
 
-    public void attack(int attackerTerritoryId, int attackedTerritoryId) {
-        validateAttack(attackerTerritoryId, attackedTerritoryId);
+    public void attack(Territory attackerTerritory, Territory defenderTerritory) {
+        validateAttack(attackerTerritory, defenderTerritory);
         if (!playerCanDrawCard){
-            playerCanDrawCard = this.attackOneTerritory(attackerTerritoryId, attackedTerritoryId);
+            playerCanDrawCard = this.attackOneTerritory(attackerTerritory, defenderTerritory);
         }
 
     }
@@ -91,29 +91,25 @@ public class AttackState {
         return this._winningPlayer;
     }
 
-    public boolean attackOneTerritory(int attackerTerritoryId, int defenderTerritoryId) {
-
+    public boolean attackOneTerritory(Territory attackerTerritory, Territory defenderTerritory) {
         Player currentPlayer = _playerService.getCurrentPlayer();
-
-        Army attackerTerritoryArmy = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
-        Army attackedTerritoryArmy = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
+        Army attackerTerritoryArmy = attackerTerritory.getTerritoryArmy();
+        Army attackedTerritoryArmy = defenderTerritory.getTerritoryArmy();
 
         int attackerDiceRoll = rollDice();
         int defenderDiceRoll = rollDice();
-
 
         _attackerDiceRoll = attackerDiceRoll;
         _defenderDiceRoll = defenderDiceRoll;
 
         if (attackerDiceRoll > defenderDiceRoll) {
             dealArmyAttackerWin(attackedTerritoryArmy);
-            lostTerritoryPosition = _mapService.findTerritory(defenderTerritoryId).getTerritoryPosition();
+            lostTerritoryPosition = defenderTerritory.getTerritoryPosition();
             _winningPlayer = currentPlayer.getUsername();
         } else {
             dealArmyDefenderWin(attackerTerritoryArmy);
-            lostTerritoryPosition = _mapService.findTerritory(attackerTerritoryId).getTerritoryPosition();
-            _winningPlayer = _playerService.getPlayerById(_mapService.findTerritory(defenderTerritoryId).getOwnerId())
-                    .getUsername();
+            lostTerritoryPosition = attackerTerritory.getTerritoryPosition();
+            _winningPlayer = _playerService.getPlayerById(defenderTerritory.getOwnerId()).getUsername();
         }
 
         if (attackedTerritoryArmy.getTotalArmyAmount() <= 0) {
@@ -129,7 +125,7 @@ public class AttackState {
                         ArmyUnitType.Artillery, 1);
             }
 
-            _mapService.changeOwnerOfTerritory(currentPlayer.getId(), defenderTerritoryId);
+            _mapService.changeOwnerOfTerritory(currentPlayer.getId(), defenderTerritory.getTerritoryId());
             return true;
         }
 
@@ -142,7 +138,6 @@ public class AttackState {
     }
 
     private void dealArmyAttackerWin(Army loserArmy) {
-
         if (loserArmy.getArmyAmount(ArmyUnitType.Artillery) > 0) {
             loserArmy.getArmyUnits(ArmyUnitType.Artillery, 1);
         } else if (loserArmy.getArmyAmount(ArmyUnitType.Chivalry) > 0) {
@@ -155,7 +150,6 @@ public class AttackState {
     }
 
     private void dealArmyDefenderWin(Army loserArmy) {
-
         if (loserArmy.getArmyAmount(ArmyUnitType.Artillery) > 1) {
             loserArmy.getArmyUnits(ArmyUnitType.Artillery, 2);
         } else if (loserArmy.getArmyAmount(ArmyUnitType.Artillery) > 0) {
@@ -198,13 +192,13 @@ public class AttackState {
      *
      *
      */
-    public void validateAttack(int attackerTerritoryId, int defenderTerritoryId) throws AttackError {
+    public boolean validateAttack(Territory attackerTerritory, Territory defenderTerritory) throws AttackError {
         Player currentPlayer = _playerService.getCurrentPlayer();
 
-        Army attacker = _mapService.findTerritory(attackerTerritoryId).getTerritoryArmy();
-        Army defender = _mapService.findTerritory(defenderTerritoryId).getTerritoryArmy();
+        Army attacker = attackerTerritory.getTerritoryArmy();
+        Army defender = defenderTerritory.getTerritoryArmy();
 
-        if (!_playerService.checkIfPlayerOwnsTerritory(currentPlayer.getId(), attackerTerritoryId)) {
+        if (!_playerService.checkIfPlayerOwnsTerritory(currentPlayer.getId(), attackerTerritory.getTerritoryId())) {
             throw new AttackError("Please choose one of your own territories.");
         }
         if (attacker.getTotalArmyAmount() <= 2) {
@@ -216,9 +210,10 @@ public class AttackState {
         if (!isValidAttack(attacker, defender)) {
             throw new AttackError("Not valid match-up");
         }
-        if (!checkIfAdjacentAndAttackable(attackerTerritoryId, defenderTerritoryId)) {
+        if (!checkIfAdjacentAndAttackable(attackerTerritory, defenderTerritory)) {
             throw new AttackError("Territory not adjacent or not enemy territory.");
         }
+        return true;
     }
 
     private boolean isValidAttack(Army attacker, Army defender) {
@@ -241,13 +236,22 @@ public class AttackState {
         return false;
     }
 
-    private boolean checkIfAdjacentAndAttackable(int attackerTerritoryId, int defenderTerritoryId) {
-
-        Territory attackerTerritory = _mapService.findTerritory(attackerTerritoryId);
-        Territory defenderTerritory = _mapService.findTerritory(defenderTerritoryId);
-
+    private boolean checkIfAdjacentAndAttackable(Territory attackerTerritory, Territory defenderTerritory) {
         return defenderTerritory.getOwnerId() != attackerTerritory.getOwnerId() &&
                 _mapService.getAdjacentTerritories(attackerTerritory).contains(defenderTerritory);
+    }
+
+    public List<Territory> getPossibleAttacks(Territory territory){
+        List<Territory> attackablePositions = new ArrayList<>();
+        Set<Territory> adjList = _mapService.getAdjacentTerritories(territory);
+
+        for (Territory t: adjList){
+            if (validateAttack(territory, t)){
+                attackablePositions.add(t);
+            }
+        }
+
+        return attackablePositions;
     }
 
 }
