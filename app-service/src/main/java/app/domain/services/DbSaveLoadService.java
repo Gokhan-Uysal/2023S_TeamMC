@@ -22,6 +22,7 @@ import app.domain.repositories.MapRepository;
 import app.domain.repositories.PlayerArmyCardRepository;
 import app.domain.repositories.PlayerRepository;
 import app.domain.repositories.PlayerTerritoryCardRepository;
+import app.domain.services.map.MapService;
 
 public class DbSaveLoadService implements ISaveLoadAdapter {
     private PlayerRepository _playerRepository;
@@ -30,6 +31,7 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
     private CountryRepository _countryRepository;
     private GameStatePersistRepostiry _gameStatePersistRepostiry;
     private MapRepository _mapRepsitory;
+    private MapService _mapService;
 
     public DbSaveLoadService() {
         _playerRepository = new PlayerRepository();
@@ -38,22 +40,37 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
         _countryRepository = new CountryRepository();
         _gameStatePersistRepostiry = new GameStatePersistRepostiry();
         _mapRepsitory = new MapRepository();
+        _mapService = MapService.getInstance();
     }
 
     @Override
     public void saveMap(List<Territory> territories) {
-        territories.forEach((Territory territory) -> {
+        for (Territory territory : territories) {
             try {
-                _countryRepository.updateCountryArmy(territory.get_territoryId(),
+                _countryRepository.updateCountryArmy(territory.getTerritoryId(),
                         territory.getInfantryCount(), ArmyUnitType.Infantry);
-                _countryRepository.updateCountryArmy(territory.get_territoryId(),
+
+            } catch (DbException e) {
+                Logger.warning(e.getMessage());
+            }
+            try {
+                _countryRepository.updateCountryArmy(territory.getTerritoryId(),
                         territory.getChivalryCount(), ArmyUnitType.Chivalry);
-                _countryRepository.updateCountryArmy(territory.get_territoryId(),
+            } catch (DbException e) {
+                Logger.warning(e.getMessage());
+            }
+            try {
+                _countryRepository.updateCountryArmy(territory.getTerritoryId(),
                         territory.getArtilleryCount(), ArmyUnitType.Artillery);
             } catch (DbException e) {
-                Logger.error(e);
+                Logger.warning(e.getMessage());
             }
-        });
+            try {
+                _countryRepository.updateCountryOwner(territory.getTerritoryId(), territory.getOwnerId());
+            } catch (DbException e) {
+                Logger.warning(e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -107,7 +124,12 @@ public class DbSaveLoadService implements ISaveLoadAdapter {
 
     @Override
     public List<Territory> loadMap() {
-        return _mapRepsitory.buildGameMapData();
+        try {
+            _mapService.loadGameMapDataToGraph();
+        } catch (DbException e) {
+            Logger.warning(e.getMessage());
+        }
+        return null;
     }
 
     @Override

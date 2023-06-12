@@ -32,6 +32,11 @@ public class MapRepository {
                         countryEntity.position_y);
                 Territory territory = new Territory(countryEntity.id, countryEntity.name, countryEntity.image_name,
                         territoryPosition, adjList);
+                if (countryEntity.owner_id != 0) {
+                    territory.setOwnerId(countryEntity.owner_id);
+                } else {
+                    territory.setOwnerId(-1);
+                }
                 territoryList.add(territory);
             }
         } catch (DbException e) {

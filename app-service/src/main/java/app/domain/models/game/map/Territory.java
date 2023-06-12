@@ -96,7 +96,7 @@ public class Territory {
         return _territoryPosition;
     }
 
-    public Set<String> get_adjList() {
+    public Set<String> getAdjList() {
         return _adjList;
     }
 
@@ -108,8 +108,12 @@ public class Territory {
         return this._territoryArmy;
     }
 
-    public int get_territoryId() {
+    public int getTerritoryId() {
         return this._territoryId;
+    }
+
+    public Point getTerritoryPositionAsPoint(){
+        return new Point(this._territoryPosition.getX(), this._territoryPosition.getY());
     }
 
     @Override

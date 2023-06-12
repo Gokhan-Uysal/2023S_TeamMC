@@ -8,7 +8,7 @@ import app.common.errors.DbException;
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.entities.CountryEntity;
 import app.domain.models.modelViews.AdjacentCountryViewModel;
-import app.domain.models.modelViews.CountryArmyModelView;
+import app.domain.models.modelViews.CountryArmyViewModel;
 
 public class CountryRepository extends BaseRepository {
 
@@ -26,10 +26,17 @@ public class CountryRepository extends BaseRepository {
             while (resultSet.next()) {
                 builder.setId(resultSet.getInt(1));
                 builder.setName(resultSet.getString(2));
-                builder.setImageName(resultSet.getString(3));
-                builder.setPositionX(resultSet.getInt(4));
-                builder.setPositionY(resultSet.getInt(5));
-                builder.setContinentId(resultSet.getInt(6));
+                builder.setImageName(resultSet.getString(4));
+                builder.setPositionX(resultSet.getInt(5));
+                builder.setPositionY(resultSet.getInt(6));
+                builder.setContinentId(resultSet.getInt(7));
+
+                String ownerId = resultSet.getString(3);
+                if (ownerId != null) {
+                    builder.setOwnerId(Integer.parseInt(ownerId));
+                } else {
+                    builder.setOwnerId(-1);
+                }
                 CountryEntity continentEntity = builder.build();
                 countryEntityList.add(continentEntity);
             }
@@ -82,13 +89,13 @@ public class CountryRepository extends BaseRepository {
         }
     }
 
-    public CountryArmyModelView findCountryArmy(int id) throws DbException {
+    public CountryArmyViewModel findCountryArmy(int id) throws DbException {
         String query = String.format(
                 "SELECT c.id, c.name AS country_name, SUM(CASE WHEN a.name = 'Infantry' THEN ta.count ELSE 0 END) AS infantry_count, SUM(CASE WHEN a.name = 'Cavalry' THEN ta.count ELSE 0 END) AS cavalry_count, SUM(CASE WHEN a.name = 'Artillery' THEN ta.count ELSE 0 END) AS artilary_count FROM country c INNER JOIN territory_army ta ON c.id = ta.country_id INNER JOIN army a ON ta.army_id = a.id WHERE c.id = %d GROUP BY c.id, c.name;",
                 id);
         try {
             ResultSet resultSet = super.executeQuery(query);
-            CountryArmyModelView.Builder builder = new CountryArmyModelView.Builder();
+            CountryArmyViewModel.Builder builder = new CountryArmyViewModel.Builder();
 
             while (resultSet.next()) {
                 builder.setId(resultSet.getInt(1));
@@ -100,6 +107,18 @@ public class CountryRepository extends BaseRepository {
             }
             resultSet.close();
             return builder.build();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+
+    public void updateCountryOwner(int id, int owner_id) throws DbException {
+        String query = String.format(
+                "UPDATE country SET owner_id = %d WHERE id = %d;",
+                owner_id, id);
+        try {
+            super.executeQuery(query);
+
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
