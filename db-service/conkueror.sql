@@ -6,6 +6,14 @@ CREATE TABLE game_state_persist (
     PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS player cascade;
+CREATE TABLE player (
+    id SERIAL,
+    username VARCHAR(255),
+    high_score INT,
+    PRIMARY KEY (id)
+);
+
 DROP TABLE IF EXISTS continent cascade;
 CREATE TABLE continent (
     id SERIAL,
@@ -17,13 +25,15 @@ DROP TABLE IF EXISTS country cascade;
 CREATE TABLE country (
     id SERIAL,
     name VARCHAR(255) NOT NULL ,
+    owner_id INT DEFAULT NULL,
     image_name VARCHAR(255),
     position_x INT NOT NULL,
     position_y INT NOT NULL,
     continent_id INT NOT NULL,
 
     PRIMARY KEY (id),
-    FOREIGN KEY (continent_id) REFERENCES continent(id)
+    FOREIGN KEY (continent_id) REFERENCES continent(id),
+    FOREIGN KEY (owner_id) REFERENCES player(id)
 );
 
 DROP TABLE IF EXISTS adjacent_country cascade;
@@ -40,14 +50,6 @@ CREATE TABLE army (
     id SERIAL,
     name VARCHAR(255) NOT NULL,
     value INT NOT NULL,
-    PRIMARY KEY (id)
-);
-
-DROP TABLE IF EXISTS player cascade;
-CREATE TABLE player (
-    id SERIAL,
-    username VARCHAR(255),
-    high_score INT,
     PRIMARY KEY (id)
 );
 
