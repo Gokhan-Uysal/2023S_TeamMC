@@ -2,13 +2,13 @@ package app.domain.models.modelViews;
 
 import app.domain.models.entities.BaseEntity;
 
-public class CountryArmyModelView extends BaseEntity {
+public class CountryArmyViewModel extends BaseEntity {
     public String country_name;
     public int infantry_count;
     public int cavalry_count;
     public int artillery_count;
 
-    public CountryArmyModelView(int id, String country_name, int infantry_count, int cavalry_count,
+    public CountryArmyViewModel(int id, String country_name, int infantry_count, int cavalry_count,
             int artillery_count) {
         super(id);
         this.country_name = country_name;
@@ -49,8 +49,8 @@ public class CountryArmyModelView extends BaseEntity {
             return this;
         }
 
-        public CountryArmyModelView build() {
-            return new CountryArmyModelView(id, country_name, infantry_count, cavalry_count, artillery_count);
+        public CountryArmyViewModel build() {
+            return new CountryArmyViewModel(id, country_name, infantry_count, cavalry_count, artillery_count);
         }
     }
 }

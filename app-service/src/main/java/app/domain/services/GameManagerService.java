@@ -5,6 +5,7 @@ import app.common.errors.DbException;
 import app.domain.models.card.*;
 import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.game.GameState;
+import app.domain.models.game.SaveLoadState;
 import app.domain.models.game.map.Territory;
 import app.domain.models.player.Player;
 import app.domain.services.base.BasePublisher;
@@ -23,6 +24,7 @@ import java.util.*;
 public class GameManagerService extends BasePublisher<GameState> {
     private static GameManagerService _instance;
 
+    private ISaveLoadAdapter _saveLoadAdapter;
     private BuildState _buildState;
     private DistributeState _distributeState;
     private ReceiveState _receiveState;
@@ -217,5 +219,34 @@ public class GameManagerService extends BasePublisher<GameState> {
             int startTerritoryId, int destinationTerritoryId, int playerId) {
         _fortifyState.fortify(infantryAmount, cavalryAmount, artilleryAmount, startTerritoryId,
                 destinationTerritoryId, playerId);
+    }
+
+    public void saveGame(SaveLoadState saveLoadState) {
+        try {
+            if (saveLoadState == SaveLoadState.DB) {
+                _saveLoadAdapter = new DbSaveLoadService();
+                _saveLoadAdapter.saveGameState(getState());
+                _saveLoadAdapter.saveMap(_mapService.getTerritoryListFromGraph());
+                _saveLoadAdapter.savePlayer(_playerService.getPlayers());
+            } else if (saveLoadState == SaveLoadState.JSON) {
+                _saveLoadAdapter = new JsonSaveLoadService();
+            }
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+    }
+
+    public void loadGame(SaveLoadState saveLoadState) {
+        try {
+            if (saveLoadState == SaveLoadState.DB) {
+                _saveLoadAdapter = new DbSaveLoadService();
+                _saveLoadAdapter.loadGameState(1);
+                _saveLoadAdapter.loadMap();
+            } else if (saveLoadState == SaveLoadState.JSON) {
+                _saveLoadAdapter = new JsonSaveLoadService();
+            }
+        } catch (Exception e) {
+            Logger.error(e);
+        }
     }
 }
