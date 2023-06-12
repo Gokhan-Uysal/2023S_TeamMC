@@ -94,7 +94,7 @@ public class AttackState {
     public boolean attackOneTerritory(Territory attackerTerritory, Territory defenderTerritory) {
         Player currentPlayer = _playerService.getCurrentPlayer();
         Army attackerTerritoryArmy = attackerTerritory.getTerritoryArmy();
-        Army attackedTerritoryArmy = defenderTerritory.getTerritoryArmy();
+        Army defenderTerritoryArmy = defenderTerritory.getTerritoryArmy();
 
         int attackerDiceRoll = rollDice();
         int defenderDiceRoll = rollDice();
@@ -103,7 +103,7 @@ public class AttackState {
         _defenderDiceRoll = defenderDiceRoll;
 
         if (attackerDiceRoll > defenderDiceRoll) {
-            dealArmyAttackerWin(attackedTerritoryArmy);
+            dealArmyAttackerWin(defenderTerritoryArmy);
             lostTerritoryPosition = defenderTerritory.getTerritoryPosition();
             _winningPlayer = currentPlayer.getUsername();
         } else {
@@ -112,16 +112,16 @@ public class AttackState {
             _winningPlayer = _playerService.getPlayerById(defenderTerritory.getOwnerId()).getUsername();
         }
 
-        if (attackedTerritoryArmy.getTotalArmyAmount() <= 0) {
+        if (defenderTerritoryArmy.getTotalArmyAmount() <= 0) {
 
             if (attackerTerritoryArmy.getArmyAmount(ArmyUnitType.Infantry) > 0) {
-                attackerTerritoryArmy.transferArmyUnits(attackedTerritoryArmy,
+                attackerTerritoryArmy.transferArmyUnits(defenderTerritoryArmy,
                         ArmyUnitType.Infantry, 1);
             } else if (attackerTerritoryArmy.getArmyAmount(ArmyUnitType.Chivalry) > 0) {
-                attackerTerritoryArmy.transferArmyUnits(attackedTerritoryArmy,
+                attackerTerritoryArmy.transferArmyUnits(defenderTerritoryArmy,
                         ArmyUnitType.Chivalry, 1);
-            } else if (attackedTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery) > 0) {
-                attackerTerritoryArmy.transferArmyUnits(attackedTerritoryArmy,
+            } else if (defenderTerritoryArmy.getArmyAmount(ArmyUnitType.Artillery) > 0) {
+                attackerTerritoryArmy.transferArmyUnits(defenderTerritoryArmy,
                         ArmyUnitType.Artillery, 1);
             }
 

@@ -14,17 +14,16 @@ public class CardTradeState {
 
     private MapService _mapService = MapService.getInstance();
 
-    public void tradeArmyCards(int infantryAmount, int cavalryAmount, int artilleryAmount, int playerId,
-            int territoryId) {
-        tradeArmyCardsHelper(infantryAmount, cavalryAmount, artilleryAmount, playerId, territoryId);
+    public void tradeArmyCards(int infantryAmount, int cavalryAmount, int artilleryAmount, Territory territory) {
+        tradeArmyCardsHelper(infantryAmount, cavalryAmount, artilleryAmount, territory);
 
         GameManagerService.getInstance().getCentralDeck().addArmyCards(ArmyCardType.Infantry, infantryAmount);
         GameManagerService.getInstance().getCentralDeck().addArmyCards(ArmyCardType.Cavalry, cavalryAmount);
         GameManagerService.getInstance().getCentralDeck().addArmyCards(ArmyCardType.Artillery, artilleryAmount);
     }
 
-    public void tradeTerritoryCards(String continentName, int playerId) {
-        tradeTerritoryCardsHelper(continentName, playerId);
+    public void tradeTerritoryCards(String continentName) {
+        tradeTerritoryCardsHelper(continentName);
 
         ArrayList<Territory> territoryList = (ArrayList<Territory>) _mapService
                 .getTerritoriesOfContinent(continentName);
@@ -35,8 +34,8 @@ public class CardTradeState {
         }
     }
 
-    private void tradeTerritoryCardsHelper(String continentName, int playerId) throws Error {
-        if (checkIfTerritoryCardsTradable(continentName, playerId)) {
+    private void tradeTerritoryCardsHelper(String continentName) throws Error {
+        if (checkIfTerritoryCardsTradable(continentName)) {
             Player tradingPlayer = PlayerService.getInstance().getCurrentPlayer();
 
             ArrayList<Territory> continentTerritories = (ArrayList<Territory>) _mapService
@@ -51,7 +50,7 @@ public class CardTradeState {
         }
     }
 
-    private boolean checkIfTerritoryCardsTradable(String continentName, int playerId) {
+    private boolean checkIfTerritoryCardsTradable(String continentName) {
         ArrayList<Territory> continentTerritoryList = (ArrayList<Territory>) _mapService
                 .getTerritoriesOfContinent(continentName);
 
@@ -62,27 +61,26 @@ public class CardTradeState {
     }
 
     private void tradeArmyCardsHelper(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount,
-            int playerId,
-            int territoryId) throws Error {
+            Territory territory) throws Error {
 
         Player tradingPlayer = PlayerService.getInstance().getCurrentPlayer();
 
-        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(playerId, territoryId)) {
+        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(tradingPlayer.getId(), territory.getTerritoryId())) {
             throw new Error("You do not own the territory.");
         }
 
-        if (this.checkIfArmyCardTradable(infantryCardAmount, cavalryCardAmount, artilleryCardAmount, playerId)) {
+        if (this.checkIfArmyCardTradable(infantryCardAmount, cavalryCardAmount, artilleryCardAmount)) {
             if (infantryCardAmount == 3 && cavalryCardAmount == 0 && artilleryCardAmount == 0) {
-                _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 1);
+                territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 1);
             } else if (infantryCardAmount == 2 && cavalryCardAmount == 1 && artilleryCardAmount == 0) {
-                _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 2);
+                territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 2);
             } else if (infantryCardAmount == 2 && cavalryCardAmount == 0 && artilleryCardAmount == 1) {
-                _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Artillery, 2);
+                territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Artillery, 2);
             } else if (infantryCardAmount == 1 && cavalryCardAmount == 2 && artilleryCardAmount == 0) {
-                _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 1);
-                _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Artillery, 1);
+                territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Chivalry, 1);
+                territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Artillery, 1);
             } else if (infantryCardAmount == 0 && cavalryCardAmount == 2 && artilleryCardAmount == 1) {
-                _mapService.findTerritory(territoryId).getTerritoryArmy().addArmyUnits(ArmyUnitType.Artillery, 3);
+                territory.getTerritoryArmy().addArmyUnits(ArmyUnitType.Artillery, 3);
             }
 
             for (int i = 0; i < infantryCardAmount; i++) {
@@ -99,10 +97,9 @@ public class CardTradeState {
         }
     }
 
-    private boolean checkIfArmyCardTradable(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount,
-            int playerId) {
+    private boolean checkIfArmyCardTradable(int infantryCardAmount, int cavalryCardAmount, int artilleryCardAmount) {
 
-        Player tradingPlayer = PlayerService.getInstance().getPlayer(playerId);
+        Player tradingPlayer = PlayerService.getInstance().getCurrentPlayer();
 
         return tradingPlayer.getPlayerDecks().armyUnitCardNumbers(ArmyUnitType.Infantry) >= infantryCardAmount &&
                 tradingPlayer.getPlayerDecks().armyUnitCardNumbers(ArmyUnitType.Chivalry) >= cavalryCardAmount &&

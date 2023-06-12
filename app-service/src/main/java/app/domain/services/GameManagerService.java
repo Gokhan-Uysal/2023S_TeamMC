@@ -211,17 +211,16 @@ public class GameManagerService extends BasePublisher<GameState> {
         return endPoints;
     }
 
-    public void tradeArmyCards(int iAmount, int cAmount, int aAmount, int territoryId) {
-        _cardTradeState.tradeArmyCards(iAmount, cAmount, aAmount, _playerService.getCurrentPlayer().getId(),
-                territoryId);
+    public void tradeArmyCards(int iAmount, int cAmount, int aAmount, Territory territory) {
+        _cardTradeState.tradeArmyCards(iAmount, cAmount, aAmount, territory);
     }
 
     public void tradeTerritoryCards(String continentName) {
-        _cardTradeState.tradeTerritoryCards(continentName, _playerService.getCurrentPlayer().getId());
+        _cardTradeState.tradeTerritoryCards(continentName);
     }
 
-    public void tradeArmyUnits(int infantryAmount, int cavalryAmount, int territoryId) {
-        _replaceState.replaceUnits(infantryAmount, cavalryAmount, territoryId);
+    public void tradeArmyUnits(int infantryAmount, int cavalryAmount, Territory territory) {
+        _replaceState.replaceUnits(infantryAmount, cavalryAmount, territory);
     }
 
     public void fortify(int infantryAmount, int cavalryAmount, int artilleryAmount,

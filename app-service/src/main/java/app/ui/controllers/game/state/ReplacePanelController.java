@@ -61,7 +61,7 @@ public class ReplacePanelController extends BaseStatePanelController implements 
             GameManagerService.getInstance().tradeArmyUnits(
                     (int) _replacePanel.getInfantryAmountComboBox().getSelectedItem(),
                     (int) _replacePanel.getCavalryAmountComboBox().getSelectedItem(),
-                    _currentSelection.getTerritoryId());
+                    _currentSelection);
         } catch (Error error) {
             new ErrorAlertPanel(_replacePanel.getRootFrame(_replacePanel), error.getMessage());
         }

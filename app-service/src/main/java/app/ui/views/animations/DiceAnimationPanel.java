@@ -60,8 +60,8 @@ public class DiceAnimationPanel extends JPanel {
 
             @Override
             protected void done() {
-                diceLabel.setIcon(diceFaces[settlingFace1 - 1]);
-                diceLabel2.setIcon(diceFaces[settlingFace2 - 1]);
+                diceLabel.setIcon(diceFaces[settlingFace1]);
+                diceLabel2.setIcon(diceFaces[settlingFace2]);
             }
         };
 

@@ -93,7 +93,7 @@ public class CardTradePanelController extends BaseStatePanelController implement
                 GameManagerService.getInstance().tradeArmyCards((int) _cardTradePanel.infantryCardBox.getSelectedItem(),
                         (int) _cardTradePanel.cavalryCardBox.getSelectedItem(),
                         (int) _cardTradePanel.artilleryCardBox.getSelectedItem(),
-                        _currentSelection.getTerritoryId());
+                        _currentSelection);
                 this.updateLabels();
                 return;
             }
