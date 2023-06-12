@@ -44,12 +44,12 @@ public class FortifyPanelController extends BaseStatePanelController implements 
             return;
         }
         if (_selectedTerritoryIDs.size() == 0){
-            _selectedTerritoryIDs.add(0, message.get_territoryId());
+            _selectedTerritoryIDs.add(0, message.getTerritoryId());
             _fortifyPanel.updateStartTerritory(message.getName());
             return;
         }
         if (_selectedTerritoryIDs.size() == 1){
-            _selectedTerritoryIDs.add(1, message.get_territoryId());
+            _selectedTerritoryIDs.add(1, message.getTerritoryId());
             _fortifyPanel.updateDestinationTerritory(message.getName());
             _fortifyPanel.setButtonActivate(true);
             return;

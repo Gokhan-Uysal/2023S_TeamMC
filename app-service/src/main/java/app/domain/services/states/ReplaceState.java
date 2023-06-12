@@ -8,26 +8,31 @@ import app.domain.services.map.MapService;
 
 public class ReplaceState {
 
-    private MapService _mapService = MapService.getInstance();
     private PlayerService _playerService = PlayerService.getInstance();
 
-    public void replaceUnits(int infantryAmount, int cavalryAmount, int territoryId){
-        replaceUnitsCondition(infantryAmount, cavalryAmount, territoryId);
+    public void replaceUnits(int infantryAmount, int cavalryAmount, Territory territory) throws Error {
+        replaceUnitsCondition(infantryAmount, cavalryAmount, territory);
 
-        Army territoryArmy = _mapService.findTerritory(territoryId).getTerritoryArmy();
-        if (cavalryAmount > 0){
-            territoryArmy.tradeArmyUnits(ArmyUnitType.Infantry, infantryAmount, ArmyUnitType.Chivalry,
-                                         cavalryAmount, ArmyUnitType.Artillery);
-        }
-        else{
+        Army territoryArmy = territory.getTerritoryArmy();
+        if (infantryAmount == 5 && cavalryAmount == 0){
             territoryArmy.tradeArmyUnits(ArmyUnitType.Infantry, infantryAmount, ArmyUnitType.Chivalry,
                                          cavalryAmount, ArmyUnitType.Chivalry);
+        }
+        else if (infantryAmount == 5 && cavalryAmount == 1){
+            territoryArmy.tradeArmyUnits(ArmyUnitType.Infantry, infantryAmount, ArmyUnitType.Chivalry,
+                    cavalryAmount, ArmyUnitType.Artillery);
+        }
+        else if (infantryAmount == 0 && cavalryAmount == 2){
+            territoryArmy.tradeArmyUnits(ArmyUnitType.Infantry, infantryAmount, ArmyUnitType.Chivalry,
+                    cavalryAmount, ArmyUnitType.Artillery);
+        }
+        else{
+            throw new Error("Invalid trade amount configurations.");
         }
 
     }
 
-    private void replaceUnitsCondition(int infantryAmount, int cavalryAmount, int territoryId) throws Error{
-        Territory territory = _mapService.findTerritory(territoryId);
+    private void replaceUnitsCondition(int infantryAmount, int cavalryAmount, Territory territory) throws Error{
 
         if (!(territory.getOwnerId() == _playerService.getCurrentPlayer().getId())) {
             throw new Error("Choose your own territory.");

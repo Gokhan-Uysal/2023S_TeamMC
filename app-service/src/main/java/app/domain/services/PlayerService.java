@@ -146,12 +146,12 @@ public class PlayerService {
 
     public ArrayList<Territory> getTerritoriesFromTerritoryCards() {
 
-        ArrayList<Integer> territoryIds = getCurrentPlayer().getPlayerDecks().territoryIds();
+        ArrayList<Integer> territoryIds = this.getCurrentPlayer().getPlayerDecks().territoryIds();
         return _mapService.findTerritories(territoryIds);
     }
 
     public boolean checkIfPlayerOwnsTerritory(int playerId, int territoryId) {
-        return playerId != _mapService.findTerritory(territoryId).getOwnerId();
+        return playerId == _mapService.findTerritory(territoryId).getOwnerId();
     }
 
     public void emptyPlayerDecks() {

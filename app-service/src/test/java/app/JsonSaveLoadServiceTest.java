@@ -68,7 +68,7 @@ class JsonSaveLoadServiceTest {
         for (int i=0; i<initialList.size(); i++) {
             assertEquals(initialList.get(i).getName(),newList.get(i).getName());
             assertEquals(initialList.get(i).getImageName(),newList.get(i).getImageName());
-            assertEquals(initialList.get(i).get_adjList(),newList.get(i).get_adjList());
+            assertEquals(initialList.get(i).getAdjList(),newList.get(i).getAdjList());
             assertEquals(initialList.get(i).getArtilleryCount(),newList.get(i).getArtilleryCount());
             assertEquals(initialList.get(i).getChivalryCount(),newList.get(i).getChivalryCount());
             assertEquals(initialList.get(i).getInfantryCount(),newList.get(i).getInfantryCount());
