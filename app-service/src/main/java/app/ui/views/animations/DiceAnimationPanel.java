@@ -30,7 +30,7 @@ public class DiceAnimationPanel extends JPanel {
         diceFaces = new ImageIcon[6];
         for (int i = 0; i < 6; i++) {
             String imagePath = AppConfig.basePath +
-                    "__resource__/assets/Dice/Alea_" + (i + 1) + ".png";
+                    "/__resource__/assets/Dice/Alea_" + (i + 1) + ".png";
             diceFaces[i] = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(50, 50,
                     Image.SCALE_SMOOTH));
         }
