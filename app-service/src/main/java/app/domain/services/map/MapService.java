@@ -75,7 +75,13 @@ public class MapService {
 
 	public List<Territory> getTerritoriesOfContinent(String continentName) {
 		Continent foundContinent = this.findContinent(continentName);
-		return this._mapReadService.getGameMapData().get(foundContinent);
+		ArrayList<Territory> territories = new ArrayList<>();
+		ArrayList<Territory> mapReadServiceTerritories = (ArrayList<Territory>) this._mapReadService.getGameMapData().
+				get(foundContinent);
+		for (Territory t: mapReadServiceTerritories){
+			territories.add(this.findTerritory(t.getTerritoryId()));
+		}
+		return territories;
 	}
 
 	public void openAllTerritories() {

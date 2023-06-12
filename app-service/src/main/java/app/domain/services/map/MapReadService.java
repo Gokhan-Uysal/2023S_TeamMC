@@ -24,6 +24,7 @@ public class MapReadService {
     public MapReadService(String filePath) {
         this._jsonService = new JsonService(filePath);
         this._gameMapData = new HashMap<>(7);
+        buildGameMapData();
     }
 
     /**

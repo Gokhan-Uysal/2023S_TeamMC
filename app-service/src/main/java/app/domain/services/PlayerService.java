@@ -146,7 +146,7 @@ public class PlayerService {
 
     public ArrayList<Territory> getTerritoriesFromTerritoryCards() {
 
-        ArrayList<Integer> territoryIds = getCurrentPlayer().getPlayerDecks().territoryIds();
+        ArrayList<Integer> territoryIds = this.getCurrentPlayer().getPlayerDecks().territoryIds();
         return _mapService.findTerritories(territoryIds);
     }
 

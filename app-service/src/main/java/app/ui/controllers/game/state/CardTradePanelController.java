@@ -11,6 +11,7 @@ import app.domain.models.game.map.Territory;
 import app.domain.services.GameManagerService;
 import app.domain.services.PlayerService;
 import app.domain.services.map.MapService;
+import app.ui.views.components.ErrorAlertPanel;
 import app.ui.views.game.state.CardTradePanel;
 
 public class CardTradePanelController extends BaseStatePanelController implements ActionListener {
@@ -88,21 +89,32 @@ public class CardTradePanelController extends BaseStatePanelController implement
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(_cardTradePanel.getTradeArmyCardButton())) {
-            GameManagerService.getInstance().tradeArmyCards((int) _cardTradePanel.infantryCardBox.getSelectedItem(),
-                                                            (int) _cardTradePanel.cavalryCardBox.getSelectedItem(),
-                                                            (int) _cardTradePanel.artilleryCardBox.getSelectedItem(),
-                                                            _currentSelection.getTerritoryId());
-            this.updateLabels();
-            return;
+            try{
+                GameManagerService.getInstance().tradeArmyCards((int) _cardTradePanel.infantryCardBox.getSelectedItem(),
+                        (int) _cardTradePanel.cavalryCardBox.getSelectedItem(),
+                        (int) _cardTradePanel.artilleryCardBox.getSelectedItem(),
+                        _currentSelection.getTerritoryId());
+                this.updateLabels();
+                return;
+            }
+            catch(Error error){
+                new ErrorAlertPanel(_cardTradePanel.getRootFrame(_cardTradePanel), error.getMessage());
+            }
         }
 
         if (e.getSource().equals(_cardTradePanel.getTradeTerritoryCardButton())) {
-            GameManagerService.getInstance().tradeTerritoryCards((String) _cardTradePanel.continentListBox.getSelectedItem());
-            this.updateLabels();
-            return;
+            try{
+                GameManagerService.getInstance().tradeTerritoryCards((String) _cardTradePanel.continentListBox.getSelectedItem());
+                this.updateLabels();
+                return;
+            }
+            catch (Error error){
+                new ErrorAlertPanel(_cardTradePanel.getRootFrame(_cardTradePanel), error.getMessage());
+            }
         }
 
         if (e.getSource().equals(_cardTradePanel.getNextPhaseButton())) {
+            this.updateLabels();
             GameManagerService.getInstance().handleNextState();
             return;
         }
