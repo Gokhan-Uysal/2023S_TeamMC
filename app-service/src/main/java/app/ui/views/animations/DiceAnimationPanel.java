@@ -1,6 +1,9 @@
 package app.ui.views.animations;
 
 import javax.swing.*;
+
+import app.common.AppConfig;
+
 import java.awt.*;
 import java.util.List;
 
@@ -26,8 +29,8 @@ public class DiceAnimationPanel extends JPanel {
         // Load dice face images
         diceFaces = new ImageIcon[6];
         for (int i = 0; i < 6; i++) {
-            String imagePath = "C:\\Users\\efeas\\IdeaProjects\\2023S_TeamMC\\app-service\\src\\main\\java\\app\\" +
-                    "__resource__\\assets\\Dice\\Alea_" + (i + 1) + ".png";
+            String imagePath = AppConfig.basePath +
+                    "__resource__/assets/Dice/Alea_" + (i + 1) + ".png";
             diceFaces[i] = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(50, 50,
                     Image.SCALE_SMOOTH));
         }
