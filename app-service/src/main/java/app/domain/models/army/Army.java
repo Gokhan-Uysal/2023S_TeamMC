@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Army {
+
     protected HashMap<ArmyUnitType, ArrayList<ArmyUnit>> armyContainer = new HashMap<>();
     protected ArmyUnitFactory armyUnitFactory = new ArmyUnitFactory();
 

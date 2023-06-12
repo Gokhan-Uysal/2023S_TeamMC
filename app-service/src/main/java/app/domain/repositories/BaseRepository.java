@@ -71,6 +71,9 @@ public abstract class BaseRepository {
                 }
                 field.setAccessible(true);
                 Object value = field.get(entity);
+                if (value == null) {
+                    continue;
+                }
                 keys.add(field.getName());
                 values.add("\'" + value.toString() + "\'");
             } catch (IllegalAccessException e) {

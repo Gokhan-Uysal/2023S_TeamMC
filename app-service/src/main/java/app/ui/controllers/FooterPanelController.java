@@ -28,6 +28,7 @@ public class FooterPanelController implements ISubscriber<GameState> {
                 break;
             case TRADE_CARD_STATE:
                 _footerPanel.updateStatePanel(CardTradePanelController.getInstance().getCardTradePanel());
+                CardTradePanelController.getInstance().updateLabels();
                 break;
             case ATTACK_STATE:
                 _footerPanel.updateStatePanel(AttackPanelController.getInstance().getAttackPanel());

@@ -26,7 +26,7 @@ public class MapGraphService extends BaseGraph<Territory> {
 
     public void addEdges(List<Territory> territoryListFromReadService) {
         territoryListFromReadService.forEach((Territory territory) -> {
-            Set<String> adjList = territory.get_adjList();
+            Set<String> adjList = territory.getAdjList();
             adjList.forEach((String adj) -> {
                 addEdge(territory, adj);
             });

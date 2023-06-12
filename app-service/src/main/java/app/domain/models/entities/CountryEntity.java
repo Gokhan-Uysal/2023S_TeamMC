@@ -2,14 +2,17 @@ package app.domain.models.entities;
 
 public class CountryEntity extends BaseEntity {
     public String name;
+    public int owner_id;
     public int position_x;
     public int position_y;
     public int continent_id;
     public String image_name;
 
-    public CountryEntity(int id, String name, int position_x, int position_y, int continent_id, String image_name) {
+    public CountryEntity(int id, int owner_id, String name, int position_x, int position_y, int continent_id,
+            String image_name) {
         super(id);
         this.name = name;
+        this.owner_id = owner_id;
         this.image_name = image_name;
         this.position_x = position_x;
         this.position_y = position_y;
@@ -19,6 +22,7 @@ public class CountryEntity extends BaseEntity {
     public static class Builder {
         private int id;
         private String name;
+        public int owner_id;
         private int position_x;
         private int position_y;
         private int continent_id;
@@ -54,8 +58,13 @@ public class CountryEntity extends BaseEntity {
             return this;
         }
 
+        public Builder setOwnerId(int owner_id) {
+            this.continent_id = owner_id;
+            return this;
+        }
+
         public CountryEntity build() {
-            return new CountryEntity(id, name, position_x, position_y, continent_id, image_name);
+            return new CountryEntity(id, owner_id, name, position_x, position_y, continent_id, image_name);
         }
     }
 }

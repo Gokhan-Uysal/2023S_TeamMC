@@ -59,4 +59,8 @@ public class GameFrame extends BaseJFrame {
         _mapPanelController.displayMap();
     }
 
+    public MapPanel getMapPanel(){
+        return this._mapPanel;
+    }
+
 }

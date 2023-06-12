@@ -1,13 +1,13 @@
 package app.ui.views.game.pause;
 
-import app.ui.controllers.game.pausescreen.PausePanelController;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class PausePanel extends JPanel {
 
     public JButton pauseButton;
+    public JButton saveButton;
+    public JButton loadButton;
 
     public PausePanel() {
         buildView();
@@ -21,9 +21,13 @@ public class PausePanel extends JPanel {
 
     private void initializeComponents() {
         pauseButton = new JButton("Pause");
+        saveButton = new JButton("Save");
+        loadButton = new JButton("Load");
     }
 
     private void addComponents() {
         this.add(pauseButton);
+        this.add(saveButton);
+        this.add(loadButton);
     }
 }

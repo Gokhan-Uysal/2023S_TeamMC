@@ -32,7 +32,7 @@ public class DistributeState {
             throw new Error("Initial armies placed");
         }
         _initialArmy.getArmyUnits(ArmyUnitType.Infantry, 1);
-        if (!_mapService.unclaimedTerritoryExist()) {
+        /*if (!_mapService.unclaimedTerritoryExist()) {
             if (territory.getOwnerId() != playerId) {
                 throw new Error("Not your territory!");
             }
@@ -42,7 +42,7 @@ public class DistributeState {
 
         if (!_mapService.unclaimedTerritorySubPhase(territory)) {
             throw new Error("Invalid territory selection");
-        }
+        }*/
 
         _mapService.placeArmyUnit(territory, ArmyUnitType.Infantry, 1, playerId);
     }
