@@ -57,7 +57,7 @@ public class PlayerService {
     }
 
     public void createPlayers(List<String> names) {
-        names.forEach((name) -> {
+        for (String name : names) {
             if (_currentPlayerCount > UPPER_BOUND) {
                 return;
             }
@@ -78,7 +78,7 @@ public class PlayerService {
             createPlayerArmyCards(player.getId());
             this._players.add(player);
             _currentPlayerCount++;
-        });
+        }
     }
 
     public void createPlayerArmyCards(int playerId) {
