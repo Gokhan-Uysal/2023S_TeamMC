@@ -117,7 +117,6 @@ public class CardTradePanel extends BaseStatePanel {
         constraint.fill = GridBagConstraints.HORIZONTAL;
         this.add(super._infoLabel, constraint);
 
-
         constraint.gridx = 0;
         constraint.gridy = 1;
         constraint.gridwidth = 4;
