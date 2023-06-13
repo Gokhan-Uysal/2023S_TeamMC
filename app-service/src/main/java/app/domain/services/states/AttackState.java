@@ -223,15 +223,25 @@ public class AttackState {
                     attacker.getTotalArmyValue() >
                             defender.getTotalArmyValue();
         } else if (defender.getArmyAmount(ArmyUnitType.Chivalry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Chivalry) >
-                    defender.getArmyAmount(ArmyUnitType.Chivalry) &&
-                    attacker.getTotalArmyValue() >
-                            defender.getTotalArmyValue();
+            if (attacker.getArmyAmount(ArmyUnitType.Artillery) > 0){
+                return attacker.getTotalArmyValue() > defender.getTotalArmyValue();
+            }
+            else{
+                return attacker.getArmyAmount(ArmyUnitType.Chivalry) >
+                        defender.getArmyAmount(ArmyUnitType.Chivalry) &&
+                        attacker.getTotalArmyValue() >
+                                defender.getTotalArmyValue();
+            }
         } else if (defender.getArmyAmount(ArmyUnitType.Infantry) > 0) {
-            return attacker.getArmyAmount(ArmyUnitType.Infantry) >
-                    defender.getArmyAmount(ArmyUnitType.Infantry) &&
-                    attacker.getTotalArmyValue() >
-                            defender.getTotalArmyValue();
+            if (attacker.getArmyAmount(ArmyUnitType.Artillery) > 0 || attacker.getArmyAmount(ArmyUnitType.Chivalry) > 0){
+                return attacker.getTotalArmyValue() > defender.getTotalArmyValue();
+            }
+            else{
+                return attacker.getArmyAmount(ArmyUnitType.Infantry) >
+                        defender.getArmyAmount(ArmyUnitType.Infantry) &&
+                        attacker.getTotalArmyValue() >
+                                defender.getTotalArmyValue();
+            }
         }
         return false;
     }

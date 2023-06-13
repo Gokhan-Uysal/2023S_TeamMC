@@ -14,6 +14,8 @@ public class CardTradePanel extends BaseStatePanel {
     private JButton _tradeArmyCardButton;
     private JButton _tradeTerritoryCardButton;
     private JButton _nextPhaseButton;
+    private JButton _addArmyCardButton;
+    private JButton _addTerritoryCardButton;
     public JComboBox<Integer> infantryCardBox;
     public JComboBox<Integer> cavalryCardBox;
     public JComboBox<Integer> artilleryCardBox;
@@ -29,6 +31,14 @@ public class CardTradePanel extends BaseStatePanel {
 
     public JButton getNextPhaseButton() {
         return this._nextPhaseButton;
+    }
+
+    public JButton getAddArmyCardButton(){
+        return this._addArmyCardButton;
+    }
+
+    public JButton getAddTerritoryCardButton(){
+        return this._addTerritoryCardButton;
     }
 
     public CardTradePanel() {
@@ -83,6 +93,8 @@ public class CardTradePanel extends BaseStatePanel {
         this._tradeArmyCardButton = new JButton("Trade army cards.");
         this._tradeTerritoryCardButton = new JButton("Trade territory cards.");
         this._nextPhaseButton = new JButton("Next phase ->");
+        this._addArmyCardButton = new JButton("A");
+        this._addTerritoryCardButton = new JButton("T");
 
         this.infantryCardBox = new JComboBox<>();
         this.cavalryCardBox = new JComboBox<>();
@@ -156,6 +168,13 @@ public class CardTradePanel extends BaseStatePanel {
 
         constraint.gridy = 4;
         this.add(_armyCardLabel, constraint);
+
+        constraint.gridy = 5;
+        constraint.gridwidth = 1;
+        this.add(_addArmyCardButton, constraint);
+
+        constraint.gridx = 6;
+        this.add(_addTerritoryCardButton, constraint);
     }
 
     public void refresh(){

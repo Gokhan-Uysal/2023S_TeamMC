@@ -6,11 +6,14 @@ import java.util.*;
 
 import app.domain.models.army.ArmyUnitType;
 import app.domain.models.card.MainDecks;
+import app.domain.models.card.army.ArmyCardType;
 import app.domain.models.game.map.Continent;
 import app.domain.models.game.map.Territory;
+import app.domain.models.player.Player;
 import app.domain.services.GameManagerService;
 import app.domain.services.PlayerService;
 import app.domain.services.map.MapService;
+import app.ui.views.animations.ArrowAnimation;
 import app.ui.views.components.ErrorAlertPanel;
 import app.ui.views.game.state.CardTradePanel;
 
@@ -46,6 +49,8 @@ public class CardTradePanelController extends BaseStatePanelController implement
         _cardTradePanel.getTradeArmyCardButton().addActionListener(this);
         _cardTradePanel.getTradeTerritoryCardButton().addActionListener(this);
         _cardTradePanel.getNextPhaseButton().addActionListener(this);
+        _cardTradePanel.getAddArmyCardButton().addActionListener(this);
+        _cardTradePanel.getAddTerritoryCardButton().addActionListener(this);
     }
 
     public void fetchData() {
@@ -107,6 +112,69 @@ public class CardTradePanelController extends BaseStatePanelController implement
                 GameManagerService.getInstance().tradeTerritoryCards((String) _cardTradePanel.continentListBox.getSelectedItem());
                 this.updateLabels();
                 return;
+            }
+            catch (Error error){
+                new ErrorAlertPanel(_cardTradePanel.getRootFrame(_cardTradePanel), error.getMessage());
+            }
+        }
+        if (e.getSource().equals(_cardTradePanel.getAddArmyCardButton())) {
+            try{
+                MainDecks currentPlayerDeck = PlayerService.getInstance().getCurrentPlayer().getPlayerDecks();
+                Random rand = new Random();
+                int randomNumber = rand.nextInt(5);
+
+                switch (randomNumber) {
+                    case 0 -> currentPlayerDeck.addArmyCards(ArmyCardType.Infantry, 3);
+                    case 1 -> {
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Infantry, 2);
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Cavalry, 1);
+                    }
+                    case 2 -> {
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Infantry, 2);
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Artillery, 1);
+                    }
+                    case 3 -> {
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Infantry, 1);
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Cavalry, 2);
+                    }
+                    case 4 -> {
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Cavalry, 2);
+                        currentPlayerDeck.addArmyCards(ArmyCardType.Artillery, 1);
+                    }
+                    default -> {
+                    }
+                }
+                updateLabels();
+            }
+            catch (Error error){
+                new ErrorAlertPanel(_cardTradePanel.getRootFrame(_cardTradePanel), error.getMessage());
+            }
+        }
+        if (e.getSource().equals(_cardTradePanel.getAddTerritoryCardButton())) {
+            try{
+                String continentName = null;
+                MainDecks playerDeck = PlayerService.getInstance().getCurrentPlayer().getPlayerDecks();
+
+                Random rand = new Random();
+                int randomNumber = rand.nextInt(6);
+                switch (randomNumber) {
+                    case 0 -> continentName = "Australia";
+                    case 1 -> continentName = "Asia";
+                    case 2 -> continentName = "Africa";
+                    case 3 -> continentName = "Europe";
+                    case 4 -> continentName = "North America";
+                    case 5 -> continentName = "South America";
+                    default -> {
+                    }
+                }
+
+                ArrayList<Territory> continentTerritories =
+                        (ArrayList<Territory>) MapService.getInstance().getTerritoriesOfContinent(continentName);
+
+                for (Territory t: continentTerritories){
+                    playerDeck.addTerritoryCards("Territory Card", null, t.getTerritoryId());
+                }
+                updateLabels();
             }
             catch (Error error){
                 new ErrorAlertPanel(_cardTradePanel.getRootFrame(_cardTradePanel), error.getMessage());
