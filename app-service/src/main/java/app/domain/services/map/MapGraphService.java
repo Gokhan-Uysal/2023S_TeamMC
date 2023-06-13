@@ -76,10 +76,6 @@ public class MapGraphService extends BaseGraph<Territory> {
      *          and the count of visited edges.
      */
     public boolean validateMap() {
-        if (graph.isEmpty()) {
-            return true;
-        }
-
         Set<Territory> visited = new HashSet<>();
         Queue<Territory> queue = new LinkedList<>();
         int edgeCount = 0;
@@ -98,24 +94,16 @@ public class MapGraphService extends BaseGraph<Territory> {
                     if (!visited.contains(neighbor)) {
                         if (!neighbor.getIsOpen()) {
                             removedEdgeCount += getEdgeCount(neighbor);
-                            visited.add(neighbor);
                             continue;
                         }
                         queue.add(neighbor);
-                        edgeCount++;
                     }
+                    edgeCount++;
                 }
             }
         }
 
-        int totalEdges = getEdgeCount();
-
-        if ((edgeCount + removedEdgeCount) != totalEdges) {
-            return false;
-        }
-
-        long openTerritories = graph.keySet().stream().filter(Territory::getIsOpen).count();
-        if (visited.size() != openTerritories) {
+        if ((edgeCount / 2 + removedEdgeCount / 4) != getEdgeCount()) {
             return false;
         }
 

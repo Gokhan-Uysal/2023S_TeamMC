@@ -65,7 +65,7 @@ public class CardTradeState {
 
         Player tradingPlayer = PlayerService.getInstance().getCurrentPlayer();
 
-        if (PlayerService.getInstance().checkIfPlayerOwnsTerritory(tradingPlayer.getId(), territory.getTerritoryId())) {
+        if (!PlayerService.getInstance().checkIfPlayerOwnsTerritory(tradingPlayer.getId(), territory.getTerritoryId())) {
             throw new Error("You do not own the territory.");
         }
 

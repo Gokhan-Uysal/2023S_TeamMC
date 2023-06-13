@@ -87,10 +87,13 @@ public class Deck<CardType> {
         for (CardType card : this._deck) {
             if (type.equals(ArmyUnitType.Infantry) && card instanceof InfantryCard) {
                 this._deck.remove(card);
+                break;
             } else if (type.equals(ArmyUnitType.Chivalry) && card instanceof CavalryCard) {
                 this._deck.remove(card);
+                break;
             } else if (type.equals(ArmyUnitType.Artillery) && card instanceof ArtilleryCard) {
                 this._deck.remove(card);
+                break;
             }
         }
     }
